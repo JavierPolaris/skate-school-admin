@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import API_URL from '../config';
+import API_URL from '../../config';
 
 function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
   const [search, setSearch] = useState('');
