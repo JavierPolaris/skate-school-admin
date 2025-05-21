@@ -82,7 +82,7 @@ const handlePageChange = (page) => {
   };
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/users/students`)	
+    axios.get(`${API_URL}/users/students`)	
       .then((response) => {
         setStudents(response.data.length);
       })
@@ -109,7 +109,7 @@ const handlePageChange = (page) => {
   }, []);
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/tricks/most-viewed`)
+    axios.get(`${API_URL}/tricks/most-viewed`)
       .then((response) => setTopTrick(response.data))
       .catch(console.error);
   }, []);
