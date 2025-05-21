@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-
+import API_URL from '../config';
 
 function RequestsPage() {
   const [requests, setRequests] = useState([]);
   const [roleSelections, setRoleSelections] = useState({}); // Almacena los roles seleccionados por cada solicitud
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/users/requests')
+    fetch(`${API_URL}/users/requests`)
       .then(res => res.json())
       .then(data => setRequests(data))
       .catch(err => console.error(err));
@@ -19,7 +19,7 @@ function RequestsPage() {
   const handleUpdateRequest = (id, status) => {
     const selectedRole = roleSelections[id] || 'student'; // Por defecto 'student' si no selecciona nada
 
-    fetch(`http://localhost:5000/api/users/requests/${id}`, {
+   fetch(`${API_URL}/users/requests/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status, role: selectedRole }),

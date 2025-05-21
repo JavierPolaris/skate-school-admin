@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import API_URL from '../config';
 import '../css/StudentPayments.css'; // Crea este archivo para estilos si no existe
 
 function StudentPayments() {
@@ -23,7 +23,7 @@ function StudentPayments() {
     console.log('User ID:', storedUser.id);
     setUser(storedUser);
 
-    fetch('http://localhost:5000/api/payments')
+    fetch(`${API_URL}/payments`)
       .then(res => res.json())
       .then(data => {
         const configs = {};
@@ -35,7 +35,7 @@ function StudentPayments() {
       .catch(err => console.error('Error cargando configuración de pagos:', err));
 
     // Simula la obtención de pagos desde el backend
-    fetch(`http://localhost:5000/api/users/payments-history/${storedUser.id}`)
+    fetch(`${API_URL}/users/payments-history/${storedUser.id}`)
       .then(res => res.json())
       .then(data => setPayments(data))
       .catch(err => console.error('Error cargando pagos:', err));

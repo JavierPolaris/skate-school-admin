@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
+import API_URL from '../config';
 import '../css/StudentsPage.css';
 
 
@@ -32,12 +32,12 @@ function StudentsPage() {
       setHighlightedStudentId(userId);
     }
 
-    fetch('http://localhost:5000/api/users/students')
+    fetch(`${API_URL}/users/students`) // Obtener alumnos
       .then((res) => res.json())
       .then((data) => setStudents(data))
       .catch((err) => console.error(err));
 
-    fetch('http://localhost:5000/api/groups') // Obtener grupos
+    fetch(`${API_URL}/groups`) // Obtener grupos
       .then((res) => res.json())
       .then((data) => setGroups(data))
       .catch((err) => console.error(err));
@@ -45,7 +45,7 @@ function StudentsPage() {
 
   // Crear un nuevo alumno
   //  const handleCreateStudent = () => {
-  //    fetch('http://localhost:5000/api/users/students', {
+  //    fetch(`${API_URL}/users/students`, {
   //      method: 'POST',
   //      headers: { 'Content-Type': 'application/json' },
   //      body: JSON.stringify(newStudent),
@@ -70,12 +70,12 @@ function StudentsPage() {
   //  };
 
   const fetchStudentsAndGroups = () => {
-    fetch('http://localhost:5000/api/users/students')
+    fetch(`${API_URL}/users/students`)
       .then((res) => res.json())
       .then((data) => setStudents(data))
       .catch((err) => console.error(err));
 
-    fetch('http://localhost:5000/api/groups')
+    fetch(`${API_URL}/groups`)
       .then((res) => res.json())
       .then((data) => setGroups(data))
       .catch((err) => console.error(err));
@@ -85,7 +85,7 @@ function StudentsPage() {
   const handleUpdateStudent = () => {
     console.log('Actualizando alumno con ID:', editStudent._id);  // Verifica el ID del alumno
 
-    fetch(`http://localhost:5000/api/users/students/${editStudent._id}`, {
+    fetch(`${API_URL}/users/students/${editStudent._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editStudent),  // Incluye el nuevo método de pago aquí
@@ -111,7 +111,7 @@ function StudentsPage() {
     const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este alumno?');
     if (!confirmDelete) return;
 
-    fetch(`http://localhost:5000/api/users/students/${id}`, {
+    fetch(`${API_URL}/users/students/${id}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())

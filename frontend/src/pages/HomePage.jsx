@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import API_URL from '../config';
 
 function HomePage({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ function HomePage({ onLogin }) {
   const [requestName, setRequestName] = useState('');
   const [requestEmail, setRequestEmail] = useState('');
   const [requestMessage, setRequestMessage] = useState('');
+  
 
   useEffect(() => {
     // Añadir clase 'login-background' al body si no hay token
@@ -41,7 +43,7 @@ function HomePage({ onLogin }) {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/users/login', {
+      const response = await fetch(`${API_URL}/users/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -71,7 +73,7 @@ function HomePage({ onLogin }) {
 
   const handleRequestAccess = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/users/request-access', {
+      const response = await fetch(`${API_URL}/users/request-access`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: requestName, email: requestEmail }),

@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import "../css/TricksPage.css";
 import { ImArrowDown, ImArrowUp } from "react-icons/im";
 import more from "../assets/more.png";
+import API_URL from '../config';
 
 function TricksPage() {
   const [tricks, setTricks] = useState([]);
@@ -53,7 +54,7 @@ function TricksPage() {
 
   const fetchTricks = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/tricks");
+      const response = await fetch(`${API_URL}/tricks`);
       const data = await response.json();
       const sorted = data.sort((a, b) => b.highlighted - a.highlighted);
       setTricks(sorted);
@@ -102,8 +103,7 @@ function TricksPage() {
 
       if (editingTrick) {
         // Editar truco existente
-        const response = await fetch(
-          `http://localhost:5000/api/tricks/${editingTrick._id}`,
+        const response = await fetch(`${API_URL}/tricks/${editingTrick._id}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -118,7 +118,7 @@ function TricksPage() {
         );
       } else {
         // Crear nuevo truco
-        const response = await fetch("http://localhost:5000/api/tricks", {
+        const response = await fetch(`${API_URL}/tricks`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newTrick),
@@ -134,7 +134,7 @@ function TricksPage() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`http://localhost:5000/api/tricks/${id}`, {
+      await fetch(`${API_URL}/tricks/${id}`, {
         method: "DELETE",
       });
       setTricks((prev) => prev.filter((trick) => trick._id !== id));
@@ -166,7 +166,7 @@ function TricksPage() {
 
   const toggleHighlight = async (id, highlighted) => {
     try {
-      await fetch(`http://localhost:5000/api/tricks/highlight/${id}`, {
+      await fetch(`${API_URL}/tricks/highlight/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ highlighted }),

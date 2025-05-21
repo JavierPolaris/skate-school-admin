@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import EventModal from "./EventModal"; // Importar el modal
 import { useLocation } from 'react-router-dom';
+import API_URL from '../config';
 
 import "../css/EventsPage.css"; // Importar estilos CSS
 
@@ -27,7 +28,7 @@ function EventsPage() {
     }
 
 
-    fetch("http://localhost:5000/api/events")
+  fetch(`${API_URL}/events`)
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error(err));
@@ -37,8 +38,8 @@ function EventsPage() {
 
 
     const endpoint = currentEvent
-      ? `http://localhost:5000/api/events/${currentEvent._id}`
-      : "http://localhost:5000/api/events";
+      ? `${API_URL}/events/${currentEvent._id}`
+      : `${API_URL}/events`;
 
     const method = currentEvent ? "PUT" : "POST";
 
@@ -79,7 +80,7 @@ function EventsPage() {
     );
     if (!confirmDelete) return;
 
-    fetch(`http://localhost:5000/api/events/${eventId}`, {
+    fetch(`${API_URL}/events/${eventId}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -92,7 +93,7 @@ function EventsPage() {
   const handleSendEmail = (eventData) => {
     console.log('📤 Enviando correo para el evento:', eventData);
 
-    fetch(`http://localhost:5000/api/events/${eventData._id}/send-email`, {
+    fetch(`${API_URL}/events/${eventData._id}/send-email`, {
       method: "POST",
     })
       .then((res) => res.json())

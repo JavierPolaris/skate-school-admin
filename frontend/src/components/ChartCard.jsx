@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { MdGroups } from 'react-icons/md';
 import '../css/Chart.css';
+import API_URL from '../config';
 
 function ChartCard() {
   const [tricksViewed, setTricksViewed] = useState(0);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/tricks/total-views')
+    fetch(`${API_URL}/tricks/total-views`)
       .then(res => res.json())
       .then(data => setTricksViewed(data.totalViews || 0))
       .catch(err => console.error(err));

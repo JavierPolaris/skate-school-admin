@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import API_URL from '../config';
 
 function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
   const [search, setSearch] = useState('');
@@ -7,7 +8,7 @@ function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
 
   useEffect(() => {
     if (isOpen) {
-      fetch('http://localhost:5000/api/users?role=student')
+      fetch(`${API_URL}/users?role=student`)
         .then(res => res.json())
         .then(data => {
           setAllStudents(data);
@@ -26,7 +27,7 @@ function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
 
   const handleSelectStudent = async (studentId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/groups/${groupId}/addMember`, {
+      const response = await fetch(`${API_URL}/groups/${groupId}/addMember`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: studentId }),
@@ -38,7 +39,7 @@ function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
         onClose();
 
         // Refrescar la lista de alumnos para reflejar los cambios
-        const updatedStudentsResponse = await fetch('http://localhost:5000/api/users?role=student');
+        const updatedStudentsResponse = await fetch(`${API_URL}/users?role=student`);
         const updatedStudents = await updatedStudentsResponse.json();
         setAllStudents(updatedStudents); // Actualizar la lista de estudiantes
       } else {

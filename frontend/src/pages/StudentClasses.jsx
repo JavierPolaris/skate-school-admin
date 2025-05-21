@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../css/StudentDashboard.css';
+import API_URL from '../config';
 
 function StudentClasses() {
   const [user, setUser] = useState({});
@@ -16,11 +17,11 @@ function StudentClasses() {
       setUser(storedUser);
 
       if (storedUser.groupId) {
-        fetch(`http://localhost:5000/api/groups/${storedUser.groupId._id}`)
+        fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(group => setGroupDetails(group));
 
-        fetch(`http://localhost:5000/api/groups/upcoming-classes/${storedUser.groupId._id}`)
+        fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(data => setUpcomingClasses(data));
       }

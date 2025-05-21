@@ -4,6 +4,7 @@ import GroupDetail from './Groups/GroupDetail';
 import AddGroupModal from './Groups/AddGroupModal';
 import AddMemberModal from './Groups/AddMemberModal';
 import { useLocation } from 'react-router-dom';
+import API_URL from '../config';
 
 import '../css/GroupsPage.css';
 
@@ -27,7 +28,7 @@ function GroupsPage() {
       setSelectedGroupId1(groupIdFromUrl);
     }
 
-    fetch('http://localhost:5000/api/groups')
+    fetch(`${API_URL}/groups`)
       .then(res => res.json())
       .then(data => {
         setGroups(data);
@@ -37,7 +38,7 @@ function GroupsPage() {
 
   useEffect(() => {
     if (selectedGroupId) {
-      fetch(`http://localhost:5000/api/groups/${selectedGroupId}`)
+      fetch(`${API_URL}/groups/${selectedGroupId}`)
         .then(res => res.json())
         .then(data => {
           setSelectedGroup(data);
@@ -51,7 +52,7 @@ function GroupsPage() {
   // Obtener detalles del grupo seleccionado desde la URL
   useEffect(() => {
     if (selectedGroupId1) {
-      fetch(`http://localhost:5000/api/groups/${selectedGroupId1}`)
+      fetch(`${API_URL}/groups/${selectedGroupId1}`)
         .then((res) => res.json())
         .then((data) => setSelectedGroup(data))
         .catch((err) => console.error(err));
@@ -67,7 +68,7 @@ function GroupsPage() {
   };
 
   const handleSaveGroup = (name) => {
-    fetch('http://localhost:5000/api/groups', {
+    fetch(`${API_URL}/groups`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
@@ -95,13 +96,13 @@ function GroupsPage() {
 
   const fetchGroupsAndStudents = () => {
     // Refrescar grupos
-    fetch('http://localhost:5000/api/groups')
+    fetch(`${API_URL}/groups`)
       .then(res => res.json())
       .then(data => setGroups(data))
       .catch(err => console.error(err));
 
     // Refrescar alumnos
-    fetch('http://localhost:5000/api/users?role=student')
+    fetch(`${API_URL}/users?role=student`)
       .then(res => res.json())
       .then(data => setStudents(data)) // Asegúrate de definir `setStudents` en el estado
       .catch(err => console.error(err));
@@ -114,7 +115,7 @@ function GroupsPage() {
   };
 
   const handleRemoveMember = (memberId) => {
-    fetch(`http://localhost:5000/api/groups/${selectedGroupId}/removeMember`, {
+    fetch(`${API_URL}/groups/${selectedGroupId}/removeMember`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: memberId }),
@@ -129,7 +130,7 @@ function GroupsPage() {
 
 
   const handleUpdateGroupName = (newName) => {
-    fetch(`http://localhost:5000/api/groups/${selectedGroupId}`, {
+    fetch(`${API_URL}/groups/${selectedGroupId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newName })
@@ -153,7 +154,7 @@ function GroupsPage() {
     }));
 
 
-    fetch(`http://localhost:5000/api/groups/${selectedGroupId}`, {
+    fetch(`${API_URL}/groups/${selectedGroupId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ scheduledDates: formattedDates })
@@ -171,7 +172,7 @@ function GroupsPage() {
     setSelectedGroup(prev => ({ ...prev, notifications: newNotifications }));
   };
   const handleUpdateGroupRanking = (groupId, newRanking) => {
-    fetch(`http://localhost:5000/api/groups/${groupId}`, {
+    fetch(`${API_URL}/groups/${groupId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ranking: newRanking }),
@@ -187,7 +188,7 @@ function GroupsPage() {
   };
 
   const handleUpdateGroupNotes = (groupId, newNotes) => {
-    fetch(`http://localhost:5000/api/groups/${groupId}`, {
+    fetch(`${API_URL}/groups/${groupId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ tricks: newNotes })

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import API_URL from '../config';
 import '../css/StudentDashboard.css';
 
 function StudentDashboard() {
@@ -27,20 +27,20 @@ function StudentDashboard() {
 
       if (storedUser.groupId) {
         // Obtener información del grupo
-        fetch(`http://localhost:5000/api/groups/${storedUser.groupId._id}`)
+        fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(group => setGroupDetails(group))
           .catch(err => console.error('Error cargando grupo:', err));
 
         // Obtener clases programadas para el grupo
-        fetch(`http://localhost:5000/api/groups/upcoming-classes/${storedUser.groupId._id}`)
+        fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(data => setUpcomingClasses(data))
           .catch(err => console.error(err));
 
 
         // Obtener notificaciones para el grupo
-        fetch(`http://localhost:5000/api/notifications/${storedUser.groupId._id}`)
+        fetch(`${API_URL}/notifications/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(data => setNotifications(data))
           .catch(err => console.error(err));

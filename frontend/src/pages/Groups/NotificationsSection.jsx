@@ -1,11 +1,12 @@
 import  { useState } from 'react';
+import API_URL from '../config';
 
 function NotificationsSection({ groupId, notifications, onNotificationAdded }) {
   const [message, setMessage] = useState('');
 
   const handleSend = () => {
     if (!message.trim()) return;
-    fetch(`http://localhost:5000/api/groups/${groupId}/notifications`, {
+    fetch(`${API_URL}/groups/${groupId}/notifications`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })

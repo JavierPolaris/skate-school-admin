@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import './Layout.css';
 import { MdDashboard, MdGroups, MdPerson, MdEvent, MdOutlineSkateboarding, MdDiscount, MdAttachMoney, MdMessage, MdSettings } from 'react-icons/md';
 import { useSidebar } from '../context/SidebarContext';
+import API_URL from '../config';
 import Header from './Header';
 function Layout({ onLogout }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Layout({ onLogout }) {
     if (!token) {
       navigate('/');
     } else {
-      fetch('http://localhost:5000/api/users/me', {
+      fetch(`${API_URL}/users/me`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ function Layout({ onLogout }) {
   const handleDeleteAvatar = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:5000/api/users/avatar', {
+      const response = await fetch(`${API_URL}/users/avatar`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
