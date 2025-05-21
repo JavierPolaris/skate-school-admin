@@ -7,7 +7,7 @@ import { MdGroups, MdPerson } from 'react-icons/md';
 import { FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'
-
+import API_URL from '../config';
 import ChartCard from '../components/ChartCard';
 import TruncatedText from '../components/TruncatedText';
 import Cours from '../assets/cours.png';
@@ -82,25 +82,25 @@ const handlePageChange = (page) => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/users/students')
+    axios.get(`${API_URL}/users/students`)	
       .then((response) => {
         setStudents(response.data.length);
       })
       .catch(console.error);
 
-    axios.get('http://localhost:5000/api/groups')
+    axios.get(`${API_URL}/groups`)
       .then((response) => {
         setGroups(response.data.length);
       })
       .catch(console.error);
 
-    axios.get('http://localhost:5000/api/events/tricks-viewed')
+    axios.get(`${API_URL}/events/tricks-viewed`)
       .then((response) => {
         setTricksViewed(response.data.total);
       })
       .catch(console.error);
 
-    axios.get('http://localhost:5000/api/groups')
+    axios.get(`${API_URL}/groups`)
       .then((response) => {
         setGroupList(response.data);
       })
@@ -109,7 +109,7 @@ const handlePageChange = (page) => {
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tricks/most-viewed')
+    axios.get(`${API_URL}/tricks/most-viewed`)
       .then((response) => setTopTrick(response.data))
       .catch(console.error);
   }, []);

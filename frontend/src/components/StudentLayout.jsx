@@ -63,7 +63,7 @@ function StudentLayout({ onLogout }) {
           <img
             src={
               userData.avatar
-                ? `http://localhost:5000/api/users/avatar/${userData.avatar}`
+                ? `${API_URL}/users/avatar/${userData.avatar}`
                 : 'https://via.placeholder.com/50'
             }
             alt="Avatar"
