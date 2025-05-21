@@ -27,7 +27,7 @@ function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
 
   const handleSelectStudent = async (studentId) => {
     try {
-      const response = await fetch(`${API_URL}/api/groups/${groupId}/addMember`, {
+      const response = await fetch(`${API_URL}/groups/${groupId}/addMember`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: studentId }),
