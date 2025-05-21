@@ -58,7 +58,7 @@ function PaymentsPage() {
       })
     )
       .then(() => {
-        return fetch(`${API_URL}/api/api/payments/notify`, {
+        return fetch(`${API_URL}/api/payments/notify`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ notificationMessage }),
