@@ -73,7 +73,7 @@ function HomePage({ onLogin }) {
 
   const handleRequestAccess = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/users/request-access`, {
+      const response = await fetch(`${API_URL}/users/request-access`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: requestName, email: requestEmail }),
