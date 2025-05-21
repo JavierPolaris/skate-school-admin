@@ -15,7 +15,7 @@ function PaymentsPage() {
 
   useEffect(() => {
     // Cargar configuración de métodos de pago
-    fetch(`${API_URL}/api/payments`)
+    fetch(`${API_URL}/payments`)
       .then(res => res.json())
       .then(data => {
         const configs = {};

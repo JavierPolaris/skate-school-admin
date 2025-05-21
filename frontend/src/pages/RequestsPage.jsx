@@ -6,7 +6,7 @@ function RequestsPage() {
   const [roleSelections, setRoleSelections] = useState({}); // Almacena los roles seleccionados por cada solicitud
 
   useEffect(() => {
-    fetch(`${API_URL}/api/users/requests`)
+    fetch(`${API_URL}/users/requests`)
       .then(res => res.json())
       .then(data => setRequests(data))
       .catch(err => console.error(err));
