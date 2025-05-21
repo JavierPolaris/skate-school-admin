@@ -8,7 +8,7 @@ function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
 
   useEffect(() => {
     if (isOpen) {
-      fetch(`${API_URL}/api/users?role=student`)
+      fetch(`${API_URL}/users?role=student`)
         .then(res => res.json())
         .then(data => {
           setAllStudents(data);
@@ -39,7 +39,7 @@ function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
         onClose();
 
         // Refrescar la lista de alumnos para reflejar los cambios
-        const updatedStudentsResponse = await fetch(`${API_URL}/api/users?role=student`);
+        const updatedStudentsResponse = await fetch(`${API_URL}/users?role=student`);
         const updatedStudents = await updatedStudentsResponse.json();
         setAllStudents(updatedStudents); // Actualizar la lista de estudiantes
       } else {
