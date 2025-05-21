@@ -27,7 +27,7 @@ function PaymentsPage() {
       .catch(err => console.error(err));
 
     // Cargar histórico de pagos
-    fetch(`${API_URL}/api/users/payments-history`)
+    fetch(`${API_URL}/users/payments-history`)
 
       .then(res => res.json())
       .then(data => setAllPayments(data))
@@ -50,7 +50,7 @@ function PaymentsPage() {
     Promise.all(
       paymentMethods.map(method => {
         const config = paymentConfigs[method] || {};
-        return fetch(`${API_URL}/api/payments`, {
+        return fetch(`${API_URL}/payments`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ method, ...config }),
