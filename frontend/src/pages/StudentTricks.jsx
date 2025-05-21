@@ -12,7 +12,7 @@ function StudentTricks() {
         const storedUser = JSON.parse(localStorage.getItem('user'));
         setUser(storedUser);
 
-        fetch(`${API_URL}/tricks`)
+        fetch(`${API_URL}/api/tricks`)
             .then(res => res.json())
             .then(data => {
                 // Aseguramos que cada truco tenga un campo "highlighted" y "doneBy" array para evitar errores
@@ -27,7 +27,7 @@ function StudentTricks() {
     }, []);
 
     const handleMarkAsDone = (trickId) => {
-        fetch(`${API_URL}/tricks/mark-done`, {
+        fetch(`${API_URL}/api/tricks/mark-done`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: user.id, trickId }),
@@ -44,7 +44,7 @@ function StudentTricks() {
     };
 
     const handleLike = (trickId) => {
-        fetch(`${API_URL}/tricks/like`, {
+        fetch(`${API_URL}/api/tricks/like`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: user._id, trickId }),
@@ -59,7 +59,7 @@ function StudentTricks() {
     };
 
     const handleView = (trickId) => {
-        fetch(`${API_URL}/tricks/view`, {
+        fetch(`${API_URL}/api/tricks/view`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ trickId }),

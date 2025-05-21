@@ -82,25 +82,25 @@ const handlePageChange = (page) => {
   };
 
   useEffect(() => {
-    axios.get(`${API_URL}/users/students`)	
+    axios.get(`${API_URL}/api/users/students`)	
       .then((response) => {
         setStudents(response.data.length);
       })
       .catch(console.error);
 
-    axios.get(`${API_URL}/groups`)
+    axios.get(`${API_URL}/api/groups`)
       .then((response) => {
         setGroups(response.data.length);
       })
       .catch(console.error);
 
-    axios.get(`${API_URL}/events/tricks-viewed`)
+    axios.get(`${API_URL}/api/events/tricks-viewed`)
       .then((response) => {
         setTricksViewed(response.data.total);
       })
       .catch(console.error);
 
-    axios.get(`${API_URL}/groups`)
+    axios.get(`${API_URL}/api/groups`)
       .then((response) => {
         setGroupList(response.data);
       })
@@ -109,7 +109,7 @@ const handlePageChange = (page) => {
   }, []);
 
   useEffect(() => {
-    axios.get(`${API_URL}/tricks/most-viewed`)
+    axios.get(`${API_URL}/api/tricks/most-viewed`)
       .then((response) => setTopTrick(response.data))
       .catch(console.error);
   }, []);

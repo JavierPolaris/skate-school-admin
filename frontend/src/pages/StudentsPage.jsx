@@ -32,12 +32,12 @@ function StudentsPage() {
       setHighlightedStudentId(userId);
     }
 
-    fetch(`${API_URL}/users/students`) // Obtener alumnos
+    fetch(`${API_URL}/api/users/students`) // Obtener alumnos
       .then((res) => res.json())
       .then((data) => setStudents(data))
       .catch((err) => console.error(err));
 
-    fetch(`${API_URL}/groups`) // Obtener grupos
+    fetch(`${API_URL}/api/groups`) // Obtener grupos
       .then((res) => res.json())
       .then((data) => setGroups(data))
       .catch((err) => console.error(err));
@@ -45,7 +45,7 @@ function StudentsPage() {
 
   // Crear un nuevo alumno
   //  const handleCreateStudent = () => {
-  //    fetch(`${API_URL}/users/students`, {
+  //    fetch(`${API_URL}/api/users/students`, {
   //      method: 'POST',
   //      headers: { 'Content-Type': 'application/json' },
   //      body: JSON.stringify(newStudent),
@@ -70,12 +70,12 @@ function StudentsPage() {
   //  };
 
   const fetchStudentsAndGroups = () => {
-    fetch(`${API_URL}/users/students`)
+    fetch(`${API_URL}/api/users/students`)
       .then((res) => res.json())
       .then((data) => setStudents(data))
       .catch((err) => console.error(err));
 
-    fetch(`${API_URL}/groups`)
+    fetch(`${API_URL}/api/groups`)
       .then((res) => res.json())
       .then((data) => setGroups(data))
       .catch((err) => console.error(err));
@@ -85,7 +85,7 @@ function StudentsPage() {
   const handleUpdateStudent = () => {
     console.log('Actualizando alumno con ID:', editStudent._id);  // Verifica el ID del alumno
 
-    fetch(`${API_URL}/users/students/${editStudent._id}`, {
+    fetch(`${API_URL}/api/users/students/${editStudent._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editStudent),  // Incluye el nuevo método de pago aquí
@@ -111,7 +111,7 @@ function StudentsPage() {
     const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este alumno?');
     if (!confirmDelete) return;
 
-    fetch(`${API_URL}/users/students/${id}`, {
+    fetch(`${API_URL}/api/users/students/${id}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())

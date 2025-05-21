@@ -79,7 +79,7 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
 
     setUploadingAvatar(true);
 
-    fetch(`${API_URL}/groups/${group._id}/avatar`, {
+    fetch(`${API_URL}/api/groups/${group._id}/avatar`, {
       method: 'PUT',
       body: formData,
     })
@@ -100,7 +100,7 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
       place: d.place || 'Skate park Bola de Oro',
     }));
 
-    fetch(`${API_URL}/groups/${group._id}`, {
+    fetch(`${API_URL}/api/groups/${group._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ scheduledDates: formattedDates }),

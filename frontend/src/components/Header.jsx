@@ -22,7 +22,7 @@ const Header = ({ role }) => {
   const userMenuRef = useRef(null);
 
   useEffect(() => {
-    axios.get(`${API_URL}/users/requests`).then((response) => {
+    axios.get(`${API_URL}/api/users/requests`).then((response) => {
       setMessageCount(response.data.length);
     });
 
@@ -40,7 +40,7 @@ if (storedUserData) setUserData(JSON.parse(storedUserData));
 
     if (term.trim()) {
       try {
-        const response = await axios.get(`${API_URL}/users/search`, { params: { query: term } });
+        const response = await axios.get(`${API_URL}/api/users/search`, { params: { query: term } });
         const combinedResults = [
           ...response.data.users.map((u) => ({ ...u, type: 'user' })),
           ...response.data.groups.map((g) => ({ ...g, type: 'group' })),
@@ -138,7 +138,7 @@ if (storedUserData) setUserData(JSON.parse(storedUserData));
 
         <div className="user-menu" onClick={handleAvatarClick}>
           <img
-            src={userData.avatar ? `${API_URL}/users/avatar/${userData.avatar}` : 'https://via.placeholder.com/40'}
+            src={userData.avatar ? `${API_URL}/api/users/avatar/${userData.avatar}` : 'https://via.placeholder.com/40'}
             alt="Avatar"
             className="profile-avatar2"
           />

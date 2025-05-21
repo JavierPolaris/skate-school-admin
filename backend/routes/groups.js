@@ -207,7 +207,9 @@ router.put('/:id/avatar', upload.single('avatar'), async (req, res) => {
   try {
     // Aquí puedes, si lo deseas, subir el archivo a un servicio en la nube.
     // En este ejemplo, usamos la URL local:
-    const avatarUrl = `${API_URL}/uploads/${req.file.filename}`;
+    const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
+const avatarUrl = `${baseUrl}/uploads/${req.file.filename}`;
+
 
     const updatedGroup = await Group.findByIdAndUpdate(
       req.params.id,

@@ -6,7 +6,7 @@ function NotificationsSection({ groupId, notifications, onNotificationAdded }) {
 
   const handleSend = () => {
     if (!message.trim()) return;
-    fetch(`${API_URL}/groups/${groupId}/notifications`, {
+    fetch(`${API_URL}/api/groups/${groupId}/notifications`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message })

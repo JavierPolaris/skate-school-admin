@@ -8,7 +8,7 @@ function ChartCard() {
   const [tricksViewed, setTricksViewed] = useState(0);
 
   useEffect(() => {
-    fetch(`${API_URL}/tricks/total-views`)
+    fetch(`${API_URL}/api/tricks/total-views`)
       .then(res => res.json())
       .then(data => setTricksViewed(data.totalViews || 0))
       .catch(err => console.error(err));

@@ -18,7 +18,7 @@ function Layout({ onLogout }) {
     if (!token) {
       navigate('/');
     } else {
-      fetch(`${API_URL}/users/me`, {
+      fetch(`${API_URL}/api/users/me`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ function Layout({ onLogout }) {
   const handleDeleteAvatar = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`${API_URL}/users/avatar`, {
+      const response = await fetch(`${API_URL}/api/users/avatar`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -89,7 +89,7 @@ function Layout({ onLogout }) {
           <img
             src={
               userData.avatar
-                ? `${API_URL}users/avatar/${userData.avatar}`
+                ? `${API_URL}/api/users/avatar/${userData.avatar}`
                 : 'https://via.placeholder.com/50'
             }
             alt="Admin Avatar"

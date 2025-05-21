@@ -28,7 +28,7 @@ function EventsPage() {
     }
 
 
-  fetch(`${API_URL}/events`)
+  fetch(`${API_URL}/api/events`)
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error(err));
@@ -38,8 +38,8 @@ function EventsPage() {
 
 
     const endpoint = currentEvent
-      ? `${API_URL}/events/${currentEvent._id}`
-      : `${API_URL}/events`;
+      ? `${API_URL}/api/events/${currentEvent._id}`
+      : `${API_URL}/api/events`;
 
     const method = currentEvent ? "PUT" : "POST";
  
@@ -80,7 +80,7 @@ function EventsPage() {
     );
     if (!confirmDelete) return;
 
-    fetch(`${API_URL}/events/${eventId}`, {
+    fetch(`${API_URL}/api/events/${eventId}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -93,7 +93,7 @@ function EventsPage() {
   const handleSendEmail = (eventData) => {
     console.log('📤 Enviando correo para el evento:', eventData);
 
-    fetch(`${API_URL}/events/${eventData._id}/send-email`, {
+    fetch(`${API_URL}/api/events/${eventData._id}/send-email`, {
       method: "POST",
     })
       .then((res) => res.json())

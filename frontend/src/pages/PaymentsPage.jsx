@@ -15,7 +15,7 @@ function PaymentsPage() {
 
   useEffect(() => {
     // Cargar configuración de métodos de pago
-    fetch(`${API_URL}/payments`)
+    fetch(`${API_URL}/api/payments`)
       .then(res => res.json())
       .then(data => {
         const configs = {};
@@ -27,7 +27,7 @@ function PaymentsPage() {
       .catch(err => console.error(err));
 
     // Cargar histórico de pagos
-    fetch(`${API_URL}/users/payments-history`)
+    fetch(`${API_URL}/api/users/payments-history`)
 
       .then(res => res.json())
       .then(data => setAllPayments(data))
@@ -50,7 +50,7 @@ function PaymentsPage() {
     Promise.all(
       paymentMethods.map(method => {
         const config = paymentConfigs[method] || {};
-        return fetch(`${API_URL}/payments`, {
+        return fetch(`${API_URL}/api/payments`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ method, ...config }),
@@ -58,7 +58,7 @@ function PaymentsPage() {
       })
     )
       .then(() => {
-        return fetch(`${API_URL}/payments/notify`, {
+        return fetch(`${API_URL}/api/api/payments/notify`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ notificationMessage }),
@@ -72,7 +72,7 @@ function PaymentsPage() {
       .catch(err => console.error(err));
   };
   useEffect(() => {
-    fetch(`${API_URL}/payments`)
+    fetch(`${API_URL}/api/payments`)
       .then(res => res.json())
       .then(data => setPayments(data))
       .catch(err => console.error(err));
