@@ -54,7 +54,7 @@ function TricksPage() {
 
   const fetchTricks = async () => {
     try {
-      const response = await fetch(`${API_URL}/api/tricks`);
+      const response = await fetch(`${API_URL}/tricks`);
       const data = await response.json();
       const sorted = data.sort((a, b) => b.highlighted - a.highlighted);
       setTricks(sorted);
