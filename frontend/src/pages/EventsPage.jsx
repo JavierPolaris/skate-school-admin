@@ -42,7 +42,7 @@ function EventsPage() {
       : `${API_URL}/events`;
 
     const method = currentEvent ? "PUT" : "POST";
-
+ 
     fetch(endpoint, {
       method,
       headers: { "Content-Type": "application/json" },
