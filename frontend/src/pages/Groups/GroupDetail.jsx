@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import CalendarPlaceholder from './CalendarPlaceholder';
 import NotificationsSection from './NotificationsSection';
-import API_URL from '../config';
+import API_URL from '../../config';
 
 function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, onUpdateGroupNotes, onUpdateGroupRanking, onNotificationAdded }) {
   const [editingName, setEditingName] = useState(false);
