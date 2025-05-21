@@ -18,7 +18,7 @@ function Layout({ onLogout }) {
     if (!token) {
       navigate('/');
     } else {
-      fetch(`${API_URL}/api/users/me`, {
+      fetch(`${API_URL}/users/me`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
