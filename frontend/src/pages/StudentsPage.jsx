@@ -32,12 +32,12 @@ function StudentsPage() {
       setHighlightedStudentId(userId);
     }
 
-    fetch(`${API_URL}/api/users/students`) // Obtener alumnos
+    fetch(`${API_URL}/users/students`) // Obtener alumnos
       .then((res) => res.json())
       .then((data) => setStudents(data))
       .catch((err) => console.error(err));
 
-    fetch(`${API_URL}/api/groups`) // Obtener grupos
+    fetch(`${API_URL}/groups`) // Obtener grupos
       .then((res) => res.json())
       .then((data) => setGroups(data))
       .catch((err) => console.error(err));

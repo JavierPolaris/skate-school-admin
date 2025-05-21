@@ -28,7 +28,7 @@ function GroupsPage() {
       setSelectedGroupId1(groupIdFromUrl);
     }
 
-    fetch(`${API_URL}/api/groups`)
+    fetch(`${API_URL}/groups`)
       .then(res => res.json())
       .then(data => {
         setGroups(data);
