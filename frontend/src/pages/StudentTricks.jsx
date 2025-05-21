@@ -12,7 +12,7 @@ function StudentTricks() {
         const storedUser = JSON.parse(localStorage.getItem('user'));
         setUser(storedUser);
 
-        fetch(`${API_URL}/api/tricks`)
+        fetch(`${API_URL}/tricks`)
             .then(res => res.json())
             .then(data => {
                 // Aseguramos que cada truco tenga un campo "highlighted" y "doneBy" array para evitar errores

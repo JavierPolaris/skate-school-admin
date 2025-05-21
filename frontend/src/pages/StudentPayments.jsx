@@ -23,7 +23,7 @@ function StudentPayments() {
     console.log('User ID:', storedUser.id);
     setUser(storedUser);
 
-    fetch(`${API_URL}/api/payments`)
+    fetch(`${API_URL}/payments`)
       .then(res => res.json())
       .then(data => {
         const configs = {};
@@ -35,7 +35,7 @@ function StudentPayments() {
       .catch(err => console.error('Error cargando configuración de pagos:', err));
 
     // Simula la obtención de pagos desde el backend
-    fetch(`${API_URL}/api/users/payments-history/${storedUser.id}`)
+    fetch(`${API_URL}/users/payments-history/${storedUser.id}`)
       .then(res => res.json())
       .then(data => setPayments(data))
       .catch(err => console.error('Error cargando pagos:', err));
