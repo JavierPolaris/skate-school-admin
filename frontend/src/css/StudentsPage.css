@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+
+
+.students-page {
+    font-family: 'Quicksand', sans-serif;
+    background-color: #1E1E2F;
+    color: #F5F5F5;
+    margin: 0;
+        padding-inline: 3%;
+    
+}
+
+h2,
+h3 {
+    color: #ff9b00;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+    color: #F5F5F5;
+}
+
+th {
+    background: #252539;
+    color: #ff9b00;
+    font-size: 16px;
+}
+
+tbody tr:hover {
+    background-color: #3a3a50;
+    transition: background-color 0.2s ease-in-out;
+}
+
+button {
+    background: linear-gradient(to right, #FF4081, #007997);
+    border: none;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    margin: 0 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+select {
+    width: -webkit-fill-available;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #3a3f4a;
+    color: white;
+    font-size: 14px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2A2A40;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    width: 400px;
+    max-width: 90%;
+}
+
+.modal h3 {
+    color: #ff9b00;
+    margin-bottom: 1rem;
+}
+
+.highlight {
+    background-color: #ffeb3b !important;
+    color: #1E1E2F !important;
+}
+.toggle-arrow{
+    display: none;
+}
+@media (max-width: 768px) {
+    table thead {
+        display: none; /* Oculta las cabeceras */
+    }
+
+    table, tbody, tr, td {
+        display: block;
+        width: 100%;
+    }
+
+    tr {
+         margin: 0 auto 15px auto; /* Centramos la "tarjeta" */
+        max-width: 90%; /* Controlas el ancho */
+        background-color: #252539;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    td {
+        text-align: left;
+        padding: 8px 0;
+        position: relative;
+       
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        color: #ff9b00;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .students-page h3 {
+        text-align: center;
+    }
+
+    button {
+        display: inline-block;
+        margin: 10px 5px 0 0;
+    }
+}
+
+@media (max-width: 768px) {
+  .toggle-arrow {
+    display: block;
+    float: right;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  table thead {
+    display: none;
+  }
+
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  td {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    position: relative;
+     width: 95%;
+  }
+
+  td[data-label]:before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #ff9b00;
+    display: block;
+  }
+
+  tr {
+    margin-bottom: 15px;
+    background: #252539;
+    border-radius: 8px;
+    padding: 10px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background: linear-gradient(to right, #FF4081, #007997);
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

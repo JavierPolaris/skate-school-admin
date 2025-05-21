@@ -1,0 +1,801 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+.dashboard-container {
+    font-family: 'Quicksand', sans-serif;
+    color: #F5F5F5;
+    padding-inline: 4%;
+    
+  
+  }
+  @media (max-width: 768px) {
+  .dashboard-container {
+    padding-inline: 1rem;
+  }
+  }
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dashboard-header h2 {
+    font-size: 24px;
+    color: #ff9b00;
+  }
+  .icon-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .icon-container .notification-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+    top: 0; /* Ajusta este valor si es necesario */
+    right: 0; /* Ajusta este valor si es necesario */
+    transform: translate(50%, -50%); /* Centra el punto sobre la esquina */
+    border: 2px solid #313145; /* Agrega un borde para separar el punto del fondo */
+  }
+  @media (max-width: 768px) {
+    .icon-container .notification-dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+  .icon-container .message-count {
+    position: absolute;
+    top: -10px; /* Ajusta según sea necesario */
+    right: -10px; /* Ajusta según sea necesario */
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Asegúrate de que esté por encima del icono */
+    border: 2px solid #313145; /* Para un borde que combine con el fondo */
+  }
+  @media (max-width: 768px) {
+    .icon-container .message-count {
+      width: 16px; /* Reduce el tamaño del círculo en pantallas más pequeñas */
+      height: 16px;
+      font-size: 10px; /* Reduce el tamaño del texto */
+      top: -8px; /* Ajusta la posición superior */
+      right: -8px; /* Ajusta la posición derecha */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .icon-container .message-count {
+      width: 14px; /* Tamaño aún más pequeño para pantallas muy pequeñas */
+      height: 14px;
+      font-size: 9px;
+      top: -6px;
+      right: -6px;
+    }
+  }
+  .icon-container .dropdown {
+    position: absolute;
+    width: 250px;
+    top: 120%; /* Ajusta según necesites */
+    right: 0; /* Alínea el dropdown al borde derecho del icono */
+    background-color: #282C34;
+    color: white;
+    padding: 10px;
+    border: 1px solid transparent; /* Define el grosor y asegura que sea visible */
+    border-radius: 10px;    border-image: linear-gradient(
+     to right, /* Dirección del gradiente */
+     #FF4081 0%, /* Color inicial y posición */
+     #007997 100% /* Color final y posición */
+    ) 1; /* Define el gradiente y el grosor del borde */  
+    border-image-slice: 1; /* Define cómo se repite el gradiente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 999; /* Asegúrate de que esté sobre todo lo demás */
+    display: none; /* Oculta el menú por defecto */
+  }
+  
+  .icon-container .dropdown p {
+    margin: 0;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+
+  
+  .icon-container.show-dropdown .dropdown {
+    display: block; /* Muestra el menú cuando se activa */
+  }
+
+  .user-menu {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+  }
+  
+  .user-menu .dropdown {
+    position: absolute;
+    top: 100%; /* Justo debajo del avatar */
+    right: 0; /* Alineado con el borde derecho del contenedor */
+    background-color: #282C34;
+    color: white;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    border-image: linear-gradient(to right, /* Dirección del gradiente */ #FF4081 0%, /* Color inicial y posición */ #007997 100% /* Color final y posición */) 1;
+    border-image-slice: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    display: none; /* Oculta el menú por defecto */
+    min-width: 150px; /* Asegura un ancho mínimo */
+  }
+  
+  .user-menu .dropdown p {
+    margin: 0;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  
+  .user-menu .dropdown {
+    display: block; /* Muestra el menú cuando se activa */
+  }
+  
+
+  .stats-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    /* grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr; */
+    gap: 17px 133px;
+    grid-template-areas:
+        ". stat-box1"
+        "stat-box2 stat-box1"
+        "stat-box3 stat-box1"
+        ". stat-box1"
+        ". .";
+}
+  .stat-box1 { grid-area: stat-box1; }
+  .stat-box2 { grid-area: stat-box2; }
+  .stat-box3 { grid-area: stat-box3; }
+
+
+  
+  .dashboard-stats {
+    display: flex;
+    gap: 20px;
+  }
+  .star-box-aling{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 3%
+  }
+  .stat-box {
+    position: relative;
+    flex: 1;
+    background: transparent;
+    padding: 10px;
+    border-radius: 10px; /* Define las esquinas redondeadas */
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1; /* Asegura que el contenido esté encima del pseudo-elemento */
+    overflow: hidden; /* Para evitar que el pseudo-elemento sobresalga */
+}
+  .stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+    border-radius: 10px; /* Aplica el borde redondeado al pseudo-elemento */
+    padding: 2px; /* Grosor del borde gradiente */
+    background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0); /* Crea una máscara para el gradiente */
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; 
+    mask-composite: exclude; /* Excluye el área interna */
+}
+.stat-box1 {
+  position: relative;
+  border-radius: 10px; /* Define las esquinas redondeadas */
+  z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
+  overflow: hidden; /* Evita que el pseudo-elemento sobresalga */
+}
+.stat-box1 {
+  display: flex;
+      flex-direction: column;
+      align-items: center;
+}
+
+
+
+
+
+  
+  .stat-box h3 {
+    font-size: 32px;
+    color: #ffffff;
+  }
+  
+  .stat-box p {
+    font-size: 16px;
+    font-family: 'Quicksand', sans-serif;
+
+  }
+  
+  .dashboard-content {
+    display: flex
+;
+    gap: 20px;
+    padding-block-end: 4%;
+}
+  @media (max-width: 768px) {
+  .dashboard-content {
+    flex-direction: column;
+    gap: 15px;
+    padding-block-end: 25%;
+  }
+
+  .groups-section, .tricks-section {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+  .groups-section, .tricks-section {
+    position: relative;
+    flex: 1;
+    background: transparent;
+    padding: 20px;
+    border-radius: 10px; /* Esquinas redondeadas */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1; /* Asegura que el contenido esté sobre el pseudo-elemento */
+    overflow: hidden; /* Evita que el pseudo-elemento sobresalga */
+}
+
+.groups-section::before, .tricks-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+    border-radius: 10px; /* Redondea las esquinas del pseudo-elemento */
+    padding: 2px; /* Grosor del borde */
+    background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0); /* Máscara para mostrar solo el borde */
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; 
+    mask-composite: exclude; /* Excluye el área interna del borde */
+}
+
+  
+  .groups-section h3,
+  .tricks-section h3 {
+    font-size: 20px;
+    color: #ff9b00;
+    margin-bottom: 15px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+    color: white;
+  }
+  
+  .table th {
+    background: #252539;
+    color: #ff9b00;
+  }
+  
+  .table tbody tr:hover {
+    background: #3a3a50;
+  }
+  
+  .tricks-section img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  .header-left {
+    display: flex;
+    gap: 24px;
+}
+.header-icons {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin-left: 5%;
+}
+@media (max-width: 768px) {
+  .header-icons {
+    margin-right: 5%;
+    margin-left: 0;
+  }
+}
+
+.h2dashboard{
+  padding-top: 11px;
+  margin-left: 10px;
+}
+.body_header_dashboard{
+  margin-block-end: 40px;
+}
+.headerline{
+  position: relative;
+  color: white; /* Color del texto */
+  
+}
+.headerline::after {
+  content: '';
+  position: absolute;
+  top: 0; /* Posición del borde inferior */
+  left: 0;
+  width: 98%; /* Ancho del borde */
+  height: 1px; /* Grosor del borde */
+  background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
+}
+  
+.search-bar {
+  position: relative; /* Contenedor relativo para posicionar el menú */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente el input */
+}
+
+.search-bar input {
+    padding: 8px 12px !important;
+    border-radius: 20px !important;
+    border: 1px solid rgb(85, 85, 85) !important;
+    background: transparent !important;
+    color: white !important;
+    margin-right: 10px !important;
+    font-family: Quicksand, sans-serif !important;
+    -webkit-border-radius: 20px !important;
+    -moz-border-radius: 20px !important;
+    -ms-border-radius: 20px !important;
+    -o-border-radius: 20px !important;
+}
+
+.search-results {
+  position: absolute; /* Flota sobre otros elementos */
+  top: 100%; /* Posiciona justo debajo del input */
+  left: 50%; /* Centrado horizontalmente */
+  transform: translateX(-50%); /* Ajusta el centrado */
+  background-color: #313145;
+  color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  width: 400px; /* Ancho fijo para el menú */
+  max-height: 200px; /* Alto máximo con scroll */
+  overflow-y: auto;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.search-results p {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.search-results p:hover {
+  background-color: #ff9b00;
+  color: white;
+}
+/* Para el ID con color */
+.group-id {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+/* Flechas de tendencia */
+.arrow-up {
+  color: #00ff7f; /* Un verde o el color que prefieras */
+  margin-left: 4px;
+}
+.arrow-down {
+  color: #ff4c4c; /* Un rojo o el color que prefieras */
+  margin-left: 4px;
+}
+
+/* Estilo para el enlace "See More" */
+.see-more {
+  margin-left: 8px;
+  color: #ff9b00; /* mismo color de tu diseño */
+  text-decoration: none; 
+  font-weight: 600; /* un poco más grueso */
+}
+.see-more:hover {
+  text-decoration: underline;
+}
+
+/* Tarjeta principal con un gradiente */
+.chart-card {
+  position: relative;
+  background: linear-gradient(to right, #ff4081, #007997); /* Tu gradiente */
+  border-radius: 12px;
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  width: 100%;
+  max-width: 500px; /* Ajusta a tu gusto */
+  margin: 0 auto;   /* Centra la tarjeta si quieres */
+}
+
+/* Cabecera con el título y el "May" */
+.chart-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.chart-card-header h3 {
+  font-size: 18px;
+  margin: 0;
+}
+.chart-month-select {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* Contenedor del chart (fondo más oscuro para que destaque la línea) */
+.chart-container {
+  background-color: rgba(0,0,0,0.2); /* Un oscuro translúcido */
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* Footer con el número y el texto */
+.chart-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.chart-footer-icon {
+  /* Ajusta si quieres un fondo distinto o un circulito */
+}
+.chart-footer-text span {
+  font-size: 24px;
+  font-weight: 600;
+  margin-right: 8px;
+}
+.chart-card-footer {
+  background: linear-gradient(to right, rgba(0,0,0,0.2), rgba(0,0,0,0));
+  padding: 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* Ajusta más si lo quieres exacto al Figma */
+}
+.chart-footer-text {
+  font-size: 16px;
+  margin: 0;
+}
+.chart-footer-text strong {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+/* Contenedor general */
+.groups-table-container {
+  margin-top: 20px; /* Espacio respecto al título “Grupos” */
+  /* Pon un box-shadow, fondo, etc. si tu Figma lo requiere */
+}
+
+/* Tabla base */
+.groups-table {
+  width: 100%;
+  border-collapse: collapse; /* Quita bordes dobles */
+  /* Si tu Figma tiene un fondo oscuro en la tabla, ponlo aquí */
+}
+@media (max-width: 768px) {
+.groups-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+  }
+
+  .groups-table {
+    min-width: unset; /* Elimina el ancho mínimo */
+    width: 100%; /* Asegura que no exceda el contenedor */
+    display: block;
+  }
+
+  /* Opcional: Centra el contenido de las celdas en móvil */
+  .groups-table td, 
+  .groups-table th {
+    text-align: center;
+    padding: 8px;
+  }
+
+  /* Si los textos siguen desbordando, truncamos */
+  .group-info span {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px; /* Ajusta según lo que prefieras mostrar */
+    margin: 0 auto;
+  }
+}
+/* Encabezado de la tabla */
+.groups-table thead th {
+  background-color: #252539; /* Fondo cabecera (ejemplo) */
+  color: #ff9b00;           /* Texto en la cabecera */
+  padding: 12px 10px;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* Celdas del cuerpo */
+.groups-table td {
+  padding: 10px;
+  border-bottom: 1px solid #444; /* Líneas divisorias */
+  color: #ffffff;
+}
+
+/* Hover en la fila */
+.groups-table tbody tr:hover {
+  background-color: #3a3a50; /* Efecto hover */
+}
+
+/* Columna con avatar + nombre */
+.group-info {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* separa el avatar del texto */
+}
+.group-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover; /* Ajusta la imagen */
+}
+
+/* Estilo del ID y flechas */
+.group-id {
+  font-weight: bold;
+  margin-right: 6px;
+}
+.arrow-up {
+  color: #00ff7f; /* Verde */
+}
+.arrow-down {
+  color: #ff4c4c; /* Rojo */
+}
+
+/* Link “See More” */
+.see-more {
+  margin-left: 8px;
+  color: #ff9b00;
+  text-decoration: none;
+  font-weight: 600;
+}
+.see-more:hover {
+  text-decoration: underline;
+}
+
+.integrant-calendar {
+  display: flex
+;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+  gap: 18%;
+}
+.group-ranking{
+  color: #FF4081;
+  
+}
+
+
+.see-more:hover {
+  text-decoration: underline;
+}
+.see-more {
+  display: inline-block;
+  margin-top: 4px;
+  color: #FF4081;
+  text-decoration: none;
+  font-weight: 600;
+}
+.see-more:hover {
+  text-decoration: underline;
+}
+
+
+
+.logo-kedekids {
+  display: none;
+}
+
+.truncated-text{
+  max-width: 200px;
+}
+
+/* Búsqueda en móvil */
+@media (max-width: 768px) {
+  .truncated-text{
+  max-width: 100%;
+}
+
+.dashboard-header {
+    justify-content: flex-start;
+    padding-left: 10px; 
+    left:0;
+  }
+
+  .header-left {
+    gap: 8px; /* Reduce el espacio entre iconos en móvil */
+  }
+   .search-bar {
+    flex-grow: 1; /* Ocupar todo el ancho restante */
+    margin-inline: 10px; /* Ajusta el margen */
+  }
+
+  /* Logo tamaño y margen */
+.logo-kedekids { 
+  display: block;
+  height: 30px;
+  margin-left: 10px;
+}
+
+  /* Oculta en móvil */
+.hide-on-mobile {
+  display: none;
+}
+  .search-bar input {
+    border: none;
+    border-bottom: 1px solid #555;
+    width: 100%;
+    background: transparent;
+    text-align: center;
+    color: white;
+    padding: 5px;
+    outline: none;
+  }
+
+  .search-bar input::placeholder {
+    color: #999;
+    text-align: center;
+  }
+
+  .profile-avatar2 {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-bottom: 0;
+  }
+
+  /* Oculta texto del nombre de usuario */
+  .user-menu span {
+    display: none;
+  }
+
+  .stats-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 10px;
+    grid-template-areas:
+      "stat-box2 stat-box3"
+      "stat-box1 stat-box1"; /* Trucos Vistos ocupa las dos columnas */
+    width: 100%;
+    justify-items: center;
+  }
+
+  .stat-box1 { grid-area: stat-box1; width: 100%; }
+  .stat-box2 { grid-area: stat-box2; width: 90%; }
+  .stat-box3 { grid-area: stat-box3; width: 90%; }
+
+  /* Opcional: Ajusta tamaños de los iconos y textos en móvil */
+  .stat-box h3 { font-size: 24px; }
+  .stat-box p { font-size: 14px; }
+
+  
+  .stat-box {
+    width: 90%;
+    text-align: center;
+  }
+
+
+
+/* Ajustes solo para ADMIN */
+body.admin-mode .header-icons {
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+body.admin-mode .profile-avatar2 {
+  width: 40px;
+  height: 40px;
+}
+
+body.admin-mode .icon-container svg {
+  font-size: 22px; /* Íconos más grandes */
+}
+body.admin-mode .search-bar {
+  width: 30%;
+}
+
+/* Ajustes solo para STUDENT */
+body.student-mode .profile-avatar2 {
+  width: 32px;
+  height: 32px;
+}
+
+body.student-mode .icon-container svg {
+  font-size: 18px; /* Íconos más pequeños */
+}
+
+
+}
+
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.pagination button {
+  background: linear-gradient(to right, #FF4081, #007997);
+  border: none;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  color: #fff;
+  font-family: 'Quicksand', sans-serif;
+}

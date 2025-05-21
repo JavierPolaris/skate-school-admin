@@ -1,0 +1,43 @@
+.section-title {
+  color: #ff9b00;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.tricks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+@media (max-width: 768px) {
+  .tricks-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 1rem;
+    margin-block-end: 20%;
+  }
+}
+
+.trick-card {
+  background: #2c2c3e;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  text-align: center;
+  color: #fff;
+}
+
+.mark-done-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(90deg, #ff0080, #7928ca);
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.mark-done-button:hover {
+  transform: scale(1.05);
+}

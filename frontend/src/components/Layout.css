@@ -1,0 +1,270 @@
+.layout-container {
+  display: flex;
+  height: auto;
+  width: 100%;
+
+}
+button.delete-avatar-button {
+  background: none;
+  font-size: 14px;
+  color: #b5b5b5;
+  font-weight: 400;
+  border: none;
+  margin: 0;
+}
+button.delete-avatar-button:hover {
+  border: transparent;
+}
+button.delete-avatar-button:focus {
+  border: transparent;
+  outline: none;
+} 
+.profile-role-container {
+    display: flex
+;
+    flex-direction: row;
+    align-items: center;
+}
+.layout-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar fijo */
+.sidebar {
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 250px;
+  z-index: 9999;
+  background-color: #262a31;
+  padding-top: 20px;
+}
+
+/* Main content con margen para no tapar con sidebar */
+.main-content {
+  margin-left: 250px;
+  width: calc(100% - 250px);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+/* Header fijo */
+.dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 250px;
+  width: calc(100% - 342px);
+  height: 60px; /* Ajusta según tu diseño */
+  background-color: #262a31;
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+}
+
+/* Contenido debajo del header con scroll */
+.page-content {
+ 
+  padding: 20px;
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background-color: #262a31;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+ .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  .dashboard-header {
+    left: 200px;
+    width: -webkit-fill-available;
+  }
+}
+
+
+.sidebar.hidden {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+
+}
+
+
+
+.layout-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #262a31;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 10000;
+}
+
+.hamburger-menu {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+@media (max-width: 768px) {
+  .hamburger-menu {
+    display: block;
+  }
+}
+
+.sidebar-content {
+  overflow-y: auto; /* Hacemos scroll SOLO en el contenido */
+  flex-grow: 1;
+  padding: 1rem;
+  max-height: calc(100vh - 150px); /* Ajusta este valor según el espacio que ocupa el header/avatar/botón */
+}
+
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.profile-avatar2{
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+
+}
+
+.profile-info {
+  text-align: center;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.profile-role {
+  font-size: 14px;
+  color: #b5b5b5;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.menu li {
+  margin: 10px 0;
+}
+
+.menu li a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  
+  transition: background 0.3s;
+}
+
+.menu li a {
+ 
+  position: relative; /* Necesario para usar ::after */
+  text-decoration: none; /* Elimina cualquier subrayado predeterminado */
+}
+.menu li a:hover {
+  color: #FF4081;
+ 
+}
+.active-menu {
+  color: #FF4081 !important; 
+  border-bottom: 2px solid #FF4081; 
+}
+
+
+.menu li a::after {
+  content: ''; /* Crea un pseudo-elemento vacío */
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px; /* Ajusta la posición vertical del subrayado */
+  height: 2px; /* Grosor del subrayado */
+  background-color: #FF4081; /* Color del subrayado */
+  transform: scaleX(0); /* Inicialmente oculto */
+ 
+}
+
+.menu li a:hover::after {
+  transform: scaleX(1); /* Muestra el subrayado */
+  color: #FF4081;
+}
+
+
+.icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.website-button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to left, #FF4081 0%, #007997 100%);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.website-button:hover {
+  background: linear-gradient(to left, #FF4081 0%, #FF4081 100%);
+}
+
+.logout-button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: red;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}

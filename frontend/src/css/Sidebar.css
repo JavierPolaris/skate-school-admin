@@ -1,0 +1,70 @@
+.sidebar {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: white;
+}
+
+.sidebar h3 {
+  color: #ff9b00;
+  margin-bottom: 1rem;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 0.5rem 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sidebar li:hover {
+  color: #ff9b00;
+}
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background-color: #262a31;
+    padding-top: 20px;
+    z-index: 9998;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Sidebar oculto en móvil */
+.sidebar.hidden {
+    transform: translateX(-100%);
+}
+
+/* Hamburguesa */
+.hamburger-menu {
+    display: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .hamburger-menu {
+        display: block;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+    }
+}

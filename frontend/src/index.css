@@ -1,0 +1,186 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+   
+}
+#root{
+      width: 100%;
+}
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient( to bottom right,#1F2228 16%, /* Color inicial y posición */
+    #2D3139 46%, /* Segundo color y posición */
+    #22262D 72% /* Tercer color y posición */);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+
+/* Imagen de fondo solo para login */
+.login-background {
+  background-image: url('https://www.kedekids.com/wp-content/uploads/2020/09/CAR_2767-scaled.jpg'); /* Ajusta la ruta según tu estructura */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  margin: 0;
+  justify-content: center;
+}
+.login-background #root {
+    width: auto;
+}
+
+.login {
+    background: rgb(0 0 0 / 40%);
+    box-shadow: 0 8px 32px 0 rgb(255 255 255 / 37%);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur( 4.5px );
+    border-radius: 10px;
+    border: 1px solid rgb(255 255 255 / 18%);
+    width: 23rem;
+}
+.paddinglog {
+  display: flex;
+  flex-direction: column;
+  padding: 5%;
+}
+.paddinglog h2 {
+    color: #ffffff;
+}
+.paddinglog input {
+    width: auto;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #3A3A50;
+    background-color: #ffffff;
+    color: #000000;
+    margin: 8px 0;
+    font-family: 'Quicksand', sans-serif;
+}
+.acceso {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+/* Estilo para la lista de solicitudes */
+.requests-list {
+  list-style: none;
+  padding: 0;
+}
+
+.requests-list li {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.requests-list button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.requests-list button:first-child {
+  background-color: #4caf50;
+  color: white;
+}
+
+.requests-list button:last-child {
+  background-color: #f44336;
+  color: white;
+}
+
+.main-content{
+  width: 100%;
+      margin-left: 395px; /* Sidebar fijo en desktop */
+    padding-top: clamp(60px, 6vh, 100px); /* Altura adaptable para el header */
+    overflow-x: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.modal h3 {
+  margin-bottom: 1rem;
+}
+
+
+
+.modal button {
+  margin-right: 0.5rem;
+}

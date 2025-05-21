@@ -1,0 +1,504 @@
+/* Styles for TricksPage */
+
+/* Header Section */
+.tricks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.tricks-title {
+  display: flex;
+  gap: 5%;
+  width: 14%;
+  align-items: center;
+}
+
+.tricks-header h1 {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.new-trick-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  width: 100%;
+  max-width: 300px;
+  /* Limita en desktop */
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(to left, #FF4081 0%, #007997 100%);
+  color: white;
+  font-size: 16px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.3s, background 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.new-trick-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.new-trick-button img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+  /* Hace la imagen blanca sin editarla */
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .new-trick-button {
+    width: 23vh;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .new-trick-button img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+button:focus,
+button:focus-visible {
+  outline: none;
+}
+
+.tricks-filters button {
+  position: relative;
+  /* Necesario para el pseudo-elemento */
+  background: none;
+  border: none;
+  /* Eliminamos el borde para aplicar el pseudo-elemento */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Quicksand', sans-serif;
+  z-index: 1;
+  /* Asegura que el contenido esté sobre el pseudo-elemento */
+  overflow: hidden;
+  /* Evita que el pseudo-elemento sobresalga */
+}
+
+.tricks-filters button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  /* Igual al radio del botón */
+  background: linear-gradient(to right, #FF4081 0%, #007997 100%);
+  /* Gradiente del borde */
+  padding: 2px;
+  /* Grosor del borde */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  /* Máscara para mostrar solo el borde */
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  /* Excluye el área interna del borde */
+  z-index: -1;
+  /* Envía el pseudo-elemento detrás del botón */
+}
+
+.tricks-filters button.active {
+  color: white;
+}
+
+.tricks-filters button:hover {
+  opacity: 0.9;
+}
+
+.tricks-filters button.active::before {
+  background: linear-gradient(90deg, #ff9b00, #ff4081);
+  /* Cambia el gradiente en estado activo */
+}
+
+/* Filter Section */
+.tricks-filters {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px;
+}
+
+.tricks-filters span {
+  margin-right: 10px;
+  color: white;
+  font-size: 16px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.active-filtro {
+  background-color: #FF4081 !important;
+  position: static !important;
+
+}
+
+.active-filtro::before {
+  background: #FF4081 !important;
+  position: static !important;
+  mask: none !important;
+  content: none !important;
+
+}
+
+.tricks-order> :first-child {
+
+  color: #6D7992;
+}
+
+.tricks-order> :last-child {
+  color: #FF4081;
+  /* Azul vibrante */
+
+}
+
+/* Table Section */
+.tricks-table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+  color: white;
+}
+
+.tricks-table-header {
+  position: relative;
+  color: white;
+  /* Color del texto */
+
+}
+
+.tricks-table-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  /* Posición del borde inferior */
+  left: 0;
+  width: 98%;
+  /* Ancho del borde */
+  height: 1px;
+  /* Grosor del borde */
+  background: linear-gradient(to right, #FF4081 0%, #007997 100%);
+  /* Gradiente del borde */
+  border-radius: 2px;
+  /* Opcional: redondear los extremos */
+}
+
+.tricks-table th,
+.tricks-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #3a3f4a;
+  font-family: 'Quicksand', sans-serif;
+  border: none;
+}
+
+.tricks-table th {
+
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.tricks-table td {
+
+  color: white;
+  font-size: 14px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.tricks-table img {
+  width: 80px;
+  height: 45px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.actions button {
+  margin-top: auto;
+  margin-block-end: auto;
+  width: 50%;
+  padding: 7px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(to left, #FF4081 0%, #007997 100%);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.3s;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.delete-button-container {
+  width: 100%;
+  margin-block-start: 5%;
+}
+
+.delete-button-container button {
+  position: relative;
+  /* Necesario para el pseudo-elemento */
+  background: none;
+  border: none;
+  /* Eliminamos el borde para aplicar el pseudo-elemento */
+  color: white;
+  padding: 7px;
+  border-radius: 20px;
+  margin: 0 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Quicksand', sans-serif;
+  z-index: 1;
+  /* Asegura que el contenido esté sobre el pseudo-elemento */
+  overflow: hidden;
+  /* Evita que el pseudo-elemento sobresalga */
+}
+
+.delete-button-container button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  /* Igual al radio del botón */
+  background: linear-gradient(to right, #FF4081 0%, #007997 100%);
+  /* Gradiente del borde */
+  padding: 2px;
+  /* Grosor del borde */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  /* Máscara para mostrar solo el borde */
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  /* Excluye el área interna del borde */
+  z-index: -1;
+  /* Envía el pseudo-elemento detrás del botón */
+}
+
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #2a2e37;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  width: 400px;
+  color: white;
+  z-index: 1000;
+}
+
+.modal h2 {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+
+.modal button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ff4081, #ff9b00);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.modal button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.modal .reset-button {
+  background: none;
+  border: 2px solid white;
+  color: white;
+  margin-top: 10px;
+}
+
+.modal .reset-button:hover {
+  opacity: 0.9;
+}
+
+/* Paginación */
+.pagination {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.pagination button {
+  background: linear-gradient(to right, #FF4081, #007997);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination span {
+  color: #fff;
+  margin: 0 10px;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Estilo para la flecha en móviles */
+.toggle-arrow {
+  margin-left: 8px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+td.actions {
+  display: flex;
+  gap: 5px;
+}
+
+@media (max-width: 768px) {
+  .pagination {
+  margin: 25% 0;
+}
+  .tricks-header {
+    display: flex;
+    align-items: flex-start;
+    padding: 2px;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .tricks-title {
+
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tricks-table thead {
+    display: none;
+  }
+
+  .tricks-table tr {
+    display: flex;
+    border: 1px solid #3a3f4a;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #252539;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tricks-table td {
+    display: block;
+    text-align: left;
+    border-bottom: none;
+  }
+
+  .toggle-arrow {
+    float: right;
+  }
+
+  .fltrick {
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px !important;
+    margin: 0;
+  }
+
+  .tricks-filters button {
+    margin: 0;
+  }
+
+  td.actions {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-expanded {
+    text-align: left;
+    padding: 15px;
+    background-color: #252539;
+    border-radius: 12px;
+  }
+
+  .mobile-expanded div {
+    margin-bottom: 10px;
+    color: #fff;
+    font-family: 'Quicksand', sans-serif;
+  }
+
+  .video-thumbnail-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .mobile-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .mobile-buttons button {
+    width: 48%;
+  }
+
+  .tricks-table img {
+    width: 100vh;
+    height: 25vh;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+}

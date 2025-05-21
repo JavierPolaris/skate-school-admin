@@ -1,0 +1,50 @@
+.student-dashboard {
+  padding: 2rem;
+  color: #fff;
+}
+
+.welcome-title {
+  color: #ff9b00;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .dashboard-grid {
+    margin-block-end: 20%;
+  }
+}
+
+.dashboard-card {
+  background: #313145;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .calendarRes {
+    margin-block-end: 30%;
+  }
+}
+
+.dashboard-card h3 {
+  color: #ff9b00;
+  margin-bottom: 1rem;
+}
+
+.dashboard-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.dashboard-card li {
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+}

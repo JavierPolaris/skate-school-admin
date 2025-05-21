@@ -1,0 +1,168 @@
+.chart-card-figma {
+    position: relative;
+    flex: 1;
+    background: transparent;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 990;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /*bodyarriba,bottomabajo*/border-radius: 20px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    overflow: hidden;
+   background: linear-gradient(135deg, #FF4081, #007997);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+  
+.chart-card-figma::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0; /* Coloca el pseudo-elemento detrás del contenido */
+    border-radius: 10px; /* Aplica el borde redondeado */
+    padding: 2px; /* Grosor del borde gradiente */
+    background: linear-gradient(to left, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0); /* Máscara para el gradiente */
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor; 
+    mask-composite: exclude; /* Excluye el área interna */
+  }
+  /* Sección superior que contendrá el título y el gráfico */
+  .chart-body {
+    /*Queseexpandaydejeespacioabajoalfooter*/flex: 1;
+    padding: 20px;
+    /*Siquieresungradientedistintoenlapartedelgráfico:;
+    */background: linear-gradient(to bottom right, #1F2228 16%, #2D3139 46%, #22262D 72%);
+    display: flex;
+    flex-direction: column;
+   border-radius: 10px 10px 0 0;
+    
+    -webkit-border-radius: 10px 10px 0 0;
+    -moz-border-radius: 10px 10px 0 0;
+    -ms-border-radius: 10px 10px 0 0;
+    -o-border-radius: 10px 10px 0 0;
+}
+  
+  /* Encabezado (Trucos Vistos + mes) */
+  .chart-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .chart-top h3 {
+    font-size: 18px;
+    margin: 0;
+  }
+  .chart-month {
+    font-size: 14px;
+  }
+  
+  /* Contenedor del <Line /> */
+  .chart-middle {
+    flex: 1; /* Para que el gráfico llene el espacio */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margen, padding, etc. si gustas */
+  }
+  .chart-middle canvas {
+    width: 100% !important;
+    height: 250px !important; /* o 200px, lo que quieras */
+    max-height: 250px;
+  }
+  
+  /* Footer (parte de abajo) */
+  .chart-bottom {
+    background: rgba(0,0,0,0.2); /* o un gradiente distinto */
+    padding: 20px;
+    border-radius: 0 0 20px 20px; /* redondea solo la parte de abajo */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .chart-bottom strong {
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  .chart-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    
+    width: 100%;
+    height: 100%;
+    overflow: hidden; 
+    background: linear-gradient(135deg, #FF4081, #007997);
+  }
+  .chart-top-section {
+    flex: 1;
+    padding: 3px;
+}
+.chart-header-father {
+  background: #1F2228;
+  border-radius: 10px;
+  padding: 14px;
+}
+  
+  /* Encabezado (Trucos Vistos + May) */
+  .chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .chart-header h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  .chart-month {
+    font-size: 14px;
+  }
+  
+  /* Contenedor del canvas */
+  .chart-canvas {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+ 
+  
+  /* PARTE INFERIOR (footer) con gradiente y radio en la parte superior */
+  .chart-footer-section {
+    padding: 10px 20px;
+    margin-top: 0;
+    z-index: 2;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+  
+  /* Contenido interior del footer */
+  .footer-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-content strong {
+    font-size: 20px;
+    margin-right: 5px;
+  }
