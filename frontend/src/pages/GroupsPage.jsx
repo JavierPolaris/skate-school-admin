@@ -68,7 +68,7 @@ function GroupsPage() {
   };
 
   const handleSaveGroup = (name) => {
-    fetch(`${API_URL}/api/groups`, {
+    fetch(`${API_URL}/groups`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name })
