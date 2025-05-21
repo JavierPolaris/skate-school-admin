@@ -138,7 +138,7 @@ if (storedUserData) setUserData(JSON.parse(storedUserData));
 
         <div className="user-menu" onClick={handleAvatarClick}>
           <img
-            src={userData.avatar ? `${API_URL}/api/users/avatar/${userData.avatar}` : 'https://via.placeholder.com/40'}
+            src={userData.avatar ? `${API_URL}/users/avatar/${userData.avatar}` : 'https://via.placeholder.com/40'}
             alt="Avatar"
             className="profile-avatar2"
           />
