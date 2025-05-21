@@ -94,7 +94,7 @@ const handlePageChange = (page) => {
       })
       .catch(console.error);
 
-    axios.get(`${API_URL}/events/tricks-viewed`)
+    axios.get(`${API_URL}/tricks/total-views`)
       .then((response) => {
         setTricksViewed(response.data.total);
       })
