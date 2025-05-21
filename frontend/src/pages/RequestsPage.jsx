@@ -19,7 +19,7 @@ function RequestsPage() {
   const handleUpdateRequest = (id, status) => {
     const selectedRole = roleSelections[id] || 'student'; // Por defecto 'student' si no selecciona nada
 
-   fetch(`${API_URL}/api/users/requests/${id}`, {
+   fetch(`${API_URL}/users/requests/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ status, role: selectedRole }),
