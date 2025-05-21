@@ -88,19 +88,19 @@ const handlePageChange = (page) => {
       })
       .catch(console.error);
 
-    axios.get(`${API_URL}/api/groups`)
+    axios.get(`${API_URL}/groups`)
       .then((response) => {
         setGroups(response.data.length);
       })
       .catch(console.error);
 
-    axios.get(`${API_URL}/api/events/tricks-viewed`)
+    axios.get(`${API_URL}/events/tricks-viewed`)
       .then((response) => {
         setTricksViewed(response.data.total);
       })
       .catch(console.error);
 
-    axios.get(`${API_URL}/api/groups`)
+    axios.get(`${API_URL}/groups`)
       .then((response) => {
         setGroupList(response.data);
       })
