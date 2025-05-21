@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaCalendarAlt, FaBell, FaEnvelope, FaCaretDown } from 'react-icons/fa';
 import '../css/Dashboard.css';
 import { useSidebar } from '../context/SidebarContext'; // ✅ Importa el contexto
+import API_URL from '../config';
 
 const Header = ({ role }) => {
   const { toggleSidebar } = useSidebar(); // ✅ Obtiene la función del contexto
@@ -21,7 +22,7 @@ const Header = ({ role }) => {
   const userMenuRef = useRef(null);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/users/requests').then((response) => {
+    axios.get(`${API_URL}/users/requests`).then((response) => {
       setMessageCount(response.data.length);
     });
 
