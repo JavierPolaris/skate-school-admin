@@ -22,7 +22,7 @@ const Header = ({ role }) => {
   const userMenuRef = useRef(null);
 
   useEffect(() => {
-    axios.get(`${API_URL}/api/users/requests`).then((response) => {
+    axios.get(`${API_URL}/users/requests`).then((response) => {
       setMessageCount(response.data.length);
     });
 
