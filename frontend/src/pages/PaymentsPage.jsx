@@ -72,7 +72,7 @@ function PaymentsPage() {
       .catch(err => console.error(err));
   };
   useEffect(() => {
-    fetch(`${API_URL}/api/payments`)
+    fetch(`${API_URL}/payments`)
       .then(res => res.json())
       .then(data => setPayments(data))
       .catch(err => console.error(err));
