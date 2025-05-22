@@ -70,12 +70,12 @@ function StudentsPage() {
   //  };
 
   const fetchStudentsAndGroups = () => {
-    fetch(`${API_URL}/api/users/students`)
+    fetch(`${API_URL}/users/students`)
       .then((res) => res.json())
       .then((data) => setStudents(data))
       .catch((err) => console.error(err));
 
-    fetch(`${API_URL}/api/groups`)
+    fetch(`${API_URL}/groups`)
       .then((res) => res.json())
       .then((data) => setGroups(data))
       .catch((err) => console.error(err));
@@ -111,7 +111,7 @@ function StudentsPage() {
     const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este alumno?');
     if (!confirmDelete) return;
 
-    fetch(`${API_URL}/api/users/students/${id}`, {
+    fetch(`${API_URL}/users/students/${id}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())
