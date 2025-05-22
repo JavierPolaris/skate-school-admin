@@ -202,79 +202,88 @@ function GroupsPage() {
       })
       .catch(err => console.error(err));
   };
-const isMobile = window.innerWidth <= 768;
+  const isMobile = window.innerWidth <= 768;
 
   return (
     <div>
-{isMobile ? (
-      <>
-        <div className="mobile-group-selector">
-          <select
-            onChange={(e) => handleSelectGroup(e.target.value)}
-            value={selectedGroupId || ''}
-          >
-            <option value="">Selecciona un grupo...</option>
-            {groups.map((group) => (
-              <option key={group._id} value={group._id}>
-                {group.name}
-              </option>
-            ))}
-          </select>
-          <button onClick={handleAddGroup}>+ Crear Grupo</button>
-        </div>
-        {selectedGroup && (
-          <GroupDetail
-            group={selectedGroup}
-            onAddMember={handleAddMember}
-            onRemoveMember={handleRemoveMember}
-            onUpdateGroupName={handleUpdateGroupName}
-            onUpdateGroupRanking={handleUpdateGroupRanking}
-            onUpdateGroupNotes={handleUpdateGroupNotes}
-            onDatesChanged={handleDatesChanged}
-            onNotificationAdded={handleNotificationAdded}
-            onGroupUpdated={(updatedGroup) => setSelectedGroup(updatedGroup)}
+      {isMobile ? (
+        <>
+          <div className="mobile-group-selector">
+            <select
+              onChange={(e) => handleSelectGroup(e.target.value)}
+              value={selectedGroupId || ''}
+            >
+              <option value="">Selecciona un grupo...</option>
+              {groups.map((group) => (
+                <option key={group._id} value={group._id}>
+                  {group.name}
+                </option>
+              ))}
+            </select>
+            <button onClick={handleAddGroup}>+ Crear Grupo</button>
+          </div>
+          {selectedGroup && (
+            <GroupDetail
+              group={selectedGroup}
+              onAddMember={handleAddMember}
+              onRemoveMember={handleRemoveMember}
+              onUpdateGroupName={handleUpdateGroupName}
+              onUpdateGroupRanking={handleUpdateGroupRanking}
+              onUpdateGroupNotes={handleUpdateGroupNotes}
+              onDatesChanged={handleDatesChanged}
+              onNotificationAdded={handleNotificationAdded}
+              onGroupUpdated={(updatedGroup) => {
+                // 🧠 Actualizamos el estado individual y el listado completo
+                setSelectedGroup(updatedGroup);
+                setGroups(prev => prev.map(g => g._id === updatedGroup._id ? updatedGroup : g));
+              }}
+            />
+          )}
+        </>
+      ) : (
+        // Modo Desktop Normal
+        <div style={{ display: 'flex' }}>
+          <GroupList
+            groups={groups}
+            onSelectGroup={handleSelectGroup}
+            selectedGroupId={selectedGroupId}
+            onAddGroup={handleAddGroup}
           />
-        )}
-      </>
-    ) : (
-      // Modo Desktop Normal
-      <div style={{ display: 'flex' }}>
-        <GroupList
-          groups={groups}
-          onSelectGroup={handleSelectGroup}
-          selectedGroupId={selectedGroupId}
-          onAddGroup={handleAddGroup}
-        />
-        <div style={{ display: 'flex', marginLeft: '257px', width: '100%' }}>
-          <GroupDetail
-            group={selectedGroup}
-            onAddMember={handleAddMember}
-            onRemoveMember={handleRemoveMember}
-            onUpdateGroupName={handleUpdateGroupName}
-            onUpdateGroupRanking={handleUpdateGroupRanking}
-            onUpdateGroupNotes={handleUpdateGroupNotes}
-            onDatesChanged={handleDatesChanged}
-            onNotificationAdded={handleNotificationAdded}
-          />
+          <div style={{ display: 'flex', marginLeft: '257px', width: '100%' }}>
+            <GroupDetail
+              group={selectedGroup}
+              onAddMember={handleAddMember}
+              onRemoveMember={handleRemoveMember}
+              onUpdateGroupName={handleUpdateGroupName}
+              onUpdateGroupRanking={handleUpdateGroupRanking}
+              onUpdateGroupNotes={handleUpdateGroupNotes}
+              onDatesChanged={handleDatesChanged}
+              onNotificationAdded={handleNotificationAdded}
+              onGroupUpdated={(updatedGroup) => {
+                // 🧠 Actualizamos el estado individual y el listado completo
+                setSelectedGroup(updatedGroup);
+                setGroups(prev => prev.map(g => g._id === updatedGroup._id ? updatedGroup : g));
+              }}
+            />
+          </div>
+
         </div>
+      )}
 
- </div>
-    )}
+      <AddGroupModal
+        isOpen={isAddGroupModalOpen}
+        onClose={handleCloseAddGroup}
+        onSave={handleSaveGroup}
+      />
+      <AddMemberModal
+        isOpen={isAddMemberModalOpen}
+        onClose={handleCloseAddMemberModal}
+        groupId={selectedGroupId}
+        onMemberAdded={handleMemberAdded}
+      />
 
-        <AddGroupModal
-          isOpen={isAddGroupModalOpen}
-          onClose={handleCloseAddGroup}
-          onSave={handleSaveGroup}
-        />
-        <AddMemberModal
-          isOpen={isAddMemberModalOpen}
-          onClose={handleCloseAddMemberModal}
-          groupId={selectedGroupId}
-          onMemberAdded={handleMemberAdded}
-        />
+    </div>
 
-      </div>
-    
   );
 }
 
