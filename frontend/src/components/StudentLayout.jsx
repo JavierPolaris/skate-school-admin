@@ -25,6 +25,15 @@ function StudentLayout({ onLogout }) {
     }
   }, []);
 
+useEffect(() => {
+  const handleStorageUpdate = () => {
+    const updated = JSON.parse(localStorage.getItem('user'));
+    if (updated) setUserData(updated);
+  };
+
+  window.addEventListener('storage', handleStorageUpdate);
+  return () => window.removeEventListener('storage', handleStorageUpdate);
+}, []);
 
 
  useEffect(() => {

@@ -98,6 +98,7 @@ function ChangePassword() {
     const userData = JSON.parse(localStorage.getItem('userData'));
     const updatedUser = { ...userData, avatar: data.avatar };
     localStorage.setItem('userData', JSON.stringify(updatedUser));
+    window.dispatchEvent(new Event('storage'));
 
   } catch (err) {
     console.error(err);

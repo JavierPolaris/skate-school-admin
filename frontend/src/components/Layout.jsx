@@ -14,6 +14,11 @@ function Layout({ onLogout }) {
   const { isSidebarOpen, toggleSidebar, setSidebarOpen, closeSidebar } = useSidebar();
 
   useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem('userData'));
+    if (storedData) {
+      setUserData(storedData); // Actualiza si hay algo nuevo
+    }
+
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/');
@@ -33,6 +38,16 @@ function Layout({ onLogout }) {
         .catch(console.error);
     }
   }, [navigate, onLogout]);
+
+  useEffect(() => {
+    const handleStorageUpdate = () => {
+      const updated = JSON.parse(localStorage.getItem('userData'));
+      if (updated) setUserData(updated);
+    };
+
+    window.addEventListener('storage', handleStorageUpdate);
+    return () => window.removeEventListener('storage', handleStorageUpdate);
+  }, []);
 
 
 
@@ -82,63 +97,63 @@ function Layout({ onLogout }) {
 
   return (
     <>
-    <Header role="admin" onLogout={handleLogout} />
-    <div className="layout-container">
-      <aside className={`sidebar ${isSidebarOpen ? '' : 'hidden'}`}>
-        <div className="profile-section">
-          <img
-            src={
-              userData.avatar
-                ? `${API_URL}/users/avatar/${userData.avatar}`
-                : 'https://via.placeholder.com/50'
-            }
-            alt="Admin Avatar"
-            className="profile-avatar"
-          />
-          <div className="profile-role-container">
-            <p className="profile-role">Admin</p>
-            {userData.avatar && (
-              <button className="delete-avatar-button" onClick={handleDeleteAvatar}>Eliminar Avatar</button>
-            )}
+      <Header role="admin" onLogout={handleLogout} />
+      <div className="layout-container">
+        <aside className={`sidebar ${isSidebarOpen ? '' : 'hidden'}`}>
+          <div className="profile-section">
+            <img
+              src={
+                userData.avatar
+                  ? `${API_URL}/users/avatar/${userData.avatar}`
+                  : 'https://via.placeholder.com/50'
+              }
+              alt="Admin Avatar"
+              className="profile-avatar"
+            />
+            <div className="profile-role-container">
+              <p className="profile-role">Admin</p>
+              {userData.avatar && (
+                <button className="delete-avatar-button" onClick={handleDeleteAvatar}>Eliminar Avatar</button>
+              )}
+            </div>
+            <div className="profile-info">
+              <p className="profile-name">{userData.name}</p>
+            </div>
           </div>
-          <div className="profile-info">
-            <p className="profile-name">{userData.name}</p>
+          <div className="sidebar-content">
+            <nav>
+              <ul className="menu">
+                {/* Aquí no cambio nada, tus enlaces ya están correctos */}
+                {[
+                  { path: '/app', icon: <MdDashboard size={20} />, label: 'Dashboard' },
+                  { path: '/app/groups', icon: <MdGroups size={20} />, label: 'Grupos' },
+                  { path: '/app/students', icon: <MdPerson size={20} />, label: 'Alumnos' },
+                  { path: '/app/events', icon: <MdEvent size={20} />, label: 'Eventos' },
+                  { path: '/app/tricks', icon: <MdOutlineSkateboarding size={20} />, label: 'Trucos' },
+                  { path: '/app/discounts', icon: <MdDiscount size={20} />, label: 'Descuentos' },
+                  { path: '/app/payments', icon: <MdAttachMoney size={20} />, label: 'Pagos' },
+                  { path: '/app/requests', icon: <MdMessage size={20} />, label: 'Messages' },
+                  { path: '/app/change-password', icon: <MdSettings size={20} />, label: 'Settings' },
+                ].map(({ path, icon, label }) => (
+                  <li key={path}>
+                    <Link to={path} className={activeMenu === path ? 'active-menu' : ''} onClick={() => handleMenuClick(path)}>
+                      {icon} {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <button className="website-button" onClick={() => window.open('https://www.kedekids.com/', '_blank')}>
+              🌐 Website
+            </button>
           </div>
-        </div>
-        <div className="sidebar-content">
-          <nav>
-            <ul className="menu">
-              {/* Aquí no cambio nada, tus enlaces ya están correctos */}
-              {[
-                { path: '/app', icon: <MdDashboard size={20} />, label: 'Dashboard' },
-                { path: '/app/groups', icon: <MdGroups size={20} />, label: 'Grupos' },
-                { path: '/app/students', icon: <MdPerson size={20} />, label: 'Alumnos' },
-                { path: '/app/events', icon: <MdEvent size={20} />, label: 'Eventos' },
-                { path: '/app/tricks', icon: <MdOutlineSkateboarding size={20} />, label: 'Trucos' },
-                { path: '/app/discounts', icon: <MdDiscount size={20} />, label: 'Descuentos' },
-                { path: '/app/payments', icon: <MdAttachMoney size={20} />, label: 'Pagos' },
-                { path: '/app/requests', icon: <MdMessage size={20} />, label: 'Messages' },
-                { path: '/app/change-password', icon: <MdSettings size={20} />, label: 'Settings' },
-              ].map(({ path, icon, label }) => (
-                <li key={path}>
-                  <Link to={path} className={activeMenu === path ? 'active-menu' : ''} onClick={() => handleMenuClick(path)}>
-                    {icon} {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <button className="website-button" onClick={() => window.open('https://www.kedekids.com/', '_blank')}>
-            🌐 Website
-          </button>
-        </div>
-      </aside>
-      <main className="main-content">
-        <div className="page-content">
-          <Outlet />
-        </div>
-      </main>
-    </div>
+        </aside>
+        <main className="main-content">
+          <div className="page-content">
+            <Outlet />
+          </div>
+        </main>
+      </div>
     </>
   );
 }
