@@ -85,7 +85,7 @@ function StudentsPage() {
   const handleUpdateStudent = () => {
     console.log('Actualizando alumno con ID:', editStudent._id);  // Verifica el ID del alumno
 
-    fetch(`${API_URL}/api/users/students/${editStudent._id}`, {
+    fetch(`${API_URL}/users/students/${editStudent._id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(editStudent),  // Incluye el nuevo método de pago aquí
