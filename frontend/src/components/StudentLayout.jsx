@@ -74,10 +74,17 @@ function StudentLayout({ onLogout }) {
         <aside className={`sidebar ${isSidebarOpen ? '' : 'hidden'}`}>
           <div className="profile-section">
             <img
-              src={userData.avatar ? userData.avatar : 'https://via.placeholder.com/50'}
+              src={
+                userData.avatar
+                  ? userData.avatar.startsWith('http')
+                    ? userData.avatar
+                    : `${API_URL}/api/users/avatar/${userData.avatar}`
+                  : 'https://via.placeholder.com/50'
+              }
               alt="Avatar"
               className="profile-avatar"
             />
+
             <div className="profile-role-container">
               <p className="profile-role">Alumno</p>
             </div>
