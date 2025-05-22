@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './InstallPrompt.css';
 
 const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
