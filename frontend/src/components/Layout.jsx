@@ -106,9 +106,10 @@ function Layout({ onLogout }) {
           <div className="profile-section">
             <img
               src={
-                userData.avatar
-                  ? `${API_URL}/users/avatar/${userData.avatar}`
+                userData.avatar && userData.avatar.trim() !== ''
+                  ? `${API_URL}/users/avatar/${userData.avatar}?t=${Date.now()}`
                   : 'https://via.placeholder.com/50'
+
               }
               alt="Admin Avatar"
               className="profile-avatar"

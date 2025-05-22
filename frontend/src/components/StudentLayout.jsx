@@ -12,7 +12,7 @@ function StudentLayout({ onLogout }) {
   const location = useLocation();
   const [userData, setUserData] = useState({ name: '', avatar: '' });
   const [activeMenu, setActiveMenu] = useState(location.pathname);
-   const { isSidebarOpen, toggleSidebar, setSidebarOpen, closeSidebar } = useSidebar();
+  const { isSidebarOpen, toggleSidebar, setSidebarOpen, closeSidebar } = useSidebar();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -25,21 +25,21 @@ function StudentLayout({ onLogout }) {
     }
   }, []);
 
-useEffect(() => {
-  const handleStorageUpdate = () => {
-    const key = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
-    const storedUser = JSON.parse(localStorage.getItem(key));
-    if (storedUser) {
-      setUserData(storedUser);
-    }
-  };
+  useEffect(() => {
+    const handleStorageUpdate = () => {
+      const key = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+      const storedUser = JSON.parse(localStorage.getItem(key));
+      if (storedUser) {
+        setUserData(storedUser);
+      }
+    };
 
-  window.addEventListener('storage', handleStorageUpdate);
-  return () => window.removeEventListener('storage', handleStorageUpdate);
-}, []);
+    window.addEventListener('storage', handleStorageUpdate);
+    return () => window.removeEventListener('storage', handleStorageUpdate);
+  }, []);
 
 
- useEffect(() => {
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
         setSidebarOpen(true); // 👉 Siempre visible en desktop
@@ -68,69 +68,70 @@ useEffect(() => {
   };
 
   return (
-     <>
-    <Header role="student" onLogout={handleLogout} />
-    <div className="layout-container">
-      <aside className={`sidebar ${isSidebarOpen ? '' : 'hidden'}`}>
-        <div className="profile-section">
-          <img
-            src={
-              userData.avatar
-                ? `${API_URL}/users/avatar/${userData.avatar}`
-                : 'https://via.placeholder.com/50'
-            }
-            alt="Avatar"
-            className="profile-avatar"
-          />
-          <div className="profile-role-container">
-            <p className="profile-role">Alumno</p>
+    <>
+      <Header role="student" onLogout={handleLogout} />
+      <div className="layout-container">
+        <aside className={`sidebar ${isSidebarOpen ? '' : 'hidden'}`}>
+          <div className="profile-section">
+            <img
+              src={
+                userData.avatar && userData.avatar.trim() !== ''
+                  ? `${API_URL}/users/avatar/${userData.avatar}?t=${Date.now()}`
+                  : 'https://via.placeholder.com/50'
+
+              }
+              alt="Avatar"
+              className="profile-avatar"
+            />
+            <div className="profile-role-container">
+              <p className="profile-role">Alumno</p>
+            </div>
+            <div className="profile-info">
+              <p className="profile-name">{userData.name}</p>
+            </div>
           </div>
-          <div className="profile-info">
-            <p className="profile-name">{userData.name}</p>
+          <div className="sidebar-content">
+            <nav>
+              <ul className="menu">
+                <li>
+                  <Link to="/student" className={activeMenu === '/student-dashboard' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-dashboard')}>
+                    <MdDashboard size={20} /> Dashboard
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/student/student-classes" className={activeMenu === '/student-classes' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-classes')}>
+                    <MdGroup size={20} /> Clases
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/student/student-tricks" className={activeMenu === '/student-tricks' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-tricks')}>
+                    <MdOutlineSkateboarding size={20} /> Trucos
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/student/student-payments" className={activeMenu === '/student-payments' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-payments')}>
+                    <MdPayment size={20} /> Pagos
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/student/change-password" className={activeMenu === '/change-password' ? 'active-menu' : ''} onClick={() => handleMenuClick('/change-password')}>
+                    <MdLock size={20} /> Contraseña
+                  </Link>
+                </li>
+                <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
+                  <MdLogout size={20} /> Cerrar Sesión
+                </li>
+              </ul>
+            </nav>
+            <button className="website-button" onClick={() => window.open('https://www.kedekids.com/', '_blank')}>
+              🌐 Website
+            </button>
           </div>
-        </div>
-        <div className="sidebar-content">
-        <nav>
-          <ul className="menu">
-            <li>
-              <Link to="/student" className={activeMenu === '/student-dashboard' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-dashboard')}>
-                <MdDashboard size={20} /> Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link to="/student/student-classes" className={activeMenu === '/student-classes' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-classes')}>
-                <MdGroup size={20} /> Clases
-              </Link>
-            </li>
-            <li>
-              <Link to="/student/student-tricks" className={activeMenu === '/student-tricks' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-tricks')}>
-                <MdOutlineSkateboarding size={20} /> Trucos
-              </Link>
-            </li>
-            <li>
-              <Link to="/student/student-payments" className={activeMenu === '/student-payments' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-payments')}>
-                <MdPayment size={20} /> Pagos
-              </Link>
-            </li>
-            <li>
-              <Link to="/student/change-password" className={activeMenu === '/change-password' ? 'active-menu' : ''} onClick={() => handleMenuClick('/change-password')}>
-                <MdLock size={20} /> Contraseña
-              </Link>
-            </li>
-            <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
-              <MdLogout size={20} /> Cerrar Sesión
-            </li>
-          </ul>
-        </nav>
-        <button className="website-button" onClick={() => window.open('https://www.kedekids.com/', '_blank')}>
-          🌐 Website
-        </button>
-        </div>
-      </aside>
-      <main className="main-content">
-        <Outlet />
-      </main>
-    </div>
+        </aside>
+        <main className="main-content">
+          <Outlet />
+        </main>
+      </div>
     </>
   );
 }

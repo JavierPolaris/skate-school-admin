@@ -123,10 +123,11 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
       <h2 className="group-header">
         <div className="group-info-line">
           <img
-            src={group.avatar ? `${API_URL}/groups/avatar/${group.avatar}` : '/placeholder.png'}
+            src={group.avatar ? `${API_URL}/groups/avatar/${group.avatar}?t=${Date.now()}` : '/placeholder.png'}
             alt="avatar"
             className="group-avatar"
           />
+
           {editingName ? (
             <>
               <input type="text" value={tempName} onChange={handleNameChange} />
