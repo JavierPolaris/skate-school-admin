@@ -170,7 +170,7 @@ const Dashboard = () => {
                   <td>{group.members.length} alumnos</td>
                   <td>
                     <img
-                      src={group.avatar ? `${API_URL}/groups/avatar/${group.avatar}` : '/placeholder.png'}
+                      src={group.avatar ? group.avatar : '/placeholder.png'}
                       alt="avatar"
                       className="group-avatar"
                     />
