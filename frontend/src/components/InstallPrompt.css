@@ -34,9 +34,12 @@
 }
 
 .pwa-modal {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  text-align: center;
+ background: #1e1e2f;
+    color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
