@@ -4,6 +4,7 @@ const Group = require('../models/Group');
 const User = require('../models/User');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs');
 
 // Configuración de multer para almacenar archivos en una carpeta 'uploads'
 const storage = multer.diskStorage({
