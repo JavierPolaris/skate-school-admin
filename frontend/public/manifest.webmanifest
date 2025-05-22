@@ -1,6 +1,6 @@
 {
-  "name": "Skate School",
-  "short_name": "SkateApp",
+  "name": "KedeKids School",
+  "short_name": "KedeKidsAPP",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
