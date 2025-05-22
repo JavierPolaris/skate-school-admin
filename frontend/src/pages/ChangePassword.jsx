@@ -45,33 +45,33 @@ function ChangePassword() {
   };
 
   const handleChangePassword = async () => {
-  const token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
 
-  try {
-    const res = await fetch(`${API_URL}/users/change-password`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify({ oldPassword, newPassword }),
-    });
+    try {
+      const res = await fetch(`${API_URL}/users/change-password`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ oldPassword, newPassword }),
+      });
 
-    if (!res.ok) throw new Error('Error al cambiar la contraseña');
-    const data = await res.json();
-    setMessage(data.message || 'Contraseña actualizada con éxito');
-    setOldPassword('');
-    setNewPassword('');
-  } catch (err) {
-    console.error(err);
-    setMessage('Error al cambiar la contraseña');
-  }
-};
+      if (!res.ok) throw new Error('Error al cambiar la contraseña');
+      const data = await res.json();
+      setMessage(data.message || 'Contraseña actualizada con éxito');
+      setOldPassword('');
+      setNewPassword('');
+    } catch (err) {
+      console.error(err);
+      setMessage('Error al cambiar la contraseña');
+    }
+  };
 
   const handleAvatarChange = (e) => setAvatar(e.target.files[0]);
-  const handleUploadAvatar = async () => {
+const handleUploadAvatar = async () => {
   if (!avatar) {
-    setMessage('Selecciona un archivo primero');
+    setMessage('Por favor, selecciona una imagen primero.');
     return;
   }
 
@@ -81,7 +81,7 @@ function ChangePassword() {
   const token = localStorage.getItem('token');
 
   try {
-    const res = await fetch(`${API_URL}/users/upload-avatar`, {
+    const response = await fetch(`${API_URL}/users/upload-avatar`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -89,22 +89,26 @@ function ChangePassword() {
       body: formData,
     });
 
-    if (!res.ok) throw new Error('Fallo al subir el avatar');
+    if (!response.ok) throw new Error('Error al subir el avatar');
 
-    const data = await res.json();
-    setMessage('Avatar actualizado con éxito');
+    const data = await response.json();
 
-    // Actualizar localStorage y refrescar visualmente si hiciera falta
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    const updatedUser = { ...userData, avatar: data.avatar };
-    localStorage.setItem('userData', JSON.stringify(updatedUser));
+    // 🔄 Actualizamos el localStorage
+    const userKey = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+    const currentUser = JSON.parse(localStorage.getItem(userKey));
+    const updatedUser = { ...currentUser, avatar: data.avatar };
+    localStorage.setItem(userKey, JSON.stringify(updatedUser));
+
+    // 🔁 Lanzamos evento para que los layouts escuchen el cambio
     window.dispatchEvent(new Event('storage'));
 
-  } catch (err) {
-    console.error(err);
+    setMessage('Avatar actualizado correctamente');
+  } catch (error) {
+    console.error(error);
     setMessage('Error al subir el avatar');
   }
 };
+
 
 
   return (

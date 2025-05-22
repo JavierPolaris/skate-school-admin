@@ -38,16 +38,19 @@ function Layout({ onLogout }) {
         .catch(console.error);
     }
   }, [navigate, onLogout]);
-
   useEffect(() => {
     const handleStorageUpdate = () => {
-      const updated = JSON.parse(localStorage.getItem('userData'));
-      if (updated) setUserData(updated);
+      const key = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+      const storedUser = JSON.parse(localStorage.getItem(key));
+      if (storedUser) {
+        setUserData(storedUser);
+      }
     };
 
     window.addEventListener('storage', handleStorageUpdate);
     return () => window.removeEventListener('storage', handleStorageUpdate);
   }, []);
+
 
 
 

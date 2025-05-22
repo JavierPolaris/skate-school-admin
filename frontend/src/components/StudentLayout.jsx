@@ -27,8 +27,11 @@ function StudentLayout({ onLogout }) {
 
 useEffect(() => {
   const handleStorageUpdate = () => {
-    const updated = JSON.parse(localStorage.getItem('user'));
-    if (updated) setUserData(updated);
+    const key = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+    const storedUser = JSON.parse(localStorage.getItem(key));
+    if (storedUser) {
+      setUserData(storedUser);
+    }
   };
 
   window.addEventListener('storage', handleStorageUpdate);
