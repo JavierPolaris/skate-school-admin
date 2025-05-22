@@ -84,12 +84,18 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
       body: formData,
     })
       .then((res) => res.json())
-      .then(() => setUploadingAvatar(false))
+      .then((updatedGroup) => {
+        setUploadingAvatar(false);
+        if (typeof onGroupUpdated === 'function') {
+          onGroupUpdated(updatedGroup); // 💥 forzamos la actualización del grupo desde el padre
+        }
+      })
       .catch((err) => {
         console.error(err);
         setUploadingAvatar(false);
       });
   };
+
 
   // ✅ AQUÍ la función que guarda las fechas y lugares en la BBDD
   const handleDatesChanged = (datesArray) => {

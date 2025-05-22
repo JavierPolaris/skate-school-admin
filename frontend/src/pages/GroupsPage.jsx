@@ -232,6 +232,7 @@ const isMobile = window.innerWidth <= 768;
             onUpdateGroupNotes={handleUpdateGroupNotes}
             onDatesChanged={handleDatesChanged}
             onNotificationAdded={handleNotificationAdded}
+            onGroupUpdated={(updatedGroup) => setSelectedGroup(updatedGroup)}
           />
         )}
       </>
