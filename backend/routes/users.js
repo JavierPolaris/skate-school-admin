@@ -12,6 +12,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const PaymentHistory = require('../models/PaymentHistory');
+const cloudinary = require('../utils/cloudinary');
 
 // Login de administrador
 router.post('/login', async (req, res) => {
@@ -566,23 +567,23 @@ router.post('/upload-avatar', authMiddleware, upload.single('avatar'), async (re
   try {
     const user = req.user;
 
-    // Verificar si existe un avatar anterior y eliminarlo
-    if (user.avatar) {
-      const avatarPath = path.join(__dirname, `../uploads/avatars/${user.avatar}`);
-      if (fs.existsSync(avatarPath)) {
-        fs.unlinkSync(avatarPath);
-      } else {
-        console.warn(`El avatar anterior no existe en la ruta: ${avatarPath}`);
-      }
-    }
+    // Si tenía avatar anterior en Cloudinary, podrías eliminarlo si guardas el `public_id`
+    // Por ahora solo subimos el nuevo y sobreescribimos la URL
 
-    // Guardar el nuevo avatar
-    user.avatar = req.file.filename;
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'avatars-users',
+    });
+
+    // Elimina archivo temporal
+    fs.unlinkSync(req.file.path);
+
+    // Guarda la URL de Cloudinary en el campo `avatar`
+    user.avatar = result.secure_url;
     await user.save();
 
     res.json({ message: 'Avatar actualizado con éxito', avatar: user.avatar });
   } catch (err) {
-    console.error('Error al subir el avatar:', err);
+    console.error('Error al subir el avatar a Cloudinary:', err);
     res.status(500).json({ error: 'Error al subir el avatar' });
   }
 });

@@ -105,13 +105,8 @@ function Layout({ onLogout }) {
         <aside className={`sidebar ${isSidebarOpen ? '' : 'hidden'}`}>
           <div className="profile-section">
             <img
-              src={
-                userData.avatar && userData.avatar.trim() !== ''
-                  ? `${API_URL}/users/avatar/${userData.avatar}?t=${Date.now()}`
-                  : 'https://via.placeholder.com/50'
-
-              }
-              alt="Admin Avatar"
+              src={userData.avatar ? userData.avatar : 'https://via.placeholder.com/50'}
+              alt="Avatar"
               className="profile-avatar"
             />
             <div className="profile-role-container">
