@@ -37,25 +37,25 @@ router.get('/upcoming-classes/:groupId', async (req, res) => {
     if (!group) return res.status(404).json({ error: 'Grupo no encontrado' });
 
     const today = new Date();
-const twoWeeksLater = new Date();
-twoWeeksLater.setDate(today.getDate() + 14);
+    const twoWeeksLater = new Date();
+    twoWeeksLater.setDate(today.getDate() + 14);
 
-const upcomingClasses = group.scheduledDates
-  .filter(({ date }) => {
-    const classDate = new Date(date);
-    return classDate >= today && classDate <= twoWeeksLater;
-  })
- .sort((a, b) => new Date(a.date) - new Date(b.date))
+    const upcomingClasses = group.scheduledDates
+      .filter(({ date }) => {
+        const classDate = new Date(date);
+        return classDate >= today && classDate <= twoWeeksLater;
+      })
+      .sort((a, b) => new Date(a.date) - new Date(b.date))
       .slice(0, 5) // Máximo 5 clases, opcional
-     .map(({ date, startTime, endTime, place }) => ({
-  date,
-  startTime,
-  endTime,
-  place: (place !== undefined && place !== null && place.trim() !== '') ? place : 'Skate park Bola de Oro',
-}));
+      .map(({ date, startTime, endTime, place }) => ({
+        date,
+        startTime,
+        endTime,
+        place: (place !== undefined && place !== null && place.trim() !== '') ? place : 'Skate park Bola de Oro',
+      }));
 
 
-res.json(upcomingClasses);
+    res.json(upcomingClasses);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Error al obtener las próximas clases del grupo' });
@@ -78,47 +78,47 @@ router.post('/', async (req, res) => {
 
 // Obtener un grupo por ID y poblar sus miembros
 router.get('/:id', async (req, res) => {
-    try {
-      const group = await Group.findById(req.params.id).populate('members');
-      if (!group) return res.status(404).json({ error: 'Grupo no encontrado' });
-      res.json(group);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Error al obtener el grupo' });
-    }
-  });
+  try {
+    const group = await Group.findById(req.params.id).populate('members');
+    if (!group) return res.status(404).json({ error: 'Grupo no encontrado' });
+    res.json(group);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener el grupo' });
+  }
+});
 
 // Actualizar un grupo
 router.put('/:id', async (req, res) => {
-    const { name, scheduledDates, ranking, previousRanking, tricks  } = req.body;
-    let updateFields = {};
-    if (name) updateFields.name = name;
-    if (scheduledDates) {
-  updateFields.scheduledDates = scheduledDates.map(d => ({
-    date: d.date,
-    startTime: d.startTime,
-    endTime: d.endTime,
-    place: d.place || 'Skate park Bola de Oro', // Predefinido si no se indica
-  }));
-}
-    if (ranking !== undefined) updateFields.ranking = ranking;
-    if (previousRanking !== undefined) updateFields.previousRanking = previousRanking;
-    if (tricks !== undefined) updateFields.tricks = tricks;
+  const { name, scheduledDates, ranking, previousRanking, tricks } = req.body;
+  let updateFields = {};
+  if (name) updateFields.name = name;
+  if (scheduledDates) {
+    updateFields.scheduledDates = scheduledDates.map(d => ({
+      date: d.date,
+      startTime: d.startTime,
+      endTime: d.endTime,
+      place: d.place || 'Skate park Bola de Oro', // Predefinido si no se indica
+    }));
+  }
+  if (ranking !== undefined) updateFields.ranking = ranking;
+  if (previousRanking !== undefined) updateFields.previousRanking = previousRanking;
+  if (tricks !== undefined) updateFields.tricks = tricks;
 
-    try {
-      const updatedGroup = await Group.findByIdAndUpdate(
-        req.params.id,
-        updateFields,
-        { new: true }
-      ).populate('members');
-      if (!updatedGroup) return res.status(404).json({ error: 'Grupo no encontrado' });
-      res.json(updatedGroup);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Error al actualizar el grupo' });
-    }
-  });
-  
+  try {
+    const updatedGroup = await Group.findByIdAndUpdate(
+      req.params.id,
+      updateFields,
+      { new: true }
+    ).populate('members');
+    if (!updatedGroup) return res.status(404).json({ error: 'Grupo no encontrado' });
+    res.json(updatedGroup);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al actualizar el grupo' });
+  }
+});
+
 
 // Eliminar un grupo
 router.delete('/:id', async (req, res) => {
@@ -180,24 +180,24 @@ router.put('/:id/removeMember', async (req, res) => {
   }
 });
 
-  
-  // POST /api/groups/:id/notifications
+
+// POST /api/groups/:id/notifications
 router.post('/:id/notifications', async (req, res) => {
-    try {
-      const { message } = req.body;
-      const group = await Group.findById(req.params.id);
-      if (!group) return res.status(404).json({ error: 'Grupo no encontrado' });
-  
-      group.notifications.push({ message });
-      await group.save();
-      // Opcional: populate members si necesitas
-      res.json(group);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ error: 'Error al agregar notificación' });
-    }
-  });
-  
+  try {
+    const { message } = req.body;
+    const group = await Group.findById(req.params.id);
+    if (!group) return res.status(404).json({ error: 'Grupo no encontrado' });
+
+    group.notifications.push({ message });
+    await group.save();
+    // Opcional: populate members si necesitas
+    res.json(group);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al agregar notificación' });
+  }
+});
+
 
 module.exports = router;
 
@@ -207,15 +207,13 @@ router.put('/:id/avatar', upload.single('avatar'), async (req, res) => {
   try {
     // Aquí puedes, si lo deseas, subir el archivo a un servicio en la nube.
     // En este ejemplo, usamos la URL local:
-    const baseUrl = process.env.BASE_URL || 'http://localhost:5000';
-const avatarUrl = `${baseUrl}/uploads/${req.file.filename}`;
-
-
+    const filename = req.file.filename;
     const updatedGroup = await Group.findByIdAndUpdate(
       req.params.id,
-      { avatar: avatarUrl },
+      { avatar: filename }, // ✅ guardamos solo el nombre
       { new: true }
-    ).populate('members');
+    );
+
 
     if (!updatedGroup) return res.status(404).json({ error: 'Grupo no encontrado' });
     res.json(updatedGroup);
@@ -223,4 +221,13 @@ const avatarUrl = `${baseUrl}/uploads/${req.file.filename}`;
     console.error(err);
     res.status(500).json({ error: 'Error al actualizar el avatar' });
   }
+});
+
+// Ruta para servir los avatares de grupo
+router.get('/avatar/:filename', (req, res) => {
+  const filePath = path.join(__dirname, '../uploads', req.params.filename);
+  if (!fs.existsSync(filePath)) {
+    return res.status(404).json({ error: 'Avatar de grupo no encontrado' });
+  }
+  res.sendFile(filePath);
 });

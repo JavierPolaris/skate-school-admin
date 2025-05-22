@@ -22,17 +22,17 @@ const Dashboard = () => {
   const [topTrick, setTopTrick] = useState(null);
   const chartRef = useRef(null);
 
-const [currentPage, setCurrentPage] = useState(1);
-const groupsPerPage = 5;
+  const [currentPage, setCurrentPage] = useState(1);
+  const groupsPerPage = 5;
 
-const indexOfLastGroup = currentPage * groupsPerPage;
-const indexOfFirstGroup = indexOfLastGroup - groupsPerPage;
-const currentGroups = groupList.slice(indexOfFirstGroup, indexOfLastGroup);
-const totalPages = Math.ceil(groupList.length / groupsPerPage);
+  const indexOfLastGroup = currentPage * groupsPerPage;
+  const indexOfFirstGroup = indexOfLastGroup - groupsPerPage;
+  const currentGroups = groupList.slice(indexOfFirstGroup, indexOfLastGroup);
+  const totalPages = Math.ceil(groupList.length / groupsPerPage);
 
-const handlePageChange = (page) => {
-  if (page > 0 && page <= totalPages) setCurrentPage(page);
-};
+  const handlePageChange = (page) => {
+    if (page > 0 && page <= totalPages) setCurrentPage(page);
+  };
 
 
   const getGradient = (ctx, area) => {
@@ -82,7 +82,7 @@ const handlePageChange = (page) => {
   };
 
   useEffect(() => {
-    axios.get(`${API_URL}/users/students`)	
+    axios.get(`${API_URL}/users/students`)
       .then((response) => {
         setStudents(response.data.length);
       })
@@ -115,17 +115,17 @@ const handlePageChange = (page) => {
   }, []);
 
   const extractYouTubeId = (url) => {
-  if (!url) return '';
-  const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
-  const match = url.match(regex);
-  return match ? match[1] : '';
-};
+    if (!url) return '';
+    const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/;
+    const match = url.match(regex);
+    return match ? match[1] : '';
+  };
 
 
 
   return (
     <div className="dashboard-container">
-      
+
 
       <div className="dashboard-stats">
         <div className="stats-container">
@@ -158,58 +158,62 @@ const handlePageChange = (page) => {
         <div className="groups-table-container">
           <table className="groups-table">
 
-<tbody>
-  {currentGroups.map((group) => (
-    <tr key={group._id}>
-      <td>
-        <div className="group-info">
-          <img src={Cours} alt="avatar" />
-          <span>{group.name}</span>
-        </div>
-      </td>
-      <td>{group.members.length} alumnos</td>
-      <td>
-        <img src={group.avatar || '/placeholder.png'} alt="avatar" className="group-avatar" />
-      </td>
-      <td><span className="group-ranking">#{group.ranking}</span></td>
-      <td>
-        {group.previousRanking === undefined ? (
-          <span>-</span>
-        ) : group.ranking < group.previousRanking ? (
-          <span className="arrow-up" style={{ color: '#00ff7f' }}>↑</span>
-        ) : group.ranking === group.previousRanking ? (
-          <span className="arrow-equal" style={{ color: '#ff9b00' }}>=</span>
-        ) : (
-          <span className="arrow-down" style={{ color: '#ff4c4c' }}>↓</span>
-        )}
-      </td>
-      <td>
-        <TruncatedText
-          text={group.tricks}
-          maxLines={2}
-          maxWidth="200px"
-        />
-      </td>
-    </tr>
-  ))}
-</tbody>
+            <tbody>
+              {currentGroups.map((group) => (
+                <tr key={group._id}>
+                  <td>
+                    <div className="group-info">
+                      <img src={Cours} alt="avatar" />
+                      <span>{group.name}</span>
+                    </div>
+                  </td>
+                  <td>{group.members.length} alumnos</td>
+                  <td>
+                    <img
+                      src={group.avatar ? `${API_URL}/groups/avatar/${group.avatar}` : '/placeholder.png'}
+                      alt="avatar"
+                      className="group-avatar"
+                    />
+                  </td>
+                  <td><span className="group-ranking">#{group.ranking}</span></td>
+                  <td>
+                    {group.previousRanking === undefined ? (
+                      <span>-</span>
+                    ) : group.ranking < group.previousRanking ? (
+                      <span className="arrow-up" style={{ color: '#00ff7f' }}>↑</span>
+                    ) : group.ranking === group.previousRanking ? (
+                      <span className="arrow-equal" style={{ color: '#ff9b00' }}>=</span>
+                    ) : (
+                      <span className="arrow-down" style={{ color: '#ff4c4c' }}>↓</span>
+                    )}
+                  </td>
+                  <td>
+                    <TruncatedText
+                      text={group.tricks}
+                      maxLines={2}
+                      maxWidth="200px"
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
 
           </table>
           <div className="pagination">
-  <button 
-    onClick={() => handlePageChange(currentPage - 1)} 
-    disabled={currentPage === 1}
-  >
-    Anterior
-  </button>
-  <span>Página {currentPage} de {totalPages}</span>
-  <button 
-    onClick={() => handlePageChange(currentPage + 1)} 
-    disabled={currentPage === totalPages}
-  >
-    Siguiente
-  </button>
-</div>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            <span>Página {currentPage} de {totalPages}</span>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Siguiente
+            </button>
+          </div>
 
         </div>
 
@@ -226,7 +230,7 @@ const handlePageChange = (page) => {
           {topTrick ? (
             <div className="most-viewed-trick">
               <h4>{topTrick.name}</h4>
-              
+
               <div className="video-wrapper">
                 <iframe
                   width="100%"

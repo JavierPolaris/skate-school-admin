@@ -117,8 +117,8 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
       <h2 className="group-header">
         <div className="group-info-line">
           <img
-            src={group.avatar || '/default-avatar.png'}
-            alt="Group Avatar"
+            src={group.avatar ? `${API_URL}/groups/avatar/${group.avatar}` : '/placeholder.png'}
+            alt="avatar"
             className="group-avatar"
           />
           {editingName ? (
@@ -146,7 +146,7 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
                   <span style={{ marginInline: '10px', fontSize: '16px', color: '#ff9b00' }}>
                     #{group.ranking}
                   </span>
-                  
+
                   <button onClick={handleEditRanking} style={{ marginLeft: '5px', fontSize: '0.9rem', padding: '5px 20px' }}>
                     Editar Ranking
                   </button>
@@ -210,13 +210,13 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
               group.members.map((member) => (
                 <li key={member._id}>
                   {member.name} - {member.email}
-                 <button 
-  className="remove-member-button" 
-  onClick={() => onRemoveMember(member._id)}
->
-  <span className="text">Eliminar</span>
-  <span className="icon">✖</span>
-</button>
+                  <button
+                    className="remove-member-button"
+                    onClick={() => onRemoveMember(member._id)}
+                  >
+                    <span className="text">Eliminar</span>
+                    <span className="icon">✖</span>
+                  </button>
                 </li>
               ))
             ) : (
