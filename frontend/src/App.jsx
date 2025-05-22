@@ -50,12 +50,21 @@ function App() {
     document.body.classList.toggle('student-mode', storedUser.role === 'student');
   }, [token]);
 
+  // 👉 REGISTRO DEL SERVICE WORKER PARA PWA
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/service-worker.js')
+        .then(reg => console.log('✅ Service Worker registrado:', reg))
+        .catch(err => console.error('❌ Error al registrar Service Worker:', err));
+    }
+  }, []);
+
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage onLogin={handleLogin} />} />
 
-        {/* Admin Area */}
         <Route
           path="/app/*"
           element={
@@ -75,7 +84,6 @@ function App() {
           <Route path="change-password" element={<ChangePassword />} />
         </Route>
 
-        {/* Student Area */}
         <Route
           path="/student/*"
           element={
