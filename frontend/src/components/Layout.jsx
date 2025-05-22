@@ -85,7 +85,7 @@ function Layout({ onLogout }) {
   const handleDeleteAvatar = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`${API_URL}/api/users/avatar`, {
+      const response = await fetch(`${API_URL}/users/avatar`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -109,7 +109,7 @@ function Layout({ onLogout }) {
                 userData.avatar
                   ? userData.avatar.startsWith('http')
                     ? userData.avatar
-                    : `${API_URL}/api/users/avatar/${userData.avatar}`
+                    : `${API_URL}/users/avatar/${userData.avatar}`
                   : 'https://via.placeholder.com/50'
               }
               alt="Avatar"

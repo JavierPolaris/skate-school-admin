@@ -78,7 +78,7 @@ function StudentLayout({ onLogout }) {
                 userData.avatar
                   ? userData.avatar.startsWith('http')
                     ? userData.avatar
-                    : `${API_URL}/api/users/avatar/${userData.avatar}`
+                    : `${API_URL}/users/avatar/${userData.avatar}`
                   : 'https://via.placeholder.com/50'
               }
               alt="Avatar"
