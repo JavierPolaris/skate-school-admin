@@ -17,11 +17,11 @@ function StudentClasses() {
       setUser(storedUser);
 
       if (storedUser.groupId) {
-        fetch(`${API_URL}/api/groups/${storedUser.groupId._id}`)
+        fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(group => setGroupDetails(group));
 
-        fetch(`${API_URL}/api/groups/upcoming-classes/${storedUser.groupId._id}`)
+        fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(data => setUpcomingClasses(data));
       }
