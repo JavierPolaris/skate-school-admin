@@ -27,7 +27,7 @@ function StudentTricks() {
     }, []);
 
     const handleMarkAsDone = (trickId) => {
-        fetch(`${API_URL}/api/tricks/mark-done`, {
+        fetch(`${API_URL}/tricks/mark-done`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: user.id, trickId }),
@@ -44,7 +44,7 @@ function StudentTricks() {
     };
 
     const handleLike = (trickId) => {
-        fetch(`${API_URL}/api/tricks/like`, {
+        fetch(`${API_URL}/tricks/like`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ userId: user._id, trickId }),
@@ -59,7 +59,7 @@ function StudentTricks() {
     };
 
     const handleView = (trickId) => {
-        fetch(`${API_URL}/api/tricks/view`, {
+        fetch(`${API_URL}/tricks/view`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ trickId }),
