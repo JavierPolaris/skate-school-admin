@@ -5,6 +5,7 @@ const User = require('../models/User');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const cloudinary = require('../utils/cloudinary');
 
 // Configuración de multer para almacenar archivos en una carpeta 'uploads'
 const storage = multer.diskStorage({
@@ -206,15 +207,18 @@ module.exports = router;
 // Ruta para actualizar el avatar del grupo
 router.put('/:id/avatar', upload.single('avatar'), async (req, res) => {
   try {
-    // Aquí puedes, si lo deseas, subir el archivo a un servicio en la nube.
-    // En este ejemplo, usamos la URL local:
-    const filename = req.file.filename;
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'avatars-groups',
+    });
+
+    // Eliminar archivo temporal del servidor
+    fs.unlinkSync(req.file.path);
+
     const updatedGroup = await Group.findByIdAndUpdate(
       req.params.id,
-      { avatar: filename }, // ✅ guardamos solo el nombre
+      { avatar: result.secure_url },
       { new: true }
-    );
-
+    ).populate('members');
 
     if (!updatedGroup) return res.status(404).json({ error: 'Grupo no encontrado' });
     res.json(updatedGroup);
