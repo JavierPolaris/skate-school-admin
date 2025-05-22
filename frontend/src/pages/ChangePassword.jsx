@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import API_URL from '../config';
+
 
 function ChangePassword() {
   const [oldPassword, setOldPassword] = useState('');
@@ -42,9 +44,67 @@ function ChangePassword() {
     fontSize: '1.5rem',
   };
 
-  const handleChangePassword = async () => { /* ... Tu código de cambio de contraseña ... */ };
+  const handleChangePassword = async () => {
+  const token = localStorage.getItem('token');
+
+  try {
+    const res = await fetch(`${API_URL}/users/change-password`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ oldPassword, newPassword }),
+    });
+
+    if (!res.ok) throw new Error('Error al cambiar la contraseña');
+    const data = await res.json();
+    setMessage(data.message || 'Contraseña actualizada con éxito');
+    setOldPassword('');
+    setNewPassword('');
+  } catch (err) {
+    console.error(err);
+    setMessage('Error al cambiar la contraseña');
+  }
+};
+
   const handleAvatarChange = (e) => setAvatar(e.target.files[0]);
-  const handleUploadAvatar = async () => { /* ... Tu código de subida de avatar ... */ };
+  const handleUploadAvatar = async () => {
+  if (!avatar) {
+    setMessage('Selecciona un archivo primero');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('avatar', avatar);
+
+  const token = localStorage.getItem('token');
+
+  try {
+    const res = await fetch(`${API_URL}/users/upload-avatar`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!res.ok) throw new Error('Fallo al subir el avatar');
+
+    const data = await res.json();
+    setMessage('Avatar actualizado con éxito');
+
+    // Actualizar localStorage y refrescar visualmente si hiciera falta
+    const userData = JSON.parse(localStorage.getItem('userData'));
+    const updatedUser = { ...userData, avatar: data.avatar };
+    localStorage.setItem('userData', JSON.stringify(updatedUser));
+
+  } catch (err) {
+    console.error(err);
+    setMessage('Error al subir el avatar');
+  }
+};
+
 
   return (
     <div style={{ padding: '2rem' }}>
