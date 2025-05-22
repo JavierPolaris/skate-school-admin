@@ -40,7 +40,7 @@ if (storedUserData) setUserData(JSON.parse(storedUserData));
 
     if (term.trim()) {
       try {
-        const response = await axios.get(`${API_URL}/api/users/search`, { params: { query: term } });
+        const response = await axios.get(`${API_URL}/users/search`, { params: { query: term } });
         const combinedResults = [
           ...response.data.users.map((u) => ({ ...u, type: 'user' })),
           ...response.data.groups.map((g) => ({ ...g, type: 'group' })),
