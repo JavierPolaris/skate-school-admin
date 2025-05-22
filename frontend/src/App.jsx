@@ -19,6 +19,7 @@ import StudentDashboard from './pages/StudentDashboard';
 import StudentClasses from './pages/StudentClasses';
 import StudentPayments from './pages/StudentPayments';
 import StudentTricks from './pages/StudentTricks';
+import InstallPrompt from './components/InstallPrompt';
 
 function PrivateRoute({ children, allowedRoles }) {
   const token = localStorage.getItem('token');
@@ -62,6 +63,7 @@ function App() {
 
   return (
     <Router>
+       <InstallPrompt />
       <Routes>
         <Route path="/" element={<HomePage onLogin={handleLogin} />} />
 

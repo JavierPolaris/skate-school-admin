@@ -1,0 +1,28 @@
+.install-modal {
+  position: fixed;
+  z-index: 9999;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 2px solid #ff9b00;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 90%;
+}
+
+.install-content {
+  text-align: center;
+  color: #333;
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
