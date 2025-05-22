@@ -103,7 +103,7 @@ function TricksPage() {
 
       if (editingTrick) {
         // Editar truco existente
-        const response = await fetch(`${API_URL}/api/tricks/${editingTrick._id}`,
+        const response = await fetch(`${API_URL}/tricks/${editingTrick._id}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -118,7 +118,7 @@ function TricksPage() {
         );
       } else {
         // Crear nuevo truco
-        const response = await fetch(`${API_URL}/api/tricks`, {
+        const response = await fetch(`${API_URL}/tricks`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(newTrick),
@@ -134,7 +134,7 @@ function TricksPage() {
 
   const handleDelete = async (id) => {
     try {
-      await fetch(`${API_URL}/api/tricks/${id}`, {
+      await fetch(`${API_URL}/tricks/${id}`, {
         method: "DELETE",
       });
       setTricks((prev) => prev.filter((trick) => trick._id !== id));
@@ -166,7 +166,7 @@ function TricksPage() {
 
   const toggleHighlight = async (id, highlighted) => {
     try {
-      await fetch(`${API_URL}/api/tricks/highlight/${id}`, {
+      await fetch(`${API_URL}/tricks/highlight/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ highlighted }),
