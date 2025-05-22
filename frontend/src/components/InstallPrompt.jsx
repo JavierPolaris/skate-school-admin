@@ -1,35 +1,62 @@
 import { useEffect, useState } from 'react';
-import './InstallPrompt.css';
 
-const InstallPrompt = () => {
-  const [showPrompt, setShowPrompt] = useState(false);
+const isMobile = () => /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+function InstallPrompt() {
+  const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    const isPWA = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const alreadyClosed = localStorage.getItem('hideInstallPrompt');
+    const hasDismissed = localStorage.getItem('pwaPromptDismissed');
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
-    if (!isPWA && isMobile && !alreadyClosed) {
-      setShowPrompt(true);
-    }
+    if (hasDismissed || isStandalone || !isMobile()) return;
+
+    const handleBeforeInstallPrompt = (e) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setShowModal(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
   }, []);
 
-  const handleClose = () => {
-    localStorage.setItem('hideInstallPrompt', 'true');
-    setShowPrompt(false);
+  const handleInstall = () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(result => {
+      if (result.outcome === 'accepted') {
+        console.log('✅ App instalada');
+      } else {
+        console.log('❌ Instalación cancelada');
+      }
+      setDeferredPrompt(null);
+      setShowModal(false);
+    });
   };
 
-  if (!showPrompt) return null;
+  const handleClose = () => {
+    localStorage.setItem('pwaPromptDismissed', 'true');
+    setShowModal(false);
+  };
+
+  if (!showModal) return null;
 
   return (
-    <div className="install-modal">
-      <button className="close-button" onClick={handleClose}>✖</button>
-      <div className="install-content">
-        <p>¿Quieres instalar la app de Skate School en tu dispositivo?</p>
-        <p>Pulsa <strong>“Agregar a pantalla de inicio”</strong> desde el menú de tu navegador 📱</p>
+    <div className="pwa-modal-overlay">
+      <div className="pwa-modal">
+        <p>¿Quieres instalar la app Skate School en tu dispositivo?</p>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button onClick={handleInstall}>Instalar App</button>
+          <button onClick={handleClose}>Cerrar</button>
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default InstallPrompt;
