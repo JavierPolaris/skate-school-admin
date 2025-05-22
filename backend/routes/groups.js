@@ -228,11 +228,3 @@ router.put('/:id/avatar', upload.single('avatar'), async (req, res) => {
   }
 });
 
-// Ruta para servir los avatares de grupo
-router.get('/avatar/:filename', (req, res) => {
-  const filePath = path.join(__dirname, '../uploads', req.params.filename);
-  if (!fs.existsSync(filePath)) {
-    return res.status(404).json({ error: 'Avatar de grupo no encontrado' });
-  }
-  res.sendFile(filePath);
-});
