@@ -26,8 +26,8 @@ const Header = ({ role }) => {
       setMessageCount(response.data.length);
     });
 
-   const storedUserData = localStorage.getItem('user') || localStorage.getItem('userData');
-if (storedUserData) setUserData(JSON.parse(storedUserData));
+    const storedUserData = localStorage.getItem('user') || localStorage.getItem('userData');
+    if (storedUserData) setUserData(JSON.parse(storedUserData));
 
 
     const day = new Date().getDate();
@@ -127,7 +127,7 @@ if (storedUserData) setUserData(JSON.parse(storedUserData));
                   {notifications.length ? notifications.map((note, i) => <p key={i}>{note}</p>) : <p>No hay avisos</p>}
                 </div>
               )}
-            </div> 
+            </div>
 
             <div className="icon-container" onClick={() => navigate('/app/requests')}>
               <FaEnvelope />
@@ -138,10 +138,17 @@ if (storedUserData) setUserData(JSON.parse(storedUserData));
 
         <div className="user-menu" onClick={handleAvatarClick}>
           <img
-            src={userData.avatar ? `${API_URL}/users/avatar/${userData.avatar}` : 'https://via.placeholder.com/40'}
+            src={
+              userData.avatar
+                ? userData.avatar.startsWith('http')
+                  ? userData.avatar
+                  : `${API_URL}/users/avatar/${userData.avatar}`
+                : 'https://via.placeholder.com/40'
+            }
             alt="Avatar"
             className="profile-avatar2"
           />
+
           <span>{userData.name} <FaCaretDown /></span>
           {showUserMenu && (
             <div className="dropdown" ref={userMenuRef}>
