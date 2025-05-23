@@ -18,6 +18,23 @@ function NotificationsSection({ groupId, notifications, onNotificationAdded }) {
     })
     .catch(err => console.error(err));
   };
+  const handleSendNotification = () => {
+    if (!message.trim()) return;
+  fetch(`${API_URL}/notifications/send-notification/${groupId}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: 'Notificación del grupo', body: message }) // <- usamos title y body
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log('✅ Notificación enviada:', data);
+      setMessage('');
+      if (onNotificationAdded) {
+        onNotificationAdded([{ date: new Date().toISOString(), message }]);
+      }
+    })
+    .catch(err => console.error('❌ Error enviando notificación:', err));
+};
 
   return (
     <div style={{ marginTop: '1rem', marginBlockEnd: '5rem' }}>
@@ -30,7 +47,7 @@ function NotificationsSection({ groupId, notifications, onNotificationAdded }) {
         style={{ width: '-webkit-fill-available'}}
       />
       <br/>
-      <button onClick={handleSend}>Enviar Notificación</button>
+      <button onClick={() => { handleSend(); handleSendNotification(); }}  >Enviar Notificación</button>
       <h5>Notificaciones Enviadas:</h5>
       <ul>
         {notifications && notifications.length > 0 ? (

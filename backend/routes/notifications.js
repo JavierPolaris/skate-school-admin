@@ -68,6 +68,39 @@ router.post('/send-notification', async (req, res) => {
   }
 });
 
+// Enviar notificación a todos los miembros de un grupo
+router.post('/send-notification/:groupId', async (req, res) => {
+  const { title, body } = req.body;
+  const { groupId } = req.params;
+
+  try {
+    const group = await Group.findById(groupId).populate('members');
+    if (!group || !group.members.length) {
+      return res.status(404).json({ error: 'Grupo no encontrado o sin miembros' });
+    }
+
+    const tokens = group.members.map(m => m.deviceToken).filter(Boolean);
+
+    if (!tokens.length) {
+      return res.status(400).json({ success: false, message: 'No hay tokens disponibles' });
+    }
+
+    const message = {
+      notification: { title, body },
+      tokens
+    };
+
+    const response = await admin.messaging().sendMulticast(message);
+    res.json({
+      success: true,
+      sent: response.successCount,
+      failed: response.failureCount,
+    });
+  } catch (error) {
+    console.error('❌ Error enviando notificación:', error);
+    res.status(500).json({ success: false, message: 'Error al enviar notificación', error });
+  }
+});
 
 
 module.exports = router;
