@@ -1,10 +1,8 @@
 const admin = require('firebase-admin');
-const serviceAccount = JSON.parse(process.config.FIREBASE_SERVICE_ACCOUNT);
-
+const serviceAccount = require('./serviceAccountKey.json'); // ✅ tu clave de Firebase exportada
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://skate-app.firebaseio.com'
+  credential: admin.credential.cert(serviceAccount)
 });
 
 module.exports = admin;
