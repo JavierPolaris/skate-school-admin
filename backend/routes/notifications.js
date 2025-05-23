@@ -45,25 +45,24 @@ router.post('/send-notification', async (req, res) => {
   const { title, body, tokens } = req.body;
 
   if (!Array.isArray(tokens) || tokens.length === 0) {
-    return res.status(400).send({ success: false, message: 'Tokens must be a non-empty array' });
+    return res.status(400).json({ success: false, message: 'Tokens must be a non-empty array' });
   }
 
   const message = {
     notification: { title, body },
-    tokens, // 👈 Aquí puedes mandar 1 o varios
+    tokens,
   };
 
   try {
     const response = await admin.messaging().sendMulticast(message);
-    res.send({
+    res.json({
       success: true,
-      successCount: response.successCount,
-      failureCount: response.failureCount,
-      responses: response.responses
+      sent: response.successCount,
+      failed: response.failureCount,
     });
-  } catch (err) {
-    console.error('🔥 Error enviando notificación:', err);
-    res.status(500).send({ success: false, message: 'Error al enviar notificaciones' });
+  } catch (error) {
+    console.error('❌ Error enviando notificación:', error);
+    res.status(500).json({ success: false, message: 'Error sending notification', error });
   }
 });
 
