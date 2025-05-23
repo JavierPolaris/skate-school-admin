@@ -10,8 +10,7 @@ import API_URL from './config.js';
 if ('Notification' in window && navigator.serviceWorker) {
   requestPermissionAndGetToken().then(token => {
     if (token) {
-      alert('🔐 Token FCM:', token);
-      
+      console.log('🔐 Token FCM:', token);
       // ENVÍALO A TU BACKEND
       const email = JSON.parse(localStorage.getItem('user'))?.email;
       if (email) {
