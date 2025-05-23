@@ -22,7 +22,7 @@ if ('Notification' in window && navigator.serviceWorker) {
           body: JSON.stringify({ email, deviceToken: token }),
         })
           .then(res => res.json())
-          .then(data => console.log('✅ Token guardado en backend:', data))
+          .then(data => alert('✅ Token guardado en backend:', data))
           .catch(err => console.error('❌ Error al guardar token en backend:', err));
       }
     }
