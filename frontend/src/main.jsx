@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
 import { AuthProvider } from './context/AuthContext';
 import { requestPermissionAndGetToken, listenToForegroundMessages } from './firebase';
-import API_URL from '../config';
+import API_URL from './config.js';
 
 if ('Notification' in window && navigator.serviceWorker) {
   requestPermissionAndGetToken().then(token => {
