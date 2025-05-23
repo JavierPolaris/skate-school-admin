@@ -5,27 +5,29 @@ import App from './App.jsx'
 import { SidebarProvider } from './context/SidebarContext.jsx'
 import { AuthProvider } from './context/AuthContext';
 import { requestPermissionAndGetToken, listenToForegroundMessages } from './firebase';
+import API_URL from '../config';
 
 if ('Notification' in window && navigator.serviceWorker) {
   requestPermissionAndGetToken().then(token => {
     if (token) {
       console.log('🔐 Token FCM:', token);
+      // ENVÍALO A TU BACKEND
+      const email = JSON.parse(localStorage.getItem('user'))?.email;
+      if (email) {
+        fetch(`${API_URL}/users/save-device-token`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, deviceToken: token }),
+        })
+          .then(res => res.json())
+          .then(data => console.log('✅ Token guardado en backend:', data))
+          .catch(err => console.error('❌ Error al guardar token en backend:', err));
+      }
     }
   });
-  // ENVÍALO A TU BACKEND
-  const email = JSON.parse(localStorage.getItem('user'))?.email;
-  if (email) {
-    fetch('http://localhost:3001/api/users/save-device-token', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, deviceToken: token }),
-    })
-      .then(res => res.json())
-      .then(data => console.log('✅ Token guardado en backend:', data))
-      .catch(err => console.error('❌ Error al guardar token en backend:', err));
-  }
+
 
 
 

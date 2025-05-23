@@ -18,6 +18,28 @@ router.get('/:groupId', async (req, res) => {
   }
 });
 
+// Guardar token de dispositivo
+router.put('/save-device-token', async (req, res) => {
+  const { email, deviceToken } = req.body;
+
+ try {
+    const user = await User.findOneAndUpdate(
+      { email },
+      { deviceToken },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.json({ message: 'Token guardado con éxito', user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al guardar el token' });
+  }
+});
+
 // Enviar notificación push
 router.post('/send-notification', async (req, res) => {
   const { title, body, tokens } = req.body;
@@ -44,6 +66,7 @@ router.post('/send-notification', async (req, res) => {
     res.status(500).send({ success: false, message: 'Error al enviar notificaciones' });
   }
 });
+
 
 
 module.exports = router;
