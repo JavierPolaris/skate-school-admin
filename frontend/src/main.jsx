@@ -10,7 +10,8 @@ import API_URL from './config.js';
 if ('Notification' in window && navigator.serviceWorker) {
   requestPermissionAndGetToken().then(token => {
     if (token) {
-      console.log('🔐 Token FCM:', token);
+      alert('🔐 Token FCM:', token);
+      
       // ENVÍALO A TU BACKEND
       const email = JSON.parse(localStorage.getItem('user'))?.email;
       if (email) {
@@ -22,7 +23,7 @@ if ('Notification' in window && navigator.serviceWorker) {
           body: JSON.stringify({ email, deviceToken: token }),
         })
           .then(res => res.json())
-          .then(data => alert('✅ Token guardado en backend:', data))
+          .then(data => console.log('✅ Token guardado en backend:', data))
           .catch(err => console.error('❌ Error al guardar token en backend:', err));
       }
     }
