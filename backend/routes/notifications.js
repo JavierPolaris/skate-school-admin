@@ -23,7 +23,7 @@ router.put('/save-device-token', async (req, res) => {
   console.log('Body recibido:', req.body);
 
   const { email, deviceToken } = req.body;
-  
+
   try {
     const user = await User.findOneAndUpdate(
       { email },
@@ -56,7 +56,13 @@ router.post('/send-notification', async (req, res) => {
   };
 
   try {
-    const response = await admin.messaging().sendMulticast(message);
+    const response = await admin.messaging().sendEachForMulticast({
+      tokens,
+      notification: {
+        title,
+        body
+      }
+    });
     res.json({
       success: true,
       sent: response.successCount,
@@ -90,7 +96,13 @@ router.post('/send-notification/:groupId', async (req, res) => {
       tokens
     };
 
-    const response = await admin.messaging().sendMulticast(message);
+    const response = await admin.messaging().sendEachForMulticast({
+      tokens,
+      notification: {
+        title,
+        body
+      }
+    });
     res.json({
       success: true,
       sent: response.successCount,
