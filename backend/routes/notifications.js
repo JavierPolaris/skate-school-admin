@@ -20,8 +20,10 @@ router.get('/:groupId', async (req, res) => {
 
 // Guardar token de dispositivo
 router.put('/save-device-token', async (req, res) => {
+  console.log('Body recibido:', req.body);
+
   const { email, deviceToken } = req.body;
-  console.log('Token recibido:', deviceToken);
+  
   try {
     const user = await User.findOneAndUpdate(
       { email },
@@ -34,7 +36,6 @@ router.put('/save-device-token', async (req, res) => {
     }
 
     res.json({ message: 'Token guardado con éxito', user });
-    console.log('Token guardado:', user.deviceToken);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Error al guardar el token' });
