@@ -36,4 +36,4 @@ export const requestPermissionAndGetToken = async () => {
 // Escucha mensajes en primer plano
 export const listenToForegroundMessages = (callback) => {
   onMessage(messaging, callback);
-};
+}; 
