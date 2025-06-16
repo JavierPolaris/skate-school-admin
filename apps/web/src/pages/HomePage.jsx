@@ -9,7 +9,18 @@ function HomePage({ onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [token, setToken] = useState(null);
+useEffect(() => {
+  try {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  } catch (err) {
+    console.warn('Error accediendo a localStorage:', err);
+  }
+}, []);
+
   const navigate = useNavigate();
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [requestName, setRequestName] = useState('');
@@ -31,18 +42,23 @@ function HomePage({ onLogin }) {
     };
   }, [token]);
 
- useEffect(() => {
-  const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  if (token && user) {
-    if (user.role === 'admin') {
-      navigate('/app', { replace: true });
-    } else if (user.role === 'student') {
-      navigate('/student', { replace: true });
+useEffect(() => {
+  try {
+    const storedToken = localStorage.getItem('token');
+    const storedUser = localStorage.getItem('user');
+    if (storedToken && storedUser) {
+      const user = JSON.parse(storedUser);
+      if (user.role === 'admin') {
+        navigate('/app', { replace: true });
+      } else if (user.role === 'student') {
+        navigate('/student', { replace: true });
+      }
     }
+  } catch (err) {
+    console.warn('Error al recuperar token o user:', err);
   }
 }, [navigate]);
+
 
   const handleLogin = async () => {
   try {
