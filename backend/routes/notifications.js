@@ -47,7 +47,7 @@ router.post('/send-notification', async (req, res) => {
   const { title, body, tokens } = req.body;
 
   if (!Array.isArray(tokens) || tokens.length === 0) {
-    return res.status(400).json({ success: false, message: 'Tokens must be a non-empty array' });
+    return res.status(400).send({ success: false, message: 'Tokens must be a non-empty array' });
   }
 
   const message = {
@@ -56,23 +56,14 @@ router.post('/send-notification', async (req, res) => {
   };
 
   try {
-    const response = await admin.messaging().sendEachForMulticast({
-      tokens,
-      notification: {
-        title,
-        body
-      }
-    });
-    res.json({
-      success: true,
-      sent: response.successCount,
-      failed: response.failureCount,
-    });
-  } catch (error) {
-    console.error('❌ Error enviando notificación:', error);
-    res.status(500).json({ success: false, message: 'Error sending notification', error });
+    const response = await admin.messaging().sendMulticast(message);
+    res.json({ success: true, response });
+  } catch (err) {
+    console.error('Error enviando notificación:', err);
+    res.status(500).json({ success: false, error: err.message });
   }
 });
+
 
 // Enviar notificación a todos los miembros de un grupo
 router.post('/send-notification/:groupId', async (req, res) => {

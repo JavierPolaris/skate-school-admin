@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API_URL from '../config';
+import { loginUser } from '../../../packages/shared/api';
+
 
 function HomePage({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -42,34 +44,21 @@ function HomePage({ onLogin }) {
 }, [navigate]);
 
   const handleLogin = async () => {
-    try {
-      const response = await fetch(`${API_URL}/users/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
+  try {
+    const data = await loginUser(email, password);
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    onLogin(data.token);
 
-      if (response.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user)); // Guarda los datos del usuario
-
-        onLogin(data.token);
-        // Redirige según el rol
-        if (data.user.role === 'admin') {
-          navigate('/app'); 
-        } else if (data.user.role === 'student') {
-          navigate('/student-dashboard');
-          
-        }
-      
-      } else {
-        setError(data.error || 'Credenciales incorrectas');
-      }
-    } catch (err) {
-      setError('Error al conectar con el servidor');
+    if (data.user.role === 'admin') {
+      navigate('/app');
+    } else if (data.user.role === 'student') {
+      navigate('/student-dashboard');
     }
-  };
+  } catch (err) {
+    setError(err.message || 'Error al conectar con el servidor');
+  }
+};
 
   const handleRequestAccess = async () => {
     try {
