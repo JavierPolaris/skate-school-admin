@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API_URL from '../config';
-import { loginUser } from '../../../packages/shared/api';
+import { loginUser } from '@shared/api';
+
 
 
 function HomePage({ onLogin }) {
