@@ -88,4 +88,4 @@ function InstallPrompt() {
   );
 }
 
-export default InstallPrompt;i
+export default InstallPrompt;
