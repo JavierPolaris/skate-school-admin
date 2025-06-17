@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-
+import { requestPermissionAndGetToken } from './firebase';
 import Layout from './components/Layout';
 import StudentLayout from './components/StudentLayout';
 import Footer from './components/Footer';
@@ -60,10 +60,13 @@ function App() {
         .catch(err => console.error('❌ Error al registrar Service Worker:', err));
     }
   }, []);
+  useEffect(() => {
+    requestPermissionAndGetToken();
+  }, []);
 
   return (
     <Router>
-       <InstallPrompt />
+      <InstallPrompt />
       <Routes>
         <Route path="/" element={<HomePage onLogin={handleLogin} />} />
 
