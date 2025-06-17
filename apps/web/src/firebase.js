@@ -21,7 +21,14 @@ export const requestPermissionAndGetToken = async () => {
       const token = await getToken(messaging, {
         vapidKey: "BDhxw1hQ98JM0CZFcBNuLf1Lg-l5BtBHHnybjK4zf77B6Yn6yYV6PV70O8_9nFWtSf4mRA86_crubkx5bpiZEA8"
       });
+
       console.log("✅ Token generado:", token);
+
+      // 👇 ENVÍA EL TOKEN AL RN WebView (si existe)
+      if (window.ReactNativeWebView) {
+        window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+      }
+
       return token;
     } else {
       console.warn("❌ Permiso de notificación denegado");
@@ -36,4 +43,4 @@ export const requestPermissionAndGetToken = async () => {
 // Escucha mensajes en primer plano
 export const listenToForegroundMessages = (callback) => {
   onMessage(messaging, callback);
-}; 
+};
