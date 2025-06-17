@@ -31,7 +31,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: yellow;
+  background: linear-gradient( to bottom right,#1F2228 16%, /* Color inicial y posición */
+    #2D3139 46%, /* Segundo color y posición */
+    #22262D 72% /* Tercer color y posición */);
 }
 
 h1 {
