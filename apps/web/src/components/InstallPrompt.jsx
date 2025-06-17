@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+mport { useEffect, useState } from 'react';
 import './InstallPrompt.css';
 
 const isIOS = () => /iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
@@ -88,4 +88,4 @@ function InstallPrompt() {
   );
 }
 
-export default InstallPrompt;
+export default InstallPrompt;i
