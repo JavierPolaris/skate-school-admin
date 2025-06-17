@@ -4,10 +4,10 @@ import { StatusBar } from 'expo-status-bar';
 
 export default function Home() {
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'green' }}>
       <StatusBar style="dark" />
       <WebView
-        source={{ uri: 'https://skate-school-admin.vercel.app/' }} // ✅ Página simple, 100% pública
+        source={{ uri: 'https://skate-school-admin.vercel.app/' }} // Cambia si estás en local
         style={{ flex: 1 }}
         originWhitelist={['*']}
         javaScriptEnabled
