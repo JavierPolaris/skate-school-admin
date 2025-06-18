@@ -1,21 +1,21 @@
 import { WebView } from 'react-native-webview';
-import { SafeAreaView, Alert } from 'react-native';
-import { Platform } from 'react-native';
+import { SafeAreaView, Alert, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-
 
 if (__DEV__ && Platform.OS === 'android') {
   WebView.setWebContentsDebuggingEnabled?.(true);
 }
+
 export default function Home() {
   const handleMessage = (event) => {
     const message = event.nativeEvent.data;
+
     if (message.startsWith('FCM_TOKEN:')) {
       const token = message.replace('FCM_TOKEN:', '');
       console.log('📲 Token recibido desde WebView:', token);
-      Alert.alert('Token recibido', token);
+      Alert.alert('Token recibido', token); // 👈 Para confirmar en el móvil
 
-      const email = 'torkoprueba@gmail.com'; // ⬅️ TEMPORAL hasta que lo pilles dinámico
+      const email = 'torkoprueba@gmail.com'; // 👈 De momento estático, ya lo haremos dinámico
 
       fetch('https://skate-school-backend.onrender.com/api/users/save-device-token', {
         method: 'PUT',
@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: 'green' }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar style="dark" />
       <WebView
         source={{ uri: 'https://skate-school-admin.vercel.app/' }}
@@ -45,7 +45,16 @@ export default function Home() {
         domStorageEnabled
         startInLoadingState
         onMessage={handleMessage}
-         injectedJavaScriptBeforeContentLoaded={`window.ReactNativeWebView && window.ReactNativeWebView.postMessage("✅ WebView ready");`}
+        injectedJavaScriptBeforeContentLoaded={`
+          window.addEventListener('message', (event) => {
+            if (event.data === 'SEND_TOKEN') {
+              const token = localStorage.getItem('fcm_token');
+              if (token && window.ReactNativeWebView) {
+                window.ReactNativeWebView.postMessage('FCM_TOKEN:' + token);
+              }
+            }
+          });
+        `}
       />
     </SafeAreaView>
   );
