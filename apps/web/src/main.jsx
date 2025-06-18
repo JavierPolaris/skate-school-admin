@@ -56,3 +56,5 @@ if ('serviceWorker' in navigator) {
       console.error('🔴 Error registrando SW Firebase:', err);
     });
 }
+
+console.log('🟠 Este log debería verse siempre que se cargue la app');

@@ -26,7 +26,10 @@ export const requestPermissionAndGetToken = async () => {
 
       // 👇 ENVÍA EL TOKEN AL RN WebView (si existe)
       if (window.ReactNativeWebView) {
+        console.log('📤 Enviando token al WebView');
         window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+      } else {
+        console.log('🧱 NO es WebView, no se envía token');
       }
 
       return token;
