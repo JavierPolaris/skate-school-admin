@@ -12,7 +12,27 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+<script>
+function esperarReactNativeWebViewYEnviarToken(token) {
+  let intentos = 0;
+  const maxIntentos = 15;
 
+  const check = () => {
+    if (window.ReactNativeWebView) {
+      console.log('📡 ¡ReactNativeWebView detectado!');
+      window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+    } else if (intentos < maxIntentos) {
+      console.log('⏳ Esperando a ReactNativeWebView... intento', intentos);
+      intentos++;
+      setTimeout(check, 1000);
+    } else {
+      console.warn('❌ No se pudo enviar el token tras varios intentos');
+    }
+  };
+
+  check();
+}
+</script>
 
 
 
