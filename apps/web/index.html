@@ -12,8 +12,7 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <script>
-  // Espera a que el DOM esté listo
+<script>
   window.addEventListener('DOMContentLoaded', () => {
     const token = localStorage.getItem('fcm_token');
     if (token && window.ReactNativeWebView) {
@@ -22,6 +21,7 @@
     }
   });
 </script>
+
 
   </body>
 </html>
