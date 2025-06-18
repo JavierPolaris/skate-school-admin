@@ -13,6 +13,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
+const waitForReactNativeWebView = () => {
+  return new Promise((resolve, reject) => {
+    const maxRetries = 20;
+    let attempts = 0;
+
+    const check = () => {
+      if (window.ReactNativeWebView) {
+        resolve(window.ReactNativeWebView);
+      } else if (attempts >= maxRetries) {
+        reject("🧱 No se encontró ReactNativeWebView después de múltiples intentos.");
+      } else {
+        attempts++;
+        setTimeout(check, 500); // prueba cada 500ms
+      }
+    };
+
+    check();
+  });
+};
+
+
 // Solicita permiso y obtiene el token
 export const requestPermissionAndGetToken = async () => {
   try {
@@ -25,12 +46,15 @@ export const requestPermissionAndGetToken = async () => {
       console.log("✅ Token generado:", token);
 
       // 👇 ENVÍA EL TOKEN AL RN WebView (si existe)
-      if (window.ReactNativeWebView) {
-        console.log('📤 Enviando token al WebView');
-        window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
-      } else {
-        console.log('🧱 NO es WebView, no se envía token');
-      }
+      waitForReactNativeWebView()
+        .then((webview) => {
+          console.log('📤 Enviando token al WebView');
+          webview.postMessage(`FCM_TOKEN:${token}`);
+        })
+        .catch((err) => {
+          console.warn(err);
+        });
+
 
       return token;
     } else {
