@@ -1,38 +1,23 @@
 import { WebView } from 'react-native-webview';
 import { SafeAreaView, Alert, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import { useRegisterFCM } from '../hooks/useFCMToken'; 
+import { useState, useEffect } from 'react';
 
 if (__DEV__ && Platform.OS === 'android') {
   WebView.setWebContentsDebuggingEnabled?.(true);
 }
 
 export default function Home() {
-  const handleMessage = (event) => {
-    const message = event.nativeEvent.data;
+  const [email, setEmail] = useState<string | null>(null);
 
-    if (message.startsWith('FCM_TOKEN:')) {
-      const token = message.replace('FCM_TOKEN:', '');
-      console.log('📲 Token recibido desde WebView:', token);
-      Alert.alert('Token recibido', token); // 👈 Para confirmar en el móvil
+  useEffect(() => {
+    // Extraer email de localStorage (inyectado por la web)
+    const storedEmail = localStorage.getItem('user_email'); // 👈 la web debe guardarlo
+    if (storedEmail) setEmail(storedEmail);
+  }, []);
 
-      const email = 'torkoprueba@gmail.com'; // 👈 De momento estático, ya lo haremos dinámico
-
-      fetch('https://skate-school-backend.onrender.com/api/users/save-device-token', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, deviceToken: token })
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log('✅ Token guardado en backend:', data);
-        })
-        .catch(err => {
-          console.error('❌ Error guardando token:', err);
-        });
-    }
-  };
+  useRegisterFCM(email); // 👈 genera y envía token solo si hay email
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -44,13 +29,22 @@ export default function Home() {
         javaScriptEnabled
         domStorageEnabled
         startInLoadingState
-        onMessage={handleMessage}
+        onMessage={(event) => {
+          const message = event.nativeEvent.data;
+          if (message.startsWith('EMAIL:')) {
+            const userEmail = message.replace('EMAIL:', '');
+            localStorage.setItem('user_email', userEmail);
+            setEmail(userEmail);
+            Alert.alert('Login detectado', `Email: ${userEmail}`);
+          }
+        }}
         injectedJavaScriptBeforeContentLoaded={`
-          window.addEventListener('message', (event) => {
-            if (event.data === 'SEND_TOKEN') {
-              const token = localStorage.getItem('fcm_token');
-              if (token && window.ReactNativeWebView) {
-                window.ReactNativeWebView.postMessage('FCM_TOKEN:' + token);
+          window.addEventListener('load', () => {
+            const user = localStorage.getItem('user');
+            if (user) {
+              const email = JSON.parse(user).email;
+              if (window.ReactNativeWebView && email) {
+                window.ReactNativeWebView.postMessage("EMAIL:" + email);
               }
             }
           });

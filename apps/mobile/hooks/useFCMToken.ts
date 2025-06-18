@@ -1,11 +1,12 @@
+// hooks/useRegisterFCM.ts
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import { useEffect } from 'react';
 
-export const useFCMToken = (email: string) => {
+export const useRegisterFCM = (email: string | null) => {
   useEffect(() => {
-    const registerForPushNotifications = async () => {
-      if (!Device.isDevice) return;
+    const registerToken = async () => {
+      if (!Device.isDevice || !email) return;
 
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
       let finalStatus = existingStatus;
@@ -23,7 +24,8 @@ export const useFCMToken = (email: string) => {
       const tokenData = await Notifications.getExpoPushTokenAsync();
       const token = tokenData.data;
 
-      console.log('📲 Token Expo FCM:', token);
+      console.log('📲 Token generado:', token);
+      localStorage.setItem('fcm_token', token); // 👈 Se guarda para que la WebView lo pueda leer luego
 
       await fetch('https://skate-school-backend.onrender.com/api/users/save-device-token', {
         method: 'PUT',
@@ -35,6 +37,6 @@ export const useFCMToken = (email: string) => {
         .catch(err => console.error('❌ Error guardando token:', err));
     };
 
-    registerForPushNotifications();
+    registerToken();
   }, [email]);
 };
