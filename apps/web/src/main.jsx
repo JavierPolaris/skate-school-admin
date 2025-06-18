@@ -11,7 +11,18 @@ if ('Notification' in window && navigator.serviceWorker) {
   requestPermissionAndGetToken().then(token => {
     if (token) {
       console.log('🔐 Token FCM:', token);
-      // ENVÍALO A TU BACKEND
+      localStorage.setItem('fcm_token', token);
+
+      // Detectar si estamos en WebView real y enviar token
+      const isWebView = /\bwv\b/.test(navigator.userAgent) || window.ReactNativeWebView;
+      if (isWebView && window.ReactNativeWebView) {
+        console.log('📤 Enviando token desde React a WebView');
+        window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+      } else {
+        console.log('🧱 NO es WebView, no se envía token');
+      }
+
+      // Guarda en backend como en web
       const email = JSON.parse(localStorage.getItem('user'))?.email;
       if (email) {
         fetch(`${API_URL}/users/save-device-token`, {
@@ -28,13 +39,11 @@ if ('Notification' in window && navigator.serviceWorker) {
     }
   });
 
-
-
-
   listenToForegroundMessages(payload => {
     console.log('📩 Mensaje recibido en foreground:', payload);
   });
 }
+
 
 
 createRoot(document.getElementById('root')).render(

@@ -40,6 +40,7 @@ export default function Home() {
         domStorageEnabled
         startInLoadingState
         onMessage={handleMessage}
+         injectedJavaScriptBeforeContentLoaded={`window.ReactNativeWebView && window.ReactNativeWebView.postMessage("✅ WebView ready");`}
       />
     </SafeAreaView>
   );

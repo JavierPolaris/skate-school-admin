@@ -12,22 +12,7 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const token = localStorage.getItem('fcm_token');
-    const tryPostToken = (retries = 0) => {
-      if (token && window.ReactNativeWebView) {
-        window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
-        console.log("📤 Inline script envió token al WebView:", token);
-      } else if (retries < 10) {
-        setTimeout(() => tryPostToken(retries + 1), 500);
-      } else {
-        console.warn("❌ No se pudo enviar token al WebView desde inline script.");
-      }
-    };
-    tryPostToken();
-  });
-</script>
+
 
 
 
