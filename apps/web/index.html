@@ -12,5 +12,16 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+  // Espera a que el DOM esté listo
+  window.addEventListener('DOMContentLoaded', () => {
+    const token = localStorage.getItem('fcm_token');
+    if (token && window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+      console.log("📤 Inline script envió token al WebView:", token);
+    }
+  });
+</script>
+
   </body>
 </html>
