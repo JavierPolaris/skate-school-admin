@@ -24,10 +24,22 @@ export const requestPermissionAndGetToken = async () => {
 
       console.log("✅ Token generado:", token);
 
-      // 👇 ENVÍA EL TOKEN AL RN WebView (si existe)
-      if (window.ReactNativeWebView) {
-        window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
-      }
+    // 👇 ENVÍA EL TOKEN AL RN WebView (si existe)
+if (window.ReactNativeWebView) {
+  window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+  console.log("📤 Enviado al WebView:", token);
+} else {
+  console.warn("❗ WebView no disponible aún, reintentando...");
+  setTimeout(() => {
+    if (window.ReactNativeWebView) {
+      window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+      console.log("📤 (Reintento) Enviado al WebView:", token);
+    } else {
+      console.error("❌ No se pudo enviar el token al WebView");
+    }
+  }, 2000);
+}
+
 
       return token;
     } else {
