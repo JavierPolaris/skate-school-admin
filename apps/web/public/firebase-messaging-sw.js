@@ -20,3 +20,8 @@ messaging.onBackgroundMessage(function(payload) {
     icon: "/icon-192.png"
   });
 });
+
+// Escucha mensajes en primer plano
+export const listenToForegroundMessages = (callback) => {
+  onMessage(messaging, callback);
+};
