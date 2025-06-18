@@ -1,7 +1,12 @@
 import { WebView } from 'react-native-webview';
 import { SafeAreaView, Alert } from 'react-native';
+import { Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
+
+if (__DEV__ && Platform.OS === 'android') {
+  WebView.setWebContentsDebuggingEnabled?.(true);
+}
 export default function Home() {
   const handleMessage = (event) => {
     const message = event.nativeEvent.data;
