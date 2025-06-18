@@ -1,4 +1,7 @@
 // public/firebase-messaging-sw.js
+/* eslint-disable no-undef */
+/* global importScripts, firebase */
+
 importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging-compat.js");
 

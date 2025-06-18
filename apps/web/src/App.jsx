@@ -4,6 +4,7 @@ import { requestPermissionAndGetToken } from './firebase';
 import Layout from './components/Layout';
 import StudentLayout from './components/StudentLayout';
 import Footer from './components/Footer';
+import PropTypes from 'prop-types';
 
 import HomePage from './pages/HomePage';
 import Dashboard from './pages/Dashboard';
@@ -112,5 +113,12 @@ console.log("📡 window.ReactNativeWebView:", typeof window.ReactNativeWebView)
     </Router>
   );
 }
+
+
+
+PrivateRoute.propTypes = {
+  children: PropTypes.node,
+  allowedRoles: PropTypes.arrayOf(PropTypes.string)
+};
 
 export default App;
