@@ -1,8 +1,8 @@
 import { WebView } from 'react-native-webview';
 import { SafeAreaView, Alert, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { useRegisterFCM } from '../hooks/useFCMToken'; 
-import { useState, useEffect } from 'react';
+import { useRegisterFCM } from './hooks/useRegisterFCM'; // Ajusta ruta
+import { useState } from 'react';
 
 if (__DEV__ && Platform.OS === 'android') {
   WebView.setWebContentsDebuggingEnabled?.(true);
@@ -11,13 +11,16 @@ if (__DEV__ && Platform.OS === 'android') {
 export default function Home() {
   const [email, setEmail] = useState<string | null>(null);
 
-  useEffect(() => {
-    // Extraer email de localStorage (inyectado por la web)
-    const storedEmail = localStorage.getItem('user_email'); // 👈 la web debe guardarlo
-    if (storedEmail) setEmail(storedEmail);
-  }, []);
+  useRegisterFCM(email); // solo lanza efecto si email no es null
 
-  useRegisterFCM(email); // 👈 genera y envía token solo si hay email
+  const handleMessage = (event) => {
+    const message = event.nativeEvent.data;
+    if (message.startsWith('EMAIL:')) {
+      const userEmail = message.replace('EMAIL:', '');
+      setEmail(userEmail);
+      Alert.alert('Email recibido', userEmail);
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -25,25 +28,15 @@ export default function Home() {
       <WebView
         source={{ uri: 'https://skate-school-admin.vercel.app/' }}
         style={{ flex: 1 }}
-        originWhitelist={['*']}
         javaScriptEnabled
         domStorageEnabled
-        startInLoadingState
-        onMessage={(event) => {
-          const message = event.nativeEvent.data;
-          if (message.startsWith('EMAIL:')) {
-            const userEmail = message.replace('EMAIL:', '');
-            localStorage.setItem('user_email', userEmail);
-            setEmail(userEmail);
-            Alert.alert('Login detectado', `Email: ${userEmail}`);
-          }
-        }}
+        onMessage={handleMessage}
         injectedJavaScriptBeforeContentLoaded={`
           window.addEventListener('load', () => {
             const user = localStorage.getItem('user');
             if (user) {
               const email = JSON.parse(user).email;
-              if (window.ReactNativeWebView && email) {
+              if (email && window.ReactNativeWebView) {
                 window.ReactNativeWebView.postMessage("EMAIL:" + email);
               }
             }
