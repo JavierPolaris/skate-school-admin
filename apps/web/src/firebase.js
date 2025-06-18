@@ -14,6 +14,8 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
 const postTokenToReactNative = (token, attempts = 0) => {
+  console.log('📡 window.ReactNativeWebView:', window.ReactNativeWebView);
+
   if (window.ReactNativeWebView) {
     console.log('📤 Enviando token al WebView...');
     window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
