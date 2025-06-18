@@ -1,7 +1,7 @@
 import { WebView } from 'react-native-webview';
 import { SafeAreaView, Alert, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { useRegisterFCM } from './hooks/useRegisterFCM'; // Ajusta ruta
+import { useRegisterFCM } from '../hooks/useFCMToken'; // Ajusta ruta
 import { useState } from 'react';
 
 if (__DEV__ && Platform.OS === 'android') {
