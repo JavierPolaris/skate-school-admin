@@ -11,18 +11,7 @@ if ('Notification' in window && navigator.serviceWorker) {
   requestPermissionAndGetToken().then(token => {
     if (token) {
       console.log('🔐 Token FCM:', token);
-      localStorage.setItem('fcm_token', token);
-
-      // Detectar si estamos en WebView real y enviar token
-      const isWebView = /\bwv\b/.test(navigator.userAgent) || window.ReactNativeWebView;
-      if (isWebView && window.ReactNativeWebView) {
-        console.log('📤 Enviando token desde React a WebView');
-        window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
-      } else {
-        console.log('🧱 NO es WebView, no se envía token');
-      }
-
-      // Guarda en backend como en web
+      // ENVÍALO A TU BACKEND
       const email = JSON.parse(localStorage.getItem('user'))?.email;
       if (email) {
         fetch(`${API_URL}/users/save-device-token`, {
@@ -39,11 +28,13 @@ if ('Notification' in window && navigator.serviceWorker) {
     }
   });
 
+
+
+
   listenToForegroundMessages(payload => {
     console.log('📩 Mensaje recibido en foreground:', payload);
   });
 }
-
 
 
 createRoot(document.getElementById('root')).render(
@@ -65,16 +56,3 @@ if ('serviceWorker' in navigator) {
       console.error('🔴 Error registrando SW Firebase:', err);
     });
 }
-
-console.log('🟠 Este log debería verse siempre que se cargue la app');
-window.addEventListener('message', (event) => {
-  if (event.data === 'SEND_TOKEN') {
-    const token = localStorage.getItem('fcm_token');
-    if (token && window.ReactNativeWebView) {
-      console.log('📤 Enviando token al WebView (on demand)');
-      window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
-    } else {
-      console.warn('❌ No se puede enviar token: faltan datos');
-    }
-  }
-});
