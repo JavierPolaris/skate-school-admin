@@ -58,3 +58,14 @@ if ('serviceWorker' in navigator) {
 }
 
 console.log('🟠 Este log debería verse siempre que se cargue la app');
+window.addEventListener('message', (event) => {
+  if (event.data === 'SEND_TOKEN') {
+    const token = localStorage.getItem('fcm_token');
+    if (token && window.ReactNativeWebView) {
+      console.log('📤 Enviando token al WebView (on demand)');
+      window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+    } else {
+      console.warn('❌ No se puede enviar token: faltan datos');
+    }
+  }
+});

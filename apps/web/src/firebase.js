@@ -13,28 +13,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
-const waitForReactNativeWebView = () => {
-  return new Promise((resolve, reject) => {
-    const maxRetries = 20;
-    let attempts = 0;
-
-    const check = () => {
-      if (window.ReactNativeWebView) {
-        resolve(window.ReactNativeWebView);
-      } else if (attempts >= maxRetries) {
-        reject("🧱 No se encontró ReactNativeWebView después de múltiples intentos.");
-      } else {
-        attempts++;
-        setTimeout(check, 500); // prueba cada 500ms
-      }
-    };
-
-    check();
-  });
+const postTokenToReactNative = (token, attempts = 0) => {
+  if (window.ReactNativeWebView) {
+    console.log('📤 Enviando token al WebView...');
+    window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+  } else if (attempts < 10) {
+    console.log('⏳ Esperando a ReactNativeWebView... intento', attempts);
+    setTimeout(() => postTokenToReactNative(token, attempts + 1), 500);
+  } else {
+    console.warn('❌ No se pudo enviar token a ReactNativeWebView tras varios intentos');
+  }
 };
 
-
-// Solicita permiso y obtiene el token
 export const requestPermissionAndGetToken = async () => {
   try {
     const permission = await Notification.requestPermission();
@@ -44,17 +34,9 @@ export const requestPermissionAndGetToken = async () => {
       });
 
       console.log("✅ Token generado:", token);
+      localStorage.setItem('fcm_token', token);
 
-      // 👇 ENVÍA EL TOKEN AL RN WebView (si existe)
-      waitForReactNativeWebView()
-        .then((webview) => {
-          console.log('📤 Enviando token al WebView');
-          webview.postMessage(`FCM_TOKEN:${token}`);
-        })
-        .catch((err) => {
-          console.warn(err);
-        });
-
+      postTokenToReactNative(token); // ⬅️ aquí el cambio importante
 
       return token;
     } else {
@@ -67,7 +49,6 @@ export const requestPermissionAndGetToken = async () => {
   }
 };
 
-// Escucha mensajes en primer plano
 export const listenToForegroundMessages = (callback) => {
   onMessage(messaging, callback);
 };

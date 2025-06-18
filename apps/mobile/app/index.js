@@ -2,8 +2,6 @@ import { WebView } from 'react-native-webview';
 import { SafeAreaView, Alert } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
-const USER_TOKEN = '...'; // ⚠️ Aquí mete el token JWT del usuario logueado
-
 export default function Home() {
   const handleMessage = (event) => {
     const message = event.nativeEvent.data;
@@ -12,14 +10,14 @@ export default function Home() {
       console.log('📲 Token recibido desde WebView:', token);
       Alert.alert('Token recibido', token);
 
-      // 👉 Enviar token al backend
-      fetch('https://TU_BACKEND_DOMAIN/api/users/update-token', {
-        method: 'POST',
+      const email = 'torkoprueba@gmail.com'; // ⬅️ TEMPORAL hasta que lo pilles dinámico
+
+      fetch('https://skate-school-backend.onrender.com/api/users/save-device-token', {
+        method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${USER_TOKEN}`, // ⚠️ Cambia esto si usas otro auth
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ deviceToken: token }),
+        body: JSON.stringify({ email, deviceToken: token })
       })
         .then(res => res.json())
         .then(data => {
