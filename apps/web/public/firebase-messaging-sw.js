@@ -1,5 +1,4 @@
-// Aquí metes tu lógica del PWA si tienes alguna...
-// Luego esto al final:
+// public/firebase-messaging-sw.js
 importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js");
 importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging-compat.js");
 
@@ -10,6 +9,7 @@ firebase.initializeApp({
   messagingSenderId: "1027397835625",
   appId: "1:1027397835625:android:2d5424a370aac04d71fbf8",
 });
+
 
 const messaging = firebase.messaging();
 
