@@ -30,3 +30,24 @@ export const fetchEvents = async () => {
   if (!res.ok) throw new Error('Error al cargar eventos');
   return await res.json();
 };
+
+// Obtener detalles del grupo
+export const getGroupDetails = async (groupId) => {
+  const res = await fetch(`${API_URL}/groups/${groupId}`);
+  if (!res.ok) throw new Error('Error al obtener los detalles del grupo');
+  return await res.json();
+};
+
+// Obtener próximas clases del grupo
+export const getUpcomingClasses = async (groupId) => {
+  const res = await fetch(`${API_URL}/groups/upcoming-classes/${groupId}`);
+  if (!res.ok) throw new Error('Error al obtener las próximas clases');
+  return await res.json();
+};
+
+// Obtener notificaciones del grupo
+export const getGroupNotifications = async (groupId) => {
+  const res = await fetch(`${API_URL}/notifications/${groupId}`);
+  if (!res.ok) throw new Error('Error al obtener notificaciones');
+  return await res.json();
+};
