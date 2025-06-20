@@ -12,16 +12,10 @@
       "distribution": "internal"
     },
     "production": {
-      "autoIncrement": true,
-      "env": {
-        "GOOGLE_SERVICES_JSON": "env:GOOGLE_SERVICES_JSON"
-      }
+      "autoIncrement": true
     }
   },
   "submit": {
     "production": {}
-  },
-  "hooks": {
-    "prebuild": "node scripts/setup-google-services.js"
   }
 }

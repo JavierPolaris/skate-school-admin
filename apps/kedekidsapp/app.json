@@ -12,14 +12,14 @@
       "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "googleServicesFile": "./android/app/google-services.json",
-      "edgeToEdgeEnabled": true,
-      "package": "com.javierpolaris.kedekidsapp"
-    },
+  "adaptiveIcon": {
+    "foregroundImage": "./assets/images/adaptive-icon.png",
+    "backgroundColor": "#ffffff"
+  },
+  "googleServicesFile": "./android/app/google-services.json",
+  "edgeToEdgeEnabled": true,
+  "package": "com.javierpolaris.kedekidsapp"
+},
     "web": {
       "bundler": "metro",
       "output": "static",
