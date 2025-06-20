@@ -16,7 +16,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      
+      "googleServicesFile": "./android/app/google-services.json",
       "edgeToEdgeEnabled": true,
       "package": "com.javierpolaris.kedekidsapp"
     },
