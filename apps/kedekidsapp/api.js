@@ -1,15 +1,32 @@
-const API_URL = 'https://skate-school-backend.onrender.com';
+const API_URL = 'https://skate-school-admin.onrender.com/api';
 
 // Login
 export const loginUser = async (email, password) => {
-  const res = await fetch(`${API_URL}/users/login`, {
+  console.log('📡 LoginUser payload:', { email, password });
+
+  const response = await fetch(`${API_URL}/users/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({ email, password }),
   });
 
-  if (!res.ok) throw new Error('Login failed');
-  return await res.json();
+  const text = await response.text();
+  console.log('📥 LoginUser raw response:', text);
+
+  let result;
+  try {
+    result = JSON.parse(text);
+  } catch (err) {
+    throw new Error(text); // si no es JSON, lanza el texto tal cual
+  }
+
+  if (!response.ok) {
+    throw new Error(result.error || 'Login failed');
+  }
+
+  return result;
 };
 
 // Obtener perfil del usuario
