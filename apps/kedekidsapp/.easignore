@@ -1,19 +1,21 @@
-# Ignora todo por defecto
+# Ignora todo
 *
 
-# Pero incluye lo que hace falta
-!android/app/google-services.json
-!eas.json
-!app.json
-!package.json
-!babel.config.js
-!index.js
-!**/*.ts
-!**/*.tsx
-!**/*.js
-!**/*.jsx
+# Incluye todo lo necesario para que EAS no pete
+!android/**
 !assets/**
 !app/**
-!hooks/**
 !components/**
 !constants/**
+!hooks/**
+!node_modules/**
+!package.json
+!eas.json
+!app.json
+!babel.config.js
+!index.js
+!tsconfig.json
+!tsconfig.base.json
+!metro.config.js
+!*.ts
+!*.tsx
