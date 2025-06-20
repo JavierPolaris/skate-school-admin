@@ -1,0 +1,19 @@
+# Ignora todo por defecto
+*
+
+# Pero incluye lo que hace falta
+!android/app/google-services.json
+!eas.json
+!app.json
+!package.json
+!babel.config.js
+!index.js
+!**/*.ts
+!**/*.tsx
+!**/*.js
+!**/*.jsx
+!assets/**
+!app/**
+!hooks/**
+!components/**
+!constants/**
