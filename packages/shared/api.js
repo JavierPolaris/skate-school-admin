@@ -1,53 +1,47 @@
 // packages/shared/api.js
 
-// 1️⃣ Detectar si estamos en web (Vite) o en native (Hermes/Expo)
-const isWeb = typeof document !== 'undefined';
+// 1️⃣ Detectar plataforma
+import { Platform } from 'react-native';
 
-// 2️⃣ URL base para web (lee VITE_API_URL o localhost)
-const WEB_BASE_URL =
-  typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL
-    ? import.meta.env.VITE_API_URL
-    : 'http://localhost:5000/api';  // fallback
+// 2️⃣ URL para Web (Vite). Asegúrate de que tu .env* ya tenga el `/api` al final.
+const WEB_API_URL = import.meta?.env?.VITE_API_URL
+  ? import.meta.env.VITE_API_URL
+  : 'http://localhost:5000/api';
 
-// 3️⃣ URL base para mobile (lee de app.json) – se carga dinámicamente
-let MOBILE_BASE_URL = WEB_BASE_URL;
-if (!isWeb) {
+// 3️⃣ URL para Mobile. La leemos de app.json → expo.extra.apiUrl
+let MOBILE_API_URL = WEB_API_URL;
+if (Platform.OS !== 'web') {
+  // import por si acaso Metro aún no lo conoce en este contexto
   try {
-    const Constants = require('expo-constants');
-    MOBILE_BASE_URL = Constants.expoConfig.extra.apiUrl;
-  } catch (e) {
-    console.warn('⚠️ expo-constants no disponible, usando WEB_BASE_URL');
+    // esta línea solo se ejecuta en RN, no peta en Vite
+    import Constants from 'expo-constants';
+    MOBILE_API_URL = Constants.expoConfig.extra.apiUrl;
+  } catch {
+    console.warn('⚠️ No pude leer Constants.expoConfig.extra.apiUrl, usando WEB_API_URL');
   }
 }
 
-// 4️⃣ Exportar la URL final según plataforma
-export const API_URL = isWeb ? WEB_BASE_URL : MOBILE_BASE_URL;
+// 4️⃣ Exporta la URL correcta según plataforma
+export const API_URL = Platform.OS === 'web' ? WEB_API_URL : MOBILE_API_URL;
 
 
 // ————————————————————————————————
-// Funciones de API (loginUser, getUserProfile, etc.)
+// Ahora tus llamadas a la API simplemente usan API_URL
 // ————————————————————————————————
 
 export const loginUser = async (email, password) => {
   const url = `${API_URL}/users/login`;
   console.log('➡️  LOGIN URL:', url);
-  console.log('➡️  PAYLOAD:', { email, password });
-
   const res = await fetch(url, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
   });
-
   const text = await res.text();
-  console.log('⬅️  RESPONSE STATUS:', res.status);
-  console.log('⬅️  RESPONSE BODY:', text);
-
+  console.log('⬅️ STATUS:', res.status, 'BODY:', text);
   if (!res.ok) {
     let msg = 'Login failed';
-    try {
-      msg = JSON.parse(text).error || msg;
-    } catch {}
+    try { msg = JSON.parse(text).error || msg; } catch {}
     throw new Error(msg);
   }
   return JSON.parse(text);
