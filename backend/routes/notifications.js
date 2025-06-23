@@ -75,15 +75,28 @@ router.post("/send-notification/:groupId", async (req, res) => {
   const { groupId } = req.params;
 
   try {
+    // Log de inicio de la función
+    console.log(`Iniciando envío de notificación al grupo ${groupId} con título: "${title}" y cuerpo: "${body}"`);
+
     const group = await Group.findById(groupId).populate("members");
-    if (!group) return res.status(404).json({ error: "Grupo no encontrado" });
+    if (!group) {
+      console.error(`❌ Grupo con ID ${groupId} no encontrado`);
+      return res.status(404).json({ error: "Grupo no encontrado" });
+    }
+
+    // Log para verificar miembros del grupo
+    console.log(`Grupo encontrado. Miembros: ${group.members.length}`);
 
     // Filtra tokens válidos de Expo
     const tokens = group.members
       .map(m => m.deviceToken)
       .filter(Expo.isExpoPushToken);
 
+    // Log para verificar si tenemos tokens válidos
+    console.log(`Tokens de Expo encontrados: ${tokens.length}`);
+
     if (tokens.length === 0) {
+      console.warn("❌ No hay tokens de Expo disponibles");
       return res.status(400).json({ success: false, message: "No hay tokens de Expo disponibles" });
     }
 
@@ -96,24 +109,35 @@ router.post("/send-notification/:groupId", async (req, res) => {
       data: { groupId },
     }));
 
+    // Log para verificar los mensajes antes de enviar
+    console.log("Mensajes preparados para envío:", messages);
+
     // Envia en chunks (100 máximo c/u)
     let tickets = [];
     for (let chunk of expo.chunkPushNotifications(messages)) {
-      let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-      tickets.push(...ticketChunk);
+      try {
+        let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+        tickets.push(...ticketChunk);
+
+        // Log de éxito después de enviar el chunk
+        console.log(`Enviado chunk de ${ticketChunk.length} notificaciones`);
+      } catch (err) {
+        console.error("❌ Error enviando chunk:", err);
+      }
     }
 
+    // Respuesta exitosa
+    console.log("✅ Notificaciones enviadas correctamente");
     return res.json({
       success: true,
       tickets,
       message: `Intentadas ${messages.length} notificaciones`,
     });
   } catch (err) {
-    console.error("❌ Error enviando notificación:", err);
+    console.error("❌ Error general enviando notificación:", err);
     return res.status(500).json({ success: false, error: err.message });
   }
 });
-
 
 
 
