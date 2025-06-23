@@ -132,40 +132,7 @@ export default function StudentLayout() {
           <Text>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Text>
         </View>
 
-        {/* Search */}
-        <TextInput
-          placeholder="Buscar..."
-          value={searchTerm}
-          onChangeText={handleSearch}
-          style={styles.searchInput}
-        />
-        {searchResults.length > 0 && (
-          <View style={styles.searchResults}>
-            <FlatList
-              data={searchResults}
-              keyExtractor={(_, i) => String(i)}
-              renderItem={({ item }) => (
-                <Pressable
-                  onPress={() => {
-                    let dest = '/student';
-                    if (item.type === 'user')  dest = `/app/students?userId=${item._id}`;
-                    if (item.type === 'group') dest = `/app/groups?groupId=${item._id}`;
-                    if (item.type === 'event') dest = `/app/events?eventId=${item._id}`;
-                    router.push(dest);
-                    setSearchResults([]);
-                  }}
-                >
-                  <Text style={styles.searchItem}>
-                    {item.type === 'user' && `Usuario: ${item.name}`}
-                    {item.type === 'group' && `Grupo: ${item.name}`}
-                    {item.type === 'event' && `Evento: ${item.name}`}
-                  </Text>
-                </Pressable>
-              )}
-            />
-          </View>
-        )}
-
+        
         {/* Iconos notificaciones y mensajes */}
         <Pressable
           ref={notifRef}

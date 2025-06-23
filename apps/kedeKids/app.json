@@ -16,7 +16,10 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.anonymous.skateschoolmobile",
+      "googleServicesFile": "./google-services.json"
+       
     },
     "web": {
       "bundler": "metro",
@@ -33,13 +36,19 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-notifications",
+      "expo-dev-client"
     ],
     "experiments": {
       "typedRoutes": true
     },
     "extra": {
-      "apiUrl": "https://skate-school-admin.onrender.com/api"
+      "apiUrl": "https://skate-school-admin.onrender.com/api",
+      "router": {},
+      "eas": {
+        "projectId": "59b0620f-7422-4101-90a8-28ce9b67696b"
+      }
     }
   }
 }

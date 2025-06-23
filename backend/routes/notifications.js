@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
+const { Expo } = require("expo-server-sdk");
+const expo = new Expo();
+
 const admin = require("../firebase"); // Importa la configuración de Firebase
 const Group = require('../models/Group');
+const User = require("../models/User");
 
 
 // Obtener notificaciones de un grupo
@@ -64,6 +68,59 @@ router.post('/send-notification', async (req, res) => {
   }
 });
 
+// Enviar notificación push a todos los miembros de un grupo
+router.post("/send-notification/:groupId", async (req, res) => {
+  const { title, body } = req.body;
+  const { groupId } = req.params;
+
+  try {
+    const group = await Group.findById(groupId).populate("members");
+    if (!group) return res.status(404).json({ error: "Grupo no encontrado" });
+
+    // Filtra solamente tokens válidos de Expo
+    const tokens = group.members
+      .map((m) => m.deviceToken)
+      .filter((t) => typeof t === "string" && Expo.isExpoPushToken(t));
+
+    if (!tokens.length) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No hay tokens de Expo disponibles" });
+    }
+
+    // Prepara mensajes
+    const messages = tokens.map((token) => ({
+      to: token,
+      sound: "default",
+      title,
+      body,
+      data: { groupId },
+    }));
+
+    // Envia en batches de hasta 100
+    const chunks = expo.chunkPushNotifications(messages);
+    let tickets = [];
+    for (const chunk of chunks) {
+      try {
+        const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+        tickets.push(...ticketChunk);
+      } catch (err) {
+        console.error("Error enviando chunk:", err);
+      }
+    }
+
+    return res.json({
+      success: true,
+      tickets,
+      message: `Intentadas ${messages.length} notificaciones`,
+    });
+  } catch (err) {
+    console.error("❌ Error enviando notificación:", err);
+    return res
+      .status(500)
+      .json({ success: false, error: err.message, stack: err.stack });
+  }
+});
 
 // Enviar notificación a todos los miembros de un grupo
 router.post('/send-notification/:groupId', async (req, res) => {

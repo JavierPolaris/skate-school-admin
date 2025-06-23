@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1027397835625",
+    "project_id": "skate-app-cc014",
+    "storage_bucket": "skate-app-cc014.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027397835625:android:2d5424a370aac04d71fbf8",
+        "android_client_info": {
+          "package_name": "com.anonymous.skateschoolmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC26QKbn0YZGUQQRV1Q1Nu-HH1aO4Q7qUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
