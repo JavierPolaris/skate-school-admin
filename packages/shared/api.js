@@ -1,38 +1,34 @@
 // packages/shared/api.js
 
-import Constants from 'expo-constants';
-
-/**
- * Base URL for Web (Vite) — lee la var de entorno VITE_API_URL o fallback a localhost
- */
-const WEB_BASE_URL =
-  (import.meta?.env?.VITE_API_URL
-    ? import.meta.env.VITE_API_URL
-    : 'http://localhost:5000') + '/api';
-
-/**
- * Base URL para Mobile (Expo) — lee de app.json → expo.extra.apiUrl o usa WEB_BASE_URL
- */
-const MOBILE_BASE_URL =
-  Constants.expoConfig?.extra?.apiUrl ?? WEB_BASE_URL;
-
-/**
- * Detectar si estamos en Web (document definido) o Mobile (React Native)
- */
+// 1️⃣ Detectar si estamos en web (Vite) o en native (Hermes/Expo)
 const isWeb = typeof document !== 'undefined';
 
-/**
- * URL final a usar según plataforma
- */
+// 2️⃣ URL base para web (lee VITE_API_URL o localhost)
+const WEB_BASE_URL =
+  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL
+    ? import.meta.env.VITE_API_URL
+    : 'http://localhost:5000'
+  ) + '/api';
+
+// 3️⃣ URL base para mobile (lee de app.json) – se carga dinámicamente
+let MOBILE_BASE_URL = WEB_BASE_URL;
+if (!isWeb) {
+  try {
+    const Constants = require('expo-constants');
+    MOBILE_BASE_URL = Constants.expoConfig.extra.apiUrl;
+  } catch (e) {
+    console.warn('⚠️ expo-constants no disponible, usando WEB_BASE_URL');
+  }
+}
+
+// 4️⃣ Exportar la URL final según plataforma
 export const API_URL = isWeb ? WEB_BASE_URL : MOBILE_BASE_URL;
 
+
 // ————————————————————————————————
-// Funciones de API
+// Funciones de API (loginUser, getUserProfile, etc.)
 // ————————————————————————————————
 
-/**
- * Login de usuario
- */
 export const loginUser = async (email, password) => {
   const url = `${API_URL}/users/login`;
   console.log('➡️  LOGIN URL:', url);
@@ -58,24 +54,15 @@ export const loginUser = async (email, password) => {
   return JSON.parse(text);
 };
 
-/**
- * Obtener perfil del usuario (requiere token Bearer)
- */
 export const getUserProfile = async (token) => {
   const url = `${API_URL}/users/profile`;
   const res = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: { Authorization: `Bearer ${token}` },
   });
-
   if (!res.ok) throw new Error('Failed to get profile');
   return await res.json();
 };
 
-/**
- * Listado de clases o eventos
- */
 export const fetchEvents = async () => {
   const url = `${API_URL}/events`;
   const res = await fetch(url);
@@ -83,29 +70,20 @@ export const fetchEvents = async () => {
   return await res.json();
 };
 
-/**
- * Obtener detalles del grupo por ID
- */
 export const getGroupDetails = async (groupId) => {
   const url = `${API_URL}/groups/${groupId}`;
   const res = await fetch(url);
-  if (!res.ok) throw new Error('Error al obtener los detalles del grupo');
+  if (!res.ok) throw new Error('Error al obtener detalles del grupo');
   return await res.json();
 };
 
-/**
- * Obtener próximas clases de un grupo
- */
 export const getUpcomingClasses = async (groupId) => {
   const url = `${API_URL}/groups/upcoming-classes/${groupId}`;
   const res = await fetch(url);
-  if (!res.ok) throw new Error('Error al obtener las próximas clases');
+  if (!res.ok) throw new Error('Error al obtener próximas clases');
   return await res.json();
 };
 
-/**
- * Obtener notificaciones del grupo
- */
 export const getGroupNotifications = async (groupId) => {
   const url = `${API_URL}/notifications/${groupId}`;
   const res = await fetch(url);
