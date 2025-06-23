@@ -14,17 +14,15 @@ const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
 
 const postTokenToReactNative = (token, attempts = 0) => {
-  console.log('📡 window.ReactNativeWebView:', window.ReactNativeWebView);
+
 
   if (window.ReactNativeWebView) {
-    console.log('📤 Enviando token al WebView...');
+  
     window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
   } else if (attempts < 10) {
-    console.log('⏳ Esperando a ReactNativeWebView... intento', attempts);
+    
     setTimeout(() => postTokenToReactNative(token, attempts + 1), 500);
-  } else {
-    console.warn('❌ No se pudo enviar token a ReactNativeWebView tras varios intentos');
-  }
+  } 
 };
 
 export const requestPermissionAndGetToken = async () => {
