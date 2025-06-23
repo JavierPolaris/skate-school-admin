@@ -64,7 +64,7 @@ function App() {
   useEffect(() => {
     requestPermissionAndGetToken();
   }, []);
-console.log("📡 window.ReactNativeWebView:", typeof window.ReactNativeWebView);
+
 
   return (
     <Router>
