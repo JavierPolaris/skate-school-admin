@@ -1,18 +1,17 @@
 // packages/shared/api.js
 
-// Detectamos plataforma usando globals, sin importar react-native en web
+// Detectar si estamos en web: existe window y document
 const isWeb = typeof window !== 'undefined' && typeof document !== 'undefined';
 
-// URL base para Web (Vite)
-const WEB_API_URL = import.meta?.env?.VITE_API_URL
+// URL base para web: usa la variable VITE_API_URL o fallback a localhost
+const WEB_API_URL = import.meta.env?.VITE_API_URL
   ? import.meta.env.VITE_API_URL
   : 'http://localhost:5000/api';
 
-// URL base para Mobile (Expo)
+// URL base para móvil: lee de app.json.extra.apiUrl o fallback a WEB_API_URL
 let MOBILE_API_URL = WEB_API_URL;
 if (!isWeb) {
   try {
-    // Sólo ejecutar en RN
     const Constants = require('expo-constants');
     MOBILE_API_URL = Constants.expoConfig?.extra?.apiUrl || MOBILE_API_URL;
   } catch (e) {
@@ -20,10 +19,10 @@ if (!isWeb) {
   }
 }
 
-// Exporta URL correcta según plataforma
+// Exportar la URL definitiva
 export const API_URL = isWeb ? WEB_API_URL : MOBILE_API_URL;
 
-// Funciones de API
+// Funciones de API compartidas
 export const loginUser = async (email, password) => {
   const url = `${API_URL}/users/login`;
   console.log('➡️ LOGIN URL:', url);
