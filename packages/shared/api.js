@@ -5,10 +5,9 @@ const isWeb = typeof document !== 'undefined';
 
 // 2️⃣ URL base para web (lee VITE_API_URL o localhost)
 const WEB_BASE_URL =
-  (typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL
+  typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_URL
     ? import.meta.env.VITE_API_URL
-    : 'http://localhost:5000'
-  ) + '/api';
+    : 'http://localhost:5000/api';  // fallback
 
 // 3️⃣ URL base para mobile (lee de app.json) – se carga dinámicamente
 let MOBILE_BASE_URL = WEB_BASE_URL;
