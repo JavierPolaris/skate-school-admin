@@ -1,29 +1,43 @@
+// app/index.tsx
+
+// 1️⃣ Importa esto *antes* de cualquier otra cosa para configurar el handler global
+import './utils/notifications';
+
+import * as Notifications from 'expo-notifications';
 import { useState, useEffect } from 'react';
-import { View, Text, TextInput, Image, Pressable, StyleSheet, Modal, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  Pressable,
+  StyleSheet,
+  Modal,
+  Alert,
+} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import { loginUser } from '@shared/api';
 import { registerForPushNotificationsAndSave } from './utils/notifications';
-
 import { API_URL } from '@shared/api';
 
 export default function LoginScreen() {
   /* ---------------- state ---------------- */
-  const [email, setEmail]       = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError]       = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const [showRequest, setShowRequest] = useState(false);
-  const [reqName,  setReqName]  = useState('');
+  const [reqName, setReqName] = useState('');
   const [reqEmail, setReqEmail] = useState('');
-  const [reqMsg,   setReqMsg]   = useState('');
+  const [reqMsg, setReqMsg] = useState('');
 
   /* ------------- auto-login ------------- */
   useEffect(() => {
     (async () => {
       try {
         const storedToken = await AsyncStorage.getItem('token');
-        const storedUser  = await AsyncStorage.getItem('user');
+        const storedUser = await AsyncStorage.getItem('user');
         if (storedToken && storedUser) {
           const user = JSON.parse(storedUser);
           goToRole(user.role);
@@ -34,10 +48,29 @@ export default function LoginScreen() {
     })();
   }, []);
 
+  /* ------------- notification listeners ------------- */
+  useEffect(() => {
+    // recibir notificación en foreground
+    const subRec = Notifications.addNotificationReceivedListener(notification => {
+      console.log('🔔 Notificación recibida:', notification);
+      Alert.alert(notification.request.content.title || 'Notificación', notification.request.content.body);
+    });
+    // respuesta del usuario
+    const subRes = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log('👉 Respuesta notificación:', response);
+      // aquí podrías navegar según response.notification.request.content.data
+    });
+
+    return () => {
+      subRec.remove();
+      subRes.remove();
+    };
+  }, []);
+
   /* ------------- helpers ------------- */
   const goToRole = (role: string) => {
-    if (role === 'admin')   router.replace('/admin');
-    else                    router.replace('/student');
+    if (role === 'admin') router.replace('/admin');
+    else router.replace('/student');
   };
 
   /* ------------- login handler ------------- */
@@ -50,7 +83,7 @@ export default function LoginScreen() {
 
       await AsyncStorage.multiSet([
         ['token', data.token],
-        ['user',  JSON.stringify(data.user)],
+        ['user', JSON.stringify(data.user)],
       ]);
 
       // Registrar push token tras login exitoso
@@ -66,14 +99,16 @@ export default function LoginScreen() {
   const handleRequestAccess = async () => {
     try {
       const res = await fetch(`${API_URL}/users/request-access`, {
-        method : 'POST',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body   : JSON.stringify({ name: reqName, email: reqEmail }),
+        body: JSON.stringify({ name: reqName, email: reqEmail }),
       });
       const data = await res.json();
-      setReqMsg(res.ok
-        ? '✅ Solicitud enviada. El equipo la revisará.'
-        : data.error || 'Error al enviar la solicitud');
+      setReqMsg(
+        res.ok
+          ? '✅ Solicitud enviada. El equipo la revisará.'
+          : data.error || 'Error al enviar la solicitud'
+      );
     } catch {
       setReqMsg('Error al conectar con el servidor.');
     }
@@ -84,7 +119,9 @@ export default function LoginScreen() {
     <View style={styles.container}>
       {/* logo  */}
       <Image
-        source={{ uri: 'https://www.kedekids.com/wp-content/uploads/2020/09/cropped-LOGO-KEDEKIDS-e1601394191149-1-2048x676.png' }}
+        source={{
+          uri: 'https://www.kedekids.com/wp-content/uploads/2020/09/cropped-LOGO-KEDEKIDS-e1601394191149-1-2048x676.png',
+        }}
         style={styles.logo}
         resizeMode="contain"
       />
@@ -150,7 +187,10 @@ export default function LoginScreen() {
               <Pressable style={styles.buttonSmall} onPress={handleRequestAccess}>
                 <Text style={styles.buttonText}>Enviar</Text>
               </Pressable>
-              <Pressable style={styles.buttonSmallOutline} onPress={() => setShowRequest(false)}>
+              <Pressable
+                style={styles.buttonSmallOutline}
+                onPress={() => setShowRequest(false)}
+              >
                 <Text style={styles.buttonTextOutline}>Cancelar</Text>
               </Pressable>
             </View>
@@ -164,34 +204,34 @@ export default function LoginScreen() {
 /* ---------------- estilo ---------------- */
 const styles = StyleSheet.create({
   container: {
-    flex            : 1,
-    justifyContent  : 'center',
-    alignItems      : 'center',
-    padding         : 24,
-    backgroundColor : '#fff',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+    backgroundColor: '#fff',
   },
   logo: { width: 200, height: 60, marginBottom: 24 },
   title: { fontSize: 22, fontWeight: '600', marginBottom: 12 },
   input: {
-    width           : '100%',
-    borderWidth     : 1,
-    borderColor     : '#ccc',
-    borderRadius    : 6,
-    paddingVertical : 10,
+    width: '100%',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 6,
+    paddingVertical: 10,
     paddingHorizontal: 12,
-    marginBottom    : 12,
+    marginBottom: 12,
   },
   button: {
-    backgroundColor : '#000',
-    paddingVertical : 12,
+    backgroundColor: '#000',
+    paddingVertical: 12,
     paddingHorizontal: 32,
-    borderRadius    : 6,
-    marginTop       : 4,
-    marginBottom    : 20,
+    borderRadius: 6,
+    marginTop: 4,
+    marginBottom: 20,
   },
   buttonText: { color: '#fff', fontWeight: '600' },
   error: { color: 'red', marginBottom: 8 },
-  link : { color: '#0066cc', textDecorationLine: 'underline' },
+  link: { color: '#0066cc', textDecorationLine: 'underline' },
 
   /* modal */
   modalOverlay: {

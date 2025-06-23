@@ -68,6 +68,7 @@ router.post('/send-notification', async (req, res) => {
   }
 });
 
+
 // Enviar notificación push a todos los miembros de un grupo
 router.post("/send-notification/:groupId", async (req, res) => {
   const { title, body } = req.body;
@@ -77,19 +78,17 @@ router.post("/send-notification/:groupId", async (req, res) => {
     const group = await Group.findById(groupId).populate("members");
     if (!group) return res.status(404).json({ error: "Grupo no encontrado" });
 
-    // Filtra solamente tokens válidos de Expo
+    // Filtra tokens válidos de Expo
     const tokens = group.members
-      .map((m) => m.deviceToken)
-      .filter((t) => typeof t === "string" && Expo.isExpoPushToken(t));
+      .map(m => m.deviceToken)
+      .filter(Expo.isExpoPushToken);
 
-    if (!tokens.length) {
-      return res
-        .status(400)
-        .json({ success: false, message: "No hay tokens de Expo disponibles" });
+    if (tokens.length === 0) {
+      return res.status(400).json({ success: false, message: "No hay tokens de Expo disponibles" });
     }
 
-    // Prepara mensajes
-    const messages = tokens.map((token) => ({
+    // Prepara los mensajes
+    const messages = tokens.map(token => ({
       to: token,
       sound: "default",
       title,
@@ -97,16 +96,11 @@ router.post("/send-notification/:groupId", async (req, res) => {
       data: { groupId },
     }));
 
-    // Envia en batches de hasta 100
-    const chunks = expo.chunkPushNotifications(messages);
+    // Envia en chunks (100 máximo c/u)
     let tickets = [];
-    for (const chunk of chunks) {
-      try {
-        const ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-        tickets.push(...ticketChunk);
-      } catch (err) {
-        console.error("Error enviando chunk:", err);
-      }
+    for (let chunk of expo.chunkPushNotifications(messages)) {
+      let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
+      tickets.push(...ticketChunk);
     }
 
     return res.json({
@@ -116,51 +110,11 @@ router.post("/send-notification/:groupId", async (req, res) => {
     });
   } catch (err) {
     console.error("❌ Error enviando notificación:", err);
-    return res
-      .status(500)
-      .json({ success: false, error: err.message, stack: err.stack });
+    return res.status(500).json({ success: false, error: err.message });
   }
 });
 
-// Enviar notificación a todos los miembros de un grupo
-router.post('/send-notification/:groupId', async (req, res) => {
-  const { title, body } = req.body;
-  const { groupId } = req.params;
 
-  try {
-    const group = await Group.findById(groupId).populate('members');
-    if (!group || !group.members.length) {
-      return res.status(404).json({ error: 'Grupo no encontrado o sin miembros' });
-    }
-
-    const tokens = group.members.map(m => m.deviceToken).filter(Boolean);
-
-    if (!tokens.length) {
-      return res.status(400).json({ success: false, message: 'No hay tokens disponibles' });
-    }
-
-    const message = {
-      notification: { title, body },
-      tokens
-    };
-
-    const response = await admin.messaging().sendEachForMulticast({
-      tokens,
-      notification: {
-        title,
-        body
-      }
-    });
-    res.json({
-      success: true,
-      sent: response.successCount,
-      failed: response.failureCount,
-    });
-  } catch (error) {
-    console.error('❌ Error enviando notificación:', error);
-    res.status(500).json({ success: false, message: 'Error al enviar notificación', error });
-  }
-});
 
 
 module.exports = router;

@@ -1,6 +1,15 @@
 // app/utils/notifications.ts
 
 import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert:   true,
+    shouldPlaySound:   true,
+    shouldSetBadge:    false,
+  }),
+});
+
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@shared/api';
