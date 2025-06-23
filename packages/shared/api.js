@@ -1,29 +1,30 @@
 // packages/shared/api.js
-
-// 1️⃣ Detectar plataforma
 import { Platform } from 'react-native';
 
-// 2️⃣ URL para Web (Vite). Asegúrate de que tu .env* ya tenga el `/api` al final.
-const WEB_API_URL = import.meta?.env?.VITE_API_URL
-  ? import.meta.env.VITE_API_URL
-  : 'http://localhost:5000/api';
+// Web always uses the VITE_API_URL (which must end in /api)
+const WEB_API_URL =
+  import.meta.env?.VITE_API_URL
+    ? import.meta.env.VITE_API_URL
+    : 'http://localhost:5000/api';
 
-// 3️⃣ URL para Mobile. La leemos de app.json → expo.extra.apiUrl
+// Mobile will override it at runtime via expo-constants
 let MOBILE_API_URL = WEB_API_URL;
 if (Platform.OS !== 'web') {
-  // import por si acaso Metro aún no lo conoce en este contexto
   try {
-    // esta línea solo se ejecuta en RN, no peta en Vite
-    import Constants from 'expo-constants';
-    MOBILE_API_URL = Constants.expoConfig.extra.apiUrl;
-  } catch {
-    console.warn('⚠️ No pude leer Constants.expoConfig.extra.apiUrl, usando WEB_API_URL');
+    const Constants = require('expo-constants');
+    MOBILE_API_URL =
+      Constants.expoConfig?.extra?.apiUrl ?? MOBILE_API_URL;
+  } catch (e) {
+    console.warn(
+      '⚠️ expo-constants not available, falling back to WEB_API_URL',
+      e
+    );
   }
 }
 
-// 4️⃣ Exporta la URL correcta según plataforma
-export const API_URL = Platform.OS === 'web' ? WEB_API_URL : MOBILE_API_URL;
-
+// Export the correct one:
+export const API_URL =
+  Platform.OS === 'web' ? WEB_API_URL : MOBILE_API_URL;
 
 // ————————————————————————————————
 // Ahora tus llamadas a la API simplemente usan API_URL
