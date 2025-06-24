@@ -3,10 +3,8 @@ const router = express.Router();
 const { Expo } = require("expo-server-sdk");
 const expo = new Expo();
 
-const admin = require("../firebase"); // Importa la configuración de Firebase
 const Group = require('../models/Group');
 const User = require("../models/User");
-
 
 // Obtener notificaciones de un grupo
 router.get('/:groupId', async (req, res) => {
@@ -14,7 +12,6 @@ router.get('/:groupId', async (req, res) => {
   try {
     const group = await Group.findById(groupId);
     if (!group) return res.status(404).json({ error: 'Grupo no encontrado' });
-
     res.json(group.notifications || []);
   } catch (err) {
     console.error(err);
@@ -25,9 +22,7 @@ router.get('/:groupId', async (req, res) => {
 // Guardar token de dispositivo
 router.put('/save-device-token', async (req, res) => {
   console.log('Body recibido:', req.body);
-
   const { email, deviceToken } = req.body;
-
   try {
     const user = await User.findOneAndUpdate(
       { email },
@@ -46,36 +41,12 @@ router.put('/save-device-token', async (req, res) => {
   }
 });
 
-// Enviar notificación push
-router.post('/send-notification', async (req, res) => {
-  const { title, body, tokens } = req.body;
-
-  if (!Array.isArray(tokens) || tokens.length === 0) {
-    return res.status(400).send({ success: false, message: 'Tokens must be a non-empty array' });
-  }
-
-  const message = {
-    notification: { title, body },
-    tokens,
-  };
-
-  try {
-    const response = await admin.messaging().sendMulticast(message);
-    res.json({ success: true, response });
-  } catch (err) {
-    console.error('Error enviando notificación:', err);
-    res.status(500).json({ success: false, error: err.message });
-  }
-});
-
-
 // Enviar notificación push a todos los miembros de un grupo
 router.post("/send-notification/:groupId", async (req, res) => {
   const { title, body } = req.body;
   const { groupId } = req.params;
 
   try {
-    // Log de inicio de la función
     console.log(`Iniciando envío de notificación al grupo ${groupId} con título: "${title}" y cuerpo: "${body}"`);
 
     const group = await Group.findById(groupId).populate("members");
@@ -84,15 +55,12 @@ router.post("/send-notification/:groupId", async (req, res) => {
       return res.status(404).json({ error: "Grupo no encontrado" });
     }
 
-    // Log para verificar miembros del grupo
     console.log(`Grupo encontrado. Miembros: ${group.members.length}`);
 
-    // Filtra tokens válidos de Expo
     const tokens = group.members
       .map(m => m.deviceToken)
       .filter(Expo.isExpoPushToken);
 
-    // Log para verificar si tenemos tokens válidos
     console.log(`Tokens de Expo encontrados: ${tokens.length}`);
 
     if (tokens.length === 0) {
@@ -100,7 +68,6 @@ router.post("/send-notification/:groupId", async (req, res) => {
       return res.status(400).json({ success: false, message: "No hay tokens de Expo disponibles" });
     }
 
-    // Prepara los mensajes
     const messages = tokens.map(token => ({
       to: token,
       sound: "default",
@@ -109,24 +76,19 @@ router.post("/send-notification/:groupId", async (req, res) => {
       data: { groupId },
     }));
 
-    // Log para verificar los mensajes antes de enviar
     console.log("Mensajes preparados para envío:", messages);
 
-    // Envia en chunks (100 máximo c/u)
     let tickets = [];
     for (let chunk of expo.chunkPushNotifications(messages)) {
       try {
         let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
         tickets.push(...ticketChunk);
-
-        // Log de éxito después de enviar el chunk
         console.log(`Enviado chunk de ${ticketChunk.length} notificaciones`);
       } catch (err) {
         console.error("❌ Error enviando chunk:", err);
       }
     }
 
-    // Respuesta exitosa
     console.log("✅ Notificaciones enviadas correctamente");
     return res.json({
       success: true,
@@ -138,7 +100,5 @@ router.post("/send-notification/:groupId", async (req, res) => {
     return res.status(500).json({ success: false, error: err.message });
   }
 });
-
-
 
 module.exports = router;
