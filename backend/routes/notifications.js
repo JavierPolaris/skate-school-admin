@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { Expo } = require("expo-server-sdk");
-const expo = new Expo();
 
+const admin = require("../firebase");
 const Group = require('../models/Group');
 const User = require("../models/User");
 
@@ -47,56 +46,42 @@ router.post("/send-notification/:groupId", async (req, res) => {
   const { groupId } = req.params;
 
   try {
-    console.log(`Iniciando envío de notificación al grupo ${groupId} con título: "${title}" y cuerpo: "${body}"`);
+    console.log(`Iniciando envío al grupo ${groupId}: ${title}`);
 
     const group = await Group.findById(groupId).populate("members");
-    if (!group) {
-      console.error(`❌ Grupo con ID ${groupId} no encontrado`);
-      return res.status(404).json({ error: "Grupo no encontrado" });
-    }
+    if (!group) return res.status(404).json({ error: "Grupo no encontrado" });
 
-    console.log(`Grupo encontrado. Miembros: ${group.members.length}`);
-
+    // Extrae los deviceTokens que guardaste antes
     const tokens = group.members
       .map(m => m.deviceToken)
-      .filter(Expo.isExpoPushToken);
-
-    console.log(`Tokens de Expo encontrados: ${tokens.length}`);
+      .filter(Boolean);
 
     if (tokens.length === 0) {
-      console.warn("❌ No hay tokens de Expo disponibles");
-      return res.status(400).json({ success: false, message: "No hay tokens de Expo disponibles" });
+      return res.status(400).json({ success: false, message: "No hay tokens FCM" });
     }
 
-    const messages = tokens.map(token => ({
-      to: token,
-      sound: "default",
-      title,
-      body,
+    // Prepara un mensaje multicast FCM v1
+    const message = {
+      notification: { title, body },
+      tokens,               // array de deviceTokens
+      android: {            // opcional, sonido por defecto
+        notification: { sound: "default" }
+      },
       data: { groupId },
-    }));
+    };
 
-    console.log("Mensajes preparados para envío:", messages);
+    // Envía
+    const response = await admin.messaging().sendMulticast(message);
+    console.log("✅ FCM respuesta:", response);
 
-    let tickets = [];
-    for (let chunk of expo.chunkPushNotifications(messages)) {
-      try {
-        let ticketChunk = await expo.sendPushNotificationsAsync(chunk);
-        tickets.push(...ticketChunk);
-        console.log(`Enviado chunk de ${ticketChunk.length} notificaciones`);
-      } catch (err) {
-        console.error("❌ Error enviando chunk:", err);
-      }
-    }
-
-    console.log("✅ Notificaciones enviadas correctamente");
     return res.json({
       success: true,
-      tickets,
-      message: `Intentadas ${messages.length} notificaciones`,
+      sent:   response.successCount,
+      failed: response.failureCount,
+      responses: response.responses,
     });
   } catch (err) {
-    console.error("❌ Error general enviando notificación:", err);
+    console.error("❌ Error enviando FCM:", err);
     return res.status(500).json({ success: false, error: err.message });
   }
 });

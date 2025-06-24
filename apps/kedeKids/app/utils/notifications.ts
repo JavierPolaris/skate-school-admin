@@ -1,8 +1,10 @@
+// app/utils/notifications.ts
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@shared/api';
 
+// 📌 sigue manejando el handler igual
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -12,45 +14,43 @@ Notifications.setNotificationHandler({
 });
 
 export async function registerForPushNotificationsAndSave() {
-  if (Platform.OS === 'web') {
-    console.warn('Push notifications: ejecutado en web, omitiendo.');
-    return null;
-  }
+  if (Platform.OS === 'web') return null;
 
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
-  if (existingStatus !== 'granted') {
+  // 1️⃣ permisos
+  const { status: existing } = await Notifications.getPermissionsAsync();
+  let finalStatus = existing;
+  if (existing !== 'granted') {
     const { status } = await Notifications.requestPermissionsAsync();
     finalStatus = status;
   }
   if (finalStatus !== 'granted') {
-    console.warn('Permiso de notificaciones denegado');
+    console.warn('Permiso notificaciones denegado');
     return null;
   }
 
-  const tokenObj = await Notifications.getExpoPushTokenAsync();
-  const pushToken = tokenObj.data;
-  console.log('🔐 Expo Push Token:', pushToken);
+  // 2️⃣ 👉 Token FCM nativo
+  // (antes usábamos getExpoPushTokenAsync, ahora:
+  const tokenObj = await Notifications.getDevicePushTokenAsync();
+  const deviceToken = tokenObj.data;
+  console.log('🔑 FCM Device Token:', deviceToken);
 
+  // 3️⃣ guardarlo en backend
   try {
     const userJson = await AsyncStorage.getItem('user');
     if (userJson) {
-      const user = JSON.parse(userJson);
-      if (user.email) {
-        const res = await fetch(
-          `${API_URL}/users/save-device-token`,
-          {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email: user.email, deviceToken: pushToken }),
-          }
-        );
-        console.log('✅ Token guardado en backend:', await res.json());
+      const { email } = JSON.parse(userJson);
+      if (email) {
+        const res = await fetch(`${API_URL}/users/save-device-token`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, deviceToken }),
+        });
+        console.log('✅ Token FCM guardado:', await res.json());
       }
     }
   } catch (err) {
-    console.error('❌ Error al guardar token en backend:', err);
+    console.error('❌ Error guardando token FCM:', err);
   }
 
-  return pushToken;
+  return deviceToken;
 }

@@ -50,15 +50,20 @@ export default function LoginScreen() {
 
   /* ------------- notification listeners ------------- */
   useEffect(() => {
-    // recibir notificación en foreground
+    // 1) Cuando la app está en foreground
     const subRec = Notifications.addNotificationReceivedListener(notification => {
-      console.log('🔔 Notificación recibida:', notification);
-      Alert.alert(notification.request.content.title || 'Notificación', notification.request.content.body);
+      console.log('🔔 Notificación recibida (foreground):', notification);
+      Alert.alert(
+        notification.request.content.title ?? 'Notificación',
+        notification.request.content.body ?? ''
+      );
     });
-    // respuesta del usuario
+    // 2) Cuando el usuario toca la notificación
     const subRes = Notifications.addNotificationResponseReceivedListener(response => {
       console.log('👉 Respuesta notificación:', response);
-      // aquí podrías navegar según response.notification.request.content.data
+      // Aquí podrías navegar, p.ej.:
+      // const data = response.notification.request.content.data;
+      // router.push(`/chat/${data.chatId}`);
     });
 
     return () => {
@@ -76,7 +81,6 @@ export default function LoginScreen() {
   /* ------------- login handler ------------- */
   const handleLogin = async () => {
     console.log('🛰️  Intentando login con:', { email, password });
-
     try {
       const data = await loginUser(email.trim(), password);
       console.log('✅ Login OK, datos:', data);
@@ -96,6 +100,7 @@ export default function LoginScreen() {
     }
   };
 
+  /* ------------- solicitud de acceso ------------- */
   const handleRequestAccess = async () => {
     try {
       const res = await fetch(`${API_URL}/users/request-access`, {
@@ -117,7 +122,7 @@ export default function LoginScreen() {
   /* ------------- render ------------- */
   return (
     <View style={styles.container}>
-      {/* logo  */}
+      {/* logo */}
       <Image
         source={{
           uri: 'https://www.kedekids.com/wp-content/uploads/2020/09/cropped-LOGO-KEDEKIDS-e1601394191149-1-2048x676.png',
@@ -151,7 +156,7 @@ export default function LoginScreen() {
         <Text style={styles.buttonText}>Entrar</Text>
       </Pressable>
 
-      {/* -------- solicitud de acceso -------- */}
+      {/* solicitud de acceso */}
       <Pressable onPress={() => setShowRequest(true)}>
         <Text style={styles.link}>¿No tienes acceso? Solicitar acceso</Text>
       </Pressable>
@@ -201,67 +206,22 @@ export default function LoginScreen() {
   );
 }
 
-/* ---------------- estilo ---------------- */
+/* ---------------- estilos ---------------- */
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 24,
-    backgroundColor: '#fff',
-  },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24, backgroundColor: '#fff' },
   logo: { width: 200, height: 60, marginBottom: 24 },
   title: { fontSize: 22, fontWeight: '600', marginBottom: 12 },
-  input: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
-    paddingVertical: 10,
-    paddingHorizontal: 12,
-    marginBottom: 12,
-  },
-  button: {
-    backgroundColor: '#000',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 6,
-    marginTop: 4,
-    marginBottom: 20,
-  },
+  input: { width: '100%', borderWidth: 1, borderColor: '#ccc', borderRadius: 6, paddingVertical: 10, paddingHorizontal: 12, marginBottom: 12 },
+  button: { backgroundColor: '#000', paddingVertical: 12, paddingHorizontal: 32, borderRadius: 6, marginTop: 4, marginBottom: 20 },
   buttonText: { color: '#fff', fontWeight: '600' },
   error: { color: 'red', marginBottom: 8 },
   link: { color: '#0066cc', textDecorationLine: 'underline' },
 
-  /* modal */
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalCard: {
-    width: '90%',
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 20,
-  },
+  modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.6)', justifyContent: 'center', alignItems: 'center' },
+  modalCard: { width: '90%', backgroundColor: '#fff', borderRadius: 8, padding: 20 },
   modalTitle: { fontSize: 18, fontWeight: '600', marginBottom: 12 },
   modalButtons: { flexDirection: 'row', justifyContent: 'flex-end', marginTop: 16 },
-  buttonSmall: {
-    backgroundColor: '#000',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 6,
-    marginLeft: 8,
-  },
-  buttonSmallOutline: {
-    borderWidth: 1,
-    borderColor: '#000',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 6,
-    marginLeft: 8,
-  },
+  buttonSmall: { backgroundColor: '#000', paddingVertical: 8, paddingHorizontal: 16, borderRadius: 6, marginLeft: 8 },
+  buttonSmallOutline: { borderWidth: 1, borderColor: '#000', paddingVertical: 8, paddingHorizontal: 16, borderRadius: 6, marginLeft: 8 },
   buttonTextOutline: { color: '#000' },
 });
