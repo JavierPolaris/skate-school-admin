@@ -2,6 +2,7 @@
   "expo": {
     "name": "kedeKids",
     "slug": "kedeKids",
+    "experienceId": "@javierpolaris/kedeKids", // Tu experienceId
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -18,8 +19,8 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.anonymous.skateschoolmobile",
-      "googleServicesFile": "./google-services.json"
-       
+      "googleServicesFile": "./google-services.json",
+      "useNextNotificationsApi": true // Añadido aquí
     },
     "web": {
       "bundler": "metro",
