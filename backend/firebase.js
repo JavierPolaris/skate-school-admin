@@ -1,8 +1,12 @@
-const admin = require('firebase-admin');
+const { initializeApp, cert } = require("firebase-admin/app");
+const { getMessaging } = require("firebase-admin/messaging");
 const serviceAccount = require('./skate-app-cc014-firebase-adminsdk-3fe3c-fe893e8f91.json');
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+// Inicializa la app
+initializeApp({
+  credential: cert(serviceAccount),
 });
 
-module.exports = admin;
+// Exporta el cliente de mensajería
+const messaging = getMessaging();
+module.exports = messaging;
