@@ -1,77 +1,66 @@
+// backend/routes/events.js
 const express = require('express');
 const router = express.Router();
 const Event = require('../models/Event');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
 
-// Transport recomendado para Gmail (con App Password)
+const LAYOUTS = ['header-body-image', 'image-header-body', 'only-image'];
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 465,
   secure: true,
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASSWORD,
-  },
+  auth: { user: process.env.EMAIL, pass: process.env.EMAIL_PASSWORD },
 });
 
-// ---------- Helpers ----------
+// ---------- helpers: email ----------
 function generateEmailContent(event) {
   const logoUrl = "https://www.kedekids.com/wp-content/uploads/2020/09/cropped-LOGO-KEDEKIDS-e1601394191149-1-2048x676.png";
 
   const logo = `
-    <tr>
-      <td align="center" style="padding:20px 0;">
-        <img src="${logoUrl}" alt="Logo Kedekids" style="max-width:150px;">
-      </td>
-    </tr>`;
+    <tr><td align="center" style="padding:20px 0;">
+      <img src="${logoUrl}" alt="Logo Kedekids" style="max-width:150px;">
+    </td></tr>`;
 
   const image = event.imageUrl ? `
-    <tr>
-      <td align="center" style="padding:20px 0;">
-        <img src="${event.imageUrl}" alt="Imagen Evento" style="max-width:100%; border-radius:8px;">
-      </td>
-    </tr>` : '';
+    <tr><td align="center" style="padding:20px 0;">
+      <img src="${event.imageUrl}" alt="Imagen Evento" style="max-width:100%; border-radius:8px;">
+    </td></tr>` : '';
 
   const header = `
-    <tr>
-      <td align="center" style="color:#ef3340; font-size:24px; font-weight:bold; padding:20px 0;">
-        ${event.name}
-      </td>
-    </tr>`;
+    <tr><td align="center" style="color:#ef3340; font-size:24px; font-weight:bold; padding:20px 0;">
+      ${event.name}
+    </td></tr>`;
 
   const body = `
-    <tr>
-      <td align="center" style="color:#ffffff; font-size:16px; padding:10px 0;">
-        ${event.bodyText}
-      </td>
-    </tr>`;
+    <tr><td align="center" style="color:#ffffff; font-size:16px; padding:10px 0;">
+      ${event.bodyText}
+    </td></tr>`;
 
   const footer = `
-    <tr>
-      <td align="center" style="padding:20px 0; border-top:1px solid #ffffff;">
-        <div style="font-size:14px; line-height:1.5; color:#ffffff;">
-          📞 +34 684 01 35 47 | +34 695 59 53 51<br>
-          📧 <a href="mailto:info@kedekids.com" style="color:#ffffff; text-decoration:none;">info@kedekids.com</a><br>
-          📍 Skatepark Bola de Oro, Paseo Fuente de la Bicha 30, Granada 18008<br><br>
-          <a href="https://www.instagram.com/kedekids.skateboarding/" target="_blank">
-            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" height="24" alt="Instagram" style="margin:0 5px; filter: brightness(0) invert(1);">
-          </a>
-          <a href="https://www.youtube.com/@kedekidsskateboarding7287" target="_blank">
-            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="24" height="24" alt="YouTube" style="margin:0 5px; filter: brightness(0) invert(1);">
-          </a>
-          <a href="https://wa.me/34695595351" target="_blank">
-            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="24" height="24" alt="WhatsApp" style="margin:0 5px; filter: brightness(0) invert(1);">
-          </a>
-        </div>
-        <br><br>
-        <div style="font-size:12px; color:#ccc;">
-          <a href="#" style="color:#ccc; text-decoration:none;">Ver en navegador</a> | 
-          <a href="#" style="color:#ccc; text-decoration:none;">Política de privacidad</a><br>
-          © 2025 Kedekids. Todos los derechos reservados.
-        </div>
-      </td>
-    </tr>`;
+    <tr><td align="center" style="padding:20px 0; border-top:1px solid #ffffff;">
+      <div style="font-size:14px; line-height:1.5; color:#ffffff;">
+        📞 +34 684 01 35 47 | +34 695 59 53 51<br>
+        📧 <a href="mailto:info@kedekids.com" style="color:#ffffff; text-decoration:none;">info@kedekids.com</a><br>
+        📍 Skatepark Bola de la Bicha 30, Granada 18008<br><br>
+        <a href="https://www.instagram.com/kedekids.skateboarding/" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" height="24" alt="Instagram" style="margin:0 5px; filter: brightness(0) invert(1);">
+        </a>
+        <a href="https://www.youtube.com/@kedekidsskateboarding7287" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="24" height="24" alt="YouTube" style="margin:0 5px; filter: brightness(0) invert(1);">
+        </a>
+        <a href="https://wa.me/34695595351" target="_blank">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="24" height="24" alt="WhatsApp" style="margin:0 5px; filter: brightness(0) invert(1);">
+        </a>
+      </div>
+      <br><br>
+      <div style="font-size:12px; color:#ccc;">
+        <a href="#" style="color:#ccc; text-decoration:none;">Ver en navegador</a> | 
+        <a href="#" style="color:#ccc; text-decoration:none;">Política de privacidad</a><br>
+        © 2025 Kedekids. Todos los derechos reservados.
+      </div>
+    </td></tr>`;
 
   let content = '';
   switch (event.layout) {
@@ -90,22 +79,18 @@ function generateEmailContent(event) {
 
   return `
   <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#7D4642; font-family:Arial,sans-serif;">
-    <tr>
-      <td align="center">
-        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#7D4642; color:#ffffff; padding:20px;">
-          ${content}
-        </table>
-      </td>
-    </tr>
+    <tr><td align="center">
+      <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#7D4642; color:#ffffff; padding:20px;">
+        ${content}
+      </table>
+    </td></tr>
   </table>`;
 }
 
-const chunk = (arr, size) =>
-  arr.length ? [arr.slice(0, size), ...chunk(arr.slice(size), size)] : [];
+const chunk = (arr, n) => (arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : []);
 
-// ---------- Rutas ----------
-/** Obtener todos los eventos */
-router.get('/', async (req, res) => {
+// ---------- rutas ----------
+router.get('/', async (_req, res) => {
   try {
     const events = await Event.find().populate('targetGroups', 'name');
     res.json(events);
@@ -115,8 +100,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-/** Obtener próximos eventos (futuros) */
-router.get('/upcoming', async (req, res) => {
+router.get('/upcoming', async (_req, res) => {
   try {
     const today = new Date();
     const events = await Event.find({ date: { $gte: today } })
@@ -129,9 +113,8 @@ router.get('/upcoming', async (req, res) => {
   }
 });
 
-/** Crear un nuevo evento */
 router.post('/', async (req, res) => {
-  const {
+  let {
     name,
     subject,
     date,
@@ -140,12 +123,13 @@ router.post('/', async (req, res) => {
     bodyText,
     targetGroups = [],
     targetAll = true,
-    published = false
+    published = false,
   } = req.body;
 
   if (!subject || !subject.trim()) {
     return res.status(400).json({ error: 'El campo subject es obligatorio.' });
   }
+  if (!LAYOUTS.includes(layout)) layout = 'header-body-image';
 
   try {
     const newEvent = new Event({
@@ -168,9 +152,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-/** Actualizar un evento */
 router.put('/:id', async (req, res) => {
-  const {
+  let {
     name,
     subject,
     date,
@@ -179,15 +162,17 @@ router.put('/:id', async (req, res) => {
     bodyText,
     targetGroups,
     targetAll,
-    published
+    published,
   } = req.body;
+
+  if (layout && !LAYOUTS.includes(layout)) layout = 'header-body-image';
 
   try {
     const updatedEvent = await Event.findByIdAndUpdate(
       req.params.id,
       {
         name,
-        subject, // <<--- antes no se actualizaba
+        subject, // importante: se actualiza
         date,
         layout,
         imageUrl,
@@ -195,7 +180,7 @@ router.put('/:id', async (req, res) => {
         targetGroups,
         targetAll,
         published,
-        updatedAt: Date.now()
+        updatedAt: Date.now(),
       },
       { new: true }
     );
@@ -207,7 +192,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-/** Eliminar un evento */
 router.delete('/:id', async (req, res) => {
   try {
     const deletedEvent = await Event.findByIdAndDelete(req.params.id);
@@ -219,7 +203,6 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-/** Enviar Evento por Email */
 router.post('/:id/send-email', async (req, res) => {
   try {
     const event = await Event.findById(req.params.id);
@@ -236,17 +219,15 @@ router.post('/:id/send-email', async (req, res) => {
       );
       recipients = students.map(s => s.email).filter(Boolean);
     }
-
     if (!recipients.length) {
       return res.status(400).json({ error: 'No hay destinatarios para este evento.' });
     }
 
-    // Enviar en lotes usando BCC (para no exponer correos)
     const batches = chunk(recipients, 80);
     for (const bcc of batches) {
       await transporter.sendMail({
         from: process.env.EMAIL,
-        to: process.env.EMAIL, // destinatario visible genérico
+        to: process.env.EMAIL,
         bcc,
         subject: event.subject,
         html: generateEmailContent(event),

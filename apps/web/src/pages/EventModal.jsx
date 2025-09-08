@@ -1,4 +1,7 @@
+// src/pages/EventModal.jsx
 import { useEffect, useState } from "react";
+
+const LAYOUTS = ["header-body-image", "image-header-body", "only-image"];
 
 const EMPTY = {
   name: "",
@@ -15,22 +18,21 @@ const EMPTY = {
 function EventModal({ isOpen, onClose, onSave, event }) {
   const [eventData, setEventData] = useState(EMPTY);
 
-  // Resetea y sincroniza el formulario cuando se abre/cambia el evento
   useEffect(() => {
-    if (isOpen) setEventData(event ? { ...EMPTY, ...event } : { ...EMPTY });
+    if (!isOpen) return;
+    const incoming = event ? { ...EMPTY, ...event } : { ...EMPTY };
+    const safeLayout = LAYOUTS.includes(incoming.layout) ? incoming.layout : "header-body-image";
+    setEventData({ ...incoming, layout: safeLayout });
   }, [isOpen, event]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setEventData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    let v = type === "checkbox" ? checked : value;
+    if (name === "layout" && !LAYOUTS.includes(v)) v = "header-body-image";
+    setEventData((prev) => ({ ...prev, [name]: v }));
   };
 
-  const handleSave = (shouldSend = false) => {
-    onSave(eventData, shouldSend);
-  };
+  const handleSave = (shouldSend = false) => onSave(eventData, shouldSend);
 
   if (!isOpen) return null;
 
@@ -65,25 +67,7 @@ function EventModal({ isOpen, onClose, onSave, event }) {
           onChange={handleChange}
         />
 
-        {/* Si quieres reactivar fecha visible, descomenta este bloque:
-        <input
-          type="datetime-local"
-          name="date"
-          value={new Date(eventData.date).toISOString().slice(0, 16)}
-          onChange={(e) =>
-            setEventData((p) => ({
-              ...p,
-              date: new Date(e.target.value).toISOString(),
-            }))
-          }
-        />
-        */}
-
-        <select
-          name="layout"
-          value={eventData.layout}
-          onChange={handleChange}
-        >
+        <select name="layout" value={eventData.layout} onChange={handleChange}>
           <option value="header-body-image">Header + Cuerpo + Imagen</option>
           <option value="image-header-body">Imagen + Header + Cuerpo</option>
           <option value="only-image">Solo Imagen</option>
