@@ -16,11 +16,11 @@
   "iconUrl": "https://skate-school-admin.vercel.app/icons/pwa-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "path": "C:\\Users\\SB-JCANTON\\Desktop\\kedekids\\apps\\web\\keystore.jks",
-    "alias": "upload"
+    "signingKey": "C:\\Users\\SB-JCANTON\\Desktop\\kedekids\\apps\\web\\keystore_kedekids.jks",
+    "signingKeyAlias": "upload"
   },
-  "appVersionName": "1",
-  "appVersionCode": 1,
+  "appVersionName": "2",
+  "appVersionCode": 2,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://skate-school-admin.vercel.app/manifest.webmanifest",
@@ -45,5 +45,5 @@
   "protocolHandlers": [],
   "fileHandlers": [],
   "launchHandlerClientMode": "",
-  "appVersion": "1"
+  "appVersion": "2"
 }
