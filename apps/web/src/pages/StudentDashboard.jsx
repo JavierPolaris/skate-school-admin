@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import API_URL from '../config';
 import '../css/StudentDashboard.css';
@@ -8,10 +8,9 @@ function StudentDashboard() {
   const [notifications, setNotifications] = useState([]);
   const [upcomingClasses, setUpcomingClasses] = useState([]);
   const [groupDetails, setGroupDetails] = useState(null);
-  const navigate = useNavigate();
   const [showPaymentReminder, setShowPaymentReminder] = useState(false);
   const [showAllNotifications, setShowAllNotifications] = useState(false);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -21,52 +20,63 @@ function StudentDashboard() {
       setUser(storedUser);
 
       // 📅 Lógica del aviso de pago
-      const today = new Date();
-      const day = today.getDate();
-      if (day >= 1 && day <= 15) {
-        setShowPaymentReminder(true);
-      }
+      const day = new Date().getDate();
+      if (day >= 1 && day <= 15) setShowPaymentReminder(true);
 
       if (storedUser.groupId) {
-        // Obtener información del grupo
+        // Grupo
         fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(group => setGroupDetails(group))
           .catch(err => console.error('Error cargando grupo:', err));
 
-        // Obtener clases programadas para el grupo
+        // Próximas clases
         fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
           .then(res => res.json())
           .then(data => setUpcomingClasses(data))
           .catch(err => console.error(err));
 
-
-        // Obtener notificaciones para el grupo
+        // Notificaciones del grupo
         fetch(`${API_URL}/notifications/${storedUser.groupId._id}`)
           .then(res => res.json())
-          .then(data => setNotifications(data))
+          .then(data => setNotifications(Array.isArray(data) ? data : []))
           .catch(err => console.error(err));
-
       }
     }
   }, [navigate]);
 
+  // ---- ordenar notificaciones: más recientes primero
+  const sortedNotifications = useMemo(() => {
+    const getTime = (n) => {
+      if (n?.createdAt) return new Date(n.createdAt).getTime();
+      if (n?.date) return new Date(n.date).getTime();
+      if (n?._id && typeof n._id === 'string' && n._id.length >= 8) {
+        // timestamp embebido en ObjectId (hex -> segundos)
+        return parseInt(n._id.substring(0, 8), 16) * 1000;
+      }
+      return 0;
+    };
+    return [...notifications].sort((a, b) => getTime(b) - getTime(a));
+  }, [notifications]);
+
   return (
     <div className="student-dashboard">
-
       {showPaymentReminder && (
-        <div style={{
-          background: '#ff9b00',
-          color: '#000',
-          padding: '1rem',
-          borderRadius: '8px',
-          textAlign: 'center',
-          margin: '1rem',
-          fontWeight: '600'
-        }}>
+        <div
+          style={{
+            background: '#ff9b00',
+            color: '#000',
+            padding: '1rem',
+            borderRadius: '8px',
+            textAlign: 'center',
+            margin: '1rem',
+            fontWeight: '600',
+          }}
+        >
           📢 ¡Recuerda realizar el pago de la matrícula antes del 15 de este mes!
         </div>
       )}
+
       <h2 className="welcome-title">Bienvenido, {user.name}</h2>
 
       <div className="dashboard-grid">
@@ -83,7 +93,8 @@ function StudentDashboard() {
             <ul>
               {upcomingClasses.map((cls, index) => (
                 <li key={index}>
-                  📅 {new Date(cls.date).toLocaleDateString()} - 🕒 {cls.startTime || 'Hora no definida'}<br />
+                  📅 {new Date(cls.date).toLocaleDateString()} - 🕒 {cls.startTime || 'Hora no definida'}
+                  <br />
                   📍 {cls.place || 'Lugar no definido'}
                 </li>
               ))}
@@ -97,24 +108,26 @@ function StudentDashboard() {
         <div className="dashboard-card">
           <h3>Últimas Notificaciones</h3>
 
-          {notifications.length ? (
+          {sortedNotifications.length ? (
             <>
-              <div className={showAllNotifications ? "notifications-scroll" : undefined}>
+              <div className={showAllNotifications ? 'notifications-scroll' : undefined}>
                 <ul>
-                  {(showAllNotifications ? notifications : notifications.slice(-3)).map((note, index) => (
-                    <li key={note._id ?? index}>🔔 {note.message}</li>
-                  ))}
+                  {(showAllNotifications ? sortedNotifications : sortedNotifications.slice(0, 3)).map(
+                    (note, index) => (
+                      <li key={note._id ?? index}>🔔 {note.message}</li>
+                    )
+                  )}
                 </ul>
               </div>
 
-              {notifications.length > 3 && (
+              {sortedNotifications.length > 3 && (
                 <button
                   type="button"
                   className="ver-mas-btn"
-                  onClick={() => setShowAllNotifications(v => !v)}
+                  onClick={() => setShowAllNotifications((v) => !v)}
                   aria-expanded={showAllNotifications}
                 >
-                  {showAllNotifications ? "Ocultar" : "Ver más"}
+                  {showAllNotifications ? 'Ocultar' : 'Ver más'}
                 </button>
               )}
             </>
