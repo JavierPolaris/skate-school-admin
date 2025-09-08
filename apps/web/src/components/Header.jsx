@@ -11,105 +11,120 @@ const Header = ({ role }) => {
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
-  const [unreadCount, setUnreadCount] = useState(0);
-
+  const [lastSeenTs, setLastSeenTs] = useState(0); // timestamp ms última vez que “viste” una notificación nueva
   const [messageCount, setMessageCount] = useState(0);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  const [userData, setUserData] = useState({ _id: '', name: '', avatar: '' });
+  const [userData, setUserData] = useState({ _id: '', role: '', name: '', avatar: '' });
 
   const navigate = useNavigate();
   const bellRef = useRef(null);
   const userMenuRef = useRef(null);
+  const pollRef = useRef(null);
 
-  // --------- Helpers para "leídos" por usuario ----------
-  const READ_KEY = userData?._id ? `kk_read_notifs_${userData._id}` : null;
-  const loadReadSet = () => {
-    if (!READ_KEY) return new Set();
-    try { return new Set(JSON.parse(localStorage.getItem(READ_KEY) || '[]')); }
-    catch { return new Set(); }
+  // ---- util: obtener tiempo de una notificación ----
+  const getTime = (n) => {
+    if (n?.createdAt) return new Date(n.createdAt).getTime();
+    if (n?.date) return new Date(n.date).getTime();
+    if (n?._id && typeof n._id === 'string' && n._id.length >= 8) {
+      return parseInt(n._id.substring(0, 8), 16) * 1000; // ObjectId -> epoch sec
+    }
+    return 0;
   };
-  const saveReadSet = (set) => {
-    if (!READ_KEY) return;
-    localStorage.setItem(READ_KEY, JSON.stringify([...set]));
-  };
 
-  // --------- Carga inicial ----------
-  useEffect(() => {
-    (async () => {
-      try {
-        // Peticiones pendientes
-        axios.get(`${API_URL}/users/requests`).then((response) => {
-          setMessageCount(response.data.length);
-        }).catch(()=>{});
-
-        // Usuario
-        const stored = localStorage.getItem('user') || localStorage.getItem('userData');
-        if (stored) {
-          const u = JSON.parse(stored);
-          setUserData(u);
-
-          // Notificaciones del grupo (para alumnos)
-          let groupNotes = [];
-          if (u?.role === 'student' && u?.groupId?._id) {
-            try {
-              const res = await axios.get(`${API_URL}/notifications/${u.groupId._id}`);
-              groupNotes = Array.isArray(res.data) ? res.data : [];
-            } catch (e) {
-              console.error('Error cargando notificaciones de grupo:', e);
-            }
-          }
-
-          // Aviso de pagos (sintético)
-          const day = new Date().getDate();
-          const synthetic = (day >= 25)
-            ? [{
-                _id: `payment-${new Date().getFullYear()}-${new Date().getMonth() + 1}`,
-                message: 'Comienzo fecha de pagos',
-                createdAt: new Date().toISOString(),
-              }]
-            : [];
-
-          setNotifications([...groupNotes, ...synthetic]);
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    })();
-  }, []);
-
-  // --------- Ordenar: recientes primero ----------
+  // ---- ordenar notificaciones (recientes primero) ----
   const sortedNotifications = useMemo(() => {
-    const getTime = (n) => {
-      if (n?.createdAt) return new Date(n.createdAt).getTime();
-      if (n?.date) return new Date(n.date).getTime();
-      if (n?._id && typeof n._id === 'string' && n._id.length >= 8) {
-        return parseInt(n._id.substring(0, 8), 16) * 1000; // timestamp de ObjectId
-      }
-      return 0;
-    };
     return [...notifications].sort((a, b) => getTime(b) - getTime(a));
   }, [notifications]);
 
-  // --------- Calcular no leídas ----------
-  useEffect(() => {
-    if (!userData?._id) return;
-    const read = loadReadSet();
-    const count = sortedNotifications.filter(n => n?._id && !read.has(n._id)).length;
-    setUnreadCount(count);
-  }, [sortedNotifications, userData?._id]);
+  const latest = sortedNotifications[0] || null;
+  const latestTime = latest ? getTime(latest) : 0;
+  const hasNew = latestTime > lastSeenTs; // ¿hay algo más nuevo que lo último visto?
+  const unreadCount = hasNew ? 1 : 0;
 
-  // --------- Marcar como leídas al abrir dropdown ----------
+  // ---- cargar usuario, lastSeen y primera carga de notificaciones ----
+  useEffect(() => {
+    (async () => {
+      // Bandeja de solicitudes (admin)
+      axios.get(`${API_URL}/users/requests`).then((res) => {
+        setMessageCount(Array.isArray(res.data) ? res.data.length : 0);
+      }).catch(() => {});
+
+      const stored = localStorage.getItem('user') || localStorage.getItem('userData');
+      if (stored) {
+        const u = JSON.parse(stored);
+        setUserData(u);
+
+        // cargar última vez visto
+        const key = u?._id ? `kk_last_seen_notif_${u._id}` : null;
+        if (key) {
+          const saved = parseInt(localStorage.getItem(key) || '0', 10);
+          setLastSeenTs(Number.isFinite(saved) ? saved : 0);
+        }
+
+        // primera carga
+        await fetchNotifications(u);
+
+        // polling cada 30s (solo si es student con groupId)
+        if (u?.role === 'student' && u?.groupId?._id) {
+          pollRef.current = setInterval(() => fetchNotifications(u), 30000);
+        }
+      }
+    })();
+
+    return () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ---- función de carga de notificaciones (grupo alumno + aviso pago opcional) ----
+  const fetchNotifications = async (u) => {
+    try {
+      let groupNotes = [];
+      if (u?.role === 'student' && u?.groupId?._id) {
+        const res = await axios.get(`${API_URL}/notifications/${u.groupId._id}`);
+        groupNotes = Array.isArray(res.data) ? res.data : [];
+      }
+
+      // aviso de pagos sintético (opcional)
+      const day = new Date().getDate();
+      const synthetic = day >= 25
+        ? [{
+            _id: `payment-${new Date().getFullYear()}-${new Date().getMonth() + 1}`,
+            message: 'Comienzo fecha de pagos',
+            createdAt: new Date().toISOString(),
+          }]
+        : [];
+
+      setNotifications([...groupNotes, ...synthetic]);
+    } catch (e) {
+      console.error('Error cargando notificaciones:', e);
+    }
+  };
+
+  // ---- al abrir la campana: marca como leído lo último ----
   useEffect(() => {
     if (!showNotifications || !userData?._id) return;
-    const read = loadReadSet();
-    for (const n of sortedNotifications) if (n?._id) read.add(n._id);
-    saveReadSet(read);
-    setUnreadCount(0);
-  }, [showNotifications, sortedNotifications, userData?._id]);
+    if (hasNew) {
+      const ts = latestTime; // marca como visto hasta la última noti
+      setLastSeenTs(ts);
+      localStorage.setItem(`kk_last_seen_notif_${userData._id}`, String(ts));
+    }
+  }, [showNotifications, hasNew, latestTime, userData?._id]);
 
-  // --------- Búsqueda ----------
+  // ---- cerrar dropdowns al hacer click fuera ----
+  const handleClickOutside = (e) => {
+    if (bellRef.current && !bellRef.current.contains(e.target)) setShowNotifications(false);
+    if (userMenuRef.current && !userMenuRef.current.contains(e.target)) setShowUserMenu(false);
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  // ---- búsqueda (solo admin) ----
   const handleSearch = async (e) => {
     const term = e.target.value;
     setSearchTerm(term);
@@ -117,12 +132,12 @@ const Header = ({ role }) => {
     if (term.trim() && role !== 'student') {
       try {
         const response = await axios.get(`${API_URL}/users/search`, { params: { query: term } });
-        const combinedResults = [
+        const combined = [
           ...response.data.users.map((u) => ({ ...u, type: 'user' })),
           ...response.data.groups.map((g) => ({ ...g, type: 'group' })),
           ...response.data.events.map((ev) => ({ ...ev, type: 'event' })),
         ];
-        setSearchResults(combinedResults);
+        setSearchResults(combined);
       } catch (error) {
         console.error('Error en búsqueda:', error);
         setSearchResults([]);
@@ -138,16 +153,6 @@ const Header = ({ role }) => {
     localStorage.removeItem('userData');
     navigate('/');
   };
-
-  const handleClickOutside = (e) => {
-    if (bellRef.current && !bellRef.current.contains(e.target)) setShowNotifications(false);
-    if (userMenuRef.current && !userMenuRef.current.contains(e.target)) setShowUserMenu(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   return (
     <div className="dashboard-header dashboard-container">
@@ -210,10 +215,8 @@ const Header = ({ role }) => {
           {unreadCount > 0 && <span className="notification-dot"></span>}
           {showNotifications && (
             <div className="dropdown">
-              {sortedNotifications.length
-                ? sortedNotifications.map((note, i) => (
-                    <p key={note._id ?? i}>🔔 {note.message}</p>
-                  ))
+              {hasNew && latest
+                ? <p key={latest._id}>🔔 {latest.message}</p>
                 : <p>No hay avisos</p>}
             </div>
           )}
