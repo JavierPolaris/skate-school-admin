@@ -53,6 +53,7 @@ function StudentDashboard() {
 
   return (
     <div className="student-dashboard">
+<h2 className="welcome-title">Bienvenido (v3)</h2>
 
       {showPaymentReminder && (
         <div style={{

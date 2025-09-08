@@ -4,8 +4,12 @@ import path from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+  define: {
+    __APP_BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+  },
   plugins: [
     react(),
+    
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {

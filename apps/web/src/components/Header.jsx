@@ -75,6 +75,10 @@ const Header = ({ role }) => {
 
   return (
     <div className="dashboard-header dashboard-container">
+      <div style={{position:'fixed', right: 8, bottom: 8, fontSize: 12, opacity: .7}}>
+  Build: {__APP_BUILD_TIME__}
+</div>
+
       <div className="hamburger-menu" onClick={toggleSidebar}>☰</div>
 
       <div className="header-left">
