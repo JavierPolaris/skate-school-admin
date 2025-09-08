@@ -3,149 +3,19 @@ const router = express.Router();
 const Event = require('../models/Event');
 const User = require('../models/User');
 const nodemailer = require('nodemailer');
+
+// Transport recomendado para Gmail (con App Password)
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASSWORD,
   },
 });
 
-// Obtener todos los eventos
-router.get('/', async (req, res) => {
-  try {
-    const events = await Event.find().populate('targetGroups', 'name');
-    res.json(events);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al obtener eventos' });
-  }
-});
-
-// Obtener próximos eventos futuros)
-router.get('/upcoming', async (req, res) => {
-  try {
-    const today = new Date();
-    const events = await Event.find({ date: { $gte: today } })
-      .sort({ date: 1 })
-      .limit(5); // Devuelve las próximas 5 clases, ajustable
-
-    res.json(events);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al obtener las próximas clases' });
-  }
-});
-
-// Crear un nuevo evento
-router.post('/', async (req, res) => {
-  const { name, subject, date, layout, imageUrl, bodyText, targetGroups, targetAll, published } = req.body;
-
-
-  if (!subject) {
-    return res.status(400).json({ error: 'El campo subject es obligatorio.' });
-  }
-
-  try {
-    const newEvent = new Event({
-      name,
-      subject,
-      date,
-      layout,
-      imageUrl,
-      bodyText,
-      targetGroups,
-      targetAll,
-      published,
-    });
-
-    await newEvent.save();
-    res.status(201).json(newEvent);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al crear evento' });
-  }
-});
-
-
-// Actualizar un evento
-router.put('/:id', async (req, res) => {
-  const { name, date, layout, imageUrl, bodyText, targetGroups, targetAll, published } = req.body;
-  try {
-    const updatedEvent = await Event.findByIdAndUpdate(
-      req.params.id,
-      { name, date, layout, imageUrl, bodyText, targetGroups, targetAll, published, updatedAt: Date.now() },
-      { new: true }
-    );
-    if (!updatedEvent) return res.status(404).json({ error: 'Evento no encontrado' });
-    res.json(updatedEvent);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al actualizar evento' });
-  }
-});
-
-// Eliminar un evento
-router.delete('/:id', async (req, res) => {
-  try {
-    const deletedEvent = await Event.findByIdAndDelete(req.params.id);
-    if (!deletedEvent) return res.status(404).json({ error: 'Evento no encontrado' });
-    res.json({ message: 'Evento eliminado', deletedEvent });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Error al eliminar evento' });
-  }
-});
-
-router.post("/events", async (req, res) => {
-  const { name, date, description, isPublished, tokens } = req.body;
-
-  try {
-    const newEvent = new Event({ name, date, description, isPublished });
-    await newEvent.save();
-
-    if (isPublished) {
-      const message = {
-        notification: {
-          title: "Nuevo evento publicado",
-          body: name,
-        },
-        tokens,
-      };
-
-      await admin.messaging().sendMulticast(message);
-    }
-
-    res.json(newEvent);
-  } catch (err) {
-    console.error("Error al crear evento:", err);
-    res.status(500).json({ error: "Error al crear el evento" });
-  }
-});
-
-
-// Enviar Evento por Email
-router.post('/:id/send-email', async (req, res) => {
-  try {
-    console.log('💥 Llamada a la ruta /send-email');
-    const event = await Event.findById(req.params.id);
-    if (!event) {
-      console.log('Evento no encontrado');
-      return res.status(404).json({ error: 'Evento no encontrado' });
-    }
-
-    let recipients = [];
-    if (event.targetAll) {
-      const students = await User.find({ role: 'student' });
-      recipients = students.map(student => student.email);
-    } else if (event.targetGroups.length) {
-      const students = await User.find({ groupId: { $in: event.targetGroups }, role: 'student' });
-      recipients = students.map(student => student.email);
-    }
-
-    console.log('Destinatarios:', recipients);
-
-
+// ---------- Helpers ----------
 function generateEmailContent(event) {
   const logoUrl = "https://www.kedekids.com/wp-content/uploads/2020/09/cropped-LOGO-KEDEKIDS-e1601394191149-1-2048x676.png";
 
@@ -203,7 +73,6 @@ function generateEmailContent(event) {
       </td>
     </tr>`;
 
-  // Aquí controlamos el layout
   let content = '';
   switch (event.layout) {
     case 'header-body-image':
@@ -231,27 +100,167 @@ function generateEmailContent(event) {
   </table>`;
 }
 
+const chunk = (arr, size) =>
+  arr.length ? [arr.slice(0, size), ...chunk(arr.slice(size), size)] : [];
 
+// ---------- Rutas ----------
+/** Obtener todos los eventos */
+router.get('/', async (req, res) => {
+  try {
+    const events = await Event.find().populate('targetGroups', 'name');
+    res.json(events);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener eventos' });
+  }
+});
 
+/** Obtener próximos eventos (futuros) */
+router.get('/upcoming', async (req, res) => {
+  try {
+    const today = new Date();
+    const events = await Event.find({ date: { $gte: today } })
+      .sort({ date: 1 })
+      .limit(5);
+    res.json(events);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al obtener las próximas clases' });
+  }
+});
 
-    // Enviar correo
-    await transporter.sendMail({
-      from: process.env.EMAIL,
-      to: recipients.join(', '),
-      subject: event.subject,
-      html: generateEmailContent(event),
+/** Crear un nuevo evento */
+router.post('/', async (req, res) => {
+  const {
+    name,
+    subject,
+    date,
+    layout,
+    imageUrl,
+    bodyText,
+    targetGroups = [],
+    targetAll = true,
+    published = false
+  } = req.body;
+
+  if (!subject || !subject.trim()) {
+    return res.status(400).json({ error: 'El campo subject es obligatorio.' });
+  }
+
+  try {
+    const newEvent = new Event({
+      name,
+      subject,
+      date,
+      layout,
+      imageUrl,
+      bodyText,
+      targetGroups,
+      targetAll,
+      published,
     });
+
+    await newEvent.save();
+    res.status(201).json(newEvent);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al crear evento' });
+  }
+});
+
+/** Actualizar un evento */
+router.put('/:id', async (req, res) => {
+  const {
+    name,
+    subject,
+    date,
+    layout,
+    imageUrl,
+    bodyText,
+    targetGroups,
+    targetAll,
+    published
+  } = req.body;
+
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      req.params.id,
+      {
+        name,
+        subject, // <<--- antes no se actualizaba
+        date,
+        layout,
+        imageUrl,
+        bodyText,
+        targetGroups,
+        targetAll,
+        published,
+        updatedAt: Date.now()
+      },
+      { new: true }
+    );
+    if (!updatedEvent) return res.status(404).json({ error: 'Evento no encontrado' });
+    res.json(updatedEvent);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al actualizar evento' });
+  }
+});
+
+/** Eliminar un evento */
+router.delete('/:id', async (req, res) => {
+  try {
+    const deletedEvent = await Event.findByIdAndDelete(req.params.id);
+    if (!deletedEvent) return res.status(404).json({ error: 'Evento no encontrado' });
+    res.json({ message: 'Evento eliminado', deletedEvent });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Error al eliminar evento' });
+  }
+});
+
+/** Enviar Evento por Email */
+router.post('/:id/send-email', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ error: 'Evento no encontrado' });
+
+    let recipients = [];
+    if (event.targetAll) {
+      const students = await User.find({ role: 'student' }, 'email');
+      recipients = students.map(s => s.email).filter(Boolean);
+    } else if (Array.isArray(event.targetGroups) && event.targetGroups.length) {
+      const students = await User.find(
+        { groupId: { $in: event.targetGroups }, role: 'student' },
+        'email'
+      );
+      recipients = students.map(s => s.email).filter(Boolean);
+    }
+
+    if (!recipients.length) {
+      return res.status(400).json({ error: 'No hay destinatarios para este evento.' });
+    }
+
+    // Enviar en lotes usando BCC (para no exponer correos)
+    const batches = chunk(recipients, 80);
+    for (const bcc of batches) {
+      await transporter.sendMail({
+        from: process.env.EMAIL,
+        to: process.env.EMAIL, // destinatario visible genérico
+        bcc,
+        subject: event.subject,
+        html: generateEmailContent(event),
+      });
+    }
 
     event.emailSent = true;
     await event.save();
 
     res.json({ success: true, message: 'Correo enviado correctamente.' });
-
   } catch (err) {
     console.error('Error en la ruta /send-email:', err);
     res.status(500).json({ error: 'Error al enviar el correo.' });
   }
 });
-
 
 module.exports = router;
