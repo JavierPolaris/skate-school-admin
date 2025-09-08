@@ -16,8 +16,8 @@
   "iconUrl": "https://skate-school-admin.vercel.app/icons/pwa-512.png",
   "splashScreenFadeOutDuration": 300,
   "signingKey": {
-    "signingKey": "C:\\Users\\SB-JCANTON\\Desktop\\kedekids\\apps\\web\\keystore_kedekids.jks",
-    "signingKeyAlias": "upload"
+    "path": "C:\\Users\\SB-JCANTON\\Desktop\\kedekids\\apps\\web\\keystore_kedekids.jks",
+    "alias": "upload"
   },
   "appVersionName": "2",
   "appVersionCode": 2,
