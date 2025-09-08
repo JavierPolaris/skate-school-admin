@@ -23,7 +23,7 @@ const Header = ({ role }) => {
   const userMenuRef = useRef(null);
   const pollRef = useRef(null);
 
-  const READ_KEY = userData?._id ? `kk_last_seen_notif_${userData._id}` : null;
+  const getReadKey = (uid) => (uid ? `kk_last_seen_notif_${uid}` : null);
 
   const getTime = (n) => {
     if (n?.createdAt) return new Date(n.createdAt).getTime();
@@ -45,22 +45,21 @@ const Header = ({ role }) => {
 
   useEffect(() => {
     (async () => {
-      axios.get(`${API_URL}/users/requests`).then((res) => {
-        setMessageCount(Array.isArray(res.data) ? res.data.length : 0);
-      }).catch(() => {});
+      // solicitudes (admin)
+      axios.get(`${API_URL}/users/requests`)
+        .then((res) => setMessageCount(Array.isArray(res.data) ? res.data.length : 0))
+        .catch(() => {});
 
+      // usuario
       const stored = localStorage.getItem('user') || localStorage.getItem('userData');
       if (stored) {
         const u = JSON.parse(stored);
         setUserData(u);
 
-        if (READ_KEY) {
-          const saved = parseInt(localStorage.getItem(READ_KEY) || '0', 10);
-          setLastSeenTs(Number.isFinite(saved) ? saved : 0);
-        }
-
+        // primera carga de notificaciones
         await fetchNotifications(u);
 
+        // polling (solo student con group)
         if (u?.role === 'student' && u?.groupId?._id) {
           pollRef.current = setInterval(() => fetchNotifications(u), 30000);
         }
@@ -73,6 +72,14 @@ const Header = ({ role }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Cargar lastSeen cuando ya tenemos el _id del usuario
+  useEffect(() => {
+    if (!userData?._id) return;
+    const key = getReadKey(userData._id);
+    const saved = parseInt(localStorage.getItem(key) || '0', 10);
+    setLastSeenTs(Number.isFinite(saved) ? saved : 0);
+  }, [userData?._id]);
+
   const fetchNotifications = async (u) => {
     try {
       let groupNotes = [];
@@ -81,7 +88,7 @@ const Header = ({ role }) => {
         groupNotes = Array.isArray(res.data) ? res.data : [];
       }
 
-      // 🔔 Aviso pagos con createdAt ESTABLE (25 del mes, 00:00 local)
+      // Aviso pagos con createdAt estable (25 del mes, 00:00)
       const now = new Date();
       const day = now.getDate();
       const payday = new Date(now.getFullYear(), now.getMonth(), 25, 0, 0, 0, 0);
@@ -99,14 +106,15 @@ const Header = ({ role }) => {
     }
   };
 
-  // ✅ Marca como leído ANTES de abrir (para que el punto desaparezca al instante)
+  // Marcar leído ANTES de abrir para quitar el punto al instante
   const onBellClick = () => {
-    if (!showNotifications && hasNew && READ_KEY) {
+    if (!showNotifications && hasNew) {
       const ts = latestTime || Date.now();
-      setLastSeenTs(ts);
-      localStorage.setItem(READ_KEY, String(ts));
+      setLastSeenTs(ts); // ✅ SIEMPRE actualiza estado
+      const key = getReadKey(userData?._id);
+      if (key) localStorage.setItem(key, String(ts)); // ✅ persiste solo si hay _id
     }
-    setShowNotifications(v => !v);
+    setShowNotifications((v) => !v);
   };
 
   const handleClickOutside = (e) => {
