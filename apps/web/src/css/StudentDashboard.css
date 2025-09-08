@@ -48,3 +48,26 @@
   margin-bottom: 0.75rem;
   line-height: 1.4;
 }
+
+
+.notifications-scroll {
+  max-height: 260px;   /* altura del contenedor al mostrar todas */
+  overflow-y: auto;
+  padding-right: 8px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+}
+
+.ver-mas-btn {
+  margin-top: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 0;
+  color: #0a65cc;
+}
+
+.ver-mas-btn:hover {
+  text-decoration: underline;
+}

@@ -10,6 +10,8 @@ function StudentDashboard() {
   const [groupDetails, setGroupDetails] = useState(null);
   const navigate = useNavigate();
   const [showPaymentReminder, setShowPaymentReminder] = useState(false);
+  const [showAllNotifications, setShowAllNotifications] = useState(false);
+
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -51,7 +53,7 @@ function StudentDashboard() {
 
   return (
     <div className="student-dashboard">
-      
+
       {showPaymentReminder && (
         <div style={{
           background: '#ff9b00',
@@ -94,12 +96,28 @@ function StudentDashboard() {
         {/* Últimas Notificaciones */}
         <div className="dashboard-card">
           <h3>Últimas Notificaciones</h3>
+
           {notifications.length ? (
-            <ul>
-              {notifications.map((note, index) => (
-                <li key={index}>🔔 {note.message}</li>
-              ))}
-            </ul>
+            <>
+              <div className={showAllNotifications ? "notifications-scroll" : undefined}>
+                <ul>
+                  {(showAllNotifications ? notifications : notifications.slice(-3)).map((note, index) => (
+                    <li key={note._id ?? index}>🔔 {note.message}</li>
+                  ))}
+                </ul>
+              </div>
+
+              {notifications.length > 3 && (
+                <button
+                  type="button"
+                  className="ver-mas-btn"
+                  onClick={() => setShowAllNotifications(v => !v)}
+                  aria-expanded={showAllNotifications}
+                >
+                  {showAllNotifications ? "Ocultar" : "Ver más"}
+                </button>
+              )}
+            </>
           ) : (
             <p>No hay notificaciones recientes.</p>
           )}
