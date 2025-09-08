@@ -94,33 +94,37 @@ const Header = ({ role }) => {
         </div>
       </div>
 
-      {role !== 'student' && (
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Buscar..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-          <div className="search-results">
-            {searchResults.map((result, index) => (
-              <p
-                key={index}
-                onClick={() => {
-                  if (result.type === 'user') navigate(`/app/students?userId=${result._id}`);
-                  if (result.type === 'group') navigate(`/app/groups?groupId=${result._id}`);
-                  if (result.type === 'event') navigate(`/app/events?eventId=${result._id}`);
-                }}
-              >
-                {result.type === 'user' && `Usuario: ${result.name} (${result.email})`}
-                {result.type === 'group' && `Grupo: ${result.name}`}
-                {result.type === 'event' && `Evento: ${result.name}`}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="search-bar">
+       <div className="search-bar">
+  {role !== 'student' && (
+    <>
+      <input
+        type="text"
+        placeholder="Buscar..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
+      <div className="search-results">
+        {searchResults.map((result, index) => (
+          <p
+            key={index}
+            onClick={() => {
+              if (result.type === 'user') navigate(`/app/students?userId=${result._id}`);
+              if (result.type === 'group') navigate(`/app/groups?groupId=${result._id}`);
+              if (result.type === 'event') navigate(`/app/events?eventId=${result._id}`);
+            }}
+          >
+            {result.type === 'user' && `Usuario: ${result.name} (${result.email})`}
+            {result.type === 'group' && `Grupo: ${result.name}`}
+            {result.type === 'event' && `Evento: ${result.name}`}
+          </p>
+        ))}
+      </div>
+    </>
+  )}
+</div>
 
+      </div>
 
       <div className="header-icons">
         {role === 'admin' && (
