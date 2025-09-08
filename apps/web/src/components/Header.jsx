@@ -11,6 +11,7 @@ const Header = ({ role }) => {
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [openedLatest, setOpenedLatest] = useState(null); // << NUEVO: lo que mostramos en esta apertura
   const [lastSeenTs, setLastSeenTs] = useState(0);
   const [messageCount, setMessageCount] = useState(0);
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -45,21 +46,17 @@ const Header = ({ role }) => {
 
   useEffect(() => {
     (async () => {
-      // solicitudes (admin)
       axios.get(`${API_URL}/users/requests`)
         .then((res) => setMessageCount(Array.isArray(res.data) ? res.data.length : 0))
         .catch(() => {});
 
-      // usuario
       const stored = localStorage.getItem('user') || localStorage.getItem('userData');
       if (stored) {
         const u = JSON.parse(stored);
         setUserData(u);
 
-        // primera carga de notificaciones
         await fetchNotifications(u);
 
-        // polling (solo student con group)
         if (u?.role === 'student' && u?.groupId?._id) {
           pollRef.current = setInterval(() => fetchNotifications(u), 30000);
         }
@@ -106,20 +103,34 @@ const Header = ({ role }) => {
     }
   };
 
-  // Marcar leído ANTES de abrir para quitar el punto al instante
+  // CLICK campana: capturamos la última para mostrar esta vez y luego marcamos leído
   const onBellClick = () => {
-    if (!showNotifications && hasNew) {
-      const ts = latestTime || Date.now();
-      setLastSeenTs(ts); // ✅ SIEMPRE actualiza estado
+    if (!showNotifications) {
+      // Vamos a abrir: capturamos lo último (solo si hay algo nuevo)
+      setOpenedLatest(hasNew ? latest : null);
+
+      // Marcamos leído (apaga el punto)…
+      const ts = hasNew ? (latestTime || Date.now()) : lastSeenTs;
+      setLastSeenTs(ts);
       const key = getReadKey(userData?._id);
-      if (key) localStorage.setItem(key, String(ts)); // ✅ persiste solo si hay _id
+      if (key) localStorage.setItem(key, String(ts));
+
+      setShowNotifications(true);
+    } else {
+      // Vamos a cerrar: vaciamos la captura para la próxima apertura
+      setShowNotifications(false);
+      setOpenedLatest(null);
     }
-    setShowNotifications((v) => !v);
   };
 
   const handleClickOutside = (e) => {
-    if (bellRef.current && !bellRef.current.contains(e.target)) setShowNotifications(false);
-    if (userMenuRef.current && !userMenuRef.current.contains(e.target)) setShowUserMenu(false);
+    if (bellRef.current && !bellRef.current.contains(e.target)) {
+      setShowNotifications(false);
+      setOpenedLatest(null);
+    }
+    if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+      setShowUserMenu(false);
+    }
   };
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -216,8 +227,8 @@ const Header = ({ role }) => {
           {unreadCount > 0 && <span className="notification-dot"></span>}
           {showNotifications && (
             <div className="dropdown">
-              {hasNew && latest
-                ? <p key={latest._id}>🔔 {latest.message}</p>
+              {openedLatest
+                ? <p key={openedLatest._id}>🔔 {openedLatest.message}</p>
                 : <p>No hay avisos</p>}
             </div>
           )}
