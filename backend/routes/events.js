@@ -15,53 +15,82 @@ const transporter = nodemailer.createTransport({
 });
 
 // ---------- helpers: email ----------
+// Reemplaza ESTA función en backend/routes/events.js
 function generateEmailContent(event) {
+  // === FULL BLEED para "only-image" ===
+  if (event.layout === 'only-image') {
+    const src = event.imageUrl || '';
+    return `
+  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%"
+         style="border-collapse:collapse; margin:0; padding:0; background:#ffffff;">
+    <tr>
+      <td align="center" style="margin:0; padding:0;">
+        <img src="${src}" alt="${event.name || 'Evento'}"
+             width="100%"
+             style="display:block; width:100%!important; max-width:100%!important; height:auto; border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic;">
+      </td>
+    </tr>
+  </table>`;
+  }
+
+  // === layouts con marco (como ya tenías) ===
   const logoUrl = "https://www.kedekids.com/wp-content/uploads/2020/09/cropped-LOGO-KEDEKIDS-e1601394191149-1-2048x676.png";
 
   const logo = `
-    <tr><td align="center" style="padding:20px 0;">
-      <img src="${logoUrl}" alt="Logo Kedekids" style="max-width:150px;">
-    </td></tr>`;
+    <tr>
+      <td align="center" style="padding:20px 0;">
+        <img src="${logoUrl}" alt="Logo Kedekids" style="max-width:150px;">
+      </td>
+    </tr>`;
 
   const image = event.imageUrl ? `
-    <tr><td align="center" style="padding:20px 0;">
-      <img src="${event.imageUrl}" alt="Imagen Evento" style="max-width:100%; border-radius:8px;">
-    </td></tr>` : '';
+    <tr>
+      <td align="center" style="padding:20px 0;">
+        <img src="${event.imageUrl}" alt="Imagen Evento" style="max-width:100%; display:block; height:auto; border-radius:8px;">
+      </td>
+    </tr>` : '';
 
   const header = `
-    <tr><td align="center" style="color:#ef3340; font-size:24px; font-weight:bold; padding:20px 0;">
-      ${event.name}
-    </td></tr>`;
+    <tr>
+      <td align="center" style="color:#ef3340; font-size:24px; font-weight:bold; padding:20px 0;">
+        ${event.name || ''}
+      </td>
+    </tr>`;
 
   const body = `
-    <tr><td align="center" style="color:#ffffff; font-size:16px; padding:10px 0;">
-      ${event.bodyText}
-    </td></tr>`;
+    <tr>
+      <td align="center" style="color:#ffffff; font-size:16px; padding:10px 0;">
+        ${event.bodyText || ''}
+      </td>
+    </tr>`;
 
   const footer = `
-    <tr><td align="center" style="padding:20px 0; border-top:1px solid #ffffff;">
-      <div style="font-size:14px; line-height:1.5; color:#ffffff;">
-        📞 +34 684 01 35 47 | +34 695 59 53 51<br>
-        📧 <a href="mailto:info@kedekids.com" style="color:#ffffff; text-decoration:none;">info@kedekids.com</a><br>
-        📍 Skatepark Bola de la Bicha 30, Granada 18008<br><br>
-        <a href="https://www.instagram.com/kedekids.skateboarding/" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" height="24" alt="Instagram" style="margin:0 5px; filter: brightness(0) invert(1);">
-        </a>
-        <a href="https://www.youtube.com/@kedekidsskateboarding7287" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="24" height="24" alt="YouTube" style="margin:0 5px; filter: brightness(0) invert(1);">
-        </a>
-        <a href="https://wa.me/34695595351" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="24" height="24" alt="WhatsApp" style="margin:0 5px; filter: brightness(0) invert(1);">
-        </a>
-      </div>
-      <br><br>
-      <div style="font-size:12px; color:#ccc;">
-        <a href="#" style="color:#ccc; text-decoration:none;">Ver en navegador</a> | 
-        <a href="#" style="color:#ccc; text-decoration:none;">Política de privacidad</a><br>
-        © 2025 Kedekids. Todos los derechos reservados.
-      </div>
-    </td></tr>`;
+    <tr>
+      <td align="center" style="padding:20px 0; border-top:1px solid #ffffff;">
+        <div style="font-size:14px; line-height:1.5; color:#ffffff;">
+          📞 +34 684 01 35 47 | +34 695 59 53 51<br>
+          📧 <a href="mailto:info@kedekids.com" style="color:#ffffff; text-decoration:none;">info@kedekids.com</a><br>
+          📍 Skatepark Bola de la Bicha 30, Granada 18008<br><br>
+          <a href="https://www.instagram.com/kedekids.skateboarding/" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" width="24" height="24" alt="Instagram" style="margin:0 5px; filter: brightness(0) invert(1);">
+          </a>
+          <a href="https://www.youtube.com/@kedekidsskateboarding7287" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" width="24" height="24" alt="YouTube" style="margin:0 5px; filter: brightness(0) invert(1);">
+          </a>
+          <a href="https://wa.me/34695595351" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" width="24" height="24" alt="WhatsApp" style="margin:0 5px; filter: brightness(0) invert(1);">
+          </a>
+        </div>
+        <br><br>
+        <div style="font-size:12px; color:#ccc;">
+          <a href="#" style="color:#ccc; text-decoration:none;">Ver en navegador</a> | 
+          <a href="#" style="color:#ccc; text-decoration:none;">Política de privacidad</a><br>
+          © 2025 Kedekids. Todos los derechos reservados.
+        </div>
+      </td>
+    </tr>`;
 
+  // Composición para los otros layouts
   let content = '';
   switch (event.layout) {
     case 'header-body-image':
@@ -70,22 +99,25 @@ function generateEmailContent(event) {
     case 'image-header-body':
       content = `${logo}${image}${header}${body}${footer}`;
       break;
-    case 'only-image':
-      content = `${logo}${image}${footer}`;
-      break;
     default:
       content = `${logo}${header}${body}${footer}`;
   }
 
+  // Marco de 600px solo para los layouts con contenido
   return `
-  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#7D4642; font-family:Arial,sans-serif;">
-    <tr><td align="center">
-      <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color:#7D4642; color:#ffffff; padding:20px;">
-        ${content}
-      </table>
-    </td></tr>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" role="presentation"
+         style="background-color:#7D4642; font-family:Arial,sans-serif; border-collapse:collapse;">
+    <tr>
+      <td align="center" style="padding:0; margin:0;">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" role="presentation"
+               style="background-color:#7D4642; color:#ffffff; padding:20px; border-collapse:collapse;">
+          ${content}
+        </table>
+      </td>
+    </tr>
   </table>`;
 }
+
 
 const chunk = (arr, n) => (arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : []);
 
