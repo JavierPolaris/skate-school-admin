@@ -3,7 +3,7 @@
   --kk-color-primary:   var(--kk-color-primary);
   --kk-color-secondary: var(--kk-color-secondary);
   --kk-color-accent:    var(--kk-color-accent);
-  --kk-color-text:      #111827;
+  --kk-color-text:      var(--kk-color-text);
   --kk-color-bg:        var(--kk-color-bg);
   --kk-color-surface:   var(--kk-color-surface);
 
@@ -14,6 +14,16 @@ body {
   color: var(--kk-color-text);
   font-family: var(--kk-font-sans);
 }
+body :where(
+  p, li, a, span, small, strong, em, b, i, label,
+  button, input, textarea, select, option,
+  td, th, dt, dd, figcaption
+):not(:is(footer, footer *)) {
+  color: var(--kk-color-text) !important;
+}
+
+h1, h2, h3, h4, h5, h6 { color: inherit; }
+
 .kcard {
  
   border-radius: var(--kk-radius);
