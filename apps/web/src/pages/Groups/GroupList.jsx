@@ -7,7 +7,7 @@ function GroupList({ groups, onSelectGroup, selectedGroupId, onAddGroup }) {
         left: '289px', // Ancho del sidebar
         width: '200px',
         height: 'calc(100vh - 60px)',
-        backgroundColor: 'rgb(38 42 49)',
+        backgroundColor: 'var(--kk-color-surface)', 
         padding: '1rem',
         borderRight: '1px solid #3A3A50',
         overflowY: 'auto',
