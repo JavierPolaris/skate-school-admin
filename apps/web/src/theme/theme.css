@@ -15,7 +15,7 @@ body {
   font-family: var(--kk-font-sans);
 }
 .kcard {
-  background: var(--kk-color-surface);
+ 
   border-radius: var(--kk-radius);
   box-shadow: var(--kk-shadow);
 }
