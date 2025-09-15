@@ -760,6 +760,87 @@ onChange={(e) => handleSelectGroup(e.target.value)}
 // Modo Desktop Normal
 </file>
 
+<file path="apps/web/src/pages/HomePage.jsx">
+function HomePage({ onLogin }) {
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [error, setError] = useState('');
+const [token, setToken] = useState(null);
+useEffect(() => {
+⋮----
+const storedToken = localStorage.getItem('token');
+⋮----
+setToken(storedToken);
+⋮----
+console.warn('Error accediendo a localStorage:', err);
+⋮----
+const navigate = useNavigate();
+const [showRequestModal, setShowRequestModal] = useState(false);
+const [requestName, setRequestName] = useState('');
+const [requestEmail, setRequestEmail] = useState('');
+const [requestMessage, setRequestMessage] = useState('');
+⋮----
+// Añadir clase 'login-background' al body si no hay token
+⋮----
+document.body.classList.add('login-background');
+⋮----
+document.body.classList.remove('login-background');
+⋮----
+// Limpiar al desmontar el componente
+⋮----
+const storedUser = localStorage.getItem('user');
+⋮----
+const user = JSON.parse(storedUser);
+⋮----
+navigate('/app', { replace: true });
+⋮----
+navigate('/student', { replace: true });
+⋮----
+console.warn('Error al recuperar token o user:', err);
+⋮----
+const handleLogin = async () => {
+⋮----
+const data = await loginUser(email, password);
+localStorage.setItem('token', data.token);
+localStorage.setItem('user', JSON.stringify(data.user));
+onLogin(data.token);
+⋮----
+navigate('/app');
+⋮----
+navigate('/student-dashboard');
+⋮----
+setError(err.message || 'Error al conectar con el servidor');
+⋮----
+const handleRequestAccess = async () => {
+⋮----
+const response = await fetch(`${API_URL}/users/request-access`, {
+⋮----
+body: JSON.stringify({ name: requestName, email: requestEmail }),
+⋮----
+const data = await response.json();
+⋮----
+setRequestMessage('Solicitud enviada con éxito. El administrador revisará tu solicitud.');
+⋮----
+setRequestMessage(data.error || 'Error al enviar la solicitud.');
+⋮----
+setRequestMessage('Error al conectar con el servidor.');
+⋮----
+{/* LOGO Kedekids */}
+⋮----
+onChange={(e) => setEmail(e.target.value)}
+⋮----
+onChange={(e) => setPassword(e.target.value)}
+⋮----
+{/* Solicitud de acceso */}
+<button  onClick={() => setShowRequestModal(true)}>Solicitar acceso</button>
+⋮----
+onChange={(e) => setRequestName(e.target.value)}
+⋮----
+onChange={(e) => setRequestEmail(e.target.value)}
+⋮----
+<button onClick={() => setShowRequestModal(false)}>Cancelar</button>
+</file>
+
 <file path="apps/web/src/pages/PaymentsPage.jsx">
 function PaymentsPage() {
 const [paymentConfigs, setPaymentConfigs] = useState({});
@@ -2512,90 +2593,66 @@ fetch(`${API_URL}/tricks/total-views`)
 labels: ['Total Visualizaciones'], // Puedes añadir más si tienes datos por mes, etc.
 </file>
 
-<file path="apps/web/src/components/Footer.jsx">
-function Footer() {
+<file path="apps/web/src/components/InstallPrompt.jsx">
+const isIOS = () =>
+/iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
 ⋮----
-Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--kk-color-primary)' }}>Javier García-Rojo</a> · Kedekids © {new Date().getFullYear()}
-</file>
-
-<file path="apps/web/src/components/Layout.css">
-.layout-container {
-button.delete-avatar-button {
-button.delete-avatar-button:hover {
-button.delete-avatar-button:focus {
-.profile-role-container {
+const isAndroid = () => /Android/i.test(navigator.userAgent);
 ⋮----
-/* Sidebar fijo */
-.sidebar {
+// PWA instalada (standalone) o Chrome iOS (navigator.standalone)
+const isInStandaloneMode = () =>
+window.matchMedia('(display-mode: standalone)').matches ||
 ⋮----
-/* Main content con margen para no tapar con sidebar */
-.main-content {
+// Heurística de TWA: cuando abre como app Android empaquetada
+const isTWA = () => typeof document !== 'undefined' &&
+!!document.referrer && document.referrer.startsWith('android-app://');
 ⋮----
-/* Header fijo */
-.dashboard-header {
+function InstallPrompt() {
+const [deferredPrompt, setDeferredPrompt] = useState(null);
+const [showModal, setShowModal] = useState(false);
+const [platform, setPlatform] = useState(null); // 'android' | 'ios'
 ⋮----
-height: 60px; /* Ajusta según tu diseño */
+useEffect(() => {
+// No mostrar si ya está instalada, o si corre como TWA, o si el usuario lo cerró antes
+const dismissed = localStorage.getItem(DISMISS_KEY) === 'true';
+if (dismissed || isInStandaloneMode() || isTWA()) return;
 ⋮----
-/* Contenido debajo del header con scroll */
-.page-content {
+const onAppInstalled = () => {
+// Si el usuario la instala, ocultamos y no molestamos más
+localStorage.setItem(DISMISS_KEY, 'true');
+setShowModal(false);
+setDeferredPrompt(null);
 ⋮----
-/* Responsive */
+window.addEventListener('appinstalled', onAppInstalled);
 ⋮----
-.sidebar.hidden {
+if (isAndroid()) {
+const handleBeforeInstallPrompt = (e) => {
+e.preventDefault();
+setDeferredPrompt(e);
+setPlatform('android');
+setShowModal(true);
+// console.log('📱 Android: Mostrar botón instalar');
 ⋮----
-.layout-header {
+window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 ⋮----
-.hamburger-menu {
+window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+window.removeEventListener('appinstalled', onAppInstalled);
 ⋮----
-.sidebar-content {
+if (isIOS()) {
+// En iOS solo se puede instalar desde Safari (Añadir a pantalla de inicio)
+setPlatform('ios');
 ⋮----
-overflow-y: auto; /* Hacemos scroll SOLO en el contenido */
+return () => window.removeEventListener('appinstalled', onAppInstalled);
 ⋮----
-max-height: calc(100vh - 150px); /* Ajusta este valor según el espacio que ocupa el header/avatar/botón */
+const handleInstall = async () => {
 ⋮----
-.profile-section {
+deferredPrompt.prompt();
 ⋮----
-.profile-avatar {
-.profile-avatar2{
+// accepted | dismissed
 ⋮----
-.profile-info {
+// Si lo rechaza, no insistas más
 ⋮----
-.profile-name {
-⋮----
-.profile-role {
-⋮----
-.menu {
-⋮----
-.menu li {
-⋮----
-.menu li a {
-⋮----
-position: relative; /* Necesario para usar ::after */
-text-decoration: none; /* Elimina cualquier subrayado predeterminado */
-⋮----
-.menu li a:hover {
-.active-menu {
-⋮----
-.menu li a::after {
-⋮----
-content: ''; /* Crea un pseudo-elemento vacío */
-⋮----
-bottom: -2px; /* Ajusta la posición vertical del subrayado */
-height: 2px; /* Grosor del subrayado */
-background-color: var(--kk-color-primary); /* Color del subrayado */
-transform: scaleX(0); /* Inicialmente oculto */
-⋮----
-.menu li a:hover::after {
-⋮----
-transform: scaleX(1); /* Muestra el subrayado */
-⋮----
-.icon {
-⋮----
-.website-button {
-⋮----
-.website-button:hover {
-⋮----
-.logout-button {
+const handleClose = () => {
 </file>
 
 <file path="apps/web/src/css/Chart.css">
@@ -3160,26 +3217,6 @@ section h4 {
 input::placeholder,
 ⋮----
 textarea {
-</file>
-
-<file path="apps/web/src/css/Sidebar.css">
-.sidebar {
-⋮----
-.sidebar h3 {
-⋮----
-.sidebar ul {
-⋮----
-.sidebar li {
-⋮----
-.sidebar li:hover {
-⋮----
-/* Sidebar oculto en móvil */
-.sidebar.hidden {
-⋮----
-/* Hamburguesa */
-.hamburger-menu {
-⋮----
-.main-content {
 </file>
 
 <file path="apps/web/src/css/StudentPayments.css">
@@ -3786,87 +3823,6 @@ visible.map((notif, index) => (
 onClick={() => setShowAll(v => !v)}
 </file>
 
-<file path="apps/web/src/pages/HomePage.jsx">
-function HomePage({ onLogin }) {
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-const [error, setError] = useState('');
-const [token, setToken] = useState(null);
-useEffect(() => {
-⋮----
-const storedToken = localStorage.getItem('token');
-⋮----
-setToken(storedToken);
-⋮----
-console.warn('Error accediendo a localStorage:', err);
-⋮----
-const navigate = useNavigate();
-const [showRequestModal, setShowRequestModal] = useState(false);
-const [requestName, setRequestName] = useState('');
-const [requestEmail, setRequestEmail] = useState('');
-const [requestMessage, setRequestMessage] = useState('');
-⋮----
-// Añadir clase 'login-background' al body si no hay token
-⋮----
-document.body.classList.add('login-background');
-⋮----
-document.body.classList.remove('login-background');
-⋮----
-// Limpiar al desmontar el componente
-⋮----
-const storedUser = localStorage.getItem('user');
-⋮----
-const user = JSON.parse(storedUser);
-⋮----
-navigate('/app', { replace: true });
-⋮----
-navigate('/student', { replace: true });
-⋮----
-console.warn('Error al recuperar token o user:', err);
-⋮----
-const handleLogin = async () => {
-⋮----
-const data = await loginUser(email, password);
-localStorage.setItem('token', data.token);
-localStorage.setItem('user', JSON.stringify(data.user));
-onLogin(data.token);
-⋮----
-navigate('/app');
-⋮----
-navigate('/student-dashboard');
-⋮----
-setError(err.message || 'Error al conectar con el servidor');
-⋮----
-const handleRequestAccess = async () => {
-⋮----
-const response = await fetch(`${API_URL}/users/request-access`, {
-⋮----
-body: JSON.stringify({ name: requestName, email: requestEmail }),
-⋮----
-const data = await response.json();
-⋮----
-setRequestMessage('Solicitud enviada con éxito. El administrador revisará tu solicitud.');
-⋮----
-setRequestMessage(data.error || 'Error al enviar la solicitud.');
-⋮----
-setRequestMessage('Error al conectar con el servidor.');
-⋮----
-{/* LOGO Kedekids */}
-⋮----
-onChange={(e) => setEmail(e.target.value)}
-⋮----
-onChange={(e) => setPassword(e.target.value)}
-⋮----
-{/* Solicitud de acceso */}
-<button  onClick={() => setShowRequestModal(true)}>Solicitar acceso</button>
-⋮----
-onChange={(e) => setRequestName(e.target.value)}
-⋮----
-onChange={(e) => setRequestEmail(e.target.value)}
-⋮----
-<button onClick={() => setShowRequestModal(false)}>Cancelar</button>
-</file>
-
 <file path="apps/web/src/pages/StudentClasses.jsx">
 function StudentClasses() {
 const [user, setUser] = useState({});
@@ -4101,66 +4057,110 @@ const handleOutsidePress = (e: any) =>
 {/* ——— CONTENIDO DE RUTAS HIJAS ——— */}
 </file>
 
-<file path="apps/web/src/components/InstallPrompt.jsx">
-const isIOS = () =>
-/iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
+<file path="apps/web/src/components/Footer.jsx">
+function Footer() {
 ⋮----
-const isAndroid = () => /Android/i.test(navigator.userAgent);
+Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--kk-color-primary)' }}>Javier García-Rojo</a> · Kedekids © {new Date().getFullYear()}
+</file>
+
+<file path="apps/web/src/components/Layout.css">
+.layout-container {
+button.delete-avatar-button {
+button.delete-avatar-button:hover {
+button.delete-avatar-button:focus {
+.profile-role-container {
 ⋮----
-// PWA instalada (standalone) o Chrome iOS (navigator.standalone)
-const isInStandaloneMode = () =>
-window.matchMedia('(display-mode: standalone)').matches ||
+/* Sidebar fijo */
+.sidebar {
 ⋮----
-// Heurística de TWA: cuando abre como app Android empaquetada
-const isTWA = () => typeof document !== 'undefined' &&
-!!document.referrer && document.referrer.startsWith('android-app://');
+/* Main content con margen para no tapar con sidebar */
+.main-content {
 ⋮----
-function InstallPrompt() {
-const [deferredPrompt, setDeferredPrompt] = useState(null);
-const [showModal, setShowModal] = useState(false);
-const [platform, setPlatform] = useState(null); // 'android' | 'ios'
+/* Header fijo */
+.dashboard-header {
 ⋮----
-useEffect(() => {
-// No mostrar si ya está instalada, o si corre como TWA, o si el usuario lo cerró antes
-const dismissed = localStorage.getItem(DISMISS_KEY) === 'true';
-if (dismissed || isInStandaloneMode() || isTWA()) return;
+height: 60px; /* Ajusta según tu diseño */
 ⋮----
-const onAppInstalled = () => {
-// Si el usuario la instala, ocultamos y no molestamos más
-localStorage.setItem(DISMISS_KEY, 'true');
-setShowModal(false);
-setDeferredPrompt(null);
+/* Contenido debajo del header con scroll */
+.page-content {
 ⋮----
-window.addEventListener('appinstalled', onAppInstalled);
+/* Responsive */
 ⋮----
-if (isAndroid()) {
-const handleBeforeInstallPrompt = (e) => {
-e.preventDefault();
-setDeferredPrompt(e);
-setPlatform('android');
-setShowModal(true);
-// console.log('📱 Android: Mostrar botón instalar');
+.sidebar.hidden {
 ⋮----
-window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+.layout-header {
 ⋮----
-window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-window.removeEventListener('appinstalled', onAppInstalled);
+.hamburger-menu {
 ⋮----
-if (isIOS()) {
-// En iOS solo se puede instalar desde Safari (Añadir a pantalla de inicio)
-setPlatform('ios');
+.sidebar-content {
 ⋮----
-return () => window.removeEventListener('appinstalled', onAppInstalled);
+overflow-y: auto; /* Hacemos scroll SOLO en el contenido */
 ⋮----
-const handleInstall = async () => {
+max-height: calc(100vh - 150px); /* Ajusta este valor según el espacio que ocupa el header/avatar/botón */
 ⋮----
-deferredPrompt.prompt();
+.profile-section {
 ⋮----
-// accepted | dismissed
+.profile-avatar {
+.profile-avatar2{
 ⋮----
-// Si lo rechaza, no insistas más
+.profile-info {
 ⋮----
-const handleClose = () => {
+.profile-name {
+⋮----
+.profile-role {
+⋮----
+.menu {
+⋮----
+.menu li {
+⋮----
+.menu li a {
+⋮----
+position: relative; /* Necesario para usar ::after */
+text-decoration: none; /* Elimina cualquier subrayado predeterminado */
+⋮----
+.menu li a:hover {
+.active-menu {
+⋮----
+.menu li a::after {
+⋮----
+content: ''; /* Crea un pseudo-elemento vacío */
+⋮----
+bottom: -2px; /* Ajusta la posición vertical del subrayado */
+height: 2px; /* Grosor del subrayado */
+background-color: var(--kk-color-primary); /* Color del subrayado */
+transform: scaleX(0); /* Inicialmente oculto */
+⋮----
+.menu li a:hover::after {
+⋮----
+transform: scaleX(1); /* Muestra el subrayado */
+⋮----
+.icon {
+⋮----
+.website-button {
+⋮----
+.website-button:hover {
+⋮----
+.logout-button {
+</file>
+
+<file path="apps/web/src/css/Sidebar.css">
+.sidebar {
+⋮----
+.sidebar h3 {
+⋮----
+.sidebar ul {
+⋮----
+.sidebar li {
+⋮----
+.sidebar li:hover {
+⋮----
+/* Sidebar oculto en móvil */
+.sidebar.hidden {
+⋮----
+/* Hamburguesa */
+.hamburger-menu {
+⋮----
+.main-content {
 </file>
 
 <file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
@@ -5089,61 +5089,6 @@ be251a9287204f8a60ca10f78af208618609d4dd
 include ':app'
 </file>
 
-<file path="apps/web/src/context/ThemeContext.jsx">
-const ThemeContext = createContext();
-export const useTheme = () => useContext(ThemeContext);
-⋮----
-shadow: "light", // light|medium|strong
-⋮----
-function applyThemeVars(t) {
-⋮----
-// === variables que usa TU CSS ===
-r.setProperty('--kk-color-primary',  t.colorPrimary);
-r.setProperty('--kk-color-secondary',t.colorSecondary);
-r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
-r.setProperty('--kk-color-text',     t.colorText     || '#111827');
-r.setProperty('--kk-color-bg',       t.colorBg       || '#ffffff');
-r.setProperty('--kk-color-surface',  t.colorSurface  || '#f7f7f8');
-r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
-⋮----
-// === back-compat por si en algún lado usamos la otra convención ===
-r.setProperty('--kk-primary',   t.colorPrimary);
-r.setProperty('--kk-secondary', t.colorSecondary);
-r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
-r.setProperty('--kk-text',      t.colorText     || '#111827');
-r.setProperty('--kk-bg',        t.colorBg       || '#ffffff');
-r.setProperty('--kk-surface',   t.colorSurface  || '#f7f7f8');
-r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
-⋮----
-export function ThemeProvider({ children }) {
-const [theme, setTheme] = useState(DEFAULT_THEME);
-const [loading, setLoading] = useState(true);
-⋮----
-useEffect(() => {
-⋮----
-const res = await fetch(`${API_URL}/admin/theme`, { credentials: "include" });
-⋮----
-const data = await res.json();
-⋮----
-setTheme(next);
-applyThemeVars(next);
-⋮----
-applyThemeVars(DEFAULT_THEME);
-⋮----
-setLoading(false);
-⋮----
-useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
-⋮----
-const saveTheme = async (draft) => {
-⋮----
-setTheme(next); // live preview
-const res = await fetch(`${API_URL}/admin/theme`, {
-⋮----
-body: JSON.stringify(next)
-⋮----
-if (!res.ok) throw new Error("No se pudo guardar el tema");
-</file>
-
 <file path="apps/web/src/css/StudentDashboard.css">
 .student-dashboard {
 ⋮----
@@ -5168,19 +5113,6 @@ max-height: 260px;   /* altura del contenedor al mostrar todas */
 .ver-mas-btn {
 ⋮----
 .ver-mas-btn:hover {
-</file>
-
-<file path="apps/web/src/theme/theme.css">
-:root {
-⋮----
-/* Tus colores por defecto (los que ya usas en todo el CSS) */
-⋮----
-body {
-.kcard {
-.kbtn {
-.kbtn--secondary { background: var(--kk-color-secondary); }
-.klink { color: var(--kk-color-primary); text-decoration: none; }
-.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
 </file>
 
 <file path="apps/web/vite.config.js">
@@ -5596,6 +5528,19 @@ dependencies {
 <shortcuts xmlns:android='http://schemas.android.com/apk/res/android' />
 </file>
 
+<file path="apps/web/src/theme/theme.css">
+:root {
+⋮----
+/* Tus colores por defecto (los que ya usas en todo el CSS) */
+⋮----
+body {
+.kcard {
+.kbtn {
+.kbtn--secondary { background: var(--kk-color-secondary); }
+.klink { color: var(--kk-color-primary); text-decoration: none; }
+.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
+</file>
+
 <file path="apps/web/public/firebase-messaging-sw.js">
 // public/firebase-messaging-sw.js
 /* eslint-disable no-undef */
@@ -5709,6 +5654,61 @@ return [...notifications].sort((a, b) => getTime(b) - getTime(a));
 {(showAllNotifications ? sortedNotifications : sortedNotifications.slice(0, 3)).map(
 ⋮----
 onClick={() => setShowAllNotifications((v) => !v)}
+</file>
+
+<file path="apps/web/src/context/ThemeContext.jsx">
+const ThemeContext = createContext();
+export const useTheme = () => useContext(ThemeContext);
+⋮----
+shadow: "light", // light|medium|strong
+⋮----
+function applyThemeVars(t) {
+⋮----
+// === variables que usa TU CSS ===
+r.setProperty('--kk-color-primary',  t.colorPrimary);
+r.setProperty('--kk-color-secondary',t.colorSecondary);
+r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
+r.setProperty('--kk-color-text',     t.colorText     || '#111827');
+r.setProperty('--kk-color-bg',       t.colorBg       || '#1e1e2f');
+r.setProperty('--kk-color-surface',  t.colorSurface  || '#f7f7f8');
+r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
+⋮----
+// === back-compat por si en algún lado usamos la otra convención ===
+r.setProperty('--kk-primary',   t.colorPrimary);
+r.setProperty('--kk-secondary', t.colorSecondary);
+r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
+r.setProperty('--kk-text',      t.colorText     || '#111827');
+r.setProperty('--kk-bg',        t.colorBg       || '#1e1e2f');
+r.setProperty('--kk-surface',   t.colorSurface  || '#f7f7f8');
+r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
+⋮----
+export function ThemeProvider({ children }) {
+const [theme, setTheme] = useState(DEFAULT_THEME);
+const [loading, setLoading] = useState(true);
+⋮----
+useEffect(() => {
+⋮----
+const res = await fetch(`${API_URL}/admin/theme`);
+⋮----
+const data = await res.json();
+⋮----
+setTheme(next);
+applyThemeVars(next);
+⋮----
+applyThemeVars(DEFAULT_THEME);
+⋮----
+setLoading(false);
+⋮----
+useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
+⋮----
+const saveTheme = async (draft) => {
+⋮----
+setTheme(next); // live preview
+const res = await fetch(`${API_URL}/admin/theme`, {
+⋮----
+body: JSON.stringify(next)
+⋮----
+if (!res.ok) throw new Error("No se pudo guardar el tema");
 </file>
 
 <file path="apps/web/src/main.jsx">
