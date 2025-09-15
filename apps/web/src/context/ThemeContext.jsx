@@ -15,30 +15,38 @@ const DEFAULT_THEME = {
     shadow: "light", // light|medium|strong
     fontSans: "Inter",
     fontHeading: "Poppins"
+
+    loginBgDesktop: "https://www.kedekids.com/wp-content/uploads/2020/09/CAR_2767-scaled.jpg",
+    loginBgMobile: "",
 };
 
 
 
 function applyThemeVars(t) {
-  const r = document.documentElement.style;
+    const r = document.documentElement.style;
 
-  // === variables que usa TU CSS ===
-  r.setProperty('--kk-color-primary',  t.colorPrimary);
-  r.setProperty('--kk-color-secondary',t.colorSecondary);
-  r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
-  r.setProperty('--kk-color-text',     t.colorText     || '#ffffffff');
-  r.setProperty('--kk-color-bg',       t.colorBg       || '#1e1e2f');
-  r.setProperty('--kk-color-surface',  t.colorSurface  || '#252539');
-  r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
+    // === variables que usa TU CSS ===
+    r.setProperty('--kk-color-primary', t.colorPrimary);
+    r.setProperty('--kk-color-secondary', t.colorSecondary);
+    r.setProperty('--kk-color-accent', t.colorAccent || 'var(--kk-color-accent)');
+    r.setProperty('--kk-color-text', t.colorText || '#ffffffff');
+    r.setProperty('--kk-color-bg', t.colorBg || '#1e1e2f');
+    r.setProperty('--kk-color-surface', t.colorSurface || '#252539');
+    r.setProperty('--kk-gradient', `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
 
-  // === back-compat por si en algún lado usamos la otra convención ===
-  r.setProperty('--kk-primary',   t.colorPrimary);
-  r.setProperty('--kk-secondary', t.colorSecondary);
-  r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
-  r.setProperty('--kk-text',      t.colorText     || '#ffffffff');
-  r.setProperty('--kk-bg',        t.colorBg       || '#1e1e2f');
-  r.setProperty('--kk-surface',   t.colorSurface  || '#252539');
-  r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
+    // === back-compat por si en algún lado usamos la otra convención ===
+    r.setProperty('--kk-primary', t.colorPrimary);
+    r.setProperty('--kk-secondary', t.colorSecondary);
+    r.setProperty('--kk-accent', t.colorAccent || 'var(--kk-color-accent)');
+    r.setProperty('--kk-text', t.colorText || '#ffffffff');
+    r.setProperty('--kk-bg', t.colorBg || '#1e1e2f');
+    r.setProperty('--kk-surface', t.colorSurface || '#252539');
+    r.setProperty('--kk-grad', `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
+
+    const desk = t.loginBgDesktop || DEFAULT_THEME.loginBgDesktop;
+    const mob = t.loginBgMobile || desk;
+    r.setProperty('--kk-login-bg-desktop', `url("${desk}")`);
+    r.setProperty('--kk-login-bg-mobile', `url("${mob}")`);
 }
 
 

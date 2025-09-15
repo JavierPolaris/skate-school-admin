@@ -2,25 +2,38 @@ import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 const ColorInput = ({ label, value, onChange }) => (
-  <div style={{ display: "grid", gap: 6, minWidth: 0 }}>
-    <label>{label}</label>
-    <div style={{ display: "flex", gap: 8, alignItems: "center", minWidth: 0 }}>
-      <input
-        type="color"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        style={{ width: 36, height: 24, padding: 0, border: "1px solid #ddd", borderRadius: 4, flex: "0 0 auto" }}
-      />
-      <input
-        type="text"
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        style={{ flex: "1 1 0%", minWidth: 0, width: "100%", boxSizing: "border-box" }}
-      />
+    <div style={{ display: "grid", gap: 6, minWidth: 0 }}>
+        <label>{label}</label>
+        <div style={{ display: "flex", gap: 8, alignItems: "center", minWidth: 0 }}>
+            <input
+                type="color"
+                value={value}
+                onChange={e => onChange(e.target.value)}
+                style={{ width: 36, height: 24, padding: 0, border: "1px solid #ddd", borderRadius: 4, flex: "0 0 auto" }}
+            />
+            <input
+                type="text"
+                value={value}
+                onChange={e => onChange(e.target.value)}
+                style={{ flex: "1 1 0%", minWidth: 0, width: "100%", boxSizing: "border-box" }}
+            />
+        </div>
     </div>
-  </div>
 );
 
+// helpers
+async function uploadImage(file, target, API_URL, token) {
+    const fd = new FormData();
+    fd.append('image', file);
+    const res = await fetch(`${API_URL}/admin/theme/upload-login-bg?target=${target}`, {
+        method: 'POST',
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: fd
+    });
+    if (!res.ok) throw new Error('upload failed');
+    const { url } = await res.json();
+    return url;
+}
 
 export default function AdminThemeCustomizer() {
     const { theme, setTheme, saveTheme } = useTheme();
@@ -47,12 +60,12 @@ export default function AdminThemeCustomizer() {
     };
 
     return (
-        <div className="kcard" style={{ padding: 16, display:"grid", gap: 16, minWidth: 0 }}>
+        <div className="kcard" style={{ padding: 16, display: "grid", gap: 16, minWidth: 0 }}>
             <h2 style={{ fontFamily: "var(--kk-font-heading)" }}>Customizer de Tema</h2>
 
             <section className="kcard" style={{ padding: 16, display: "grid", gap: 12 }}>
                 <h3>Colores</h3>
-                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(180px, 1fr))", gap: 12, alignItems:"start", minWidth: 0 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12, alignItems: "start", minWidth: 0 }}>
                     <ColorInput label="Primario" value={draft.colorPrimary} onChange={v => update("colorPrimary", v)} />
                     <ColorInput label="Secundario" value={draft.colorSecondary} onChange={v => update("colorSecondary", v)} />
                     <ColorInput label="Acento" value={draft.colorAccent} onChange={v => update("colorAccent", v)} />
@@ -63,56 +76,71 @@ export default function AdminThemeCustomizer() {
             </section>
 
             <section className="kcard" style={{ padding: 16, display: "grid", gap: 12 }}>
-                <h3>Tipografías</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: 12 }}>
-                    <div>
-                        <label>Sans</label>
-                        <select value={draft.fontSans} onChange={e => update("fontSans", e.target.value)}>
-                            <option>Inter</option><option>Rubik</option><option>Montserrat</option><option>System UI</option>
-                        </select>
+                <h3>Imágenes de login</h3>
+                <small>
+                    Recomendadas: <b>Desktop</b> 1920×1080 (16:9) • <b>Móvil</b> 1080×1920 (9:16).
+                    Usa JPG/WebP y &lt; 500KB para que cargue rápido.
+                </small>
+
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+                    {/* Desktop */}
+                    <div style={{ display: "grid", gap: 6 }}>
+                        <label>Desktop (URL)</label>
+                        <input
+                            type="text"
+                            value={draft.loginBgDesktop || ""}
+                            onChange={e => update("loginBgDesktop", e.target.value)}
+                            placeholder="https://..."
+                        />
+                        <label>o subir archivo</label>
+                        <input
+                            type="file" accept="image/*"
+                            onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                try {
+                                    const token = localStorage.getItem('token');
+                                    const url = await uploadImage(file, 'desktop', API_URL, token);
+                                    update("loginBgDesktop", url);
+                                } catch {
+                                    setMsg("Error subiendo imagen desktop");
+                                    setTimeout(() => setMsg(""), 2000);
+                                }
+                            }}
+                        />
                     </div>
-                    <div>
-                        <label>Heading</label>
-                        <select value={draft.fontHeading} onChange={e => update("fontHeading", e.target.value)}>
-                            <option>Poppins</option><option>Oswald</option><option>Raleway</option><option>Inter</option>
-                        </select>
+
+                    {/* Mobile */}
+                    <div style={{ display: "grid", gap: 6 }}>
+                        <label>Móvil (URL)</label>
+                        <input
+                            type="text"
+                            value={draft.loginBgMobile || ""}
+                            onChange={e => update("loginBgMobile", e.target.value)}
+                            placeholder="https://... (si está vacío se usa la de desktop)"
+                        />
+                        <label>o subir archivo</label>
+                        <input
+                            type="file" accept="image/*"
+                            onChange={async (e) => {
+                                const file = e.target.files?.[0];
+                                if (!file) return;
+                                try {
+                                    const token = localStorage.getItem('token');
+                                    const url = await uploadImage(file, 'mobile', API_URL, token);
+                                    update("loginBgMobile", url);
+                                } catch {
+                                    setMsg("Error subiendo imagen móvil");
+                                    setTimeout(() => setMsg(""), 2000);
+                                }
+                            }}
+                        />
                     </div>
                 </div>
             </section>
 
-            <section className="kcard" style={{ padding: 16, display: "grid", gap: 12 }}>
-                <h3>Esquinas y sombras</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: 12 }}>
-                    <div>
-                        <label>Radio (px)</label>
-                        <input type="range" min="0" max="24" value={draft.radius}
-                            onChange={e => update("radius", Number(e.target.value))} />
-                        <div>{draft.radius}px</div>
-                    </div>
-                    <div>
-                        <label>Sombra</label>
-                        <select value={draft.shadow} onChange={e => update("shadow", e.target.value)}>
-                            <option value="light">Ligera</option>
-                            <option value="medium">Media</option>
-                            <option value="strong">Fuerte</option>
-                        </select>
-                    </div>
-                </div>
-            </section>
 
-            {/* Vista previa mínima */}
-            <section className="kcard" style={{ padding: 16, display: "grid", gap: 12 }}>
-                <h3>Vista previa</h3>
-                <div className="kcard" style={{ padding: 16 }}>
-                    <h4 style={{ fontFamily: "var(--kk-font-heading)" }}>Título de ejemplo</h4>
-                    <p>Texto de ejemplo con <a className="klink" href="#">enlace</a>.</p>
-                    <div style={{ display: "flex", gap: 8 }}>
-                        <button className="kbtn">Primario</button>
-                        <button className="kbtn kbtn--secondary">Secundario</button>
-                        <span className="kbadge">Badge</span>
-                    </div>
-                </div>
-            </section>
+
 
             <div style={{ display: "flex", gap: 8 }}>
                 <button className="kbtn" onClick={onSave} disabled={saving}>

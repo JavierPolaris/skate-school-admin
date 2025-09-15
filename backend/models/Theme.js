@@ -11,6 +11,8 @@ const ThemeSchema = new mongoose.Schema({
   shadow: { type: String, enum: ["light","medium","strong"], default: "light" },
   fontSans: String,
   fontHeading: String,
+  loginBgDesktop: String,
+  loginBgMobile: String,
 }, { timestamps: true });
 
 module.exports = mongoose.model("Theme", ThemeSchema);
