@@ -2556,6 +2556,23 @@ protected Uri getLaunchingUrl() {
 Uri uri = super.getLaunchingUrl();
 </file>
 
+<file path="apps/web/public/firebase-messaging-sw.js">
+// public/firebase-messaging-sw.js
+/* eslint-disable no-undef */
+/* global importScripts, firebase */
+⋮----
+importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging-compat.js");
+⋮----
+firebase.initializeApp({
+⋮----
+const messaging = firebase.messaging();
+⋮----
+messaging.onBackgroundMessage(function(payload) {
+console.log("[firebase-messaging-sw.js] Recibido mensaje en background ", payload);
+self.registration.showNotification(payload.notification.title, {
+</file>
+
 <file path="apps/web/public/manifest.webmanifest">
 {
   "name": "KedeKids School",
@@ -3122,36 +3139,6 @@ const messaging = getMessaging();
 const EventSchema = new mongoose.Schema({
 ⋮----
 module.exports = mongoose.model('Event', EventSchema);
-</file>
-
-<file path="backend/models/Theme.js">
-const ThemeSchema = new mongoose.Schema({
-⋮----
-module.exports = mongoose.model("Theme", ThemeSchema);
-</file>
-
-<file path="backend/routes/theme.js">
-const router = express.Router();
-⋮----
-// TODO: protege con tu middleware de admin:
-const requireAdmin = (req,res,next)=>{ /* tu auth */ next(); };
-⋮----
-// GET actual
-router.get("/admin/theme", async (req, res) => {
-const last = await Theme.findOne().sort({ createdAt: -1 }).lean();
-res.json(last || {});
-⋮----
-// PUT actualiza (upsert “single doc”)
-router.put("/admin/theme", requireAdmin, async (req, res) => {
-⋮----
-const last = await Theme.findOne().sort({ createdAt: -1 });
-⋮----
-const created = await Theme.create(payload);
-return res.json(created);
-⋮----
-Object.assign(last, payload);
-await last.save();
-res.json(last);
 </file>
 
 <file path="metro.config.js">
@@ -4257,6 +4244,51 @@ left: '289px', // Ancho del sidebar
 onClick={() => onSelectGroup(group._id)}
 </file>
 
+<file path="backend/models/Theme.js">
+const ThemeSchema = new mongoose.Schema({
+⋮----
+module.exports = mongoose.model("Theme", ThemeSchema);
+</file>
+
+<file path="backend/routes/theme.js">
+const router = express.Router();
+⋮----
+// TODO: protege con tu middleware de admin:
+const requireAdmin = (req,res,next)=>{ /* tu auth */ next(); };
+⋮----
+const upload = multer({
+storage: multer.diskStorage({
+destination: (req, file, cb) => cb(null, path.join(__dirname, '..', 'uploads', 'theme')),
+filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname.replace(/\s+/g,'_')),
+⋮----
+limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+⋮----
+// POST /admin/theme/upload-login-bg?target=desktop|mobile
+router.post('/admin/theme/upload-login-bg', authMiddleware, authorize('admin'),
+upload.single('image'),
+⋮----
+if (!req.file) return res.status(400).json({ error: 'No file' });
+⋮----
+res.json({ url });
+⋮----
+// GET actual
+router.get("/admin/theme", async (req, res) => {
+const last = await Theme.findOne().sort({ createdAt: -1 }).lean();
+res.json(last || {});
+⋮----
+// PUT actualiza (upsert “single doc”)
+router.put("/admin/theme", requireAdmin, async (req, res) => {
+⋮----
+const last = await Theme.findOne().sort({ createdAt: -1 });
+⋮----
+const created = await Theme.create(payload);
+return res.json(created);
+⋮----
+Object.assign(last, payload);
+await last.save();
+res.json(last);
+</file>
+
 <file path="backend/server.js">
 // server.js
 require('dotenv').config();
@@ -5040,23 +5072,6 @@ if "%OS%"=="Windows_NT" endlocal
 be251a9287204f8a60ca10f78af208618609d4dd
 </file>
 
-<file path="apps/web/public/firebase-messaging-sw.js">
-// public/firebase-messaging-sw.js
-/* eslint-disable no-undef */
-/* global importScripts, firebase */
-⋮----
-importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging-compat.js");
-⋮----
-firebase.initializeApp({
-⋮----
-const messaging = firebase.messaging();
-⋮----
-messaging.onBackgroundMessage(function(payload) {
-console.log("[firebase-messaging-sw.js] Recibido mensaje en background ", payload);
-self.registration.showNotification(payload.notification.title, {
-</file>
-
 <file path="apps/web/settings.gradle">
 include ':app'
 </file>
@@ -5085,50 +5100,6 @@ max-height: 260px;   /* altura del contenedor al mostrar todas */
 .ver-mas-btn {
 ⋮----
 .ver-mas-btn:hover {
-</file>
-
-<file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
-const ColorInput = ({ label, value, onChange }) => (
-⋮----
-onChange={e => onChange(e.target.value)}
-⋮----
-export default function AdminThemeCustomizer() {
-const { theme, setTheme, saveTheme } = useTheme();
-const [draft, setDraft] = useState(theme);
-const [saving, setSaving] = useState(false);
-const [msg, setMsg] = useState("");
-⋮----
-const update = (k, v) => {
-setDraft(d => ({ ...d, [k]: v }));
-setTheme(t => ({ ...t, [k]: v })); // 👈 live preview en toda la app
-⋮----
-const onSave = async () => {
-⋮----
-setSaving(true);
-await saveTheme(draft);
-setMsg("Tema guardado ✔");
-setTimeout(() => setMsg(""), 2000);
-⋮----
-setMsg("Error guardando el tema");
-⋮----
-setSaving(false);
-⋮----
-<ColorInput label="Primario" value={draft.colorPrimary} onChange={v => update("colorPrimary", v)} />
-<ColorInput label="Secundario" value={draft.colorSecondary} onChange={v => update("colorSecondary", v)} />
-<ColorInput label="Acento" value={draft.colorAccent} onChange={v => update("colorAccent", v)} />
-<ColorInput label="Fondo" value={draft.colorBg} onChange={v => update("colorBg", v)} />
-<ColorInput label="Surface" value={draft.colorSurface} onChange={v => update("colorSurface", v)} />
-<ColorInput label="Texto" value={draft.colorText} onChange={v => update("colorText", v)} />
-⋮----
-<select value={draft.fontSans} onChange={e => update("fontSans", e.target.value)}>
-⋮----
-<select value={draft.fontHeading} onChange={e => update("fontHeading", e.target.value)}>
-⋮----
-onChange={e => update("radius", Number(e.target.value))} />
-⋮----
-<select value={draft.shadow} onChange={e => update("shadow", e.target.value)}>
-⋮----
-{/* Vista previa mínima */}
 </file>
 
 <file path="apps/web/vite.config.js">
@@ -5578,6 +5549,99 @@ requestPermissionAndGetToken();
 allowedRoles: PropTypes.arrayOf(PropTypes.string)
 </file>
 
+<file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
+const ColorInput = ({ label, value, onChange }) => (
+⋮----
+onChange={e => onChange(e.target.value)}
+⋮----
+// helpers
+async function uploadImage(file, target, API_URL, token) {
+const fd = new FormData();
+fd.append('image', file);
+const res = await fetch(`${API_URL}/admin/theme/upload-login-bg?target=${target}`, {
+⋮----
+if (!res.ok) throw new Error('upload failed');
+const { url } = await res.json();
+⋮----
+export default function AdminThemeCustomizer() {
+const { theme, setTheme, saveTheme } = useTheme();
+const [draft, setDraft] = useState(theme);
+const [saving, setSaving] = useState(false);
+const [msg, setMsg] = useState("");
+⋮----
+const update = (k, v) => {
+setDraft(d => ({ ...d, [k]: v }));
+setTheme(t => ({ ...t, [k]: v })); // 👈 live preview en toda la app
+⋮----
+const onSave = async () => {
+⋮----
+setSaving(true);
+await saveTheme(draft);
+setMsg("Tema guardado ✔");
+setTimeout(() => setMsg(""), 2000);
+⋮----
+setMsg("Error guardando el tema");
+⋮----
+setSaving(false);
+⋮----
+<ColorInput label="Primario" value={draft.colorPrimary} onChange={v => update("colorPrimary", v)} />
+<ColorInput label="Secundario" value={draft.colorSecondary} onChange={v => update("colorSecondary", v)} />
+<ColorInput label="Acento" value={draft.colorAccent} onChange={v => update("colorAccent", v)} />
+<ColorInput label="Fondo" value={draft.colorBg} onChange={v => update("colorBg", v)} />
+<ColorInput label="Surface" value={draft.colorSurface} onChange={v => update("colorSurface", v)} />
+<ColorInput label="Texto" value={draft.colorText} onChange={v => update("colorText", v)} />
+⋮----
+{/* Desktop */}
+⋮----
+onChange={e => update("loginBgDesktop", e.target.value)}
+⋮----
+const token = localStorage.getItem('token');
+const url = await uploadImage(file, 'desktop', API_URL, token);
+update("loginBgDesktop", url);
+⋮----
+setMsg("Error subiendo imagen desktop");
+⋮----
+{/* Mobile */}
+⋮----
+onChange={e => update("loginBgMobile", e.target.value)}
+⋮----
+const url = await uploadImage(file, 'mobile', API_URL, token);
+update("loginBgMobile", url);
+⋮----
+setMsg("Error subiendo imagen móvil");
+</file>
+
+<file path="apps/web/src/firebase.js">
+// src/firebase.js
+⋮----
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
+⋮----
+const postTokenToReactNative = (token, attempts = 0) => {
+⋮----
+window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+⋮----
+setTimeout(() => postTokenToReactNative(token, attempts + 1), 500);
+⋮----
+export const requestPermissionAndGetToken = async () => {
+⋮----
+const permission = await Notification.requestPermission();
+⋮----
+const token = await getToken(messaging, {
+⋮----
+console.log("✅ Token generado:", token);
+localStorage.setItem('fcm_token', token);
+⋮----
+postTokenToReactNative(token); // ⬅️ aquí el cambio importante
+⋮----
+console.warn("❌ Permiso de notificación denegado");
+⋮----
+console.error("⚠️ Error al obtener el token FCM:", err);
+⋮----
+export const listenToForegroundMessages = (callback) => {
+onMessage(messaging, callback);
+</file>
+
 <file path="apps/web/src/pages/StudentDashboard.jsx">
 function StudentDashboard() {
 const [user, setUser] = useState({});
@@ -5640,37 +5704,6 @@ return [...notifications].sort((a, b) => getTime(b) - getTime(a));
 {(showAllNotifications ? sortedNotifications : sortedNotifications.slice(0, 3)).map(
 ⋮----
 onClick={() => setShowAllNotifications((v) => !v)}
-</file>
-
-<file path="apps/web/src/firebase.js">
-// src/firebase.js
-⋮----
-const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
-⋮----
-const postTokenToReactNative = (token, attempts = 0) => {
-⋮----
-window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
-⋮----
-setTimeout(() => postTokenToReactNative(token, attempts + 1), 500);
-⋮----
-export const requestPermissionAndGetToken = async () => {
-⋮----
-const permission = await Notification.requestPermission();
-⋮----
-const token = await getToken(messaging, {
-⋮----
-console.log("✅ Token generado:", token);
-localStorage.setItem('fcm_token', token);
-⋮----
-postTokenToReactNative(token); // ⬅️ aquí el cambio importante
-⋮----
-console.warn("❌ Permiso de notificación denegado");
-⋮----
-console.error("⚠️ Error al obtener el token FCM:", err);
-⋮----
-export const listenToForegroundMessages = (callback) => {
-onMessage(messaging, callback);
 </file>
 
 <file path="apps/web/src/main.jsx">
@@ -5764,74 +5797,6 @@ return res.json({
 ⋮----
 console.error("❌ Error enviando FCM:", err);
 return res.status(500).json({ success: false, error: err.message });
-</file>
-
-<file path="apps/web/src/context/ThemeContext.jsx">
-const ThemeContext = createContext();
-export const useTheme = () => useContext(ThemeContext);
-⋮----
-shadow: "light", // light|medium|strong
-⋮----
-function applyThemeVars(t) {
-⋮----
-// === variables que usa TU CSS ===
-r.setProperty('--kk-color-primary',  t.colorPrimary);
-r.setProperty('--kk-color-secondary',t.colorSecondary);
-r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
-r.setProperty('--kk-color-text',     t.colorText     || '#111827');
-r.setProperty('--kk-color-bg',       t.colorBg       || '#1e1e2f');
-r.setProperty('--kk-color-surface',  t.colorSurface  || '#252539');
-r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
-⋮----
-// === back-compat por si en algún lado usamos la otra convención ===
-r.setProperty('--kk-primary',   t.colorPrimary);
-r.setProperty('--kk-secondary', t.colorSecondary);
-r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
-r.setProperty('--kk-text',      t.colorText     || '#111827');
-r.setProperty('--kk-bg',        t.colorBg       || '#1e1e2f');
-r.setProperty('--kk-surface',   t.colorSurface  || '#252539');
-r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
-⋮----
-export function ThemeProvider({ children }) {
-const [theme, setTheme] = useState(DEFAULT_THEME);
-const [loading, setLoading] = useState(true);
-⋮----
-useEffect(() => {
-⋮----
-const res = await fetch(`${API_URL}/admin/theme`);
-⋮----
-const data = await res.json();
-⋮----
-setTheme(next);
-applyThemeVars(next);
-⋮----
-applyThemeVars(DEFAULT_THEME);
-⋮----
-setLoading(false);
-⋮----
-useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
-⋮----
-const saveTheme = async (draft) => {
-⋮----
-setTheme(next); // live preview
-const res = await fetch(`${API_URL}/admin/theme`, {
-⋮----
-body: JSON.stringify(next)
-⋮----
-if (!res.ok) throw new Error("No se pudo guardar el tema");
-</file>
-
-<file path="apps/web/src/theme/theme.css">
-:root {
-⋮----
-/* Tus colores por defecto (los que ya usas en todo el CSS) */
-⋮----
-body {
-.kcard {
-.kbtn {
-.kbtn--secondary { background: var(--kk-color-secondary); }
-.klink { color: var(--kk-color-primary); text-decoration: none; }
-.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
 </file>
 
 <file path="apps/web/src/components/Header.jsx">
@@ -5982,6 +5947,94 @@ if (result.type === 'event') navigate(`/app/events?eventId=${result._id}`);
 ? (userData.avatar.startsWith('http')
 ⋮----
 <p onClick={() => navigate(role === 'admin' ? '/app/change-password' : '/change-password')}>
+</file>
+
+<file path="apps/web/src/context/ThemeContext.jsx">
+const ThemeContext = createContext();
+export const useTheme = () => useContext(ThemeContext);
+⋮----
+shadow: "light", // light|medium|strong
+⋮----
+function applyThemeVars(t) {
+⋮----
+// === variables que usa TU CSS ===
+r.setProperty('--kk-color-primary', t.colorPrimary);
+r.setProperty('--kk-color-secondary', t.colorSecondary);
+r.setProperty('--kk-color-accent', t.colorAccent || 'var(--kk-color-accent)');
+r.setProperty('--kk-color-text', t.colorText || '#ffffffff');
+r.setProperty('--kk-color-bg', t.colorBg || '#1e1e2f');
+r.setProperty('--kk-color-surface', t.colorSurface || '#252539');
+r.setProperty('--kk-gradient', `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
+⋮----
+// === back-compat por si en algún lado usamos la otra convención ===
+r.setProperty('--kk-primary', t.colorPrimary);
+r.setProperty('--kk-secondary', t.colorSecondary);
+r.setProperty('--kk-accent', t.colorAccent || 'var(--kk-color-accent)');
+r.setProperty('--kk-text', t.colorText || '#ffffffff');
+r.setProperty('--kk-bg', t.colorBg || '#1e1e2f');
+r.setProperty('--kk-surface', t.colorSurface || '#252539');
+r.setProperty('--kk-grad', `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
+⋮----
+r.setProperty('--kk-login-bg-desktop', `url("${desk}")`);
+r.setProperty('--kk-login-bg-mobile', `url("${mob}")`);
+⋮----
+export function ThemeProvider({ children }) {
+const [theme, setTheme] = useState(DEFAULT_THEME);
+const [loading, setLoading] = useState(true);
+⋮----
+useEffect(() => {
+⋮----
+const res = await fetch(`${API_URL}/admin/theme`);
+⋮----
+const data = await res.json();
+⋮----
+setTheme(next);
+applyThemeVars(next);
+⋮----
+applyThemeVars(DEFAULT_THEME);
+⋮----
+setLoading(false);
+⋮----
+useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
+⋮----
+const saveTheme = async (draft) => {
+⋮----
+setTheme(next); // live preview
+const res = await fetch(`${API_URL}/admin/theme`, {
+⋮----
+body: JSON.stringify(next)
+⋮----
+if (!res.ok) throw new Error("No se pudo guardar el tema");
+</file>
+
+<file path="apps/web/src/theme/theme.css">
+:root {
+⋮----
+/* Tus colores por defecto (los que ya usas en todo el CSS) */
+⋮----
+body {
+⋮----
+body :where(p, li, a, span, small, strong, em, b, i, label,
+⋮----
+h1,
+⋮----
+.kcard {
+⋮----
+.kbtn {
+⋮----
+.kbtn--secondary {
+⋮----
+.klink {
+⋮----
+.kbadge {
+⋮----
+/* Imagen de fondo solo para login */
+.login-background {
+⋮----
+/* En móviles usamos la específica */
+⋮----
+/* lo que ya tenías */
+.login-background #root { width: auto; }
 </file>
 
 <file path="packages/shared/api.js">

@@ -8,6 +8,17 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const path = require('path');
 
+// Configuración de CORS
+const corsOptions = {
+  origin: [
+    'https://skate-school-admin.vercel.app',
+    'http://localhost:5173'
+  ],
+  credentials: true,
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
+};
+
 // Conexión a MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -36,7 +47,6 @@ const themeRoutes = require("./routes/theme");
 const app = express();
 
 // Middleware
-app.use(cors());
 app.use(express.json());
 app.use('/api/groups', groupsRouter);
 app.use('/api/users', usersRouter);
@@ -46,7 +56,8 @@ app.use('/api/tricks', tricksRouter);
 app.use('/api/payments', paymentRoutes);
 app.use('/api', themeRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Rutas de prueba
 app.get('/', (req, res) => {
