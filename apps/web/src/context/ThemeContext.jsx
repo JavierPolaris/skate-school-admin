@@ -5,9 +5,9 @@ const ThemeContext = createContext();
 export const useTheme = () => useContext(ThemeContext);
 
 const DEFAULT_THEME = {
-    colorPrimary: "#0ea5e9",
-    colorSecondary: "#f59e0b",
-    colorAccent: "#22c55e",
+    colorPrimary: "#FF4081",
+    colorSecondary: "#007997",
+    colorAccent: "#f59e0b",
     colorBg: "#ffffff",
     colorSurface: "#f7f7f8",
     colorText: "#111827",
