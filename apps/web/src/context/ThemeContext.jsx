@@ -18,7 +18,7 @@ const DEFAULT_THEME = {
     fontHeading: "Poppins",
     // 👇 fondos de login
     loginBgDesktop:
-        "https://www.kedekids.com/wp-content/uploads/2020/09/CAR_2767-scaled.jpg",
+        "",
     loginBgMobile: "", // vacío => usa el de desktop
 };
 
