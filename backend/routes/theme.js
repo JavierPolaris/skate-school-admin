@@ -82,4 +82,44 @@ router.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'Error desconocido' });
 });
 
+// === Biblioteca de imágenes (admin) ===
+router.get(
+  '/admin/theme/login-bg-library',
+  authMiddleware,
+  authorize('admin'),
+  async (req, res) => {
+    try {
+      const dir = path.join(__dirname, '..', 'uploads', 'theme');
+      fs.mkdirSync(dir, { recursive: true });
+
+      const entries = await fs.promises.readdir(dir, { withFileTypes: true });
+      const files = entries.filter(e => e.isFile() && /\.(png|jpe?g|webp|gif|svg)$/i.test(e.name));
+
+      const stats = await Promise.all(
+        files.map(async f => {
+          const full = path.join(dir, f.name);
+          const st = await fs.promises.stat(full);
+          return { name: f.name, size: st.size, mtime: st.mtimeMs };
+        })
+      );
+
+      const origin = process.env.PUBLIC_BASE_URL || `${req.protocol}://${req.get('host')}`;
+      const list = stats
+        .sort((a, b) => b.mtime - a.mtime)
+        .map(x => ({
+          url: `${origin}/uploads/theme/${encodeURIComponent(x.name)}`,
+          name: x.name,
+          size: x.size,
+          mtime: x.mtime,
+        }));
+
+      res.json(list);
+    } catch (err) {
+      console.error('GET /admin/theme/login-bg-library error:', err);
+      res.status(500).json({ error: 'No se pudo leer la biblioteca' });
+    }
+  }
+);
+
+
 module.exports = router;
