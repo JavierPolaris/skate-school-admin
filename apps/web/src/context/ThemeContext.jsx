@@ -8,7 +8,7 @@ const DEFAULT_THEME = {
     colorPrimary: "#FF4081",
     colorSecondary: "#007997",
     colorAccent: "#f59e0b",
-    colorBg: "#ffffff",
+    colorBg: "var(--kk-color-bg)",
     colorSurface: "#f7f7f8",
     colorText: "#111827",
     radius: 12,
@@ -27,7 +27,7 @@ function applyThemeVars(t) {
   r.setProperty('--kk-color-secondary',t.colorSecondary);
   r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
   r.setProperty('--kk-color-text',     t.colorText     || '#111827');
-  r.setProperty('--kk-color-bg',       t.colorBg       || '#ffffff');
+  r.setProperty('--kk-color-bg',       t.colorBg       || 'var(--kk-color-bg)');
   r.setProperty('--kk-color-surface',  t.colorSurface  || '#f7f7f8');
   r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
 
@@ -36,7 +36,7 @@ function applyThemeVars(t) {
   r.setProperty('--kk-secondary', t.colorSecondary);
   r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
   r.setProperty('--kk-text',      t.colorText     || '#111827');
-  r.setProperty('--kk-bg',        t.colorBg       || '#ffffff');
+  r.setProperty('--kk-bg',        t.colorBg       || 'var(--kk-color-bg)');
   r.setProperty('--kk-surface',   t.colorSurface  || '#f7f7f8');
   r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
 }

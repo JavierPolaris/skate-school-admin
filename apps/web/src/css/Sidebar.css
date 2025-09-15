@@ -34,7 +34,7 @@
     left: 0;
     height: 100vh;
     width: 250px;
-    background-color: #262a31;
+    background-color: var(--kk-color-bg);
     padding-top: 20px;
     z-index: 9998;
     transform: translateX(0);

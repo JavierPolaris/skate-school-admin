@@ -44,7 +44,7 @@ button.delete-avatar-button:focus {
   height: 100vh;
   width: 250px;
   z-index: 9999;
-  background-color: #262a31;
+  background-color: var(--kk-color-bg);
   padding-top: 20px;
 }
 
@@ -65,7 +65,7 @@ button.delete-avatar-button:focus {
   left: 250px;
   width: calc(100% - 342px);
   height: 60px; /* Ajusta según tu diseño */
-  background-color: #262a31;
+  background-color: var(--kk-color-bg);
   z-index: 9998;
   display: flex;
   align-items: center;
@@ -77,7 +77,7 @@ button.delete-avatar-button:focus {
   padding: 20px;
   height: calc(100vh - 60px);
   overflow-y: auto;
-  background-color: #262a31;
+  background-color: var(--kk-color-bg);
 }
 
 /* Responsive */
@@ -117,7 +117,7 @@ button.delete-avatar-button:focus {
     left: 0;
     width: 100%;
     height: 60px;
-    background-color: #262a31;
+    background-color: var(--kk-color-bg);
     display: flex;
     align-items: center;
     padding: 0 20px;
