@@ -3786,6 +3786,87 @@ visible.map((notif, index) => (
 onClick={() => setShowAll(v => !v)}
 </file>
 
+<file path="apps/web/src/pages/HomePage.jsx">
+function HomePage({ onLogin }) {
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [error, setError] = useState('');
+const [token, setToken] = useState(null);
+useEffect(() => {
+⋮----
+const storedToken = localStorage.getItem('token');
+⋮----
+setToken(storedToken);
+⋮----
+console.warn('Error accediendo a localStorage:', err);
+⋮----
+const navigate = useNavigate();
+const [showRequestModal, setShowRequestModal] = useState(false);
+const [requestName, setRequestName] = useState('');
+const [requestEmail, setRequestEmail] = useState('');
+const [requestMessage, setRequestMessage] = useState('');
+⋮----
+// Añadir clase 'login-background' al body si no hay token
+⋮----
+document.body.classList.add('login-background');
+⋮----
+document.body.classList.remove('login-background');
+⋮----
+// Limpiar al desmontar el componente
+⋮----
+const storedUser = localStorage.getItem('user');
+⋮----
+const user = JSON.parse(storedUser);
+⋮----
+navigate('/app', { replace: true });
+⋮----
+navigate('/student', { replace: true });
+⋮----
+console.warn('Error al recuperar token o user:', err);
+⋮----
+const handleLogin = async () => {
+⋮----
+const data = await loginUser(email, password);
+localStorage.setItem('token', data.token);
+localStorage.setItem('user', JSON.stringify(data.user));
+onLogin(data.token);
+⋮----
+navigate('/app');
+⋮----
+navigate('/student-dashboard');
+⋮----
+setError(err.message || 'Error al conectar con el servidor');
+⋮----
+const handleRequestAccess = async () => {
+⋮----
+const response = await fetch(`${API_URL}/users/request-access`, {
+⋮----
+body: JSON.stringify({ name: requestName, email: requestEmail }),
+⋮----
+const data = await response.json();
+⋮----
+setRequestMessage('Solicitud enviada con éxito. El administrador revisará tu solicitud.');
+⋮----
+setRequestMessage(data.error || 'Error al enviar la solicitud.');
+⋮----
+setRequestMessage('Error al conectar con el servidor.');
+⋮----
+{/* LOGO Kedekids */}
+⋮----
+onChange={(e) => setEmail(e.target.value)}
+⋮----
+onChange={(e) => setPassword(e.target.value)}
+⋮----
+{/* Solicitud de acceso */}
+<button  onClick={() => setShowRequestModal(true)}>Solicitar acceso</button>
+⋮----
+onChange={(e) => setRequestName(e.target.value)}
+⋮----
+onChange={(e) => setRequestEmail(e.target.value)}
+⋮----
+<button onClick={() => setShowRequestModal(false)}>Cancelar</button>
+</file>
+
 <file path="apps/web/src/pages/StudentClasses.jsx">
 function StudentClasses() {
 const [user, setUser] = useState({});
@@ -4082,61 +4163,6 @@ deferredPrompt.prompt();
 const handleClose = () => {
 </file>
 
-<file path="apps/web/src/context/ThemeContext.jsx">
-const ThemeContext = createContext();
-export const useTheme = () => useContext(ThemeContext);
-⋮----
-shadow: "light", // light|medium|strong
-⋮----
-function applyThemeVars(t) {
-⋮----
-// === variables que usa TU CSS ===
-r.setProperty('--kk-color-primary',  t.colorPrimary);
-r.setProperty('--kk-color-secondary',t.colorSecondary);
-r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
-r.setProperty('--kk-color-text',     t.colorText     || '#111827');
-r.setProperty('--kk-color-bg',       t.colorBg       || '#ffffff');
-r.setProperty('--kk-color-surface',  t.colorSurface  || '#f7f7f8');
-r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
-⋮----
-// === back-compat por si en algún lado usamos la otra convención ===
-r.setProperty('--kk-primary',   t.colorPrimary);
-r.setProperty('--kk-secondary', t.colorSecondary);
-r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
-r.setProperty('--kk-text',      t.colorText     || '#111827');
-r.setProperty('--kk-bg',        t.colorBg       || '#ffffff');
-r.setProperty('--kk-surface',   t.colorSurface  || '#f7f7f8');
-r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
-⋮----
-export function ThemeProvider({ children }) {
-const [theme, setTheme] = useState(DEFAULT_THEME);
-const [loading, setLoading] = useState(true);
-⋮----
-useEffect(() => {
-⋮----
-const res = await fetch(`${API_URL}/admin/theme`, { credentials: "include" });
-⋮----
-const data = await res.json();
-⋮----
-setTheme(next);
-applyThemeVars(next);
-⋮----
-applyThemeVars(DEFAULT_THEME);
-⋮----
-setLoading(false);
-⋮----
-useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
-⋮----
-const saveTheme = async (draft) => {
-⋮----
-setTheme(next); // live preview
-const res = await fetch(`${API_URL}/admin/theme`, {
-⋮----
-body: JSON.stringify(next)
-⋮----
-if (!res.ok) throw new Error("No se pudo guardar el tema");
-</file>
-
 <file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
 const ColorInput = ({ label, value, onChange }) => (
 ⋮----
@@ -4274,100 +4300,6 @@ const handleSave = (shouldSend = false) => onSave(eventData, shouldSend);
 onClick={() => handleSave(true)}
 ⋮----
 disabled={!eventData.subject?.trim()}
-</file>
-
-<file path="apps/web/src/pages/HomePage.jsx">
-function HomePage({ onLogin }) {
-const [email, setEmail] = useState('');
-const [password, setPassword] = useState('');
-const [error, setError] = useState('');
-const [token, setToken] = useState(null);
-useEffect(() => {
-⋮----
-const storedToken = localStorage.getItem('token');
-⋮----
-setToken(storedToken);
-⋮----
-console.warn('Error accediendo a localStorage:', err);
-⋮----
-const navigate = useNavigate();
-const [showRequestModal, setShowRequestModal] = useState(false);
-const [requestName, setRequestName] = useState('');
-const [requestEmail, setRequestEmail] = useState('');
-const [requestMessage, setRequestMessage] = useState('');
-⋮----
-// Añadir clase 'login-background' al body si no hay token
-⋮----
-document.body.classList.add('login-background');
-⋮----
-document.body.classList.remove('login-background');
-⋮----
-// Limpiar al desmontar el componente
-⋮----
-const storedUser = localStorage.getItem('user');
-⋮----
-const user = JSON.parse(storedUser);
-⋮----
-navigate('/app', { replace: true });
-⋮----
-navigate('/student', { replace: true });
-⋮----
-console.warn('Error al recuperar token o user:', err);
-⋮----
-const handleLogin = async () => {
-⋮----
-const data = await loginUser(email, password);
-localStorage.setItem('token', data.token);
-localStorage.setItem('user', JSON.stringify(data.user));
-onLogin(data.token);
-⋮----
-navigate('/app');
-⋮----
-navigate('/student-dashboard');
-⋮----
-setError(err.message || 'Error al conectar con el servidor');
-⋮----
-const handleRequestAccess = async () => {
-⋮----
-const response = await fetch(`${API_URL}/users/request-access`, {
-⋮----
-body: JSON.stringify({ name: requestName, email: requestEmail }),
-⋮----
-const data = await response.json();
-⋮----
-setRequestMessage('Solicitud enviada con éxito. El administrador revisará tu solicitud.');
-⋮----
-setRequestMessage(data.error || 'Error al enviar la solicitud.');
-⋮----
-setRequestMessage('Error al conectar con el servidor.');
-⋮----
-{/* LOGO Kedekids */}
-⋮----
-onChange={(e) => setEmail(e.target.value)}
-⋮----
-onChange={(e) => setPassword(e.target.value)}
-⋮----
-{/* Solicitud de acceso */}
-<button  onClick={() => setShowRequestModal(true)}>Solicitar acceso</button>
-⋮----
-onChange={(e) => setRequestName(e.target.value)}
-⋮----
-onChange={(e) => setRequestEmail(e.target.value)}
-⋮----
-<button onClick={() => setShowRequestModal(false)}>Cancelar</button>
-</file>
-
-<file path="apps/web/src/theme/theme.css">
-:root {
-⋮----
-/* Tus colores por defecto (los que ya usas en todo el CSS) */
-⋮----
-body {
-.kcard {
-.kbtn {
-.kbtn--secondary { background: var(--kk-color-secondary); }
-.klink { color: var(--kk-color-primary); text-decoration: none; }
-.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
 </file>
 
 <file path="backend/server.js">
@@ -5157,6 +5089,61 @@ be251a9287204f8a60ca10f78af208618609d4dd
 include ':app'
 </file>
 
+<file path="apps/web/src/context/ThemeContext.jsx">
+const ThemeContext = createContext();
+export const useTheme = () => useContext(ThemeContext);
+⋮----
+shadow: "light", // light|medium|strong
+⋮----
+function applyThemeVars(t) {
+⋮----
+// === variables que usa TU CSS ===
+r.setProperty('--kk-color-primary',  t.colorPrimary);
+r.setProperty('--kk-color-secondary',t.colorSecondary);
+r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
+r.setProperty('--kk-color-text',     t.colorText     || '#111827');
+r.setProperty('--kk-color-bg',       t.colorBg       || '#ffffff');
+r.setProperty('--kk-color-surface',  t.colorSurface  || '#f7f7f8');
+r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
+⋮----
+// === back-compat por si en algún lado usamos la otra convención ===
+r.setProperty('--kk-primary',   t.colorPrimary);
+r.setProperty('--kk-secondary', t.colorSecondary);
+r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
+r.setProperty('--kk-text',      t.colorText     || '#111827');
+r.setProperty('--kk-bg',        t.colorBg       || '#ffffff');
+r.setProperty('--kk-surface',   t.colorSurface  || '#f7f7f8');
+r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
+⋮----
+export function ThemeProvider({ children }) {
+const [theme, setTheme] = useState(DEFAULT_THEME);
+const [loading, setLoading] = useState(true);
+⋮----
+useEffect(() => {
+⋮----
+const res = await fetch(`${API_URL}/admin/theme`, { credentials: "include" });
+⋮----
+const data = await res.json();
+⋮----
+setTheme(next);
+applyThemeVars(next);
+⋮----
+applyThemeVars(DEFAULT_THEME);
+⋮----
+setLoading(false);
+⋮----
+useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
+⋮----
+const saveTheme = async (draft) => {
+⋮----
+setTheme(next); // live preview
+const res = await fetch(`${API_URL}/admin/theme`, {
+⋮----
+body: JSON.stringify(next)
+⋮----
+if (!res.ok) throw new Error("No se pudo guardar el tema");
+</file>
+
 <file path="apps/web/src/css/StudentDashboard.css">
 .student-dashboard {
 ⋮----
@@ -5181,6 +5168,34 @@ max-height: 260px;   /* altura del contenedor al mostrar todas */
 .ver-mas-btn {
 ⋮----
 .ver-mas-btn:hover {
+</file>
+
+<file path="apps/web/src/theme/theme.css">
+:root {
+⋮----
+/* Tus colores por defecto (los que ya usas en todo el CSS) */
+⋮----
+body {
+.kcard {
+.kbtn {
+.kbtn--secondary { background: var(--kk-color-secondary); }
+.klink { color: var(--kk-color-primary); text-decoration: none; }
+.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
+</file>
+
+<file path="apps/web/vite.config.js">
+export default defineConfig({
+⋮----
+__APP_BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+⋮----
+react(),
+⋮----
+VitePWA({
+⋮----
+'@shared': path.resolve(__dirname, '../../packages/shared'),
+⋮----
+// Si realmente no usas estas deps en web, puedes dejarlas como externas.
+// Si no, elimina esta sección.
 </file>
 
 <file path="backend/routes/events.js">
@@ -5734,21 +5749,6 @@ console.log('🟢 SW de Firebase registrado:', registration);
 console.error('🔴 Error registrando SW Firebase:', err);
 </file>
 
-<file path="apps/web/vite.config.js">
-export default defineConfig({
-⋮----
-__APP_BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-⋮----
-react(),
-⋮----
-VitePWA({
-⋮----
-'@shared': path.resolve(__dirname, '../../packages/shared'),
-⋮----
-// Si realmente no usas estas deps en web, puedes dejarlas como externas.
-// Si no, elimina esta sección.
-</file>
-
 <file path="backend/routes/notifications.js">
 const router = express.Router();
 const messaging = require("../firebase"); // ahora es getMessaging()
@@ -6053,7 +6053,7 @@ if (!res.ok) throw new Error('Error getting notifications');
     <link rel="icon" type="image/svg+xml" href="/kids.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="var(--kk-color-accent)" />
+    <meta name="theme-color" content="#FF9B00">
 
     <title>KedeKids</title>
   </head>

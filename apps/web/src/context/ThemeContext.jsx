@@ -17,11 +17,7 @@ const DEFAULT_THEME = {
     fontHeading: "Poppins"
 };
 
-const SHADOW_MAP = {
-    light: "0 8px 24px rgba(0,0,0,0.08)",
-    medium: "0 10px 30px rgba(0,0,0,0.12)",
-    strong: "0 14px 40px rgba(0,0,0,0.18)"
-};
+
 
 function applyThemeVars(t) {
   const r = document.documentElement.style;
@@ -53,7 +49,7 @@ export function ThemeProvider({ children }) {
     useEffect(() => {
         (async () => {
             try {
-                const res = await fetch(`${API_URL}/admin/theme`, { credentials: "include" });
+                const res = await fetch(`${API_URL}/admin/theme`);
                 if (res.ok) {
                     const data = await res.json();
                     const next = { ...DEFAULT_THEME, ...data };
@@ -78,7 +74,6 @@ export function ThemeProvider({ children }) {
         const res = await fetch(`${API_URL}/admin/theme`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            credentials: "include",
             body: JSON.stringify(next)
         });
         if (!res.ok) throw new Error("No se pudo guardar el tema");
