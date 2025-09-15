@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
+import API_URL from "../config";
 
 const ColorInput = ({ label, value, onChange }) => (
     <div style={{ display: "grid", gap: 6, minWidth: 0 }}>
@@ -22,21 +23,24 @@ const ColorInput = ({ label, value, onChange }) => (
 );
 
 
-// helpers
-async function uploadImage(file, target, API_URL, token) {
+// ⬇️ helper robusto: sube imagen y devuelve la URL
+async function uploadImage(file, type) {
+    const token = localStorage.getItem("token");
     const fd = new FormData();
-    fd.append('image', file);
-    const res = await fetch(`${API_URL}/admin/theme/upload-login-bg?target=${target}`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        body: fd
+    fd.append("image", file);
+
+    const res = await fetch(`${API_URL}/admin/theme/upload-login-bg?type=${type}`, {
+        method: "POST",
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        body: fd,
     });
+
     if (!res.ok) {
-        const txt = await res.text().catch(() => '');
+        const txt = await res.text().catch(() => "");
         throw new Error(txt || `HTTP ${res.status}`);
     }
     const { url } = await res.json();
-    return url;
+    return url; // ej. "/uploads/theme/1737012345678-foto.jpg"
 }
 
 
@@ -94,22 +98,25 @@ export default function AdminThemeCustomizer() {
                         <input
                             type="text"
                             value={draft.loginBgDesktop || ""}
-                            onChange={e => update("loginBgDesktop", e.target.value)}
+                            onChange={(e) => update("loginBgDesktop", e.target.value)}
                             placeholder="https://..."
                         />
                         <label>o subir archivo</label>
                         <input
-                            type="file" accept="image/*"
+                            type="file"
+                            accept="image/*"
                             onChange={async (e) => {
                                 const file = e.target.files?.[0];
                                 if (!file) return;
                                 try {
-                                    const token = localStorage.getItem('token');
-                                    const url = await uploadImage(file, 'desktop', API_URL, token);
+                                    const url = await uploadImage(file, "desktop"); // <-- string literal, NO 'target'
                                     update("loginBgDesktop", url);
-                                } catch (e) {
-                                    console.error(e);
-                                    setMsg(`Error subiendo imagen ${target}: ${e.message || ''}`);
+                                    setMsg("Imagen desktop subida ✔");
+                                    setTimeout(() => setMsg(""), 2000);
+                                } catch (err) {
+                                    console.error(err);
+                                    setMsg(`Error subiendo imagen desktop: ${err.message || ""}`);
+                                    setTimeout(() => setMsg(""), 3000);
                                 }
                             }}
                         />
@@ -121,26 +128,30 @@ export default function AdminThemeCustomizer() {
                         <input
                             type="text"
                             value={draft.loginBgMobile || ""}
-                            onChange={e => update("loginBgMobile", e.target.value)}
-                            placeholder="https://... (si está vacío se usa la de desktop)"
+                            onChange={(e) => update("loginBgMobile", e.target.value)}
+                            placeholder="https://... (vacío = usa la de desktop)"
                         />
                         <label>o subir archivo</label>
                         <input
-                            type="file" accept="image/*"
+                            type="file"
+                            accept="image/*"
                             onChange={async (e) => {
                                 const file = e.target.files?.[0];
                                 if (!file) return;
                                 try {
-                                    const token = localStorage.getItem('token');
-                                    const url = await uploadImage(file, 'mobile', API_URL, token);
+                                    const url = await uploadImage(file, "mobile"); // <-- string literal, NO 'target'
                                     update("loginBgMobile", url);
-                                } catch (e) {
-                                    console.error(e);
-                                    setMsg(`Error subiendo imagen ${target}: ${e.message || ''}`);
+                                    setMsg("Imagen móvil subida ✔");
+                                    setTimeout(() => setMsg(""), 2000);
+                                } catch (err) {
+                                    console.error(err);
+                                    setMsg(`Error subiendo imagen móvil: ${err.message || ""}`);
+                                    setTimeout(() => setMsg(""), 3000);
                                 }
                             }}
                         />
                     </div>
+
                 </div>
             </section>
 
