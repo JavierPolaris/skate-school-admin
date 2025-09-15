@@ -2,12 +2,25 @@ import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 
 const ColorInput = ({ label, value, onChange }) => (
-    <div style={{ display: "grid", gap: 6 }}>
-        <label>{label}</label>
-        <input type="color" value={value} onChange={e => onChange(e.target.value)} />
-        <input type="text" value={value} onChange={e => onChange(e.target.value)} />
+  <div style={{ display: "grid", gap: 6, minWidth: 0 }}>
+    <label>{label}</label>
+    <div style={{ display: "flex", gap: 8, alignItems: "center", minWidth: 0 }}>
+      <input
+        type="color"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        style={{ width: 36, height: 24, padding: 0, border: "1px solid #ddd", borderRadius: 4, flex: "0 0 auto" }}
+      />
+      <input
+        type="text"
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        style={{ flex: "1 1 0%", minWidth: 0, width: "100%", boxSizing: "border-box" }}
+      />
     </div>
+  </div>
 );
+
 
 export default function AdminThemeCustomizer() {
     const { theme, setTheme, saveTheme } = useTheme();
@@ -34,12 +47,12 @@ export default function AdminThemeCustomizer() {
     };
 
     return (
-        <div className="kcard" style={{ padding: 16, display: "grid", gap: 16 }}>
+        <div className="kcard" style={{ padding: 16, display:"grid", gap: 16, minWidth: 0 }}>
             <h2 style={{ fontFamily: "var(--kk-font-heading)" }}>Customizer de Tema</h2>
 
             <section className="kcard" style={{ padding: 16, display: "grid", gap: 12 }}>
                 <h3>Colores</h3>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 12 }}>
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(180px, 1fr))", gap: 12, alignItems:"start", minWidth: 0 }}>
                     <ColorInput label="Primario" value={draft.colorPrimary} onChange={v => update("colorPrimary", v)} />
                     <ColorInput label="Secundario" value={draft.colorSecondary} onChange={v => update("colorSecondary", v)} />
                     <ColorInput label="Acento" value={draft.colorAccent} onChange={v => update("colorAccent", v)} />
