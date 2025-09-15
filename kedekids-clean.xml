@@ -1,0 +1,5912 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+The content has been processed where content has been compressed (code blocks are separated by ⋮---- delimiter).
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files (if enabled)
+5. Multiple file entries, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Content has been compressed - code blocks are separated by ⋮---- delimiter
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+</file_summary>
+
+<directory_structure>
+.repomixignore
+apps/kedeKids/.gitignore
+apps/kedeKids/app/_layout.tsx
+apps/kedeKids/app/admin/index.tsx
+apps/kedeKids/app/index.tsx
+apps/kedeKids/app/student/_layout.tsx
+apps/kedeKids/app/student/index.tsx
+apps/kedeKids/app/utils/notifications.ts
+apps/kedeKids/babel.config.js
+apps/kedeKids/config.ts
+apps/kedeKids/eslint.config.js
+apps/kedeKids/metro.config.js
+apps/kedeKids/README.md
+apps/web/.gitignore
+apps/web/app/build.gradle
+apps/web/app/src/main/AndroidManifest.xml
+apps/web/app/src/main/java/com/kedekids/app/Application.java
+apps/web/app/src/main/java/com/kedekids/app/DelegationService.java
+apps/web/app/src/main/java/com/kedekids/app/LauncherActivity.java
+apps/web/app/src/main/res/drawable-anydpi/shortcut_legacy_background.xml
+apps/web/app/src/main/res/values/colors.xml
+apps/web/app/src/main/res/values/strings.xml
+apps/web/app/src/main/res/xml/filepaths.xml
+apps/web/app/src/main/res/xml/shortcuts.xml
+apps/web/build.gradle
+apps/web/eslint.config.js
+apps/web/gradle.properties
+apps/web/gradle/wrapper/gradle-wrapper.properties
+apps/web/gradlew
+apps/web/gradlew.bat
+apps/web/index.html
+apps/web/manifest-checksum.txt
+apps/web/public/firebase-messaging-sw.js
+apps/web/public/manifest.webmanifest
+apps/web/public/service-worker.js
+apps/web/public/test.html
+apps/web/README.md
+apps/web/settings.gradle
+apps/web/src/App.css
+apps/web/src/App.jsx
+apps/web/src/components/ChartCard.jsx
+apps/web/src/components/Footer.jsx
+apps/web/src/components/Header.jsx
+apps/web/src/components/InstallPrompt.css
+apps/web/src/components/InstallPrompt.jsx
+apps/web/src/components/Layout.css
+apps/web/src/components/Layout.jsx
+apps/web/src/components/StudentLayout.jsx
+apps/web/src/components/StudentSidebar.jsx
+apps/web/src/components/TruncatedText.jsx
+apps/web/src/config.js
+apps/web/src/context/AuthContext.jsx
+apps/web/src/context/SidebarContext.jsx
+apps/web/src/css/Chart.css
+apps/web/src/css/Dashboard.css
+apps/web/src/css/EventsPage.css
+apps/web/src/css/GroupsPage.css
+apps/web/src/css/PaymentsPage.css
+apps/web/src/css/Sidebar.css
+apps/web/src/css/StudentDashboard.css
+apps/web/src/css/StudentPayments.css
+apps/web/src/css/StudentsPage.css
+apps/web/src/css/StudentTricks.css
+apps/web/src/css/TricksPage.css
+apps/web/src/firebase.js
+apps/web/src/index.css
+apps/web/src/main.jsx
+apps/web/src/pages/ChangePassword.jsx
+apps/web/src/pages/Dashboard.jsx
+apps/web/src/pages/DiscountsPage.jsx
+apps/web/src/pages/EventModal.jsx
+apps/web/src/pages/EventsPage.jsx
+apps/web/src/pages/Groups/AddGroupModal.jsx
+apps/web/src/pages/Groups/AddMemberModal.jsx
+apps/web/src/pages/Groups/CalendarPlaceholder.jsx
+apps/web/src/pages/Groups/GroupDetail.jsx
+apps/web/src/pages/Groups/GroupList.jsx
+apps/web/src/pages/Groups/NotificationsSection.jsx
+apps/web/src/pages/GroupsPage.jsx
+apps/web/src/pages/HomePage.jsx
+apps/web/src/pages/PaymentsPage.jsx
+apps/web/src/pages/RequestsPage.jsx
+apps/web/src/pages/StudentClasses.jsx
+apps/web/src/pages/StudentDashboard.jsx
+apps/web/src/pages/StudentPayments.jsx
+apps/web/src/pages/StudentsPage.jsx
+apps/web/src/pages/StudentTricks.jsx
+apps/web/src/pages/TricksPage.jsx
+apps/web/vite.config.js
+backend/.gitignore
+backend/firebase.js
+backend/middleware/authMiddleware.js
+backend/models/Event.js
+backend/models/Group.js
+backend/models/Payment.js
+backend/models/PaymentConfig.js
+backend/models/PaymentHistory.js
+backend/models/Request.js
+backend/models/Trick.js
+backend/models/User.js
+backend/routes/events.js
+backend/routes/groups.js
+backend/routes/notifications.js
+backend/routes/payments.js
+backend/routes/tricks.js
+backend/routes/users.js
+backend/server.js
+backend/testMail.js
+backend/utils/cloudinary.js
+metro.config.js
+packages/shared/api.js
+packages/shared/utils.js
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".repomixignore">
+# === Node / JS ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+build/
+.cache/
+.tmp/
+
+# === Next.js / Vercel ===
+.next/
+out/
+.vercel/
+
+# === Expo / React Native ===
+.expo/
+.expo-shared/
+*.expo
+*.apk
+*.aab
+
+# === Android Gradle ===
+.gradle/
+local.properties
+*.iml
+.gradle/
+*.hprof
+*.keystore
+*.jks
+
+# Android build outputs
+apps/web/app/build/
+apps/web/app/release/
+apps/web/build/
+apps/web/outputs/
+
+# === iOS Xcode ===
+ios/build/
+ios/Pods/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+
+# === Coverage / Reports ===
+coverage/
+*.lcov
+*.log
+*.tmp
+*.pid
+*.seed
+*.tgz
+*.coverage
+.nyc_output/
+.vscode-test/
+
+# === Secrets ===
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.mobileprovision
+*.json
+firebase-debug.log
+google-services.json
+
+# === Binary & Media ===
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.dex
+*.jar
+*.war
+*.apk
+*.aab
+
+# Images / videos / assets pesados
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.ico
+*.tiff
+*.tif
+*.webp
+*.svg
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.flv
+*.wmv
+*.mp3
+*.wav
+*.ogg
+
+# === IDE ===
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+</file>
+
+<file path="apps/web/.gitignore">
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.vercel
+</file>
+
+<file path="apps/web/eslint.config.js">
+
+</file>
+
+<file path="apps/web/public/manifest.webmanifest">
+{
+  "name": "KedeKids School",
+  "short_name": "KedeKidsAPP",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff9b00",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+</file>
+
+<file path="apps/web/public/service-worker.js">
+self.addEventListener('install', (event) => {
+⋮----
+self.skipWaiting();
+⋮----
+self.addEventListener('activate', () => {
+⋮----
+self.addEventListener('fetch', (event) => {
+// Puedes cachear cosas aquí si quieres
+</file>
+
+<file path="apps/web/public/test.html">
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Kedekids</title>
+  </head>
+  <body style="background-color: #222; color: white; font-size: 24px;">
+    <h1>Esto es una prueba</h1>
+  </body>
+</html>
+</file>
+
+<file path="apps/web/README.md">
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+</file>
+
+<file path="apps/web/src/App.css">
+#root {
+⋮----
+.logo {
+.logo:hover {
+.logo.react:hover {
+⋮----
+a:nth-of-type(2) .logo {
+⋮----
+.card {
+⋮----
+.read-the-docs {
+</file>
+
+<file path="apps/web/src/components/ChartCard.jsx">
+function ChartCard() {
+const [tricksViewed, setTricksViewed] = useState(0);
+⋮----
+useEffect(() => {
+fetch(`${API_URL}/tricks/total-views`)
+.then(res => res.json())
+.then(data => setTricksViewed(data.totalViews || 0))
+.catch(err => console.error(err));
+⋮----
+labels: ['Total Visualizaciones'], // Puedes añadir más si tienes datos por mes, etc.
+</file>
+
+<file path="apps/web/src/components/Footer.jsx">
+function Footer() {
+⋮----
+Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: '#FF4081' }}>Javier García-Rojo</a> · Kedekids © {new Date().getFullYear()}
+</file>
+
+<file path="apps/web/src/components/InstallPrompt.css">
+.install-modal {
+⋮----
+.install-content {
+⋮----
+.close-button {
+.pwa-modal-overlay {
+⋮----
+.pwa-modal {
+</file>
+
+<file path="apps/web/src/components/Layout.css">
+.layout-container {
+button.delete-avatar-button {
+button.delete-avatar-button:hover {
+button.delete-avatar-button:focus {
+.profile-role-container {
+⋮----
+/* Sidebar fijo */
+.sidebar {
+⋮----
+/* Main content con margen para no tapar con sidebar */
+.main-content {
+⋮----
+/* Header fijo */
+.dashboard-header {
+⋮----
+height: 60px; /* Ajusta según tu diseño */
+⋮----
+/* Contenido debajo del header con scroll */
+.page-content {
+⋮----
+/* Responsive */
+⋮----
+.sidebar.hidden {
+⋮----
+.layout-header {
+⋮----
+.hamburger-menu {
+⋮----
+.sidebar-content {
+⋮----
+overflow-y: auto; /* Hacemos scroll SOLO en el contenido */
+⋮----
+max-height: calc(100vh - 150px); /* Ajusta este valor según el espacio que ocupa el header/avatar/botón */
+⋮----
+.profile-section {
+⋮----
+.profile-avatar {
+.profile-avatar2{
+⋮----
+.profile-info {
+⋮----
+.profile-name {
+⋮----
+.profile-role {
+⋮----
+.menu {
+⋮----
+.menu li {
+⋮----
+.menu li a {
+⋮----
+position: relative; /* Necesario para usar ::after */
+text-decoration: none; /* Elimina cualquier subrayado predeterminado */
+⋮----
+.menu li a:hover {
+.active-menu {
+⋮----
+.menu li a::after {
+⋮----
+content: ''; /* Crea un pseudo-elemento vacío */
+⋮----
+bottom: -2px; /* Ajusta la posición vertical del subrayado */
+height: 2px; /* Grosor del subrayado */
+background-color: #FF4081; /* Color del subrayado */
+transform: scaleX(0); /* Inicialmente oculto */
+⋮----
+.menu li a:hover::after {
+⋮----
+transform: scaleX(1); /* Muestra el subrayado */
+⋮----
+.icon {
+⋮----
+.website-button {
+⋮----
+.website-button:hover {
+⋮----
+.logout-button {
+</file>
+
+<file path="apps/web/src/components/Layout.jsx">
+function Layout({ onLogout }) {
+const navigate = useNavigate();
+const location = useLocation();
+const [userData, setUserData] = useState({ name: '', avatar: '' });
+const [activeMenu, setActiveMenu] = useState(location.pathname);
+const { isSidebarOpen, toggleSidebar, setSidebarOpen, closeSidebar } = useSidebar();
+⋮----
+useEffect(() => {
+const storedData = JSON.parse(localStorage.getItem('userData'));
+⋮----
+setUserData(storedData); // Actualiza si hay algo nuevo
+⋮----
+const token = localStorage.getItem('token');
+⋮----
+navigate('/');
+⋮----
+fetch(`${API_URL}/users/me`, {
+⋮----
+.then((res) => res.ok ? res.json() : Promise.reject('Error'))
+.then((data) => {
+setUserData(data);
+localStorage.setItem('userData', JSON.stringify(data));
+⋮----
+.catch(console.error);
+⋮----
+const handleStorageUpdate = () => {
+const key = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+const storedUser = JSON.parse(localStorage.getItem(key));
+⋮----
+setUserData(storedUser);
+⋮----
+window.addEventListener('storage', handleStorageUpdate);
+return () => window.removeEventListener('storage', handleStorageUpdate);
+⋮----
+const handleResize = () => {
+⋮----
+setSidebarOpen(true); // 👉 Siempre visible en desktop
+⋮----
+setSidebarOpen(false); // 👉 Oculto en móvil hasta que se abra con toggle
+⋮----
+handleResize(); // Ejecutar al cargar
+⋮----
+window.addEventListener('resize', handleResize);
+return () => window.removeEventListener('resize', handleResize);
+⋮----
+const handleMenuClick = (path) => {
+setActiveMenu(path);
+if (window.innerWidth <= 768) toggleSidebar(); // 👉 Cerramos la sidebar en móvil
+⋮----
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('userData');
+onLogout();
+⋮----
+const handleDeleteAvatar = async () => {
+⋮----
+const response = await fetch(`${API_URL}/users/avatar`, {
+⋮----
+setUserData((prev) => ({ ...prev, avatar: '' }));
+localStorage.setItem('userData', JSON.stringify({ ...userData, avatar: '' }));
+⋮----
+console.error('Error al eliminar avatar:', error);
+⋮----
+? userData.avatar.startsWith('http')
+⋮----
+{/* Aquí no cambio nada, tus enlaces ya están correctos */}
+⋮----
+].map(({ path, icon, label }) => (
+⋮----
+<Link to={path} className={activeMenu === path ? 'active-menu' : ''} onClick={() => handleMenuClick(path)}>
+⋮----
+<button className="website-button" onClick={() => window.open('https://www.kedekids.com/', '_blank')}>
+</file>
+
+<file path="apps/web/src/components/StudentLayout.jsx">
+function StudentLayout({ onLogout }) {
+const navigate = useNavigate();
+const location = useLocation();
+const [userData, setUserData] = useState({ name: '', avatar: '' });
+const [activeMenu, setActiveMenu] = useState(location.pathname);
+const { isSidebarOpen, toggleSidebar, setSidebarOpen, closeSidebar } = useSidebar();
+⋮----
+useEffect(() => {
+const token = localStorage.getItem('token');
+const storedUser = JSON.parse(localStorage.getItem('user'));
+⋮----
+navigate('/', { replace: true });
+⋮----
+setUserData(storedUser);
+⋮----
+const handleStorageUpdate = () => {
+const key = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+const storedUser = JSON.parse(localStorage.getItem(key));
+⋮----
+window.addEventListener('storage', handleStorageUpdate);
+return () => window.removeEventListener('storage', handleStorageUpdate);
+⋮----
+const handleResize = () => {
+⋮----
+setSidebarOpen(true); // 👉 Siempre visible en desktop
+⋮----
+setSidebarOpen(false); // 👉 Oculto en móvil hasta que se abra con toggle
+⋮----
+handleResize(); // Ejecutar al cargar
+⋮----
+window.addEventListener('resize', handleResize);
+return () => window.removeEventListener('resize', handleResize);
+⋮----
+const handleMenuClick = (path) => {
+setActiveMenu(path);
+if (window.innerWidth <= 768) toggleSidebar(); // 👉 Cerramos la sidebar en móvil
+⋮----
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+onLogout();
+navigate('/');
+⋮----
+? userData.avatar.startsWith('http')
+⋮----
+<Link to="/student" className={activeMenu === '/student-dashboard' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-dashboard')}>
+⋮----
+<Link to="/student/student-classes" className={activeMenu === '/student-classes' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-classes')}>
+⋮----
+<Link to="/student/student-tricks" className={activeMenu === '/student-tricks' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-tricks')}>
+⋮----
+<Link to="/student/student-payments" className={activeMenu === '/student-payments' ? 'active-menu' : ''} onClick={() => handleMenuClick('/student-payments')}>
+⋮----
+<Link to="/student/change-password" className={activeMenu === '/change-password' ? 'active-menu' : ''} onClick={() => handleMenuClick('/change-password')}>
+⋮----
+<button className="website-button" onClick={() => window.open('https://www.kedekids.com/', '_blank')}>
+</file>
+
+<file path="apps/web/src/components/StudentSidebar.jsx">
+import '../css/Sidebar.css'; // Crea este CSS para estilos si no lo tienes
+⋮----
+const StudentSidebar = () => {
+const navigate = useNavigate();
+⋮----
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+navigate('/');
+⋮----
+<li onClick={() => navigate('/student-dashboard')}>
+⋮----
+<li onClick={() => navigate('/change-password')}>
+⋮----
+<li onClick={() => navigate('/student-classes')}>
+⋮----
+<li onClick={() => navigate('/student-payments')}>
+</file>
+
+<file path="apps/web/src/components/TruncatedText.jsx">
+function TruncatedText({ text, maxLines = 2 }) {
+const textRef = useRef(null);
+const [isOverflowing, setIsOverflowing] = useState(false);
+const [modalOpen, setModalOpen] = useState(false);
+⋮----
+useEffect(() => {
+⋮----
+// Compara la altura "scrollHeight" con la altura visible "clientHeight"
+setIsOverflowing(
+⋮----
+const handleSeeMore = (e) => {
+e.preventDefault(); // Evita que recargue la página si es un enlace
+setModalOpen(true);
+⋮----
+const handleCloseModal = () => {
+setModalOpen(false);
+⋮----
+{/* Contenedor que muestra el texto truncado */}
+⋮----
+{/* Solo mostramos "See More" si detectamos overflow */}
+⋮----
+{/* Modal para mostrar el texto completo */}
+⋮----
+<div className="" onClick={(e) => e.stopPropagation()}>
+</file>
+
+<file path="apps/web/src/config.js">
+
+</file>
+
+<file path="apps/web/src/context/AuthContext.jsx">
+export const AuthContext = createContext();
+⋮----
+export const AuthProvider = ({ children }) => {
+const [token, setToken] = useState(localStorage.getItem('token'));
+const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+⋮----
+const login = (newToken, newUser) => {
+localStorage.setItem('token', newToken);
+localStorage.setItem('user', JSON.stringify(newUser));
+setToken(newToken);
+setUser(newUser);
+⋮----
+const logout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+setToken(null);
+setUser(null);
+⋮----
+useEffect(() => {
+const handleStorageChange = () => {
+setToken(localStorage.getItem('token'));
+setUser(JSON.parse(localStorage.getItem('user')));
+⋮----
+window.addEventListener('storage', handleStorageChange);
+return () => window.removeEventListener('storage', handleStorageChange);
+</file>
+
+<file path="apps/web/src/context/SidebarContext.jsx">
+const SidebarContext = createContext();
+⋮----
+export const SidebarProvider = ({ children }) => {
+const [isSidebarOpen, setSidebarOpen] = useState(false);
+⋮----
+const toggleSidebar = () => setSidebarOpen(prev => !prev);
+const closeSidebar = () => setSidebarOpen(false);
+⋮----
+useEffect(() => {
+const handleClickOutside = (event) => {
+// ✅ Solo ejecutar esto en móvil
+⋮----
+const sidebar = document.querySelector('.sidebar');
+const hamburger = document.querySelector('.hamburger-menu');
+⋮----
+!sidebar.contains(event.target) &&
+⋮----
+!hamburger.contains(event.target)
+⋮----
+closeSidebar();
+⋮----
+document.addEventListener('mousedown', handleClickOutside);
+return () => document.removeEventListener('mousedown', handleClickOutside);
+⋮----
+export const useSidebar = () => useContext(SidebarContext);
+</file>
+
+<file path="apps/web/src/css/Chart.css">
+.chart-card-figma {
+⋮----
+/*bodyarriba,bottomabajo*/border-radius: 20px;
+⋮----
+.chart-card-figma::before {
+⋮----
+z-index: 0; /* Coloca el pseudo-elemento detrás del contenido */
+border-radius: 10px; /* Aplica el borde redondeado */
+padding: 2px; /* Grosor del borde gradiente */
+background: linear-gradient(to left, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+⋮----
+linear-gradient(#fff 0 0); /* Máscara para el gradiente */
+⋮----
+mask-composite: exclude; /* Excluye el área interna */
+⋮----
+/* Sección superior que contendrá el título y el gráfico */
+.chart-body {
+⋮----
+/*Queseexpandaydejeespacioabajoalfooter*/flex: 1;
+⋮----
+/*Siquieresungradientedistintoenlapartedelgráfico:;
+    */background: linear-gradient(to bottom right, #1F2228 16%, #2D3139 46%, #22262D 72%);
+⋮----
+/* Encabezado (Trucos Vistos + mes) */
+.chart-top {
+.chart-top h3 {
+.chart-month {
+⋮----
+/* Contenedor del <Line /> */
+.chart-middle {
+⋮----
+flex: 1; /* Para que el gráfico llene el espacio */
+⋮----
+/* margen, padding, etc. si gustas */
+⋮----
+.chart-middle canvas {
+⋮----
+height: 250px !important; /* o 200px, lo que quieras */
+⋮----
+/* Footer (parte de abajo) */
+.chart-bottom {
+⋮----
+background: rgba(0,0,0,0.2); /* o un gradiente distinto */
+⋮----
+border-radius: 0 0 20px 20px; /* redondea solo la parte de abajo */
+⋮----
+.chart-bottom strong {
+.chart-wrapper {
+.chart-top-section {
+.chart-header-father {
+⋮----
+/* Encabezado (Trucos Vistos + May) */
+.chart-header {
+.chart-header h3 {
+⋮----
+/* Contenedor del canvas */
+.chart-canvas {
+⋮----
+/* PARTE INFERIOR (footer) con gradiente y radio en la parte superior */
+.chart-footer-section {
+⋮----
+/* Contenido interior del footer */
+.footer-content {
+.footer-content strong {
+</file>
+
+<file path="apps/web/src/css/Dashboard.css">
+.dashboard-container {
+⋮----
+.dashboard-header {
+⋮----
+.dashboard-header h2 {
+.icon-container {
+⋮----
+.icon-container .notification-dot {
+⋮----
+top: 0; /* Ajusta este valor si es necesario */
+right: 0; /* Ajusta este valor si es necesario */
+transform: translate(50%, -50%); /* Centra el punto sobre la esquina */
+border: 2px solid #313145; /* Agrega un borde para separar el punto del fondo */
+⋮----
+.icon-container .message-count {
+⋮----
+top: -10px; /* Ajusta según sea necesario */
+right: -10px; /* Ajusta según sea necesario */
+⋮----
+z-index: 999; /* Asegúrate de que esté por encima del icono */
+border: 2px solid #313145; /* Para un borde que combine con el fondo */
+⋮----
+width: 16px; /* Reduce el tamaño del círculo en pantallas más pequeñas */
+⋮----
+font-size: 10px; /* Reduce el tamaño del texto */
+top: -8px; /* Ajusta la posición superior */
+right: -8px; /* Ajusta la posición derecha */
+⋮----
+width: 14px; /* Tamaño aún más pequeño para pantallas muy pequeñas */
+⋮----
+.icon-container .dropdown {
+⋮----
+top: 120%; /* Ajusta según necesites */
+right: 0; /* Alínea el dropdown al borde derecho del icono */
+⋮----
+border: 1px solid transparent; /* Define el grosor y asegura que sea visible */
+⋮----
+to right, /* Dirección del gradiente */
+#FF4081 0%, /* Color inicial y posición */
+#007997 100% /* Color final y posición */
+) 1; /* Define el gradiente y el grosor del borde */
+border-image-slice: 1; /* Define cómo se repite el gradiente */
+⋮----
+z-index: 999; /* Asegúrate de que esté sobre todo lo demás */
+display: none; /* Oculta el menú por defecto */
+⋮----
+.icon-container .dropdown p {
+⋮----
+.icon-container.show-dropdown .dropdown {
+⋮----
+display: block; /* Muestra el menú cuando se activa */
+⋮----
+.user-menu {
+⋮----
+.user-menu .dropdown {
+⋮----
+top: 100%; /* Justo debajo del avatar */
+right: 0; /* Alineado con el borde derecho del contenedor */
+⋮----
+border-image: linear-gradient(to right, /* Dirección del gradiente */ #FF4081 0%, /* Color inicial y posición */ #007997 100% /* Color final y posición */) 1;
+⋮----
+min-width: 150px; /* Asegura un ancho mínimo */
+⋮----
+.user-menu .dropdown p {
+⋮----
+.stats-container {
+⋮----
+/* grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr; */
+⋮----
+.stat-box1 { grid-area: stat-box1; }
+.stat-box2 { grid-area: stat-box2; }
+.stat-box3 { grid-area: stat-box3; }
+⋮----
+.dashboard-stats {
+.star-box-aling{
+.stat-box {
+⋮----
+border-radius: 10px; /* Define las esquinas redondeadas */
+⋮----
+z-index: 1; /* Asegura que el contenido esté encima del pseudo-elemento */
+overflow: hidden; /* Para evitar que el pseudo-elemento sobresalga */
+⋮----
+.stat-box::before {
+⋮----
+z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+border-radius: 10px; /* Aplica el borde redondeado al pseudo-elemento */
+padding: 2px; /* Grosor del borde gradiente */
+background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+⋮----
+linear-gradient(#fff 0 0); /* Crea una máscara para el gradiente */
+⋮----
+mask-composite: exclude; /* Excluye el área interna */
+⋮----
+.stat-box1 {
+⋮----
+z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
+overflow: hidden; /* Evita que el pseudo-elemento sobresalga */
+⋮----
+.stat-box h3 {
+⋮----
+.stat-box p {
+⋮----
+.dashboard-content {
+⋮----
+.groups-section, .tricks-section {
+⋮----
+.video-wrapper {
+⋮----
+padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+⋮----
+.video-wrapper iframe {
+⋮----
+border-radius: 10px; /* Esquinas redondeadas */
+⋮----
+z-index: 1; /* Asegura que el contenido esté sobre el pseudo-elemento */
+⋮----
+.groups-section::before, .tricks-section::before {
+⋮----
+border-radius: 10px; /* Redondea las esquinas del pseudo-elemento */
+padding: 2px; /* Grosor del borde */
+⋮----
+linear-gradient(#fff 0 0); /* Máscara para mostrar solo el borde */
+⋮----
+mask-composite: exclude; /* Excluye el área interna del borde */
+⋮----
+.groups-section h3,
+⋮----
+.table {
+⋮----
+.table th,
+⋮----
+.table th {
+⋮----
+.table tbody tr:hover {
+⋮----
+.tricks-section img {
+.header-left {
+.header-icons {
+⋮----
+.h2dashboard{
+.body_header_dashboard{
+.headerline{
+⋮----
+color: white; /* Color del texto */
+⋮----
+.headerline::after {
+⋮----
+top: 0; /* Posición del borde inferior */
+⋮----
+width: 98%; /* Ancho del borde */
+height: 1px; /* Grosor del borde */
+background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
+⋮----
+.search-bar {
+⋮----
+position: relative; /* Contenedor relativo para posicionar el menú */
+⋮----
+justify-content: center; /* Centra horizontalmente el input */
+⋮----
+.search-bar input {
+⋮----
+.search-results {
+⋮----
+position: absolute; /* Flota sobre otros elementos */
+top: 100%; /* Posiciona justo debajo del input */
+left: 50%; /* Centrado horizontalmente */
+transform: translateX(-50%); /* Ajusta el centrado */
+⋮----
+width: 400px; /* Ancho fijo para el menú */
+max-height: 200px; /* Alto máximo con scroll */
+⋮----
+z-index: 1000; /* Asegura que esté por encima de otros elementos */
+⋮----
+.search-results p {
+⋮----
+.search-results p:hover {
+/* Para el ID con color */
+.group-id {
+⋮----
+/* Flechas de tendencia */
+.arrow-up {
+⋮----
+color: #00ff7f; /* Un verde o el color que prefieras */
+⋮----
+.arrow-down {
+⋮----
+color: #ff4c4c; /* Un rojo o el color que prefieras */
+⋮----
+/* Estilo para el enlace "See More" */
+.see-more {
+⋮----
+color: #ff9b00; /* mismo color de tu diseño */
+⋮----
+font-weight: 600; /* un poco más grueso */
+⋮----
+.see-more:hover {
+⋮----
+/* Tarjeta principal con un gradiente */
+.chart-card {
+⋮----
+background: linear-gradient(to right, #ff4081, #007997); /* Tu gradiente */
+⋮----
+max-width: 500px; /* Ajusta a tu gusto */
+margin: 0 auto;   /* Centra la tarjeta si quieres */
+⋮----
+/* Cabecera con el título y el "May" */
+.chart-card-header {
+.chart-card-header h3 {
+.chart-month-select {
+⋮----
+/* Contenedor del chart (fondo más oscuro para que destaque la línea) */
+.chart-container {
+⋮----
+background-color: rgba(0,0,0,0.2); /* Un oscuro translúcido */
+⋮----
+/* Footer con el número y el texto */
+.chart-card-footer {
+.chart-footer-icon {
+⋮----
+/* Ajusta si quieres un fondo distinto o un circulito */
+⋮----
+.chart-footer-text span {
+⋮----
+/* Ajusta más si lo quieres exacto al Figma */
+⋮----
+.chart-footer-text {
+.chart-footer-text strong {
+⋮----
+/* Contenedor general */
+.groups-table-container {
+⋮----
+margin-top: 20px; /* Espacio respecto al título “Grupos” */
+/* Pon un box-shadow, fondo, etc. si tu Figma lo requiere */
+⋮----
+/* Tabla base */
+.groups-table {
+⋮----
+border-collapse: collapse; /* Quita bordes dobles */
+/* Si tu Figma tiene un fondo oscuro en la tabla, ponlo aquí */
+⋮----
+-webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+⋮----
+min-width: unset; /* Elimina el ancho mínimo */
+width: 100%; /* Asegura que no exceda el contenedor */
+⋮----
+/* Opcional: Centra el contenido de las celdas en móvil */
+.groups-table td,
+⋮----
+/* Si los textos siguen desbordando, truncamos */
+.group-info span {
+⋮----
+max-width: 120px; /* Ajusta según lo que prefieras mostrar */
+⋮----
+/* Encabezado de la tabla */
+.groups-table thead th {
+⋮----
+background-color: #252539; /* Fondo cabecera (ejemplo) */
+color: #ff9b00;           /* Texto en la cabecera */
+⋮----
+/* Celdas del cuerpo */
+.groups-table td {
+⋮----
+border-bottom: 1px solid #444; /* Líneas divisorias */
+⋮----
+/* Hover en la fila */
+.groups-table tbody tr:hover {
+⋮----
+background-color: #3a3a50; /* Efecto hover */
+⋮----
+/* Columna con avatar + nombre */
+.group-info {
+⋮----
+gap: 10px; /* separa el avatar del texto */
+⋮----
+.group-avatar {
+⋮----
+object-fit: cover; /* Ajusta la imagen */
+⋮----
+/* Estilo del ID y flechas */
+⋮----
+color: #00ff7f; /* Verde */
+⋮----
+color: #ff4c4c; /* Rojo */
+⋮----
+/* Link “See More” */
+⋮----
+.integrant-calendar {
+.group-ranking{
+⋮----
+.logo-kedekids {
+⋮----
+.truncated-text{
+⋮----
+/* Búsqueda en móvil */
+⋮----
+gap: 8px; /* Reduce el espacio entre iconos en móvil */
+⋮----
+flex-grow: 1; /* Ocupar todo el ancho restante */
+margin-inline: 10px; /* Ajusta el margen */
+⋮----
+/* Logo tamaño y margen */
+⋮----
+/* Oculta en móvil */
+.hide-on-mobile {
+⋮----
+.search-bar input::placeholder {
+⋮----
+.profile-avatar2 {
+⋮----
+/* Oculta texto del nombre de usuario */
+.user-menu span {
+⋮----
+grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+⋮----
+"stat-box1 stat-box1"; /* Trucos Vistos ocupa las dos columnas */
+⋮----
+.stat-box1 { grid-area: stat-box1; width: 100%; }
+.stat-box2 { grid-area: stat-box2; width: 90%; }
+.stat-box3 { grid-area: stat-box3; width: 90%; }
+⋮----
+/* Opcional: Ajusta tamaños de los iconos y textos en móvil */
+.stat-box h3 { font-size: 24px; }
+.stat-box p { font-size: 14px; }
+⋮----
+/* Ajustes solo para ADMIN */
+body.admin-mode .header-icons {
+⋮----
+body.admin-mode .profile-avatar2 {
+⋮----
+body.admin-mode .icon-container svg {
+⋮----
+font-size: 22px; /* Íconos más grandes */
+⋮----
+body.admin-mode .search-bar {
+⋮----
+/* Ajustes solo para STUDENT */
+body.student-mode .profile-avatar2 {
+⋮----
+body.student-mode .icon-container svg {
+⋮----
+font-size: 18px; /* Íconos más pequeños */
+⋮----
+.pagination {
+⋮----
+.pagination button {
+⋮----
+.pagination button:disabled {
+⋮----
+.pagination span {
+</file>
+
+<file path="apps/web/src/css/EventsPage.css">
+/* Añade esto en tu EventsPage.css */
+.events-page1{
+⋮----
+.tricks-filters select {
+⋮----
+/* Quita la flechita por defecto */
+⋮----
+/* Centra el texto */
+⋮----
+.tricks-filters select:hover {
+⋮----
+.tricks-filters select option {
+⋮----
+.tricks-filter {
+⋮----
+.payments-page {
+⋮----
+h2,
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+section {
+⋮----
+section h4 {
+⋮----
+input::placeholder,
+⋮----
+textarea {
+⋮----
+.hide-on-mobile {
+⋮----
+.toggle-arrow {
+.events-page1 {
+⋮----
+.pagination {
+⋮----
+.pagination button {
+/* Móvil: input arriba, select + botón en la misma línea */
+⋮----
+.tricks-filters {
+⋮----
+.tricks-filters input {
+⋮----
+/* Contenedor para select + botón en una línea */
+.tricks-filters .filters-row {
+⋮----
+.tricks-filters select,
+</file>
+
+<file path="apps/web/src/css/GroupsPage.css">
+body, .groups-page {
+⋮----
+h2, h3, h4, h5 {
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+.group-list {
+⋮----
+.group-list h3 {
+⋮----
+.group-list ul {
+⋮----
+.group-list li {
+⋮----
+.group-list li:hover,
+⋮----
+.group-detail {
+⋮----
+.group-avatar {
+⋮----
+.integrant-calendar {
+⋮----
+.class-notes, .group-integrant, .notifications-section {
+⋮----
+.class-notes textarea {
+⋮----
+.selected-date {
+⋮----
+.react-calendar {
+⋮----
+.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
+⋮----
+.react-calendar__tile--active {
+⋮----
+/* ✅ Para alumnos, eliminamos el efecto visual */
+.class-dot {
+⋮----
+.react-calendar__navigation button {
+/* Centrar los números del calendario */
+.react-calendar__tile abbr {
+⋮----
+.student-calendar .react-calendar__tile--active {
+⋮----
+/* modal */
+⋮----
+.modal-overlay {
+⋮----
+.modal-content {
+⋮----
+.close-modal-button {
+⋮----
+.close-modal-button:hover {
+⋮----
+/* Sección de notificaciones */
+.notification-list ul {
+⋮----
+.notification-list li {
+⋮----
+.website-button {
+⋮----
+.website-button:hover {
+⋮----
+/* Input oculto para cambiar avatar */
+#avatar-upload {
+.react-calendar__tile--now {
+.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
+⋮----
+.mobile-group-selector {
+⋮----
+.mobile-group-selector select {
+.group-header {
+.group-info-line {
+.group-name {
+.group-ranking {
+.group-actions {
+⋮----
+.remove-member-button {
+⋮----
+.remove-member-button .icon {
+⋮----
+.remove-member-button .text {
+</file>
+
+<file path="apps/web/src/css/PaymentsPage.css">
+.payments-page {
+⋮----
+h2,
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+section {
+⋮----
+section h4 {
+⋮----
+input::placeholder,
+⋮----
+textarea {
+</file>
+
+<file path="apps/web/src/css/Sidebar.css">
+.sidebar {
+⋮----
+.sidebar h3 {
+⋮----
+.sidebar ul {
+⋮----
+.sidebar li {
+⋮----
+.sidebar li:hover {
+⋮----
+/* Sidebar oculto en móvil */
+.sidebar.hidden {
+⋮----
+/* Hamburguesa */
+.hamburger-menu {
+⋮----
+.main-content {
+</file>
+
+<file path="apps/web/src/css/StudentPayments.css">
+.payment-reminder {
+⋮----
+.payments-table {
+⋮----
+.payments-table th, .payments-table td {
+⋮----
+.payments-table th {
+</file>
+
+<file path="apps/web/src/css/StudentsPage.css">
+.students-page {
+⋮----
+h2,
+⋮----
+table {
+⋮----
+th,
+⋮----
+th {
+⋮----
+tbody tr:hover {
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+input[type="text"],
+⋮----
+.modal {
+⋮----
+.modal h3 {
+⋮----
+.highlight {
+.toggle-arrow{
+⋮----
+table thead {
+⋮----
+display: none; /* Oculta las cabeceras */
+⋮----
+table, tbody, tr, td {
+⋮----
+tr {
+⋮----
+margin: 0 auto 15px auto; /* Centramos la "tarjeta" */
+max-width: 90%; /* Controlas el ancho */
+⋮----
+td {
+⋮----
+td::before {
+⋮----
+.students-page h3 {
+⋮----
+.toggle-arrow {
+⋮----
+td[data-label]:before {
+⋮----
+.pagination {
+⋮----
+.pagination button {
+⋮----
+.pagination button:disabled {
+</file>
+
+<file path="apps/web/src/css/StudentTricks.css">
+.section-title {
+⋮----
+.tricks-grid {
+⋮----
+.trick-card {
+⋮----
+.mark-done-button {
+⋮----
+.mark-done-button:hover {
+</file>
+
+<file path="apps/web/src/css/TricksPage.css">
+/* Styles for TricksPage */
+⋮----
+/* Header Section */
+.tricks-header {
+⋮----
+.tricks-title {
+⋮----
+.tricks-header h1 {
+⋮----
+.new-trick-button {
+⋮----
+/* Limita en desktop */
+⋮----
+.new-trick-button:hover {
+⋮----
+.new-trick-button img {
+⋮----
+/* Hace la imagen blanca sin editarla */
+⋮----
+/* Móvil */
+⋮----
+button:focus,
+⋮----
+.tricks-filters button {
+⋮----
+/* Necesario para el pseudo-elemento */
+⋮----
+/* Eliminamos el borde para aplicar el pseudo-elemento */
+⋮----
+/* Asegura que el contenido esté sobre el pseudo-elemento */
+⋮----
+/* Evita que el pseudo-elemento sobresalga */
+⋮----
+.tricks-filters button::before {
+⋮----
+/* Igual al radio del botón */
+⋮----
+/* Gradiente del borde */
+⋮----
+/* Grosor del borde */
+⋮----
+/* Máscara para mostrar solo el borde */
+⋮----
+/* Excluye el área interna del borde */
+⋮----
+/* Envía el pseudo-elemento detrás del botón */
+⋮----
+.tricks-filters button.active {
+⋮----
+.tricks-filters button:hover {
+⋮----
+.tricks-filters button.active::before {
+⋮----
+/* Cambia el gradiente en estado activo */
+⋮----
+/* Filter Section */
+.tricks-filters {
+⋮----
+.tricks-filters span {
+⋮----
+.active-filtro {
+⋮----
+.active-filtro::before {
+⋮----
+.tricks-order> :first-child {
+⋮----
+.tricks-order> :last-child {
+⋮----
+/* Azul vibrante */
+⋮----
+/* Table Section */
+.tricks-table {
+⋮----
+.tricks-table-header {
+⋮----
+/* Color del texto */
+⋮----
+.tricks-table-header::after {
+⋮----
+/* Posición del borde inferior */
+⋮----
+/* Ancho del borde */
+⋮----
+/* Opcional: redondear los extremos */
+⋮----
+.tricks-table th,
+⋮----
+.tricks-table th {
+⋮----
+.tricks-table td {
+⋮----
+.tricks-table img {
+⋮----
+.actions {
+⋮----
+.actions button {
+⋮----
+.delete-button-container {
+⋮----
+.delete-button-container button {
+⋮----
+.delete-button-container button::before {
+⋮----
+/* Modal Styles */
+.modal {
+⋮----
+.modal h2 {
+⋮----
+.modal button {
+⋮----
+.modal button:hover {
+⋮----
+.modal .reset-button {
+⋮----
+.modal .reset-button:hover {
+⋮----
+/* Paginación */
+.pagination {
+⋮----
+.pagination button {
+⋮----
+.pagination span {
+⋮----
+/* Estilo para la flecha en móviles */
+.toggle-arrow {
+⋮----
+td.actions {
+⋮----
+.tricks-table thead {
+⋮----
+.tricks-table tr {
+⋮----
+.fltrick {
+⋮----
+.mobile-expanded {
+⋮----
+.mobile-expanded div {
+⋮----
+.video-thumbnail-wrapper {
+⋮----
+.mobile-buttons {
+⋮----
+.mobile-buttons button {
+</file>
+
+<file path="apps/web/src/index.css">
+:root {
+#root{
+a {
+a:hover {
+⋮----
+body {
+⋮----
+background: linear-gradient( to bottom right,#1F2228 16%, /* Color inicial y posición */
+#2D3139 46%, /* Segundo color y posición */
+#22262D 72% /* Tercer color y posición */);
+⋮----
+h1 {
+⋮----
+button {
+button:hover {
+button:focus,
+⋮----
+/* Imagen de fondo solo para login */
+.login-background {
+⋮----
+background-image: url('https://www.kedekids.com/wp-content/uploads/2020/09/CAR_2767-scaled.jpg'); /* Ajusta la ruta según tu estructura */
+⋮----
+.login-background #root {
+⋮----
+.login {
+.paddinglog {
+.paddinglog h2 {
+.paddinglog input {
+.acceso {
+⋮----
+/* Estilo para la lista de solicitudes */
+.requests-list {
+⋮----
+.requests-list li {
+⋮----
+.requests-list button {
+⋮----
+.requests-list button:first-child {
+⋮----
+.requests-list button:last-child {
+⋮----
+.main-content{
+⋮----
+margin-left: 395px; /* Sidebar fijo en desktop */
+padding-top: clamp(60px, 6vh, 100px); /* Altura adaptable para el header */
+⋮----
+.modal {
+⋮----
+.modal h3 {
+⋮----
+.modal button {
+</file>
+
+<file path="apps/web/src/pages/ChangePassword.jsx">
+function ChangePassword() {
+const [oldPassword, setOldPassword] = useState('');
+const [newPassword, setNewPassword] = useState('');
+const [avatar, setAvatar] = useState(null);
+const [message, setMessage] = useState('');
+const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+⋮----
+useEffect(() => {
+const handleResize = () => setIsMobile(window.innerWidth <= 768);
+window.addEventListener('resize', handleResize);
+return () => window.removeEventListener('resize', handleResize);
+⋮----
+const handleChangePassword = async () => {
+const token = localStorage.getItem('token');
+⋮----
+const res = await fetch(`${API_URL}/users/change-password`, {
+⋮----
+body: JSON.stringify({ oldPassword, newPassword }),
+⋮----
+if (!res.ok) throw new Error('Error al cambiar la contraseña');
+const data = await res.json();
+setMessage(data.message || 'Contraseña actualizada con éxito');
+setOldPassword('');
+setNewPassword('');
+⋮----
+console.error(err);
+setMessage('Error al cambiar la contraseña');
+⋮----
+const handleAvatarChange = (e) => setAvatar(e.target.files[0]);
+const handleUploadAvatar = async () => {
+⋮----
+setMessage('Por favor, selecciona una imagen primero.');
+⋮----
+const formData = new FormData();
+formData.append('avatar', avatar);
+⋮----
+const response = await fetch(`${API_URL}/users/upload-avatar`, {
+⋮----
+if (!response.ok) throw new Error('Error al subir el avatar');
+⋮----
+const data = await response.json();
+⋮----
+// 🔄 Actualizamos el localStorage
+const userKey = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+const currentUser = JSON.parse(localStorage.getItem(userKey));
+⋮----
+localStorage.setItem(userKey, JSON.stringify(updatedUser));
+⋮----
+// 🔁 Lanzamos evento para que los layouts escuchen el cambio
+window.dispatchEvent(new Event('storage'));
+⋮----
+setMessage('Avatar actualizado correctamente');
+⋮----
+console.error(error);
+setMessage('Error al subir el avatar');
+⋮----
+onChange={(e) => setOldPassword(e.target.value)}
+⋮----
+onChange={(e) => setNewPassword(e.target.value)}
+</file>
+
+<file path="apps/web/src/pages/Dashboard.jsx">
+const Dashboard = () => {
+const [students, setStudents] = useState(0);
+const [groups, setGroups] = useState(0);
+const [tricksViewed, setTricksViewed] = useState(0);
+const navigate = useNavigate();
+const [groupList, setGroupList] = useState([]);
+const [topTrick, setTopTrick] = useState(null);
+const chartRef = useRef(null);
+⋮----
+const [currentPage, setCurrentPage] = useState(1);
+⋮----
+const currentGroups = groupList.slice(indexOfFirstGroup, indexOfLastGroup);
+const totalPages = Math.ceil(groupList.length / groupsPerPage);
+⋮----
+const handlePageChange = (page) => {
+if (page > 0 && page <= totalPages) setCurrentPage(page);
+⋮----
+const getGradient = (ctx, area) => {
+const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+gradient.addColorStop(0, 'rgba(255,64,129,0.1)');  // color inferior
+gradient.addColorStop(1, 'rgba(255,64,129,1)');    // color superior
+⋮----
+borderColor: (ctx) => {
+⋮----
+// Chart aún no está montado
+⋮----
+return getGradient(canvasCtx, chartArea);
+⋮----
+useEffect(() => {
+axios.get(`${API_URL}/users/students`)
+.then((response) => {
+setStudents(response.data.length);
+⋮----
+.catch(console.error);
+⋮----
+axios.get(`${API_URL}/groups`)
+⋮----
+setGroups(response.data.length);
+⋮----
+axios.get(`${API_URL}/tricks/total-views`)
+⋮----
+setTricksViewed(response.data.total);
+⋮----
+setGroupList(response.data);
+⋮----
+axios.get(`${API_URL}/tricks/most-viewed`)
+.then((response) => setTopTrick(response.data))
+⋮----
+const extractYouTubeId = (url) => {
+⋮----
+const match = url.match(regex);
+⋮----
+{currentGroups.map((group) => (
+⋮----
+onClick={() => handlePageChange(currentPage - 1)}
+⋮----
+onClick={() => handlePageChange(currentPage + 1)}
+⋮----
+src={`https://www.youtube.com/embed/${extractYouTubeId(topTrick.video)}`}
+</file>
+
+<file path="apps/web/src/pages/DiscountsPage.jsx">
+function DiscountsPage() {
+</file>
+
+<file path="apps/web/src/pages/EventsPage.jsx">
+import EventModal from "./EventModal"; // Importar el modal
+⋮----
+import "../css/EventsPage.css"; // Importar estilos CSS
+⋮----
+function EventsPage() {
+const [events, setEvents] = useState([]);
+const [currentEvent, setCurrentEvent] = useState(null);
+const [isModalOpen, setModalOpen] = useState(false);
+const [highlightedEventId, setHighlightedEventId] = useState(null); // ID del evento destacado
+const location = useLocation();
+const [searchTerm, setSearchTerm] = useState("");
+const [selectedMonth, setSelectedMonth] = useState("");
+const [currentPage, setCurrentPage] = useState(1);
+const [eventsPerPage] = useState(10); // Número de eventos por página
+const [expandedEventId, setExpandedEventId] = useState(null); // ID del evento expandido
+⋮----
+useEffect(() => {
+⋮----
+// Obtener parámetros de la URL
+const params = new URLSearchParams(location.search);
+const eventId = params.get('eventId');
+⋮----
+setHighlightedEventId(eventId);
+⋮----
+fetch(`${API_URL}/events`)
+.then((res) => res.json())
+.then((data) => setEvents(data))
+.catch((err) => console.error(err));
+⋮----
+const handleSaveEvent = (eventData, shouldSend = false) => {
+⋮----
+fetch(endpoint, {
+⋮----
+body: JSON.stringify({
+⋮----
+subject: eventData.subject || "Sin Asunto", // Por si no rellenan el campo
+⋮----
+.then((savedEvent) => {
+⋮----
+setEvents((prev) => [...prev, savedEvent]);
+⋮----
+setEvents((prev) =>
+prev.map((event) => (event._id === savedEvent._id ? savedEvent : event))
+⋮----
+handleSendEmail(savedEvent); // Enviar correo
+⋮----
+setModalOpen(false);
+setCurrentEvent(null);
+⋮----
+const handleDeleteEvent = (eventId) => {
+const confirmDelete = window.confirm(
+⋮----
+fetch(`${API_URL}/events/${eventId}`, {
+⋮----
+.then(() => {
+setEvents((prev) => prev.filter((event) => event._id !== eventId));
+⋮----
+const handleSendEmail = (eventData) => {
+console.log('📤 Enviando correo para el evento:', eventData);
+⋮----
+fetch(`${API_URL}/events/${eventData._id}/send-email`, {
+⋮----
+.then((data) => {
+console.log("📬 Respuesta del backend:", data);
+alert("Correo enviado correctamente.");
+⋮----
+.catch((err) => console.error("❌ Error al enviar el correo:", err));
+⋮----
+const clearFilters = () => {
+setSearchTerm("");
+setSelectedMonth("");
+⋮----
+.filter(event => event.name.toLowerCase().includes(searchTerm.toLowerCase()))
+.filter(event => {
+⋮----
+const eventMonth = new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+⋮----
+const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+⋮----
+const handlePageChange = (page) => {
+if (page > 0 && page <= totalPages) setCurrentPage(page);
+⋮----
+<button onClick={() => setModalOpen(true)}>Crear Nuevo Evento</button>
+⋮----
+onChange={(e) => setSearchTerm(e.target.value)}
+⋮----
+onChange={(e) => setSelectedMonth(e.target.value)}
+⋮----
+{Array.from(new Set(events.map(event =>
+new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })
+))).map(month => (
+⋮----
+{currentEvents.map(event => (
+⋮----
+onClick={() => setExpandedEventId(expandedEventId === event._id ? null : event._id)}
+⋮----
+{new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}
+⋮----
+<button onClick={() => { setCurrentEvent(event); setModalOpen(true); }}>Editar</button>
+<button onClick={() => handleDeleteEvent(event._id)}>Eliminar</button>
+⋮----
+{/* Móvil - Info Expandida */}
+⋮----
+<div><strong>Fecha:</strong> {new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}</div>
+⋮----
+<button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+⋮----
+<button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
+⋮----
+{/* Modal para creación/edición */}
+</file>
+
+<file path="apps/web/src/pages/Groups/AddGroupModal.jsx">
+function AddGroupModal({ isOpen, onClose, onSave }) {
+const [groupName, setGroupName] = useState('');
+⋮----
+const handleSave = () => {
+onSave(groupName);
+setGroupName('');
+⋮----
+onChange={e => setGroupName(e.target.value)}
+</file>
+
+<file path="apps/web/src/pages/Groups/AddMemberModal.jsx">
+function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
+const [search, setSearch] = useState('');
+const [allStudents, setAllStudents] = useState([]);
+const [filteredStudents, setFilteredStudents] = useState([]);
+⋮----
+useEffect(() => {
+⋮----
+fetch(`${API_URL}/users?role=student`)
+.then(res => res.json())
+.then(data => {
+setAllStudents(data);
+setFilteredStudents(data);
+⋮----
+.catch(err => console.error(err));
+⋮----
+const filtered = allStudents.filter(student =>
+student.name.toLowerCase().includes(search.toLowerCase())
+⋮----
+setFilteredStudents(filtered);
+⋮----
+const handleSelectStudent = async (studentId) => {
+⋮----
+const response = await fetch(`${API_URL}/groups/${groupId}/addMember`, {
+⋮----
+body: JSON.stringify({ userId: studentId }),
+⋮----
+const updatedGroup = await response.json();
+⋮----
+onMemberAdded(updatedGroup); // Actualiza el estado del grupo
+onClose();
+⋮----
+// Refrescar la lista de alumnos para reflejar los cambios
+const updatedStudentsResponse = await fetch(`${API_URL}/users?role=student`);
+const updatedStudents = await updatedStudentsResponse.json();
+setAllStudents(updatedStudents); // Actualizar la lista de estudiantes
+⋮----
+console.error('Error al agregar miembro:', updatedGroup.error);
+⋮----
+console.error('Error al agregar miembro:', err);
+⋮----
+onChange={e => setSearch(e.target.value)}
+⋮----
+{filteredStudents.map(student => (
+⋮----
+<button onClick={() => handleSelectStudent(student._id)}>
+</file>
+
+<file path="apps/web/src/pages/Groups/CalendarPlaceholder.jsx">
+// src/pages/Groups/CalendarPlaceholder.jsx
+⋮----
+function CalendarPlaceholder({ group, onDatesChanged }) {
+const [selectedDates, setSelectedDates] = useState([]);
+const [focusedDate, setFocusedDate] = useState(null);
+const [startTime, setStartTime] = useState('');
+const [endTime, setEndTime] = useState('');
+const [place, setPlace] = useState('Skate park Bola de Oro');
+⋮----
+useEffect(() => {
+⋮----
+const converted = group.scheduledDates.map(d => ({
+date: new Date(d.date),
+⋮----
+setSelectedDates(converted);
+setFocusedDate(null);
+setStartTime('');
+setEndTime('');
+setPlace('Skate park Bola de Oro');
+⋮----
+setSelectedDates([]);
+⋮----
+const handleChange = (date) => {
+const dateString = date.toDateString();
+const existing = selectedDates.find(d => d.date.toDateString() === dateString);
+⋮----
+setFocusedDate(existing.date);
+setStartTime(existing.startTime);
+setEndTime(existing.endTime);
+setPlace(existing.place || 'Skate park Bola de Oro');
+⋮----
+setSelectedDates(updated);
+setFocusedDate(date);
+⋮----
+const handleApplyTimes = () => {
+⋮----
+const dateString = focusedDate.toDateString();
+const updated = selectedDates.map(d => {
+if (d.date.toDateString() === dateString) {
+return { ...d, startTime, endTime, place }; // Aquí guardas el nuevo lugar correctamente
+⋮----
+onDatesChanged(updated); // Importante: Enviamos las fechas actualizadas al backend
+⋮----
+// ✅ Cierra la edición:
+⋮----
+const handleDeleteDate = () => {
+⋮----
+const updated = selectedDates.filter(d => d.date.toDateString() !== dateString);
+⋮----
+onDatesChanged(updated);
+⋮----
+const tileClassName = ({ date, view }) => {
+⋮----
+if (selectedDates.find(d => d.date.toDateString() === dateString)) {
+⋮----
+<p>Fecha seleccionada: {focusedDate.toDateString()}</p>
+⋮----
+onChange={e => setStartTime(e.target.value)}
+⋮----
+onChange={e => setEndTime(e.target.value)}
+⋮----
+onChange={e => setPlace(e.target.value)}
+</file>
+
+<file path="apps/web/src/pages/Groups/GroupDetail.jsx">
+function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, onUpdateGroupNotes, onUpdateGroupRanking, onNotificationAdded }) {
+const [editingName, setEditingName] = useState(false);
+const [tempName, setTempName] = useState('');
+const [editingRanking, setEditingRanking] = useState(false);
+const [tempRanking, setTempRanking] = useState('');
+const [editingNotes, setEditingNotes] = useState(false);
+const [tempNotes, setTempNotes] = useState('');
+const [uploadingAvatar, setUploadingAvatar] = useState(false);
+⋮----
+const handleEditClick = () => {
+setEditingName(true);
+setTempName(group.name);
+⋮----
+const handleNameChange = (e) => {
+setTempName(e.target.value);
+⋮----
+const handleNameSave = () => {
+onUpdateGroupName(tempName);
+setEditingName(false);
+⋮----
+const handleNameCancel = () => {
+⋮----
+const handleEditRanking = () => {
+setEditingRanking(true);
+setTempRanking(group.ranking);
+⋮----
+const handleRankingChange = (e) => {
+setTempRanking(e.target.value);
+⋮----
+const handleRankingSave = () => {
+onUpdateGroupRanking(group._id, Number(tempRanking));
+setEditingRanking(false);
+⋮----
+const handleRankingCancel = () => {
+⋮----
+const handleEditNotes = () => {
+setEditingNotes(true);
+setTempNotes(group.tricks || '');
+⋮----
+const handleNotesChange = (e) => {
+setTempNotes(e.target.value);
+⋮----
+const handleNotesSave = () => {
+onUpdateGroupNotes(group._id, tempNotes);
+setEditingNotes(false);
+⋮----
+const handleNotesCancel = () => {
+⋮----
+const handleAvatarChange = (e) => {
+⋮----
+const formData = new FormData();
+formData.append('avatar', file);
+⋮----
+setUploadingAvatar(true);
+⋮----
+fetch(`${API_URL}/groups/${group._id}/avatar`, {
+⋮----
+.then((res) => res.json())
+.then((updatedGroup) => {
+setUploadingAvatar(false);
+⋮----
+onGroupUpdated(updatedGroup); // 💥 forzamos la actualización del grupo desde el padre
+⋮----
+.catch((err) => {
+console.error(err);
+⋮----
+// ✅ AQUÍ la función que guarda las fechas y lugares en la BBDD
+const handleDatesChanged = (datesArray) => {
+const formattedDates = datesArray.map(d => ({
+date: d.date.toISOString(),
+⋮----
+fetch(`${API_URL}/groups/${group._id}`, {
+⋮----
+body: JSON.stringify({ scheduledDates: formattedDates }),
+⋮----
+.then(res => res.json())
+.then(updatedGroup => {
+console.log('Fechas actualizadas en backend:', updatedGroup);
+⋮----
+.catch(err => console.error('Error actualizando fechas:', err));
+⋮----
+group.members.map((member) => (
+⋮----
+onClick={() => onRemoveMember(member._id)}
+⋮----
+{/* 📅 Calendario con la función correcta */}
+</file>
+
+<file path="apps/web/src/pages/Groups/GroupList.jsx">
+function GroupList({ groups, onSelectGroup, selectedGroupId, onAddGroup }) {
+⋮----
+top: '60px', // Ajusta según la altura del header
+left: '289px', // Ancho del sidebar
+⋮----
+{groups.map(group => (
+⋮----
+onClick={() => onSelectGroup(group._id)}
+</file>
+
+<file path="apps/web/src/pages/GroupsPage.jsx">
+function GroupsPage() {
+const [groups, setGroups] = useState([]);
+const [selectedGroupId, setSelectedGroupId] = useState(null);
+const [selectedGroup, setSelectedGroup] = useState(null);
+const [isAddGroupModalOpen, setAddGroupModalOpen] = useState(false);
+const [isAddMemberModalOpen, setAddMemberModalOpen] = useState(false);
+const [selectedGroupId1, setSelectedGroupId1] = useState(null);
+const location = useLocation();
+⋮----
+useEffect(() => {
+⋮----
+// Manejar parámetros de la URL (para la lógica de búsqueda)
+const params = new URLSearchParams(location.search);
+const groupIdFromUrl = params.get('groupId');
+⋮----
+setSelectedGroupId1(groupIdFromUrl);
+⋮----
+fetch(`${API_URL}/groups`)
+.then(res => res.json())
+.then(data => {
+setGroups(data);
+⋮----
+.catch(err => console.error(err));
+⋮----
+fetch(`${API_URL}/groups/${selectedGroupId}`)
+⋮----
+setSelectedGroup(data);
+⋮----
+setSelectedGroup(null);
+⋮----
+// Obtener detalles del grupo seleccionado desde la URL
+⋮----
+fetch(`${API_URL}/groups/${selectedGroupId1}`)
+.then((res) => res.json())
+.then((data) => setSelectedGroup(data))
+.catch((err) => console.error(err));
+⋮----
+const handleSelectGroup = (id) => {
+setSelectedGroupId(id);
+⋮----
+const handleAddGroup = () => {
+setAddGroupModalOpen(true);
+⋮----
+const handleSaveGroup = (name) => {
+fetch(`${API_URL}/groups`, {
+⋮----
+body: JSON.stringify({ name })
+⋮----
+.then(newGroup => {
+setGroups(prev => [...prev, newGroup]);
+setAddGroupModalOpen(false);
+⋮----
+const handleCloseAddGroup = () => {
+⋮----
+const handleAddMember = () => {
+setAddMemberModalOpen(true);
+⋮----
+const handleCloseAddMemberModal = () => {
+setAddMemberModalOpen(false);
+⋮----
+const fetchGroupsAndStudents = () => {
+// Refrescar grupos
+⋮----
+.then(data => setGroups(data))
+⋮----
+// Refrescar alumnos
+fetch(`${API_URL}/users?role=student`)
+⋮----
+.then(data => setStudents(data)) // Asegúrate de definir `setStudents` en el estado
+⋮----
+// Llamar a fetchGroupsAndStudents después de añadir o eliminar un miembro
+const handleMemberAdded = (updatedGroup) => {
+setSelectedGroup(updatedGroup);
+fetchGroupsAndStudents(); // Refrescar datos después de añadir
+⋮----
+const handleRemoveMember = (memberId) => {
+fetch(`${API_URL}/groups/${selectedGroupId}/removeMember`, {
+⋮----
+body: JSON.stringify({ userId: memberId }),
+⋮----
+.then(updatedGroup => {
+⋮----
+fetchGroupsAndStudents(); // Refrescar datos después de eliminar
+⋮----
+const handleUpdateGroupName = (newName) => {
+fetch(`${API_URL}/groups/${selectedGroupId}`, {
+⋮----
+body: JSON.stringify({ name: newName })
+⋮----
+console.log(updatedGroup);
+⋮----
+// Actualizar también la lista principal de grupos para reflejar el cambio en el sidebar
+setGroups(prev => prev.map(g => g._id === updatedGroup._id ? updatedGroup : g));
+⋮----
+const handleDatesChanged = (datesArray) => {
+⋮----
+const formattedDates = datesArray.map(d => ({
+date: d.date.toISOString(),
+⋮----
+body: JSON.stringify({ scheduledDates: formattedDates })
+⋮----
+const handleNotificationAdded = (newNotifications) => {
+⋮----
+// Actualizar el grupo en el estado con las notificaciones actualizadas
+setSelectedGroup(prev => ({ ...prev, notifications: newNotifications }));
+⋮----
+const handleUpdateGroupRanking = (groupId, newRanking) => {
+fetch(`${API_URL}/groups/${groupId}`, {
+⋮----
+body: JSON.stringify({ ranking: newRanking }),
+⋮----
+.then((updatedGroup) => {
+⋮----
+const handleUpdateGroupNotes = (groupId, newNotes) => {
+⋮----
+body: JSON.stringify({ tricks: newNotes })
+⋮----
+onChange={(e) => handleSelectGroup(e.target.value)}
+⋮----
+{groups.map((group) => (
+⋮----
+// 🧠 Actualizamos el estado individual y el listado completo
+⋮----
+// Modo Desktop Normal
+</file>
+
+<file path="apps/web/src/pages/PaymentsPage.jsx">
+function PaymentsPage() {
+const [paymentConfigs, setPaymentConfigs] = useState({});
+const [notificationMessage, setNotificationMessage] = useState('');
+const [allPayments, setAllPayments] = useState([]);
+const [payments, setPayments] = useState([]);
+const [searchTerm, setSearchTerm] = useState('');
+⋮----
+const [selectedMethod, setSelectedMethod] = useState('');
+⋮----
+useEffect(() => {
+// Cargar configuración de métodos de pago
+fetch(`${API_URL}/payments`)
+.then(res => res.json())
+.then(data => {
+⋮----
+data.forEach(cfg => {
+⋮----
+setPaymentConfigs(configs);
+⋮----
+.catch(err => console.error(err));
+⋮----
+// Cargar histórico de pagos
+fetch(`${API_URL}/users/payments-history`)
+⋮----
+.then(data => setAllPayments(data))
+⋮----
+const handlePaymentChange = (method, field, value) => {
+setPaymentConfigs(prev => ({
+⋮----
+const handleSaveAndNotify = () => {
+⋮----
+Promise.all(
+paymentMethods.map(method => {
+⋮----
+return fetch(`${API_URL}/payments`, {
+⋮----
+body: JSON.stringify({ method, ...config }),
+⋮----
+.then(() => {
+return fetch(`${API_URL}/payments/notify`, {
+⋮----
+body: JSON.stringify({ notificationMessage }),
+⋮----
+alert('Configuración guardada y notificación enviada.');
+setNotificationMessage('');
+⋮----
+.then(data => setPayments(data))
+⋮----
+const handleClearFilters = () => {
+setSearchTerm('');
+setSelectedMethod('');
+⋮----
+// Filtro aplicado en el renderizado de la tabla
+const filteredPayments = allPayments.filter(payment => {
+const matchesSearch = payment.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+|| payment.userId?.email?.toLowerCase().includes(searchTerm.toLowerCase());
+⋮----
+onChange={(e) => setNotificationMessage(e.target.value)}
+⋮----
+{/* Efectivo */}
+⋮----
+onChange={(e) => handlePaymentChange('efectivo', 'message', e.target.value)}
+⋮----
+{/* Bizum */}
+⋮----
+onChange={(e) => handlePaymentChange('bizum', 'phone', e.target.value)}
+⋮----
+onChange={(e) => handlePaymentChange('bizum', 'message', e.target.value)}
+⋮----
+{/* Transferencia */}
+⋮----
+onChange={(e) => handlePaymentChange('transferencia', 'accountNumber', e.target.value)}
+⋮----
+onChange={(e) => handlePaymentChange('transferencia', 'subject', e.target.value)}
+⋮----
+onChange={(e) => handlePaymentChange('transferencia', 'message', e.target.value)}
+⋮----
+{/* Filtros */}
+⋮----
+onChange={(e) => setSearchTerm(e.target.value)}
+⋮----
+onClick={() => setSelectedMethod('')}
+⋮----
+onClick={() => setSelectedMethod('efectivo')}
+⋮----
+onClick={() => setSelectedMethod('bizum')}
+⋮----
+onClick={() => setSelectedMethod('transferencia')}
+⋮----
+{/* Scrollable Histórico */}
+⋮----
+{filteredPayments.map((payment, index) => (
+⋮----
+<td>{new Date(payment.date).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</td>
+</file>
+
+<file path="apps/web/src/pages/RequestsPage.jsx">
+function RequestsPage() {
+const [requests, setRequests] = useState([]);
+const [roleSelections, setRoleSelections] = useState({}); // Almacena los roles seleccionados por cada solicitud
+⋮----
+useEffect(() => {
+fetch(`${API_URL}/users/requests`)
+.then(res => res.json())
+.then(data => setRequests(data))
+.catch(err => console.error(err));
+⋮----
+const handleRoleChange = (id, selectedRole) => {
+setRoleSelections(prev => ({ ...prev, [id]: selectedRole }));
+⋮----
+const handleUpdateRequest = (id, status) => {
+const selectedRole = roleSelections[id] || 'student'; // Por defecto 'student' si no selecciona nada
+⋮----
+fetch(`${API_URL}/users/requests/${id}`, {
+⋮----
+body: JSON.stringify({ status, role: selectedRole }),
+⋮----
+.then(() => {
+setRequests(prev => prev.filter(req => req._id !== id));
+setRoleSelections(prev => {
+⋮----
+{requests.map(request => (
+⋮----
+onChange={e => handleRoleChange(request._id, e.target.value)}
+⋮----
+<button onClick={() => handleUpdateRequest(request._id, 'approved')}>
+⋮----
+<button onClick={() => handleUpdateRequest(request._id, 'rejected')}>
+</file>
+
+<file path="apps/web/src/pages/StudentClasses.jsx">
+function StudentClasses() {
+const [user, setUser] = useState({});
+const [upcomingClasses, setUpcomingClasses] = useState([]);
+const [groupDetails, setGroupDetails] = useState(null);
+const [selectedDate, setSelectedDate] = useState(null);
+const [showModal, setShowModal] = useState(false);
+⋮----
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user'));
+⋮----
+setUser(storedUser);
+⋮----
+fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
+.then(res => res.json())
+.then(group => setGroupDetails(group));
+⋮----
+fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
+⋮----
+.then(data => setUpcomingClasses(data));
+⋮----
+const handleDayClick = (value) => {
+setSelectedDate(value);
+setShowModal(true);
+⋮----
+const classesForSelectedDate = upcomingClasses.filter(
+c => new Date(c.date).toDateString() === selectedDate?.toDateString()
+⋮----
+<h3>📅 {new Date(upcomingClasses[0].date).toLocaleDateString()}</h3>
+⋮----
+const foundClass = upcomingClasses.find(
+(c) => new Date(c.date).toDateString() === date.toDateString()
+⋮----
+<div className="modal-overlay" onClick={() => setShowModal(false)}>
+<div className="modal-content" onClick={(e) => e.stopPropagation()}>
+⋮----
+Clases para el {selectedDate?.toLocaleDateString()}
+⋮----
+classesForSelectedDate.map((cls, index) => (
+⋮----
+<button onClick={() => setShowModal(false)} className="close-modal-button">Cerrar</button>
+</file>
+
+<file path="apps/web/src/pages/StudentPayments.jsx">
+import '../css/StudentPayments.css'; // Crea este archivo para estilos si no existe
+⋮----
+function StudentPayments() {
+const [showReminder, setShowReminder] = useState(false);
+const [payments, setPayments] = useState([]);
+const [user, setUser] = useState({});
+const [searchTerm, setSearchTerm] = useState('');
+const [selectedMethod, setSelectedMethod] = useState('');
+const [selectedMonth, setSelectedMonth] = useState('');
+const [paymentConfigs, setPaymentConfigs] = useState({});
+⋮----
+useEffect(() => {
+const currentDate = new Date();
+const day = currentDate.getDate();
+⋮----
+setShowReminder(true);
+⋮----
+const storedUser = JSON.parse(localStorage.getItem('user'));
+console.log('User ID:', storedUser.id);
+setUser(storedUser);
+⋮----
+fetch(`${API_URL}/payments`)
+.then(res => res.json())
+.then(data => {
+⋮----
+data.forEach(cfg => {
+⋮----
+setPaymentConfigs(configs);
+⋮----
+.catch(err => console.error('Error cargando configuración de pagos:', err));
+⋮----
+// Simula la obtención de pagos desde el backend
+fetch(`${API_URL}/users/payments-history/${storedUser.id}`)
+⋮----
+.then(data => setPayments(data))
+.catch(err => console.error('Error cargando pagos:', err));
+⋮----
+const handleClearFilters = () => {
+setSearchTerm('');
+setSelectedMethod('');
+⋮----
+const filteredPayments = payments.filter(payment => {
+const paymentMonth = new Date(payment.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+⋮----
+{['efectivo', 'bizum', 'transferencia'].map(method => (
+⋮----
+{method.charAt(0).toUpperCase() + method.slice(1)}
+⋮----
+{/* Filtros */}
+⋮----
+onChange={(e) => setSelectedMethod(e.target.value)}
+⋮----
+onChange={(e) => setSelectedMonth(e.target.value)}
+⋮----
+{Array.from(new Set(payments.map(payment =>
+new Date(payment.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })
+))).map(month => (
+⋮----
+<button className="filter-button" onClick={() => { setSelectedMethod(''); setSelectedMonth(''); }}>
+⋮----
+{/* Tabla con Scroll */}
+⋮----
+{filteredPayments.map((payment, index) => (
+⋮----
+<td>{new Date(payment.date).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</td>
+</file>
+
+<file path="apps/web/src/pages/StudentsPage.jsx">
+function StudentsPage() {
+const [students, setStudents] = useState([]);
+const [groups, setGroups] = useState([]);
+// const [newStudent, setNewStudent] = useState({
+//   name: '',
+//  email: '',
+//   phone: '',
+//   groupId: '',
+//  paymentMethod: '',
+//   discount: 0,
+//  });
+const [editStudent, setEditStudent] = useState(null);
+const [error, setError] = useState('');
+const [highlightedStudentId, setHighlightedStudentId] = useState(null); // ID del usuario destacado
+const location = useLocation();
+const [currentPage, setCurrentPage] = useState(1);
+const [studentsPerPage] = useState(10); // Número de alumnos por página
+const [expandedStudentId, setExpandedStudentId] = useState(null); // ID del alumno expandido
+⋮----
+// Obtener alumnos y grupos al cargar la página
+useEffect(() => {
+// Obtener parámetros de la URL
+const params = new URLSearchParams(location.search);
+const userId = params.get('userId');
+⋮----
+setHighlightedStudentId(userId);
+⋮----
+fetch(`${API_URL}/users/students`) // Obtener alumnos
+.then((res) => res.json())
+.then((data) => setStudents(data))
+.catch((err) => console.error(err));
+⋮----
+fetch(`${API_URL}/groups`) // Obtener grupos
+⋮----
+.then((data) => setGroups(data))
+⋮----
+// Crear un nuevo alumno
+//  const handleCreateStudent = () => {
+//    fetch(`${API_URL}/api/users/students`, {
+//      method: 'POST',
+//      headers: { 'Content-Type': 'application/json' },
+//      body: JSON.stringify(newStudent),
+//    })
+//      .then((res) => res.json())
+//      .then((data) => {
+//        if (data.error) {
+//          setError(data.error);
+//        } else {
+//          setStudents((prev) => [...prev, data]);
+//          setNewStudent({
+//            name: '',
+//            email: '',
+//            phone: '',
+//            groupId: '',
+//            paymentMethod: '',
+//            discount: 0,
+//          });
+//        }
+//      })
+//      .catch((err) => console.error(err));
+//  };
+⋮----
+const fetchStudentsAndGroups = () => {
+fetch(`${API_URL}/users/students`)
+⋮----
+fetch(`${API_URL}/groups`)
+⋮----
+// Llamar a esta función después de cualquier acción
+const handleUpdateStudent = () => {
+console.log('Actualizando alumno con ID:', editStudent._id);  // Verifica el ID del alumno
+⋮----
+fetch(`${API_URL}/users/students/${editStudent._id}`, {
+⋮----
+body: JSON.stringify(editStudent),  // Incluye el nuevo método de pago aquí
+⋮----
+.then((updatedStudent) => {
+console.log('Alumno actualizado:', updatedStudent);  // Ver el alumno actualizado
+⋮----
+setError(updatedStudent.error);
+⋮----
+fetchStudentsAndGroups(); // Refrescar datos
+setEditStudent(null); // Cierra el modal
+⋮----
+.catch((err) => console.error('Error al actualizar el alumno:', err));
+⋮----
+const handleDeleteStudent = (id) => {
+const confirmDelete = window.confirm('¿Estás seguro de que deseas eliminar este alumno?');
+⋮----
+fetch(`${API_URL}/users/students/${id}`, {
+⋮----
+.then(() => {
+setStudents((prev) => prev.filter((student) => student._id !== id));
+⋮----
+// Manejar el cambio de página
+⋮----
+const currentStudents = students.slice(indexOfFirstStudent, indexOfLastStudent);
+⋮----
+const totalPages = Math.ceil(students.length / studentsPerPage);
+⋮----
+const handlePageChange = (page) => {
+if (page > 0 && page <= totalPages) setCurrentPage(page);
+⋮----
+{/* Formulario para añadir alumno 
+      <div>
+        <h3>Añadir Nuevo Alumno</h3>
+        <input
+          type="text"
+          placeholder="Nombre"
+          value={newStudent.name}
+          onChange={(e) => setNewStudent({ ...newStudent, name: e.target.value })}
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={newStudent.email}
+          onChange={(e) => setNewStudent({ ...newStudent, email: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Teléfono"
+          value={newStudent.phone}
+          onChange={(e) => setNewStudent({ ...newStudent, phone: e.target.value })}
+        />
+        <select
+          value={newStudent.groupId}
+          onChange={(e) => setNewStudent({ ...newStudent, groupId: e.target.value })}
+        >
+          <option value="">Seleccionar Grupo</option>
+          {groups.map((group) => (
+            <option key={group._id} value={group._id}>
+              {group.name}
+            </option>
+          ))}
+        </select>
+        <select
+          value={newStudent.paymentMethod}
+          onChange={(e) => setNewStudent({ ...newStudent, paymentMethod: e.target.value })}
+        >
+          <option value="">Forma de Pago</option>
+          <option value="efectivo">Efectivo</option>
+          <option value="bizum">Bizum</option>
+          <option value="transferencia">Transferencia</option>
+        </select>
+        <input
+          type="number"
+          placeholder="Descuento (%)"
+          value={newStudent.discount}
+          onChange={(e) => setNewStudent({ ...newStudent, discount: parseInt(e.target.value, 10) })}
+        />
+        <button onClick={handleCreateStudent}>Crear Alumno</button>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
+*/}
+⋮----
+{/* Tabla de alumnos */}
+⋮----
+{currentStudents.map((student) => (
+⋮----
+<td data-label="Nombre" onClick={() => setExpandedStudentId(expandedStudentId === student._id ? null : student._id)}>
+⋮----
+<button onClick={() => setEditStudent(student)}>Editar</button>
+<button onClick={() => handleDeleteStudent(student._id)}>Eliminar</button>
+⋮----
+<button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+⋮----
+<button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
+⋮----
+{/* Modal para editar alumno */}
+⋮----
+onChange={(e) => setEditStudent({ ...editStudent, name: e.target.value })}
+⋮----
+onChange={(e) => setEditStudent({ ...editStudent, email: e.target.value })}
+⋮----
+onChange={(e) => setEditStudent({ ...editStudent, phone: e.target.value })}
+⋮----
+onChange={(e) => setEditStudent({ ...editStudent, groupId: e.target.value })}
+⋮----
+{groups.map((group) => (
+⋮----
+setEditStudent({ ...editStudent, paymentMethod: e.target.value })
+⋮----
+setEditStudent({ ...editStudent, discount: parseInt(e.target.value, 10) })
+⋮----
+<button onClick={() => setEditStudent(null)}>Cancelar</button>
+</file>
+
+<file path="apps/web/src/pages/StudentTricks.jsx">
+function StudentTricks() {
+const [tricks, setTricks] = useState([]);
+const [user, setUser] = useState({});
+const [filter, setFilter] = useState('all');
+⋮----
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user'));
+setUser(storedUser);
+⋮----
+fetch(`${API_URL}/tricks`)
+.then(res => res.json())
+.then(data => {
+// Aseguramos que cada truco tenga un campo "highlighted" y "doneBy" array para evitar errores
+const updatedData = data.map(trick => ({
+⋮----
+setTricks(updatedData);
+⋮----
+.catch(err => console.error('Error cargando trucos:', err));
+⋮----
+const handleMarkAsDone = (trickId) => {
+fetch(`${API_URL}/tricks/mark-done`, {
+⋮----
+body: JSON.stringify({ userId: user.id, trickId }),
+⋮----
+.then(() => {
+setTricks(tricks.map(trick =>
+trick._id === trickId && !trick.doneBy.includes(user.id)
+⋮----
+.catch(err => console.error('Error al marcar como realizado:', err));
+⋮----
+const handleLike = (trickId) => {
+fetch(`${API_URL}/tricks/like`, {
+⋮----
+body: JSON.stringify({ userId: user._id, trickId }),
+⋮----
+.then(({ trick: updatedTrick }) => {
+⋮----
+.catch(err => console.error('Error al registrar like:', err));
+⋮----
+const handleView = (trickId) => {
+fetch(`${API_URL}/tricks/view`, {
+⋮----
+body: JSON.stringify({ trickId }),
+⋮----
+.catch(err => console.error('Error al registrar vista:', err));
+⋮----
+const getFilteredTricks = () => {
+⋮----
+filtered = filtered.filter(trick => trick.highlighted);
+⋮----
+<button onClick={() => setFilter('all')} className={filter === 'all' ? 'active' : ''}>Todos</button>
+<button onClick={() => setFilter('highlighted')} className={filter === 'highlighted' ? 'active' : ''}>Destacados</button>
+⋮----
+{getFilteredTricks().length ? getFilteredTricks().map(trick => (
+⋮----
+url={trick.video} // Directamente la URL que guardas en la BD
+⋮----
+onPlay={() => handleView(trick._id)}
+⋮----
+{!trick.doneBy.includes(user.id) && (
+⋮----
+onClick={() => handleMarkAsDone(trick._id)}
+⋮----
+{!trick.likedBy?.includes(user._id) && (
+⋮----
+onClick={() => handleLike(trick._id)}
+</file>
+
+<file path="apps/web/src/pages/TricksPage.jsx">
+function TricksPage() {
+const [tricks, setTricks] = useState([]);
+const [activeFilter, setActiveFilter] = useState("");
+⋮----
+const [modalOpen, setModalOpen] = useState(false);
+const [editingTrick, setEditingTrick] = useState(null);
+const [sortOrder, setSortOrder] = useState('asc'); // 'asc' o 'desc'
+const [currentPage, setCurrentPage] = useState(1);
+const [tricksPerPage] = useState(10);
+const [expandedTrickId, setExpandedTrickId] = useState(null);
+⋮----
+// Calculamos paginación
+⋮----
+const getSortedTricks = () => {
+⋮----
+sorted.sort((a, b) => sortOrder === "asc" ? a.likes - b.likes : b.likes - a.likes);
+⋮----
+sorted.sort((a, b) => sortOrder === "asc" ? a.views - b.views : b.views - a.views);
+⋮----
+sorted.sort((a, b) => {
+const dateA = new Date(a.dateAdded);
+const dateB = new Date(b.dateAdded);
+⋮----
+return sorted.sort((a, b) => b.highlighted - a.highlighted);
+⋮----
+const currentTricks = getSortedTricks().slice(indexOfFirstTrick, indexOfLastTrick);
+⋮----
+const totalPages = Math.ceil(tricks.length / tricksPerPage);
+⋮----
+const handlePageChange = (page) => {
+if (page > 0 && page <= totalPages) setCurrentPage(page);
+⋮----
+const [formData, setFormData] = useState({
+⋮----
+useEffect(() => {
+fetchTricks();
+⋮----
+const fetchTricks = async () => {
+⋮----
+const response = await fetch(`${API_URL}/tricks`);
+const data = await response.json();
+const sorted = data.sort((a, b) => b.highlighted - a.highlighted);
+setTricks(sorted);
+} catch (error) { console.error("Error al obtener trucos:", error); }
+⋮----
+const handleFilterClick = (filter) => {
+⋮----
+setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
+⋮----
+setActiveFilter(filter);
+setSortOrder('asc');
+⋮----
+const handleOpenModal = (trick = null) => {
+setEditingTrick(trick);
+setFormData(trick || { name: "", author: "", url: "" });
+setModalOpen(true);
+⋮----
+const handleCloseModal = () => {
+setModalOpen(false);
+setFormData({ name: "", author: "", url: "" });
+⋮----
+const handleInputChange = (e) => {
+⋮----
+setFormData((prev) => ({ ...prev, [name]: value }));
+⋮----
+const handleSubmit = async () => {
+⋮----
+: new Date().toISOString(),
+⋮----
+// Editar truco existente
+const response = await fetch(`${API_URL}/tricks/${editingTrick._id}`,
+⋮----
+body: JSON.stringify(newTrick),
+⋮----
+const updatedTrick = await response.json();
+setTricks((prev) =>
+prev.map((trick) =>
+⋮----
+// Crear nuevo truco
+const response = await fetch(`${API_URL}/tricks`, {
+⋮----
+const savedTrick = await response.json();
+setTricks((prev) => [...prev, savedTrick]);
+⋮----
+console.error("Error al guardar el truco:", error);
+⋮----
+handleCloseModal();
+⋮----
+const handleDelete = async (id) => {
+⋮----
+await fetch(`${API_URL}/tricks/${id}`, {
+⋮----
+setTricks((prev) => prev.filter((trick) => trick._id !== id));
+⋮----
+console.error("Error al eliminar truco:", error);
+⋮----
+const getYouTubeThumbnail = (url) => {
+if (!url) return 'https://via.placeholder.com/100'; // Miniatura predeterminada
+⋮----
+if (url.includes('youtube.com/watch?v=')) {
+videoId = url.split('v=')[1]?.split('&')[0]; // Extrae ID del formato estándar
+} else if (url.includes('youtu.be/')) {
+videoId = url.split('youtu.be/')[1]?.split('?')[0]; // Extrae ID de URLs cortas
+⋮----
+: 'https://via.placeholder.com/100'; // Si no se puede extraer, usa una miniatura predeterminada
+⋮----
+console.error('Error al extraer la miniatura:', error);
+return 'https://via.placeholder.com/100'; // Miniatura predeterminada en caso de error
+⋮----
+const toggleHighlight = async (id, highlighted) => {
+⋮----
+await fetch(`${API_URL}/tricks/highlight/${id}`, {
+⋮----
+body: JSON.stringify({ highlighted }),
+⋮----
+fetchTricks(); // Recarga los trucos
+⋮----
+console.error('Error al actualizar destacado:', error);
+⋮----
+<button className="new-trick-button" onClick={() => handleOpenModal()}>
+⋮----
+<button className={activeFilter === "like" ? "active-filtro" : ""} onClick={() => handleFilterClick("like")}>Like</button>
+<button className={activeFilter === "view" ? "active-filtro" : ""} onClick={() => handleFilterClick("view")}>View</button>
+<button className={activeFilter === "date" ? "active-filtro" : ""} onClick={() => handleFilterClick("date")}>Date</button>
+<button className="tricks-order" onClick={() => setSortOrder(prev => (prev === "asc" ? "desc" : "asc"))}>
+⋮----
+{currentTricks.map((trick, index) => (
+⋮----
+<td onClick={() => setExpandedTrickId(expandedTrickId === trick._id ? null : trick._id)}>
+⋮----
+<img src={getYouTubeThumbnail(trick.video)} alt={trick.name} className="video-thumbnail" />
+⋮----
+<div><strong>Fecha:</strong> {new Date(trick.dateAdded).toLocaleDateString("es-ES")}</div>
+⋮----
+<button onClick={() => handleOpenModal(trick)}>Editar</button>
+<button onClick={() => handleDelete(trick._id)}>Eliminar</button>
+⋮----
+<td><img src={getYouTubeThumbnail(trick.video)} alt={trick.name} className="video-thumbnail" /></td>
+⋮----
+<td>{new Date(trick.dateAdded).toLocaleDateString("es-ES")}</td>
+⋮----
+<button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+⋮----
+<button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
+⋮----
+{/* Modal permanece sin cambios */}
+</file>
+
+<file path="backend/.gitignore">
+/config/firebase-service-account.json
+</file>
+
+<file path="backend/middleware/authMiddleware.js">
+const authMiddleware = async (req, res, next) => {
+⋮----
+const authHeader = req.header('Authorization');
+if (!authHeader) return res.status(401).json({ error: 'Token faltante' });
+⋮----
+const token = authHeader.split(' ')[1];
+if (!token) return res.status(401).json({ error: 'Token inválido' });
+⋮----
+const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secretKey');
+const user = await User.findById(decoded.userId);
+⋮----
+if (!user) return res.status(404).json({ error: 'Usuario no encontrado' });
+⋮----
+next();
+⋮----
+console.error('Error en el middleware de autenticación:', err);
+res.status(401).json({ error: 'Token inválido o expirado' });
+⋮----
+// Middleware adicional para autorizar por rol
+const authorize = (...allowedRoles) => {
+⋮----
+if (!req.user || !allowedRoles.includes(req.user.role)) {
+return res.status(403).json({ error: 'No autorizado' });
+</file>
+
+<file path="backend/models/Group.js">
+// models/Group.js
+⋮----
+const classDateSchema = new mongoose.Schema({
+⋮----
+place: { type: String, default: 'Skate park Bola de Oro' } // ✅ Añadido lugar con valor por defecto
+⋮----
+const notificationSchema = new mongoose.Schema({
+⋮----
+const groupSchema = new mongoose.Schema({
+⋮----
+module.exports = mongoose.model('Group', groupSchema);
+</file>
+
+<file path="backend/models/Payment.js">
+// File: backend/models/Payment.js
+⋮----
+const PaymentSchema = new mongoose.Schema({
+⋮----
+method: { type: String, required: true }, // efectivo, bizum, transferencia
+⋮----
+module.exports = mongoose.model('Payment', PaymentSchema);
+</file>
+
+<file path="backend/models/PaymentConfig.js">
+// File: backend/models/PaymentConfig.js
+⋮----
+const paymentConfigSchema = new mongoose.Schema({
+method: { type: String, required: true }, // efectivo, bizum, transferencia
+message: String, // Instrucciones o información adicional
+phone: String,   // Solo para bizum
+accountNumber: String, // Solo para transferencia
+subject: String  // Solo para transferencia
+⋮----
+module.exports = mongoose.model('PaymentConfig', paymentConfigSchema);
+</file>
+
+<file path="backend/models/PaymentHistory.js">
+// File: backend/models/PaymentHistory.js
+⋮----
+const paymentHistorySchema = new mongoose.Schema({
+⋮----
+method: { type: String, required: true }, // efectivo, bizum, transferencia
+⋮----
+module.exports = mongoose.model('PaymentHistory', paymentHistorySchema);
+</file>
+
+<file path="backend/models/Request.js">
+const requestSchema = new mongoose.Schema({
+⋮----
+module.exports = mongoose.model('Request', requestSchema);
+</file>
+
+<file path="backend/models/Trick.js">
+const TrickSchema = new mongoose.Schema({
+⋮----
+doneBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }], // Usuarios que lo completaron
+likedBy: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]  // ✅ Usuarios que dieron like
+⋮----
+module.exports = mongoose.model('Trick', TrickSchema);
+</file>
+
+<file path="backend/models/User.js">
+// File: backend/models/Users.js
+⋮----
+const userSchema = new mongoose.Schema({
+⋮----
+userSchema.pre('save', async function (next) {
+if (!this.isModified('password')) return next();
+⋮----
+const salt = await bcrypt.genSalt(10);
+this.password = await bcrypt.hash(this.password, salt);
+next();
+⋮----
+next(err);
+⋮----
+module.exports = mongoose.model('User', userSchema);
+</file>
+
+<file path="backend/routes/groups.js">
+const router = express.Router();
+⋮----
+// Configuración de multer para almacenar archivos en una carpeta 'uploads'
+const storage = multer.diskStorage({
+⋮----
+cb(null, path.join(__dirname, '../uploads'));
+⋮----
+const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+cb(null, uniqueSuffix + '-' + file.originalname);
+⋮----
+const upload = multer({ storage });
+⋮----
+// Obtener todos los grupos
+router.get('/', async (req, res) => {
+⋮----
+const groups = await Group.find().populate('members');
+res.json(groups);
+⋮----
+console.error(err);
+res.status(500).json({ error: 'Error al obtener grupos' });
+⋮----
+// Obtener próximas clases del grupo asignado
+router.get('/upcoming-classes/:groupId', async (req, res) => {
+⋮----
+const group = await Group.findById(groupId);
+if (!group) return res.status(404).json({ error: 'Grupo no encontrado' });
+⋮----
+const today = new Date();
+const twoWeeksLater = new Date();
+twoWeeksLater.setDate(today.getDate() + 14);
+⋮----
+.filter(({ date }) => {
+const classDate = new Date(date);
+⋮----
+.sort((a, b) => new Date(a.date) - new Date(b.date))
+.slice(0, 5) // Máximo 5 clases, opcional
+.map(({ date, startTime, endTime, place }) => ({
+⋮----
+place: (place !== undefined && place !== null && place.trim() !== '') ? place : 'Skate park Bola de Oro',
+⋮----
+res.json(upcomingClasses);
+⋮----
+res.status(500).json({ error: 'Error al obtener las próximas clases del grupo' });
+⋮----
+// Crear un grupo
+router.post('/', async (req, res) => {
+⋮----
+const newGroup = new Group({ name });
+await newGroup.save();
+res.json(newGroup);
+⋮----
+res.status(500).json({ error: 'Error al crear grupo' });
+⋮----
+// Obtener un grupo por ID y poblar sus miembros
+router.get('/:id', async (req, res) => {
+⋮----
+const group = await Group.findById(req.params.id).populate('members');
+⋮----
+res.json(group);
+⋮----
+res.status(500).json({ error: 'Error al obtener el grupo' });
+⋮----
+// Actualizar un grupo
+router.put('/:id', async (req, res) => {
+⋮----
+updateFields.scheduledDates = scheduledDates.map(d => ({
+⋮----
+place: d.place || 'Skate park Bola de Oro', // Predefinido si no se indica
+⋮----
+const updatedGroup = await Group.findByIdAndUpdate(
+⋮----
+).populate('members');
+if (!updatedGroup) return res.status(404).json({ error: 'Grupo no encontrado' });
+res.json(updatedGroup);
+⋮----
+res.status(500).json({ error: 'Error al actualizar el grupo' });
+⋮----
+// Eliminar un grupo
+router.delete('/:id', async (req, res) => {
+⋮----
+const deletedGroup = await Group.findByIdAndDelete(req.params.id);
+if (!deletedGroup) return res.status(404).json({ error: 'Grupo no encontrado' });
+res.json({ message: 'Grupo eliminado', group: deletedGroup });
+⋮----
+res.status(500).json({ error: 'Error al eliminar el grupo' });
+⋮----
+// Agregar miembro al grupo
+router.put('/:id/addMember', async (req, res) => {
+⋮----
+// Agregar el usuario al grupo
+const group = await Group.findByIdAndUpdate(
+⋮----
+{ $addToSet: { members: userId } }, // Evita duplicados
+⋮----
+// Actualizar el campo groupId del usuario
+await User.findByIdAndUpdate(userId, { groupId: req.params.id });
+⋮----
+res.status(500).json({ error: 'Error al agregar miembro' });
+⋮----
+// Eliminar miembro del grupo
+router.put('/:id/removeMember', async (req, res) => {
+⋮----
+// Eliminar el usuario del grupo
+⋮----
+{ $pull: { members: userId } }, // Elimina el userId de los miembros
+⋮----
+// Limpiar el campo groupId del usuario
+await User.findByIdAndUpdate(userId, { $unset: { groupId: "" } });
+⋮----
+res.status(500).json({ error: 'Error al eliminar miembro' });
+⋮----
+// POST /api/groups/:id/notifications
+router.post('/:id/notifications', async (req, res) => {
+⋮----
+const group = await Group.findById(req.params.id);
+⋮----
+group.notifications.push({ message });
+await group.save();
+// Opcional: populate members si necesitas
+⋮----
+res.status(500).json({ error: 'Error al agregar notificación' });
+⋮----
+// Ruta para actualizar el avatar del grupo
+router.put('/:id/avatar', upload.single('avatar'), async (req, res) => {
+⋮----
+const result = await cloudinary.uploader.upload(req.file.path, {
+⋮----
+// Eliminar archivo temporal del servidor
+fs.unlinkSync(req.file.path);
+⋮----
+res.status(500).json({ error: 'Error al actualizar el avatar' });
+</file>
+
+<file path="backend/routes/payments.js">
+// File: backend/routes/payment.js
+⋮----
+const router = express.Router();
+⋮----
+// Obtener Configuración de Pagos
+router.get('/', async (req, res) => {
+⋮----
+const configs = await PaymentConfig.find();
+res.json(configs);
+⋮----
+res.status(500).json({ error: err.message });
+⋮----
+// Actualizar o Crear Configuración de Pago
+router.post('/', async (req, res) => {
+⋮----
+let config = await PaymentConfig.findOne({ method });
+⋮----
+config = new PaymentConfig({ method, message, phone, accountNumber, subject });
+⋮----
+await config.save();
+res.json(config);
+⋮----
+// Enviar Notificación a Todos los Alumnos
+router.post('/notify', async (req, res) => {
+⋮----
+const students = await User.find({ role: 'student' });
+⋮----
+// Generar el contenido dinámico del mensaje
+const paymentDetails = configs.map(cfg => {
+⋮----
+}).join('\n\n');
+⋮----
+// Enviar la notificación a todos los alumnos (puedes adaptarlo a tu sistema real de notificaciones)
+await Promise.all(students.map(student => {
+⋮----
+student.notifications.push({ date: new Date(), message: fullMessage });
+return student.save();
+⋮----
+res.json({ success: true });
+⋮----
+console.error(err);
+⋮----
+// Obtener el historial de pagos de un alumno
+router.get('/:userId', async (req, res) => {
+⋮----
+const payments = await PaymentHistory.find({ userId: req.params.userId });
+res.json(payments);
+⋮----
+res.status(500).json({ error: 'Error al obtener pagos' });
+⋮----
+// Obtener todos los pagos (para Admin)
+⋮----
+const payments = await PaymentHistory.find().populate('userId', 'name email');
+⋮----
+// Registrar un nuevo pago
+router.post('/register', async (req, res) => {
+⋮----
+const payment = new PaymentHistory({ userId, method, date: new Date() }); // Se incluye la fecha de pago
+await payment.save();
+res.json(payment);
+⋮----
+res.status(500).json({ error: 'Error al registrar el pago' });
+</file>
+
+<file path="backend/routes/tricks.js">
+const router = express.Router();
+⋮----
+// Obtener todos los trucos
+router.get('/', async (req, res) => {
+⋮----
+const tricks = await Trick.find();
+res.json(tricks);
+⋮----
+res.status(500).json({ error: 'Error al obtener trucos' });
+⋮----
+// Crear un nuevo truco
+router.post('/', async (req, res) => {
+⋮----
+const newTrick = new Trick(req.body);
+const savedTrick = await newTrick.save();
+res.status(201).json(savedTrick);
+⋮----
+res.status(500).json({ error: 'Error al crear truco' });
+⋮----
+// Actualizar un truco
+router.put('/:id', async (req, res) => {
+⋮----
+const updatedTrick = await Trick.findByIdAndUpdate(req.params.id, req.body, { new: true });
+res.json(updatedTrick);
+⋮----
+res.status(500).json({ error: 'Error al actualizar truco' });
+⋮----
+// Eliminar un truco
+router.delete('/:id', async (req, res) => {
+⋮----
+await Trick.findByIdAndDelete(req.params.id);
+res.json({ message: 'Truco eliminado' });
+⋮----
+res.status(500).json({ error: 'Error al eliminar truco' });
+⋮----
+// Marcar truco como realizado por un alumno (evitar duplicados)
+router.post('/mark-done', async (req, res) => {
+⋮----
+const trick = await Trick.findById(trickId);
+if (!trick) return res.status(404).json({ error: 'Truco no encontrado' });
+⋮----
+// Si no existe el campo doneBy, lo inicializamos
+⋮----
+// Evitar que el mismo alumno marque varias veces
+if (!trick.doneBy.includes(userId)) {
+trick.doneBy.push(userId);
+trick.completed = trick.doneBy.length; // Actualizamos contador
+await trick.save();
+⋮----
+res.json({ message: 'Truco marcado como realizado correctamente.' });
+⋮----
+console.error('Error al marcar como realizado:', error);
+res.status(500).json({ error: 'Error al marcar como realizado.' });
+⋮----
+// Registrar un "like" a un truco
+router.post('/like', async (req, res) => {
+⋮----
+if (!trick.likedBy.includes(userId)) {
+⋮----
+trick.likedBy.push(userId);
+⋮----
+res.json({ message: 'Like registrado', trick });
+⋮----
+console.error(error);
+res.status(500).json({ error: 'Error al registrar like' });
+⋮----
+// Registrar una vista de video
+router.post('/view', async (req, res) => {
+⋮----
+// Devuelve el truco actualizado
+res.json({ message: 'Vista registrada', trick });
+⋮----
+res.status(500).json({ error: 'Error al registrar vista' });
+⋮----
+// Actualizar solo el campo highlighted
+router.put('/highlight/:id', async (req, res) => {
+⋮----
+const updatedTrick = await Trick.findByIdAndUpdate(
+⋮----
+res.status(500).json({ error: 'Error al actualizar destacado' });
+⋮----
+// Videos vistos para Dashboard
+router.get('/total-views', async (req, res) => {
+⋮----
+const totalViews = tricks.reduce((sum, trick) => sum + (trick.views || 0), 0);
+res.json({ totalViews });
+⋮----
+res.status(500).json({ error: 'Error al obtener visualizaciones totales' });
+⋮----
+// Obtener truco más visto
+router.get('/most-viewed', async (req, res) => {
+⋮----
+const mostViewedTrick = await Trick.findOne().sort({ views: -1 }).limit(1);
+res.json(mostViewedTrick);
+⋮----
+res.status(500).json({ error: 'Error al obtener el truco más visto' });
+</file>
+
+<file path="backend/routes/users.js">
+const router = express.Router();
+⋮----
+const { authMiddleware, authorize } = require('../middleware/authMiddleware'); // Importa el middleware
+⋮----
+// Login de administrador
+router.post('/login', async (req, res) => {
+⋮----
+const user = await User.findOne({ email }).populate('groupId', 'name');
+⋮----
+console.log('Usuario no encontrado:', email);
+return res.status(401).json({ error: 'Credenciales incorrectas' });
+⋮----
+console.log('Contraseña introducida:', password);
+console.log('Contraseña almacenada (hash):', user.password);
+⋮----
+const isPasswordValid = await bcrypt.compare(password, user.password);
+console.log('¿Contraseña válida?', isPasswordValid);
+⋮----
+const token = jwt.sign(
+⋮----
+res.json({
+⋮----
+groupId: user.groupId || null // ¡IMPORTANTE!
+⋮----
+console.error('Error en el login:', err);
+res.status(500).json({ error: 'Error en el servidor' });
+⋮----
+// Inicializar usuario administrador si no existe
+router.post('/init-admin', async (req, res) => {
+⋮----
+const adminExists = await User.findOne({ email: 'javierrojocanton@gmail.com' });
+⋮----
+return res.json({ message: 'El administrador ya existe.' });
+⋮----
+const hashedPassword = await bcrypt.hash('Skatekids123', 10);
+const admin = new User({
+⋮----
+await admin.save();
+res.json({ message: 'Administrador inicial creado correctamente.' });
+⋮----
+res.status(500).json({ error: 'Error al crear el administrador inicial.' });
+⋮----
+// Enviar una solicitud de acceso
+router.post('/request-access', async (req, res) => {
+⋮----
+// Verificar si ya existe una solicitud o usuario con el mismo email
+const existingRequest = await Request.findOne({ email });
+const existingUser = await User.findOne({ email });
+⋮----
+return res.status(400).json({ error: 'Ya existe una solicitud o usuario con este email.' });
+⋮----
+// Crear la solicitud
+const newRequest = new Request({ name, email });
+await newRequest.save();
+⋮----
+res.json({ message: 'Solicitud enviada con éxito.' });
+⋮----
+console.error(err);
+res.status(500).json({ error: 'Error al enviar la solicitud.' });
+⋮----
+// Obtener todas las solicitudes (solo admin)
+router.get('/requests', async (req, res) => {
+⋮----
+const requests = await Request.find();
+res.json(requests);
+⋮----
+res.status(500).json({ error: 'Error al obtener las solicitudes.' });
+⋮----
+// Configuración de transporte para enviar correos
+const transporter = nodemailer.createTransport({
+service: 'gmail', // Cambia esto según tu proveedor de correo
+⋮----
+// Aprobar o rechazar solicitud y registrar usuario con rol elegido
+router.put('/requests/:id', async (req, res) => {
+⋮----
+const { status, role } = req.body; // El rol se pasa desde el frontend al aprobar
+⋮----
+const request = await Request.findById(req.params.id);
+⋮----
+return res.status(404).json({ error: 'Solicitud no encontrada.' });
+⋮----
+const temporaryPassword = 'Alumno123'; // Cambiar a un generador si prefieres algo más seguro
+const hashedPassword = await bcrypt.hash(temporaryPassword, 10);
+⋮----
+console.log('Password temporal:', temporaryPassword);
+console.log('Password hashed:', hashedPassword);
+⋮----
+const newUser = new User({
+⋮----
+role: role || 'student', // Si no se especifica, asignamos 'student'
+⋮----
+await newUser.save();
+⋮----
+// Enviar correo al usuario con las credenciales
+⋮----
+await transporter.sendMail(mailOptions);
+⋮----
+// Eliminar la solicitud de la base de datos
+await Request.findByIdAndDelete(req.params.id);
+⋮----
+return res.json({ message: 'Solicitud aprobada y usuario creado.' });
+⋮----
+return res.json({ message: 'Solicitud rechazada y eliminada.' });
+⋮----
+res.status(400).json({ error: 'Estado de solicitud no válido.' });
+⋮----
+res.status(500).json({ error: 'Error al procesar la solicitud.' });
+⋮----
+// Cambiar contraseña
+router.put('/change-password', authMiddleware, async (req, res) => {
+⋮----
+// El usuario autenticado ya está disponible en req.user
+⋮----
+// Verificar la contraseña actual
+const isMatch = await bcrypt.compare(oldPassword, user.password);
+⋮----
+return res.status(400).json({ error: 'Contraseña actual incorrecta.' });
+⋮----
+await user.save();
+⋮----
+res.json({ message: 'Contraseña actualizada con éxito.' });
+⋮----
+res.status(500).json({ error: 'Error al cambiar la contraseña.' });
+⋮----
+// Obtener usuarios filtrados por role (ejemplo: /api/users?role=alumno)
+router.get('/', async (req, res) => {
+⋮----
+const users = await User.find(query);
+res.json(users);
+⋮----
+res.status(500).json({ error: 'Error al obtener usuarios' });
+⋮----
+// Crear usuario (POST /api/users)
+router.post('/', async (req, res) => {
+⋮----
+const newUser = new User({ name, email, role, phone });
+⋮----
+res.json(newUser);
+⋮----
+res.status(500).json({ error: 'Error al crear usuario' });
+⋮----
+// Obtener todos los alumnos
+router.get('/students', async (req, res) => {
+⋮----
+const students = await User.find({ role: 'student' }).populate('groupId', 'name'); // Filtramos solo los alumnos
+⋮----
+res.json(students);
+⋮----
+res.status(500).json({ error: 'Error al obtener los alumnos' });
+⋮----
+// Endpoint para registrar alumnos
+router.post('/register-student', async (req, res) => {
+const { name, email, phone } = req.body; // No esperamos password ahora
+⋮----
+// Verificar si ya existe un usuario con el mismo email
+⋮----
+return res.status(400).json({ error: 'Ya existe un usuario con este email.' });
+⋮----
+// Crear una contraseña temporal para el alumno
+const temporaryPassword = 'Skate1234!'; // Contraseña por defecto o generada aleatoriamente
+⋮----
+// Crear el nuevo alumno
+const newStudent = new User({
+⋮----
+password: hashedPassword, // Guardamos la contraseña temporal
+phone, // Incluimos el teléfono
+role: 'student', // Asegurarse de que sea un alumno
+⋮----
+await newStudent.save();
+⋮----
+// Enviar correo con la contraseña temporal
+⋮----
+res.status(201).json({ message: 'Alumno registrado exitosamente.' });
+⋮----
+res.status(500).json({ error: 'Error al registrar al alumno.' });
+⋮----
+// Actualizar un alumno existente y registrar el pago en PaymentHistory
+router.put('/students/:id', async (req, res) => {
+⋮----
+// Buscar el alumno actual
+const student = await User.findById(req.params.id);
+⋮----
+return res.status(404).json({ error: 'Alumno no encontrado.' });
+⋮----
+// Si el grupo cambia, actualizar en ambos modelos
+if (student.groupId && student.groupId.toString() !== groupId) {
+// Remover del grupo anterior
+await Group.findByIdAndUpdate(student.groupId, {
+⋮----
+// Agregar al nuevo grupo si corresponde
+⋮----
+await Group.findByIdAndUpdate(groupId, {
+⋮----
+// Actualizar los datos del alumno, incluyendo el método de pago
+const updatedStudent = await User.findByIdAndUpdate(
+⋮----
+).populate('groupId'); // Para devolver el grupo completo
+⋮----
+// Registrar el pago en PaymentHistory
+const paymentHistory = new PaymentHistory({
+⋮----
+date: new Date(),
+⋮----
+await paymentHistory.save(); // Guardamos el historial de pagos
+⋮----
+res.json(updatedStudent); // Retornamos el alumno actualizado
+⋮----
+res.status(500).json({ error: 'Error al actualizar el alumno y registrar el pago' });
+⋮----
+router.get('/payments-history', async (req, res) => {
+⋮----
+const payments = await PaymentHistory.find().populate('userId', 'name email');
+res.json(payments);
+⋮----
+console.error('Error al obtener el historial de pagos:', err);
+res.status(500).json({ error: 'Error al obtener el historial de pagos' });
+⋮----
+router.get('/payments-history/:userId', async (req, res) => {
+⋮----
+const payments = await PaymentHistory.find({ userId: req.params.userId });
+⋮----
+console.error('Error al obtener pagos del usuario:', err);
+res.status(500).json({ error: 'Error al obtener pagos del usuario' });
+⋮----
+// Agregar miembro a un grupo
+router.put('/:id/addMember', async (req, res) => {
+⋮----
+const group = await Group.findByIdAndUpdate(
+⋮----
+{ $addToSet: { members: userId } }, // Evita duplicados
+⋮----
+).populate('members');
+⋮----
+// Actualizar el `groupId` del alumno
+await User.findByIdAndUpdate(userId, { groupId: group._id });
+⋮----
+res.json(group);
+⋮----
+res.status(500).json({ error: 'Error al agregar miembro.' });
+⋮----
+// Eliminar miembro de un grupo
+router.put('/:id/removeMember', async (req, res) => {
+⋮----
+{ $pull: { members: userId } }, // Elimina el ID del miembro
+⋮----
+// Eliminar el `groupId` del alumno
+await User.findByIdAndUpdate(userId, { groupId: null });
+⋮----
+res.status(500).json({ error: 'Error al eliminar miembro.' });
+⋮----
+// Eliminar un alumno
+router.delete('/students/:id', async (req, res) => {
+⋮----
+const deletedStudent = await User.findByIdAndDelete(req.params.id);
+⋮----
+res.json({ message: 'Alumno eliminado.', deletedStudent });
+⋮----
+res.status(500).json({ error: 'Error al eliminar el alumno.' });
+⋮----
+// routes/users.js
+router.put('/save-device-token', async (req, res) => {
+⋮----
+const user = await User.findOneAndUpdate(
+⋮----
+return res.status(404).json({ error: 'Usuario no encontrado' });
+⋮----
+res.json({ message: 'Token guardado con éxito', user });
+⋮----
+res.status(500).json({ error: 'Error al guardar el token' });
+⋮----
+// enviar notificaciones
+router.post('/send-notification', async (req, res) => {
+⋮----
+// Obtener los tokens de los usuarios en el grupo
+const users = await User.find({ groupId });
+const tokens = users.map(user => user.deviceToken).filter(Boolean);
+⋮----
+return res.status(400).json({ error: 'No hay usuarios con tokens registrados.' });
+⋮----
+const response = await admin.messaging().sendMulticast(message);
+⋮----
+console.error('Error al enviar la notificación:', err);
+res.status(500).json({ error: 'Error al enviar la notificación' });
+⋮----
+// guardar el token en la base de datos
+router.put('/device-token', async (req, res) => {
+⋮----
+{ deviceToken }, // Almacena el token en el campo deviceToken
+⋮----
+return res.status(404).json({ error: 'Usuario no encontrado.' });
+⋮----
+res.json({ message: 'Token de dispositivo actualizado correctamente.' });
+⋮----
+console.error('Error al actualizar el token:', err);
+res.status(500).json({ error: 'Error al actualizar el token.' });
+⋮----
+// Obtener los datos del usuario actual
+router.get('/me', authMiddleware, async (req, res) => {
+⋮----
+console.log('Usuario autenticado:', req.user);
+const user = await User.findById(req.user._id); // Cambiado a req.user._id
+⋮----
+console.log('Usuario no encontrado');
+⋮----
+avatar: user.avatar, // Devuelve el avatar si existe
+⋮----
+console.log('Datos del usuario que se envían:', userData);
+⋮----
+res.json(userData);
+⋮----
+console.error('Error al obtener los datos del usuario:', err);
+res.status(500).json({ error: 'Error del servidor' });
+⋮----
+// Configuración de multer para subir archivos
+const storage = multer.diskStorage({
+destination: (req, file, cb) => {
+const avatarDir = path.join(__dirname, '../uploads/avatars');
+fs.mkdirSync(avatarDir, { recursive: true }); // Crear la carpeta si no existe
+cb(null, avatarDir);
+⋮----
+filename: (req, file, cb) => {
+cb(null, `${Date.now()}-${file.originalname}`);
+⋮----
+const upload = multer({ storage });
+// Subir avatar
+⋮----
+router.post('/upload-avatar', authMiddleware, upload.single('avatar'), async (req, res) => {
+⋮----
+// Si tenía avatar anterior en Cloudinary, podrías eliminarlo si guardas el `public_id`
+// Por ahora solo subimos el nuevo y sobreescribimos la URL
+⋮----
+const result = await cloudinary.uploader.upload(req.file.path, {
+⋮----
+// Elimina archivo temporal
+fs.unlinkSync(req.file.path);
+⋮----
+// Guarda la URL de Cloudinary en el campo `avatar`
+⋮----
+res.json({ message: 'Avatar actualizado con éxito', avatar: user.avatar });
+⋮----
+console.error('Error al subir el avatar a Cloudinary:', err);
+res.status(500).json({ error: 'Error al subir el avatar' });
+⋮----
+// Obtener avatar
+router.get('/avatar/:filename', (req, res) => {
+⋮----
+const filePath = path.join(__dirname, `../uploads/avatars/${filename}`);
+⋮----
+if (!fs.existsSync(filePath)) {
+return res.status(404).json({ error: 'Avatar no encontrado' });
+⋮----
+res.sendFile(filePath);
+⋮----
+// Eliminar avatar
+router.delete('/avatar', authMiddleware, async (req, res) => {
+⋮----
+const avatarPath = path.join(__dirname, `../uploads/avatars/${user.avatar}`);
+⋮----
+await fs.promises.access(avatarPath); // Verifica si el archivo existe
+await fs.promises.unlink(avatarPath); // Elimina el archivo
+⋮----
+console.warn(`El avatar no existe en la ruta: ${avatarPath}`);
+⋮----
+res.json({ message: 'Avatar eliminado con éxito' });
+⋮----
+console.error('Error al eliminar el avatar:', err);
+res.status(500).json({ error: 'Error al eliminar el avatar' });
+⋮----
+// Search
+router.get('/search', async (req, res) => {
+⋮----
+const query = req.query.query.toLowerCase();
+⋮----
+// Buscar usuarios
+const users = await User.find({
+⋮----
+}).select('name email _id'); // Selecciona solo campos relevantes
+⋮----
+// Buscar grupos
+const groups = await Group.find({
+⋮----
+}).select('name _id');
+⋮----
+// Buscar eventos
+const events = await Event.find({
+⋮----
+users: users.map(user => ({ ...user.toObject(), type: 'user' })),
+groups: groups.map(group => ({ ...group.toObject(), type: 'group' })),
+events: events.map(event => ({ ...event.toObject(), type: 'event' })),
+⋮----
+console.error('Error en la búsqueda:', err);
+res.status(500).json({ error: 'Error al realizar la búsqueda.' });
+⋮----
+// Dashboard para admin
+router.get('/admin-dashboard', authMiddleware, authorize('admin'), (req, res) => {
+res.json({ message: 'Bienvenido Admin' });
+⋮----
+// Dashboard para alumno
+router.get('/student-dashboard', authMiddleware, authorize('student'), (req, res) => {
+res.json({ message: 'Bienvenido Alumno' });
+</file>
+
+<file path="backend/testMail.js">
+require('dotenv').config();
+⋮----
+const transporter = nodemailer.createTransport({
+⋮----
+to: 'tucorreo@gmail.com', // Cambia esto a un correo de prueba
+⋮----
+transporter.sendMail(mailOptions, (error, info) => {
+⋮----
+console.error('Error al enviar:', error);
+⋮----
+console.log('Correo enviado:', info.response);
+</file>
+
+<file path="backend/utils/cloudinary.js">
+cloudinary.config({
+</file>
+
+<file path="packages/shared/utils.js">
+// Formatea una fecha ISO a formato DD/MM/YYYY
+export const formatDate = (dateStr) => {
+const date = new Date(dateStr);
+return date.toLocaleDateString('es-ES');
+⋮----
+// Valida email
+export const isValidEmail = (email) => {
+return /\S+@\S+\.\S+/.test(email);
+⋮----
+// Capitaliza la primera letra
+export const capitalize = (str) => {
+⋮----
+return str.charAt(0).toUpperCase() + str.slice(1);
+</file>
+
+<file path="apps/kedeKids/.gitignore">
+# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+# Native
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+
+app-example
+</file>
+
+<file path="apps/kedeKids/app/_layout.tsx">
+import { Stack } from 'expo-router';
+⋮----
+{/* las rutas se registran automáticamente por nombre de archivo,
+          aquí opcionalmente podrías ocultar header o animaciones pantalla a pantalla */}
+</file>
+
+<file path="apps/kedeKids/app/admin/index.tsx">
+import { View, Text, StyleSheet } from 'react-native';
+⋮----
+export default function AdminDashboard()
+</file>
+
+<file path="apps/kedeKids/app/student/index.tsx">
+import { View, Text, StyleSheet } from 'react-native';
+⋮----
+export default function StudentDashboard()
+</file>
+
+<file path="apps/kedeKids/babel.config.js">
+api.cache(true);
+⋮----
+// Usamos babel-preset-expo con la opción para transformar import.meta
+⋮----
+// Si usas react-native-reanimated
+⋮----
+// Tu plugin de module-resolver si lo necesitas
+</file>
+
+<file path="apps/kedeKids/config.ts">
+
+</file>
+
+<file path="apps/kedeKids/eslint.config.js">
+// https://docs.expo.dev/guides/using-eslint/
+⋮----
+module.exports = defineConfig([
+</file>
+
+<file path="apps/kedeKids/metro.config.js">
+const workspaceRoot = path.resolve(projectRoot, '..', '..');
+⋮----
+const config = getDefaultConfig(projectRoot);
+⋮----
+// 1) Vigila todo el monorepo
+⋮----
+// 2) Resuelve módulos node “path” al polyfill de browser
+⋮----
+path: require.resolve('path-browserify'),
+⋮----
+// (Opcional) Asegúrate de que Metro use node_modules del root también
+⋮----
+path.join(projectRoot, 'node_modules'),
+path.join(workspaceRoot,   'node_modules'),
+</file>
+
+<file path="apps/kedeKids/README.md">
+# Welcome to your Expo app 👋
+
+This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+
+## Get started
+
+1. Install dependencies
+
+   ```bash
+   npm install
+   ```
+
+2. Start the app
+
+   ```bash
+   npx expo start
+   ```
+
+In the output, you'll find options to open the app in a
+
+- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+
+You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+
+## Get a fresh project
+
+When you're ready, run:
+
+```bash
+npm run reset-project
+```
+
+This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+
+## Learn more
+
+To learn more about developing your project with Expo, look at the following resources:
+
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+
+## Join the community
+
+Join our community of developers creating universal apps.
+
+- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
+- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+</file>
+
+<file path="apps/web/app/src/main/java/com/kedekids/app/Application.java">
+/*
+ * Copyright 2020 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+⋮----
+public class Application extends android.app.Application {
+⋮----
+public void onCreate() {
+super.onCreate();
+</file>
+
+<file path="apps/web/app/src/main/java/com/kedekids/app/DelegationService.java">
+public class DelegationService extends
+⋮----
+public void onCreate() {
+super.onCreate();
+⋮----
+registerExtraCommandHandler(new LocationDelegationExtraCommandHandler());
+</file>
+
+<file path="apps/web/app/src/main/java/com/kedekids/app/LauncherActivity.java">
+/*
+ * Copyright 2020 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+⋮----
+public class LauncherActivity
+⋮----
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+// Setting an orientation crashes the app due to the transparent background on Android 8.0
+// Oreo and below. We only set the orientation on Oreo and above. This only affects the
+// splash screen and Chrome will still respect the orientation.
+// See https://github.com/GoogleChromeLabs/bubblewrap/issues/496 for details.
+⋮----
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_USER_PORTRAIT);
+⋮----
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
+⋮----
+protected Uri getLaunchingUrl() {
+// Get the original launch Url.
+Uri uri = super.getLaunchingUrl();
+</file>
+
+<file path="apps/web/src/pages/Groups/NotificationsSection.jsx">
+function NotificationsSection({ groupId, notifications = [], onNotificationAdded }) {
+const [message, setMessage] = useState('');
+const [showAll, setShowAll] = useState(false);
+const [sending, setSending] = useState(false);
+⋮----
+// ---- util para fechas ----
+const getTime = (n) => {
+if (n?.createdAt) return new Date(n.createdAt).getTime();
+if (n?.date) return new Date(n.date).getTime();
+⋮----
+return parseInt(n._id.substring(0, 8), 16) * 1000; // ObjectId -> epoch sec
+⋮----
+// ---- ordenar: recientes primero ----
+const sorted = useMemo(() => {
+return [...notifications].sort((a, b) => getTime(b) - getTime(a));
+⋮----
+const visible = showAll ? sorted : sorted.slice(0, 4);
+⋮----
+// ---- enviar: primero guarda en DB, luego push; actualiza UI una vez ----
+const handleSendBoth = async () => {
+const text = message.trim();
+⋮----
+setSending(true);
+⋮----
+// 1) Guardar en DB
+const res = await fetch(`${API_URL}/groups/${groupId}/notifications`, {
+⋮----
+body: JSON.stringify({ message: text }),
+⋮----
+const updatedGroup = await res.json();
+⋮----
+onNotificationAdded(updatedGroup.notifications); // ✅ actualiza lista desde servidor
+⋮----
+// 2) Enviar push (no tocamos estado de la lista para evitar duplicar)
+fetch(`${API_URL}/notifications/send-notification/${groupId}`, {
+⋮----
+body: JSON.stringify({ title: 'Notificación del grupo', body: text }),
+}).catch(() => { /* no pasa nada si falla el push */ });
+⋮----
+setMessage('');
+⋮----
+console.error('❌ Error enviando notificación:', err);
+⋮----
+setSending(false);
+⋮----
+onChange={e => setMessage(e.target.value)}
+⋮----
+maxHeight: 240,           // altura fija al expandir
+overflowY: 'auto',        // scroll interno
+⋮----
+visible.map((notif, index) => (
+⋮----
+{new Date(notif.createdAt || notif.date || getTime(notif)).toLocaleString()}:
+⋮----
+onClick={() => setShowAll(v => !v)}
+</file>
+
+<file path="backend/firebase.js">
+// Inicializa la app
+initializeApp({
+credential: cert(serviceAccount),
+⋮----
+// Exporta el cliente de mensajería
+const messaging = getMessaging();
+</file>
+
+<file path="backend/models/Event.js">
+// models/Event.js
+⋮----
+const EventSchema = new mongoose.Schema({
+⋮----
+module.exports = mongoose.model('Event', EventSchema);
+</file>
+
+<file path="backend/server.js">
+// server.js
+require('dotenv').config();
+⋮----
+// Primero las dependencias
+⋮----
+// Conexión a MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+⋮----
+}).then(() => {
+console.log('✅ Conectado a MongoDB Atlas');
+}).catch((err) => {
+console.error('Error de conexión a MongoDB:', err);
+⋮----
+// Modelos
+⋮----
+// Rutas
+⋮----
+// App de Express
+const app = express();
+⋮----
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/api/groups', groupsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/events', eventsRouter);
+app.use('/api/notifications', notificationsRoutes);
+app.use('/api/tricks', tricksRouter);
+app.use('/api/payments', paymentRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+⋮----
+// Rutas de prueba
+app.get('/', (req, res) => {
+res.send('API funcionando!');
+⋮----
+// Middleware de autenticación (si lo usas)
+const authMiddleware = (req, res, next) => {
+⋮----
+if (!token) return res.status(401).json({ error: 'Token no proporcionado' });
+⋮----
+const decoded = jwt.verify(token, 'secretKey');
+⋮----
+next();
+⋮----
+res.status(401).json({ error: 'Token inválido' });
+⋮----
+// Iniciar servidor
+⋮----
+app.listen(PORT, '0.0.0.0', () => {
+console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
+</file>
+
+<file path="metro.config.js">
+path.resolve(__dirname, 'packages'), // 👈 Esto permite acceder a /packages desde cualquier app
+⋮----
+'@shared': path.resolve(__dirname, 'packages/shared'), // 👈 Alias @shared para importar API/utils
+</file>
+
+<file path="apps/kedeKids/app/student/_layout.tsx">
+// app/student/_layout.tsx
+import { Slot, useRouter } from 'expo-router';
+import { useState, useEffect, useRef } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Pressable,
+  FlatList,
+  TouchableOpacity,
+  StyleSheet,
+  Modal,
+  Image,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { FontAwesome, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import Constants from 'expo-constants';
+⋮----
+const API_URL = Constants.expoConfig.extra.apiUrl; // debe terminar en /api
+⋮----
+// Estado de notificaciones y mensajes
+⋮----
+// Estado de búsqueda
+⋮----
+// Estado de usuario
+⋮----
+// Refs para cerrar dropdowns al tocar fuera
+⋮----
+// Carga inicial de datos: mensajes, avatar, notificaciones “dinámicas”
+⋮----
+// Cuenta de solicitudes de acceso (ejemplo)
+⋮----
+// Notificaciones simuladas según día
+⋮----
+// Datos de usuario
+⋮----
+// Búsqueda dinámica
+const handleSearch = async (text: string) =>
+⋮----
+// Logout
+const handleLogout = async () =>
+⋮----
+// Cerrar dropdowns al tocar fuera
+const handleOutsidePress = (e: any) =>
+⋮----
+// aquí podrías usar `notifRef.current` y `menuRef.current`
+⋮----
+// listener global? en RN necesitarías un TouchableWithoutFeedback en la raíz
+// o definir en el Modal la prop onRequestClose
+⋮----
+// Estado para menú de usuario
+⋮----
+{/* ——— HEADER ——— */}
+⋮----
+{/* Hamburguesa para togglear sidebar (si tuvieras) */}
+<Pressable onPress={() => {/* toggleSidebar() */}} style={styles.iconBtn}>
+⋮----
+{/* Logo */}
+⋮----
+{/* Fecha y hora */}
+⋮----
+{/* Iconos notificaciones y mensajes */}
+⋮----
+{/* Menú de usuario */}
+⋮----
+{/* ——— CONTENIDO DE RUTAS HIJAS ——— */}
+</file>
+
+<file path="apps/web/src/components/InstallPrompt.jsx">
+const isIOS = () =>
+/iPhone|iPad|iPod/i.test(navigator.userAgent) && !window.MSStream;
+⋮----
+const isAndroid = () => /Android/i.test(navigator.userAgent);
+⋮----
+// PWA instalada (standalone) o Chrome iOS (navigator.standalone)
+const isInStandaloneMode = () =>
+window.matchMedia('(display-mode: standalone)').matches ||
+⋮----
+// Heurística de TWA: cuando abre como app Android empaquetada
+const isTWA = () => typeof document !== 'undefined' &&
+!!document.referrer && document.referrer.startsWith('android-app://');
+⋮----
+function InstallPrompt() {
+const [deferredPrompt, setDeferredPrompt] = useState(null);
+const [showModal, setShowModal] = useState(false);
+const [platform, setPlatform] = useState(null); // 'android' | 'ios'
+⋮----
+useEffect(() => {
+// No mostrar si ya está instalada, o si corre como TWA, o si el usuario lo cerró antes
+const dismissed = localStorage.getItem(DISMISS_KEY) === 'true';
+if (dismissed || isInStandaloneMode() || isTWA()) return;
+⋮----
+const onAppInstalled = () => {
+// Si el usuario la instala, ocultamos y no molestamos más
+localStorage.setItem(DISMISS_KEY, 'true');
+setShowModal(false);
+setDeferredPrompt(null);
+⋮----
+window.addEventListener('appinstalled', onAppInstalled);
+⋮----
+if (isAndroid()) {
+const handleBeforeInstallPrompt = (e) => {
+e.preventDefault();
+setDeferredPrompt(e);
+setPlatform('android');
+setShowModal(true);
+// console.log('📱 Android: Mostrar botón instalar');
+⋮----
+window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+⋮----
+window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+window.removeEventListener('appinstalled', onAppInstalled);
+⋮----
+if (isIOS()) {
+// En iOS solo se puede instalar desde Safari (Añadir a pantalla de inicio)
+setPlatform('ios');
+⋮----
+return () => window.removeEventListener('appinstalled', onAppInstalled);
+⋮----
+const handleInstall = async () => {
+⋮----
+deferredPrompt.prompt();
+⋮----
+// accepted | dismissed
+⋮----
+// Si lo rechaza, no insistas más
+⋮----
+const handleClose = () => {
+</file>
+
+<file path="apps/web/src/css/StudentDashboard.css">
+.student-dashboard {
+⋮----
+.welcome-title {
+⋮----
+.dashboard-grid {
+⋮----
+.dashboard-card {
+⋮----
+.calendarRes {
+⋮----
+.dashboard-card h3 {
+⋮----
+.dashboard-card ul {
+⋮----
+.dashboard-card li {
+⋮----
+.notifications-scroll {
+⋮----
+max-height: 260px;   /* altura del contenedor al mostrar todas */
+⋮----
+.ver-mas-btn {
+⋮----
+.ver-mas-btn:hover {
+</file>
+
+<file path="apps/web/src/pages/EventModal.jsx">
+// src/pages/EventModal.jsx
+⋮----
+date: new Date().toISOString(),
+⋮----
+function EventModal({ isOpen, onClose, onSave, event }) {
+const [eventData, setEventData] = useState(EMPTY);
+⋮----
+useEffect(() => {
+⋮----
+const safeLayout = LAYOUTS.includes(incoming.layout) ? incoming.layout : "header-body-image";
+setEventData({ ...incoming, layout: safeLayout });
+⋮----
+const handleChange = (e) => {
+⋮----
+if (name === "layout" && !LAYOUTS.includes(v)) v = "header-body-image";
+setEventData((prev) => ({ ...prev, [name]: v }));
+⋮----
+const handleSave = (shouldSend = false) => onSave(eventData, shouldSend);
+⋮----
+onClick={() => handleSave(true)}
+⋮----
+disabled={!eventData.subject?.trim()}
+</file>
+
+<file path="apps/web/src/pages/HomePage.jsx">
+function HomePage({ onLogin }) {
+const [email, setEmail] = useState('');
+const [password, setPassword] = useState('');
+const [error, setError] = useState('');
+const [token, setToken] = useState(null);
+useEffect(() => {
+⋮----
+const storedToken = localStorage.getItem('token');
+⋮----
+setToken(storedToken);
+⋮----
+console.warn('Error accediendo a localStorage:', err);
+⋮----
+const navigate = useNavigate();
+const [showRequestModal, setShowRequestModal] = useState(false);
+const [requestName, setRequestName] = useState('');
+const [requestEmail, setRequestEmail] = useState('');
+const [requestMessage, setRequestMessage] = useState('');
+⋮----
+// Añadir clase 'login-background' al body si no hay token
+⋮----
+document.body.classList.add('login-background');
+⋮----
+document.body.classList.remove('login-background');
+⋮----
+// Limpiar al desmontar el componente
+⋮----
+const storedUser = localStorage.getItem('user');
+⋮----
+const user = JSON.parse(storedUser);
+⋮----
+navigate('/app', { replace: true });
+⋮----
+navigate('/student', { replace: true });
+⋮----
+console.warn('Error al recuperar token o user:', err);
+⋮----
+const handleLogin = async () => {
+⋮----
+const data = await loginUser(email, password);
+localStorage.setItem('token', data.token);
+localStorage.setItem('user', JSON.stringify(data.user));
+onLogin(data.token);
+⋮----
+navigate('/app');
+⋮----
+navigate('/student-dashboard');
+⋮----
+setError(err.message || 'Error al conectar con el servidor');
+⋮----
+const handleRequestAccess = async () => {
+⋮----
+const response = await fetch(`${API_URL}/users/request-access`, {
+⋮----
+body: JSON.stringify({ name: requestName, email: requestEmail }),
+⋮----
+const data = await response.json();
+⋮----
+setRequestMessage('Solicitud enviada con éxito. El administrador revisará tu solicitud.');
+⋮----
+setRequestMessage(data.error || 'Error al enviar la solicitud.');
+⋮----
+setRequestMessage('Error al conectar con el servidor.');
+⋮----
+{/* LOGO Kedekids */}
+⋮----
+onChange={(e) => setEmail(e.target.value)}
+⋮----
+onChange={(e) => setPassword(e.target.value)}
+⋮----
+{/* Solicitud de acceso */}
+<button  onClick={() => setShowRequestModal(true)}>Solicitar acceso</button>
+⋮----
+onChange={(e) => setRequestName(e.target.value)}
+⋮----
+onChange={(e) => setRequestEmail(e.target.value)}
+⋮----
+<button onClick={() => setShowRequestModal(false)}>Cancelar</button>
+</file>
+
+<file path="apps/web/app/src/main/AndroidManifest.xml">
+<!--
+    Copyright 2019 Google Inc. All Rights Reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- The "package" attribute is rewritten by the Gradle build with the value of applicationId.
+     It is still required here, as it is used to derive paths, for instance when referring
+     to an Activity by ".MyActivity" instead of the full name. If more Activities are added to the
+     application, the package attribute will need to reflect the correct path in order to use
+     the abbreviated format. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kedekids.app">
+
+    
+        <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    
+
+    
+
+    
+
+    
+
+    <application
+        android:name="Application"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/appName"
+        
+        android:manageSpaceActivity="com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity"
+        
+        android:supportsRtl="true"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar">
+
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/assetStatements" />
+
+        
+            <meta-data
+                android:name="web_manifest_url"
+                android:value="@string/webManifestUrl" />
+        
+
+        <meta-data
+            android:name="twa_generator"
+            android:value="@string/generatorApp" />
+
+        
+
+        
+
+        
+            <activity android:name="com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity">
+            <meta-data
+                android:name="android.support.customtabs.trusted.MANAGE_SPACE_URL"
+                android:value="@string/launchUrl" />
+            </activity>
+        
+
+        <activity android:name="LauncherActivity"
+            android:alwaysRetainTaskState="true"
+            android:label="@string/launcherName"
+            android:exported="true">
+            <meta-data android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                android:value="@string/launchUrl" />
+
+            <meta-data
+                android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
+                android:resource="@color/colorPrimary" />
+
+            
+
+            <meta-data
+                android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR_DARK"
+                android:resource="@color/colorPrimaryDark" />
+
+            <meta-data
+                android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR"
+                android:resource="@color/navigationColor" />
+
+            <meta-data
+                android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR_DARK"
+                android:resource="@color/navigationColorDark" />
+
+            <meta-data
+                android:name="androix.browser.trusted.NAVIGATION_BAR_DIVIDER_COLOR"
+                android:resource="@color/navigationDividerColor" />
+
+            <meta-data
+                android:name="androix.browser.trusted.NAVIGATION_BAR_DIVIDER_COLOR_DARK"
+                android:resource="@color/navigationDividerColorDark" />
+
+            <meta-data android:name="android.support.customtabs.trusted.SPLASH_IMAGE_DRAWABLE"
+                android:resource="@drawable/splash"/>
+
+            <meta-data android:name="android.support.customtabs.trusted.SPLASH_SCREEN_BACKGROUND_COLOR"
+                android:resource="@color/backgroundColor"/>
+
+            <meta-data android:name="android.support.customtabs.trusted.SPLASH_SCREEN_FADE_OUT_DURATION"
+                android:value="@integer/splashScreenFadeOutDuration"/>
+
+            <meta-data android:name="android.support.customtabs.trusted.FILE_PROVIDER_AUTHORITY"
+                android:value="@string/providerAuthority"/>
+
+            <meta-data android:name="android.app.shortcuts" android:resource="@xml/shortcuts" />
+
+            <meta-data android:name="android.support.customtabs.trusted.FALLBACK_STRATEGY"
+                android:value="@string/fallbackType" />
+
+            
+
+            
+
+            <meta-data android:name="android.support.customtabs.trusted.SCREEN_ORIENTATION"
+                android:value="@string/orientation"/>
+
+            
+
+            
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"
+                    android:host="@string/hostName"
+                
+                />
+            </intent-filter>
+
+            
+
+            
+        </activity>
+
+        <activity android:name="com.google.androidbrowserhelper.trusted.FocusActivity" />
+
+        <activity android:name="com.google.androidbrowserhelper.trusted.WebViewFallbackActivity"
+            android:configChanges="orientation|screenSize" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="@string/providerAuthority"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
+
+        <service
+            android:name=".DelegationService"
+            android:enabled="@bool/enableNotification"
+            android:exported="@bool/enableNotification">
+
+            
+                <meta-data
+                    android:name="android.support.customtabs.trusted.SMALL_ICON"
+                    android:resource="@drawable/ic_notification_icon" />
+            
+
+            <intent-filter>
+                <action android:name="android.support.customtabs.trusted.TRUSTED_WEB_ACTIVITY_SERVICE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+
+        
+            <activity android:name="com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity" />
+        
+
+        
+            <activity android:name=
+        "com.google.androidbrowserhelper.locationdelegation.PermissionRequestActivity"/>
+        
+    </application>
+</manifest>
+</file>
+
+<file path="apps/web/app/src/main/res/drawable-anydpi/shortcut_legacy_background.xml">
+<!--
+    Copyright 2020 Google Inc. All Rights Reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:inset="2dp">
+    <aapt:attr name="android:drawable">
+        <shape android:shape="oval">
+            <solid android:color="@color/shortcut_background" />
+            <size android:width="44dp" android:height="44dp" />
+        </shape>
+    </aapt:attr>
+</inset>
+</file>
+
+<file path="apps/web/app/src/main/res/values/colors.xml">
+<!--
+    Copyright 2020 Google Inc. All Rights Reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <color name="shortcut_background">#F5F5F5</color>
+</resources>
+</file>
+
+<file path="apps/web/app/src/main/res/values/strings.xml">
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2021 Google Inc. All Rights Reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+  
+
+  <!--
+    This variable below expresses the relationship between the app and the site,
+    as documented in the TWA documentation at
+    https://developers.google.com/web/updates/2017/10/using-twa#set_up_digital_asset_links_in_an_android_app
+    and is injected into the AndroidManifest.xml
+  -->
+  <string name="assetStatements">
+    [{
+        \"relation\": [\"delegate_permission/common.handle_all_urls\"],
+        \"target\": {
+            \"namespace\": \"web\",
+            \"site\": \"https://skate-school-admin.vercel.app\"
+        }
+    }]
+    
+  </string>  
+</resources>
+</file>
+
+<file path="apps/web/app/src/main/res/xml/filepaths.xml">
+<!--
+    Copyright 2019 Google Inc. All Rights Reserved.
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<paths>
+    <files-path path="twa_splash/" name="twa_splash" />
+</paths>
+</file>
+
+<file path="apps/web/build.gradle">
+/*
+ * Copyright 2019 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.9.1'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+</file>
+
+<file path="apps/web/gradle.properties">
+# Project-wide Gradle settings.
+# IDE (e.g. Android Studio) users:
+# Gradle settings configured through the IDE *will override*
+# any settings specified in this file.
+# For more details on how to configure your build environment visit
+# http://www.gradle.org/docs/current/userguide/build_environment.html
+# Specifies the JVM arguments used for the daemon process.
+# The setting is particularly useful for tweaking memory settings.
+org.gradle.jvmargs=-Xmx1536m
+# When configured, Gradle will run in incubating parallel mode.
+# This option should only be used with decoupled projects. More details, visit
+# http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
+# org.gradle.parallel=true
+android.useAndroidX=true
+</file>
+
+<file path="apps/web/gradle/wrapper/gradle-wrapper.properties">
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
+distributionUrl=https\://services.gradle.org/distributions/gradle-8.11.1-bin.zip
+networkTimeout=10000
+validateDistributionUrl=true
+</file>
+
+<file path="apps/web/gradlew">
+#!/bin/sh
+
+#
+# Copyright © 2015-2021 the original authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+##############################################################################
+#
+#   Gradle start up script for POSIX generated by Gradle.
+#
+#   Important for running:
+#
+#   (1) You need a POSIX-compliant shell to run this script. If your /bin/sh is
+#       noncompliant, but you have some other compliant shell such as ksh or
+#       bash, then to run this script, type that shell name before the whole
+#       command line, like:
+#
+#           ksh Gradle
+#
+#       Busybox and similar reduced shells will NOT work, because this script
+#       requires all of these POSIX shell features:
+#         * functions;
+#         * expansions «$var», «${var}», «${var:-default}», «${var+SET}»,
+#           «${var#prefix}», «${var%suffix}», and «$( cmd )»;
+#         * compound commands having a testable exit status, especially «case»;
+#         * various built-in commands including «command», «set», and «ulimit».
+#
+#   Important for patching:
+#
+#   (2) This script targets any POSIX shell, so it avoids extensions provided
+#       by Bash, Ksh, etc; in particular arrays are avoided.
+#
+#       The "traditional" practice of packing multiple parameters into a
+#       space-separated string is a well documented source of bugs and security
+#       problems, so this is (mostly) avoided, by progressively accumulating
+#       options in "$@", and eventually passing that to Java.
+#
+#       Where the inherited environment variables (DEFAULT_JVM_OPTS, JAVA_OPTS,
+#       and GRADLE_OPTS) rely on word-splitting, this is performed explicitly;
+#       see the in-line comments for details.
+#
+#       There are tweaks for specific operating systems such as AIX, CygWin,
+#       Darwin, MinGW, and NonStop.
+#
+#   (3) This script is generated from the Groovy template
+#       https://github.com/gradle/gradle/blob/HEAD/platforms/jvm/plugins-application/src/main/resources/org/gradle/api/internal/plugins/unixStartScript.txt
+#       within the Gradle project.
+#
+#       You can find Gradle at https://github.com/gradle/gradle/.
+#
+##############################################################################
+
+# Attempt to set APP_HOME
+
+# Resolve links: $0 may be a link
+app_path=$0
+
+# Need this for daisy-chained symlinks.
+while
+    APP_HOME=${app_path%"${app_path##*/}"}  # leaves a trailing /; empty if no leading path
+    [ -h "$app_path" ]
+do
+    ls=$( ls -ld "$app_path" )
+    link=${ls#*' -> '}
+    case $link in             #(
+      /*)   app_path=$link ;; #(
+      *)    app_path=$APP_HOME$link ;;
+    esac
+done
+
+# This is normally unused
+# shellcheck disable=SC2034
+APP_BASE_NAME=${0##*/}
+# Discard cd standard output in case $CDPATH is set (https://github.com/gradle/gradle/issues/25036)
+APP_HOME=$( cd "${APP_HOME:-./}" > /dev/null && pwd -P ) || exit
+
+# Use the maximum available, or set MAX_FD != -1 to use that value.
+MAX_FD=maximum
+
+warn () {
+    echo "$*"
+} >&2
+
+die () {
+    echo
+    echo "$*"
+    echo
+    exit 1
+} >&2
+
+# OS specific support (must be 'true' or 'false').
+cygwin=false
+msys=false
+darwin=false
+nonstop=false
+case "$( uname )" in                #(
+  CYGWIN* )         cygwin=true  ;; #(
+  Darwin* )         darwin=true  ;; #(
+  MSYS* | MINGW* )  msys=true    ;; #(
+  NONSTOP* )        nonstop=true ;;
+esac
+
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
+
+# Determine the Java command to use to start the JVM.
+if [ -n "$JAVA_HOME" ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+        # IBM's JDK on AIX uses strange locations for the executables
+        JAVACMD=$JAVA_HOME/jre/sh/java
+    else
+        JAVACMD=$JAVA_HOME/bin/java
+    fi
+    if [ ! -x "$JAVACMD" ] ; then
+        die "ERROR: JAVA_HOME is set to an invalid directory: $JAVA_HOME
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
+else
+    JAVACMD=java
+    if ! command -v java >/dev/null 2>&1
+    then
+        die "ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH.
+
+Please set the JAVA_HOME variable in your environment to match the
+location of your Java installation."
+    fi
+fi
+
+# Increase the maximum file descriptors if we can.
+if ! "$cygwin" && ! "$darwin" && ! "$nonstop" ; then
+    case $MAX_FD in #(
+      max*)
+        # In POSIX sh, ulimit -H is undefined. That's why the result is checked to see if it worked.
+        # shellcheck disable=SC2039,SC3045
+        MAX_FD=$( ulimit -H -n ) ||
+            warn "Could not query maximum file descriptor limit"
+    esac
+    case $MAX_FD in  #(
+      '' | soft) :;; #(
+      *)
+        # In POSIX sh, ulimit -n is undefined. That's why the result is checked to see if it worked.
+        # shellcheck disable=SC2039,SC3045
+        ulimit -n "$MAX_FD" ||
+            warn "Could not set maximum file descriptor limit to $MAX_FD"
+    esac
+fi
+
+# Collect all arguments for the java command, stacking in reverse order:
+#   * args from the command line
+#   * the main class name
+#   * -classpath
+#   * -D...appname settings
+#   * --module-path (only if needed)
+#   * DEFAULT_JVM_OPTS, JAVA_OPTS, and GRADLE_OPTS environment variables.
+
+# For Cygwin or MSYS, switch paths to Windows format before running java
+if "$cygwin" || "$msys" ; then
+    APP_HOME=$( cygpath --path --mixed "$APP_HOME" )
+    CLASSPATH=$( cygpath --path --mixed "$CLASSPATH" )
+
+    JAVACMD=$( cygpath --unix "$JAVACMD" )
+
+    # Now convert the arguments - kludge to limit ourselves to /bin/sh
+    for arg do
+        if
+            case $arg in                                #(
+              -*)   false ;;                            # don't mess with options #(
+              /?*)  t=${arg#/} t=/${t%%/*}              # looks like a POSIX filepath
+                    [ -e "$t" ] ;;                      #(
+              *)    false ;;
+            esac
+        then
+            arg=$( cygpath --path --ignore --mixed "$arg" )
+        fi
+        # Roll the args list around exactly as many times as the number of
+        # args, so each arg winds up back in the position where it started, but
+        # possibly modified.
+        #
+        # NB: a `for` loop captures its iteration list before it begins, so
+        # changing the positional parameters here affects neither the number of
+        # iterations, nor the values presented in `arg`.
+        shift                   # remove old arg
+        set -- "$@" "$arg"      # push replacement arg
+    done
+fi
+
+
+# Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+
+# Collect all arguments for the java command:
+#   * DEFAULT_JVM_OPTS, JAVA_OPTS, JAVA_OPTS, and optsEnvironmentVar are not allowed to contain shell fragments,
+#     and any embedded shellness will be escaped.
+#   * For example: A user cannot expect ${Hostname} to be expanded, as it is an environment variable and will be
+#     treated as '${Hostname}' itself on the command line.
+
+set -- \
+        "-Dorg.gradle.appname=$APP_BASE_NAME" \
+        -classpath "$CLASSPATH" \
+        org.gradle.wrapper.GradleWrapperMain \
+        "$@"
+
+# Stop when "xargs" is not available.
+if ! command -v xargs >/dev/null 2>&1
+then
+    die "xargs is not available"
+fi
+
+# Use "xargs" to parse quoted args.
+#
+# With -n1 it outputs one arg per line, with the quotes and backslashes removed.
+#
+# In Bash we could simply go:
+#
+#   readarray ARGS < <( xargs -n1 <<<"$var" ) &&
+#   set -- "${ARGS[@]}" "$@"
+#
+# but POSIX shell has neither arrays nor command substitution, so instead we
+# post-process each arg (as a line of input to sed) to backslash-escape any
+# character that might be a shell metacharacter, then use eval to reverse
+# that process (while maintaining the separation between arguments), and wrap
+# the whole thing up as a single "set" statement.
+#
+# This will of course break if any of these variables contains a newline or
+# an unmatched quote.
+#
+
+eval "set -- $(
+        printf '%s\n' "$DEFAULT_JVM_OPTS $JAVA_OPTS $GRADLE_OPTS" |
+        xargs -n1 |
+        sed ' s~[^-[:alnum:]+,./:=@_]~\\&~g; ' |
+        tr '\n' ' '
+    )" '"$@"'
+
+exec "$JAVACMD" "$@"
+</file>
+
+<file path="apps/web/gradlew.bat">
+@rem
+@rem Copyright 2015 the original author or authors.
+@rem
+@rem Licensed under the Apache License, Version 2.0 (the "License");
+@rem you may not use this file except in compliance with the License.
+@rem You may obtain a copy of the License at
+@rem
+@rem      https://www.apache.org/licenses/LICENSE-2.0
+@rem
+@rem Unless required by applicable law or agreed to in writing, software
+@rem distributed under the License is distributed on an "AS IS" BASIS,
+@rem WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+@rem See the License for the specific language governing permissions and
+@rem limitations under the License.
+@rem
+
+@if "%DEBUG%"=="" @echo off
+@rem ##########################################################################
+@rem
+@rem  Gradle startup script for Windows
+@rem
+@rem ##########################################################################
+
+@rem Set local scope for the variables with windows NT shell
+if "%OS%"=="Windows_NT" setlocal
+
+set DIRNAME=%~dp0
+if "%DIRNAME%"=="" set DIRNAME=.
+@rem This is normally unused
+set APP_BASE_NAME=%~n0
+set APP_HOME=%DIRNAME%
+
+@rem Resolve any "." and ".." in APP_HOME to make it shorter.
+for %%i in ("%APP_HOME%") do set APP_HOME=%%~fi
+
+@rem Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
+set DEFAULT_JVM_OPTS="-Xmx64m" "-Xms64m"
+
+@rem Find java.exe
+if defined JAVA_HOME goto findJavaFromJavaHome
+
+set JAVA_EXE=java.exe
+%JAVA_EXE% -version >NUL 2>&1
+if %ERRORLEVEL% equ 0 goto execute
+
+echo. 1>&2
+echo ERROR: JAVA_HOME is not set and no 'java' command could be found in your PATH. 1>&2
+echo. 1>&2
+echo Please set the JAVA_HOME variable in your environment to match the 1>&2
+echo location of your Java installation. 1>&2
+
+goto fail
+
+:findJavaFromJavaHome
+set JAVA_HOME=%JAVA_HOME:"=%
+set JAVA_EXE=%JAVA_HOME%/bin/java.exe
+
+if exist "%JAVA_EXE%" goto execute
+
+echo. 1>&2
+echo ERROR: JAVA_HOME is set to an invalid directory: %JAVA_HOME% 1>&2
+echo. 1>&2
+echo Please set the JAVA_HOME variable in your environment to match the 1>&2
+echo location of your Java installation. 1>&2
+
+goto fail
+
+:execute
+@rem Setup the command line
+
+set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar
+
+
+@rem Execute Gradle
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %GRADLE_OPTS% "-Dorg.gradle.appname=%APP_BASE_NAME%" -classpath "%CLASSPATH%" org.gradle.wrapper.GradleWrapperMain %*
+
+:end
+@rem End local scope for the variables with windows NT shell
+if %ERRORLEVEL% equ 0 goto mainEnd
+
+:fail
+rem Set variable GRADLE_EXIT_CONSOLE if you need the _script_ return code instead of
+rem the _cmd.exe /c_ return code!
+set EXIT_CODE=%ERRORLEVEL%
+if %EXIT_CODE% equ 0 set EXIT_CODE=1
+if not ""=="%GRADLE_EXIT_CONSOLE%" exit %EXIT_CODE%
+exit /b %EXIT_CODE%
+
+:mainEnd
+if "%OS%"=="Windows_NT" endlocal
+
+:omega
+</file>
+
+<file path="apps/web/manifest-checksum.txt">
+be251a9287204f8a60ca10f78af208618609d4dd
+</file>
+
+<file path="apps/web/settings.gradle">
+include ':app'
+</file>
+
+<file path="backend/routes/events.js">
+// backend/routes/events.js
+⋮----
+const router = express.Router();
+⋮----
+const transporter = nodemailer.createTransport({
+⋮----
+// ---------- helpers: email ----------
+// Reemplaza ESTA función en backend/routes/events.js
+function generateEmailContent(event) {
+// === FULL BLEED para "only-image" ===
+⋮----
+// === layouts con marco (como ya tenías) ===
+⋮----
+// Composición para los otros layouts
+⋮----
+// Marco de 600px solo para los layouts con contenido
+⋮----
+const chunk = (arr, n) => (arr.length ? [arr.slice(0, n), ...chunk(arr.slice(n), n)] : []);
+⋮----
+// ---------- rutas ----------
+router.get('/', async (_req, res) => {
+⋮----
+const events = await Event.find().populate('targetGroups', 'name');
+res.json(events);
+⋮----
+console.error(err);
+res.status(500).json({ error: 'Error al obtener eventos' });
+⋮----
+router.get('/upcoming', async (_req, res) => {
+⋮----
+const today = new Date();
+const events = await Event.find({ date: { $gte: today } })
+.sort({ date: 1 })
+.limit(5);
+⋮----
+res.status(500).json({ error: 'Error al obtener las próximas clases' });
+⋮----
+router.post('/', async (req, res) => {
+⋮----
+if (!subject || !subject.trim()) {
+return res.status(400).json({ error: 'El campo subject es obligatorio.' });
+⋮----
+if (!LAYOUTS.includes(layout)) layout = 'header-body-image';
+⋮----
+const newEvent = new Event({
+⋮----
+await newEvent.save();
+res.status(201).json(newEvent);
+⋮----
+res.status(500).json({ error: 'Error al crear evento' });
+⋮----
+router.put('/:id', async (req, res) => {
+⋮----
+if (layout && !LAYOUTS.includes(layout)) layout = 'header-body-image';
+⋮----
+const updatedEvent = await Event.findByIdAndUpdate(
+⋮----
+subject, // importante: se actualiza
+⋮----
+updatedAt: Date.now(),
+⋮----
+if (!updatedEvent) return res.status(404).json({ error: 'Evento no encontrado' });
+res.json(updatedEvent);
+⋮----
+res.status(500).json({ error: 'Error al actualizar evento' });
+⋮----
+router.delete('/:id', async (req, res) => {
+⋮----
+const deletedEvent = await Event.findByIdAndDelete(req.params.id);
+if (!deletedEvent) return res.status(404).json({ error: 'Evento no encontrado' });
+res.json({ message: 'Evento eliminado', deletedEvent });
+⋮----
+res.status(500).json({ error: 'Error al eliminar evento' });
+⋮----
+router.post('/:id/send-email', async (req, res) => {
+⋮----
+const event = await Event.findById(req.params.id);
+if (!event) return res.status(404).json({ error: 'Evento no encontrado' });
+⋮----
+const students = await User.find({ role: 'student' }, 'email');
+recipients = students.map(s => s.email).filter(Boolean);
+} else if (Array.isArray(event.targetGroups) && event.targetGroups.length) {
+const students = await User.find(
+⋮----
+return res.status(400).json({ error: 'No hay destinatarios para este evento.' });
+⋮----
+const batches = chunk(recipients, 80);
+⋮----
+await transporter.sendMail({
+⋮----
+html: generateEmailContent(event),
+⋮----
+await event.save();
+⋮----
+res.json({ success: true, message: 'Correo enviado correctamente.' });
+⋮----
+console.error('Error en la ruta /send-email:', err);
+res.status(500).json({ error: 'Error al enviar el correo.' });
+</file>
+
+<file path="apps/kedeKids/app/index.tsx">
+// app/index.tsx
+⋮----
+// 1️⃣ Importa esto *antes* de cualquier otra cosa para configurar el handler global
+⋮----
+import { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  Image,
+  Pressable,
+  StyleSheet,
+  Modal,
+  Alert,
+} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { router } from 'expo-router';
+import { loginUser } from '@shared/api';
+import { registerForPushNotificationsAndSave } from './utils/notifications';
+import { API_URL } from '@shared/api';
+⋮----
+/* ---------------- state ---------------- */
+⋮----
+/* ------------- auto-login ------------- */
+⋮----
+/* ------------- notification listeners ------------- */
+⋮----
+// 1) Cuando la app está en foreground
+⋮----
+// 2) Cuando el usuario toca la notificación
+⋮----
+// Aquí podrías navegar, p.ej.:
+// const data = response.notification.request.content.data;
+// router.push(`/chat/${data.chatId}`);
+⋮----
+/* ------------- helpers ------------- */
+const goToRole = (role: string) =>
+⋮----
+/* ------------- login handler ------------- */
+const handleLogin = async () =>
+⋮----
+// Registrar push token tras login exitoso
+⋮----
+/* ------------- solicitud de acceso ------------- */
+const handleRequestAccess = async () =>
+⋮----
+/* ------------- render ------------- */
+⋮----
+{/* logo */}
+⋮----
+{/* solicitud de acceso */}
+⋮----
+/* ---------------- estilos ---------------- */
+</file>
+
+<file path="apps/kedeKids/app/utils/notifications.ts">
+// app/utils/notifications.ts
+⋮----
+import { Platform } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '@shared/api';
+⋮----
+// 📌 sigue manejando el handler igual
+⋮----
+export async function registerForPushNotificationsAndSave()
+⋮----
+// 1️⃣ permisos
+⋮----
+// 2️⃣ 👉 Token FCM nativo
+// (antes usábamos getExpoPushTokenAsync, ahora:
+⋮----
+// 3️⃣ guardarlo en backend
+</file>
+
+<file path="apps/web/app/build.gradle">
+/*
+ * Copyright 2019 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import groovy.xml.MarkupBuilder
+
+plugins {
+    id 'com.android.application'
+}
+
+def twaManifest = [
+    applicationId: 'com.kedekids.app',
+    hostName: 'skate-school-admin.vercel.app', // The domain being opened in the TWA.
+    launchUrl: '/', // The start path for the TWA. Must be relative to the domain.
+    name: 'KedeKids', // The application name.
+    launcherName: 'KedeKids', // The name shown on the Android Launcher.
+    themeColor: '#000000', // The color used for the status bar.
+    themeColorDark: '#000000', // The color used for the dark status bar.
+    navigationColor: '#000000', // The color used for the navigation bar.
+    navigationColorDark: '#000000', // The color used for the dark navbar.
+    navigationDividerColor: '#000000', // The navbar divider color.
+    navigationDividerColorDark: '#000000', // The dark navbar divider color.
+    backgroundColor: '#FFFFFF', // The color used for the splash screen background.
+    enableNotifications: true, // Set to true to enable notification delegation.
+    // Every shortcut must include the following fields:
+    // - name: String that will show up in the shortcut.
+    // - short_name: Shorter string used if |name| is too long.
+    // - url: Absolute path of the URL to launch the app with (e.g '/create').
+    // - icon: Name of the resource in the drawable folder to use as an icon.
+    shortcuts: [],
+    // The duration of fade out animation in milliseconds to be played when removing splash screen.
+    splashScreenFadeOutDuration: 300,
+    generatorApp: 'bubblewrap-cli', // Application that generated the Android Project
+    // The fallback strategy for when Trusted Web Activity is not available. Possible values are
+    // 'customtabs' and 'webview'.
+    fallbackType: 'customtabs',
+    enableSiteSettingsShortcut: 'true',
+    orientation: 'portrait',
+]
+
+android {
+    compileSdkVersion 36
+    namespace "com.kedekids.app"
+    defaultConfig {
+        applicationId "com.kedekids.app"
+        minSdkVersion 21
+        targetSdkVersion 35
+        versionCode 3
+        versionName "3"
+
+        // The name for the application
+        resValue "string", "appName", twaManifest.name
+
+        // The name for the application on the Android Launcher
+        resValue "string", "launcherName", twaManifest.launcherName
+
+        // The URL that will be used when launching the TWA from the Android Launcher
+        def launchUrl = "https://" + twaManifest.hostName + twaManifest.launchUrl
+        resValue "string", "launchUrl", launchUrl
+
+        
+
+        
+            // The URL the Web Manifest for the Progressive Web App that the TWA points to. This
+            // is used by Chrome OS and Meta Quest to open the Web version of the PWA instead of
+            // the TWA, as it will probably give a better user experience for non-mobile devices.
+            resValue "string", "webManifestUrl", 'https://skate-school-admin.vercel.app/manifest.webmanifest'
+        
+
+        
+            // This is used by Meta Quest.
+            resValue "string", "fullScopeUrl", 'https://skate-school-admin.vercel.app/'
+        
+
+        
+
+        // The hostname is used when building the intent-filter, so the TWA is able to
+        // handle Intents to open host url of the application.
+        resValue "string", "hostName", twaManifest.hostName
+
+        // This attribute sets the status bar color for the TWA. It can be either set here or in
+        // `res/values/colors.xml`. Setting in both places is an error and the app will not
+        // compile. If not set, the status bar color defaults to #FFFFFF - white.
+        resValue "color", "colorPrimary", twaManifest.themeColor
+
+        // This attribute sets the dark status bar color for the TWA. It can be either set here or in
+        // `res/values/colors.xml`. Setting in both places is an error and the app will not
+        // compile. If not set, the status bar color defaults to #000000 - white.
+        resValue "color", "colorPrimaryDark", twaManifest.themeColorDark
+
+        // This attribute sets the navigation bar color for the TWA. It can be either set here or
+        // in `res/values/colors.xml`. Setting in both places is an error and the app will not
+        // compile. If not set, the navigation bar color defaults to #FFFFFF - white.
+        resValue "color", "navigationColor", twaManifest.navigationColor
+
+        // This attribute sets the dark navigation bar color for the TWA. It can be either set here
+        // or in `res/values/colors.xml`. Setting in both places is an error and the app will not
+        // compile. If not set, the navigation bar color defaults to #000000 - black.
+        resValue "color", "navigationColorDark", twaManifest.navigationColorDark
+
+        // This attribute sets the navbar divider color for the TWA. It can be either 
+        // set here or in `res/values/colors.xml`. Setting in both places is an error and the app 
+        // will not compile. If not set, the divider color defaults to #00000000 - transparent.
+        resValue "color", "navigationDividerColor", twaManifest.navigationDividerColor
+
+        // This attribute sets the dark navbar divider color for the TWA. It can be either 
+        // set here or in `res/values/colors.xml`. Setting in both places is an error and the 
+        //app will not compile. If not set, the divider color defaults to #000000 - black.
+        resValue "color", "navigationDividerColorDark", twaManifest.navigationDividerColorDark
+
+        // Sets the color for the background used for the splash screen when launching the
+        // Trusted Web Activity.
+        resValue "color", "backgroundColor", twaManifest.backgroundColor
+
+        // Defines a provider authority for the Splash Screen
+        resValue "string", "providerAuthority", twaManifest.applicationId + '.fileprovider'
+
+        // The enableNotification resource is used to enable or disable the
+        // TrustedWebActivityService, by changing the android:enabled and android:exported
+        // attributes
+        resValue "bool", "enableNotification", twaManifest.enableNotifications.toString()
+
+        twaManifest.shortcuts.eachWithIndex { shortcut, index ->
+            resValue "string", "shortcut_name_$index", "$shortcut.name"
+            resValue "string", "shortcut_short_name_$index", "$shortcut.short_name"
+        }
+
+        // The splashScreenFadeOutDuration resource is used to set the duration of fade out animation in milliseconds
+        // to be played when removing splash screen. The default is 0 (no animation).
+        resValue "integer", "splashScreenFadeOutDuration", twaManifest.splashScreenFadeOutDuration.toString()
+
+        resValue "string", "generatorApp", twaManifest.generatorApp
+
+        resValue "string", "fallbackType", twaManifest.fallbackType
+
+        resValue "bool", "enableSiteSettingsShortcut", twaManifest.enableSiteSettingsShortcut
+        resValue "string", "orientation", twaManifest.orientation
+
+        
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    lintOptions {
+        checkReleaseBuilds false
+    }
+}
+
+task generateShorcutsFile {
+    assert twaManifest.shortcuts.size() < 5, "You can have at most 4 shortcuts."
+    twaManifest.shortcuts.eachWithIndex { s, i ->
+        assert s.name != null, 'Missing `name` in shortcut #' + i
+        assert s.short_name != null, 'Missing `short_name` in shortcut #' + i
+        assert s.url != null, 'Missing `icon` in shortcut #' + i
+        assert s.icon != null, 'Missing `url` in shortcut #' + i
+    }
+
+    def shortcutsFile = new File("$projectDir/src/main/res/xml", "shortcuts.xml")
+
+    def xmlWriter = new StringWriter()
+    def xmlMarkup = new MarkupBuilder(new IndentPrinter(xmlWriter, "    ", true))
+
+    xmlMarkup
+        .'shortcuts'('xmlns:android': 'http://schemas.android.com/apk/res/android') {
+            twaManifest.shortcuts.eachWithIndex { s, i ->
+                'shortcut'(
+                        'android:shortcutId': 'shortcut' + i,
+                        'android:enabled': 'true',
+                        'android:icon': '@drawable/' + s.icon,
+                        'android:shortcutShortLabel': '@string/shortcut_short_name_' + i,
+                        'android:shortcutLongLabel': '@string/shortcut_name_' + i) {
+                    'intent'(
+                            'android:action': 'android.intent.action.MAIN',
+                            'android:targetPackage': twaManifest.applicationId,
+                            'android:targetClass': twaManifest.applicationId + '.LauncherActivity',
+                            'android:data': s.url)
+                    'categories'('android:name': 'android.intent.category.LAUNCHER')
+                }
+            }
+        }
+    shortcutsFile.text = xmlWriter.toString() + '\n'
+}
+
+preBuild.dependsOn(generateShorcutsFile)
+
+repositories {
+    
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    
+        implementation 'com.google.androidbrowserhelper:locationdelegation:1.1.2'
+    
+        implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.6.2'
+    
+}
+</file>
+
+<file path="apps/web/app/src/main/res/xml/shortcuts.xml">
+<shortcuts xmlns:android='http://schemas.android.com/apk/res/android' />
+</file>
+
+<file path="apps/web/src/App.jsx">
+function PrivateRoute({ children, allowedRoles }) {
+const token = localStorage.getItem('token');
+const user = JSON.parse(localStorage.getItem('user'));
+⋮----
+if (!token || !user || !allowedRoles.includes(user.role)) {
+⋮----
+function App() {
+const [token, setToken] = useState(localStorage.getItem('token'));
+⋮----
+const handleLogin = (newToken) => {
+setToken(newToken);
+⋮----
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+setToken(null);
+⋮----
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+document.body.classList.toggle('admin-mode', storedUser.role === 'admin');
+document.body.classList.toggle('student-mode', storedUser.role === 'student');
+⋮----
+// 👉 REGISTRO DEL SERVICE WORKER PARA PWA
+⋮----
+.register('/service-worker.js')
+.then(reg => console.log('✅ Service Worker registrado:', reg))
+.catch(err => console.error('❌ Error al registrar Service Worker:', err));
+⋮----
+requestPermissionAndGetToken();
+⋮----
+allowedRoles: PropTypes.arrayOf(PropTypes.string)
+</file>
+
+<file path="apps/web/src/main.jsx">
+requestPermissionAndGetToken().then(token => {
+⋮----
+console.log('🔐 Token FCM:', token);
+// ENVÍALO A TU BACKEND
+const email = JSON.parse(localStorage.getItem('user'))?.email;
+⋮----
+fetch(`${API_URL}/users/save-device-token`, {
+⋮----
+body: JSON.stringify({ email, deviceToken: token }),
+⋮----
+.then(res => res.json())
+.then(data => console.log('✅ Token guardado en backend:', data))
+.catch(err => console.error('❌ Error al guardar token en backend:', err));
+⋮----
+listenToForegroundMessages(payload => {
+console.log('📩 Mensaje recibido en foreground:', payload);
+⋮----
+createRoot(document.getElementById('root')).render(
+⋮----
+navigator.serviceWorker.register('/firebase-messaging-sw.js')
+.then((registration) => {
+console.log('🟢 SW de Firebase registrado:', registration);
+⋮----
+.catch((err) => {
+console.error('🔴 Error registrando SW Firebase:', err);
+</file>
+
+<file path="apps/web/src/pages/StudentDashboard.jsx">
+function StudentDashboard() {
+const [user, setUser] = useState({});
+const [notifications, setNotifications] = useState([]);
+const [upcomingClasses, setUpcomingClasses] = useState([]);
+const [groupDetails, setGroupDetails] = useState(null);
+const [showPaymentReminder, setShowPaymentReminder] = useState(false);
+const [showAllNotifications, setShowAllNotifications] = useState(false);
+const navigate = useNavigate();
+⋮----
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user'));
+⋮----
+navigate('/');
+⋮----
+setUser(storedUser);
+⋮----
+// 📅 Lógica del aviso de pago
+const day = new Date().getDate();
+if (day >= 1 && day <= 15) setShowPaymentReminder(true);
+⋮----
+// Grupo
+fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
+.then(res => res.json())
+.then(group => setGroupDetails(group))
+.catch(err => console.error('Error cargando grupo:', err));
+⋮----
+// Próximas clases
+fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
+⋮----
+.then(data => setUpcomingClasses(data))
+.catch(err => console.error(err));
+⋮----
+// Notificaciones del grupo
+fetch(`${API_URL}/notifications/${storedUser.groupId._id}`)
+⋮----
+.then(data => setNotifications(Array.isArray(data) ? data : []))
+⋮----
+// ---- ordenar notificaciones: más recientes primero
+const sortedNotifications = useMemo(() => {
+const getTime = (n) => {
+if (n?.createdAt) return new Date(n.createdAt).getTime();
+if (n?.date) return new Date(n.date).getTime();
+⋮----
+// timestamp embebido en ObjectId (hex -> segundos)
+return parseInt(n._id.substring(0, 8), 16) * 1000;
+⋮----
+return [...notifications].sort((a, b) => getTime(b) - getTime(a));
+⋮----
+{/* Grupo Asignado */}
+⋮----
+{/* Próximas Clases */}
+⋮----
+{upcomingClasses.map((cls, index) => (
+⋮----
+📅 {new Date(cls.date).toLocaleDateString()} - 🕒 {cls.startTime || 'Hora no definida'}
+⋮----
+{/* Últimas Notificaciones */}
+⋮----
+{(showAllNotifications ? sortedNotifications : sortedNotifications.slice(0, 3)).map(
+⋮----
+onClick={() => setShowAllNotifications((v) => !v)}
+</file>
+
+<file path="apps/web/public/firebase-messaging-sw.js">
+// public/firebase-messaging-sw.js
+/* eslint-disable no-undef */
+/* global importScripts, firebase */
+⋮----
+importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging-compat.js");
+⋮----
+firebase.initializeApp({
+⋮----
+const messaging = firebase.messaging();
+⋮----
+messaging.onBackgroundMessage(function(payload) {
+console.log("[firebase-messaging-sw.js] Recibido mensaje en background ", payload);
+self.registration.showNotification(payload.notification.title, {
+</file>
+
+<file path="backend/routes/notifications.js">
+const router = express.Router();
+const messaging = require("../firebase"); // ahora es getMessaging()
+⋮----
+// Obtener notificaciones de un grupo
+router.get("/:groupId", async (req, res) => {
+⋮----
+const group = await Group.findById(req.params.groupId);
+if (!group) return res.status(404).json({ error: "Grupo no encontrado" });
+res.json(group.notifications || []);
+⋮----
+console.error(err);
+res.status(500).json({ error: "Error al obtener notificaciones del grupo" });
+⋮----
+// Guardar token de dispositivo
+router.put("/save-device-token", async (req, res) => {
+console.log("Body recibido:", req.body);
+⋮----
+const user = await User.findOneAndUpdate(
+⋮----
+if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+res.json({ message: "Token guardado con éxito", user });
+⋮----
+res.status(500).json({ error: "Error al guardar el token" });
+⋮----
+// Enviar notificación push a todos los miembros de un grupo (FCM v1)
+router.post("/send-notification/:groupId", async (req, res) => {
+⋮----
+console.log(`Iniciando envío al grupo ${groupId}: ${title}`);
+const group = await Group.findById(groupId).populate("members");
+⋮----
+return res.status(404).json({ error: "Grupo no encontrado" });
+⋮----
+// Extrae los deviceTokens FCM
+⋮----
+.map((m) => m.deviceToken)
+.filter((t) => !!t);
+⋮----
+.status(400)
+.json({ success: false, message: "No hay tokens FCM" });
+⋮----
+// Construye el payload multicast
+⋮----
+tokens,                      // array de tokens nativos FCM
+⋮----
+// Envía
+const response = await messaging.sendMulticast(message);
+console.log("✅ FCM respuesta:", response);
+⋮----
+return res.json({
+⋮----
+console.error("❌ Error enviando FCM:", err);
+return res.status(500).json({ success: false, error: err.message });
+</file>
+
+<file path="apps/web/vite.config.js">
+export default defineConfig({
+⋮----
+__APP_BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+⋮----
+react(),
+⋮----
+VitePWA({
+⋮----
+'@shared': path.resolve(__dirname, '../../packages/shared'),
+⋮----
+// Si realmente no usas estas deps en web, puedes dejarlas como externas.
+// Si no, elimina esta sección.
+</file>
+
+<file path="apps/web/src/components/Header.jsx">
+const Header = ({ role }) => {
+const { toggleSidebar } = useSidebar();
+⋮----
+const [showNotifications, setShowNotifications] = useState(false);
+const [notifications, setNotifications] = useState([]);
+const [openedLatest, setOpenedLatest] = useState(null); // << NUEVO: lo que mostramos en esta apertura
+const [lastSeenTs, setLastSeenTs] = useState(0);
+const [messageCount, setMessageCount] = useState(0);
+const [showUserMenu, setShowUserMenu] = useState(false);
+const [searchTerm, setSearchTerm] = useState('');
+const [searchResults, setSearchResults] = useState([]);
+const [userData, setUserData] = useState({ _id: '', role: '', name: '', avatar: '' });
+⋮----
+const navigate = useNavigate();
+const bellRef = useRef(null);
+const userMenuRef = useRef(null);
+const pollRef = useRef(null);
+⋮----
+const getReadKey = (uid) => (uid ? `kk_last_seen_notif_${uid}` : null);
+⋮----
+const getTime = (n) => {
+if (n?.createdAt) return new Date(n.createdAt).getTime();
+if (n?.date) return new Date(n.date).getTime();
+⋮----
+return parseInt(n._id.substring(0, 8), 16) * 1000;
+⋮----
+const sortedNotifications = useMemo(() => {
+return [...notifications].sort((a, b) => getTime(b) - getTime(a));
+⋮----
+const latestTime = latest ? getTime(latest) : 0;
+⋮----
+useEffect(() => {
+⋮----
+axios.get(`${API_URL}/users/requests`)
+.then((res) => setMessageCount(Array.isArray(res.data) ? res.data.length : 0))
+.catch(() => {});
+⋮----
+const stored = localStorage.getItem('user') || localStorage.getItem('userData');
+⋮----
+const u = JSON.parse(stored);
+setUserData(u);
+⋮----
+await fetchNotifications(u);
+⋮----
+pollRef.current = setInterval(() => fetchNotifications(u), 30000);
+⋮----
+if (pollRef.current) clearInterval(pollRef.current);
+⋮----
+// eslint-disable-next-line react-hooks/exhaustive-deps
+⋮----
+// Cargar lastSeen cuando ya tenemos el _id del usuario
+⋮----
+const key = getReadKey(userData._id);
+const saved = parseInt(localStorage.getItem(key) || '0', 10);
+setLastSeenTs(Number.isFinite(saved) ? saved : 0);
+⋮----
+const fetchNotifications = async (u) => {
+⋮----
+const res = await axios.get(`${API_URL}/notifications/${u.groupId._id}`);
+groupNotes = Array.isArray(res.data) ? res.data : [];
+⋮----
+// Aviso pagos con createdAt estable (25 del mes, 00:00)
+const now = new Date();
+const day = now.getDate();
+const payday = new Date(now.getFullYear(), now.getMonth(), 25, 0, 0, 0, 0);
+⋮----
+_id: `payment-${now.getFullYear()}-${now.getMonth() + 1}`,
+⋮----
+createdAt: payday.toISOString(),
+⋮----
+setNotifications([...groupNotes, ...synthetic]);
+⋮----
+console.error('Error cargando notificaciones:', e);
+⋮----
+// CLICK campana: capturamos la última para mostrar esta vez y luego marcamos leído
+const onBellClick = () => {
+⋮----
+// Vamos a abrir: capturamos lo último (solo si hay algo nuevo)
+setOpenedLatest(hasNew ? latest : null);
+⋮----
+// Marcamos leído (apaga el punto)…
+const ts = hasNew ? (latestTime || Date.now()) : lastSeenTs;
+setLastSeenTs(ts);
+const key = getReadKey(userData?._id);
+if (key) localStorage.setItem(key, String(ts));
+⋮----
+setShowNotifications(true);
+⋮----
+// Vamos a cerrar: vaciamos la captura para la próxima apertura
+setShowNotifications(false);
+setOpenedLatest(null);
+⋮----
+const handleClickOutside = (e) => {
+if (bellRef.current && !bellRef.current.contains(e.target)) {
+⋮----
+if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
+setShowUserMenu(false);
+⋮----
+document.addEventListener('mousedown', handleClickOutside);
+return () => document.removeEventListener('mousedown', handleClickOutside);
+⋮----
+const handleSearch = async (e) => {
+⋮----
+setSearchTerm(term);
+⋮----
+if (term.trim() && role !== 'student') {
+⋮----
+const response = await axios.get(`${API_URL}/users/search`, { params: { query: term } });
+⋮----
+...response.data.users.map((u) => ({ ...u, type: 'user' })),
+...response.data.groups.map((g) => ({ ...g, type: 'group' })),
+...response.data.events.map((ev) => ({ ...ev, type: 'event' })),
+⋮----
+setSearchResults(combined);
+⋮----
+console.error('Error en búsqueda:', error);
+setSearchResults([]);
+⋮----
+const handleAvatarClick = () => setShowUserMenu(!showUserMenu);
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('userData');
+navigate('/');
+⋮----
+onClick={() => navigate(role === 'admin' ? '/app' : '/student')}
+⋮----
+<FaCalendarAlt /> <span>{new Date().toLocaleDateString()}</span>
+⋮----
+<span>{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+⋮----
+{/* Search (oculta para students) */}
+⋮----
+{searchResults.map((result, index) => (
+⋮----
+if (result.type === 'user') navigate(`/app/students?userId=${result._id}`);
+if (result.type === 'group') navigate(`/app/groups?groupId=${result._id}`);
+if (result.type === 'event') navigate(`/app/events?eventId=${result._id}`);
+⋮----
+{/* Campana para TODOS los roles */}
+⋮----
+{/* Solo admin: bandeja de solicitudes */}
+⋮----
+<div className="icon-container" onClick={() => navigate('/app/requests')}>
+⋮----
+? (userData.avatar.startsWith('http')
+⋮----
+<p onClick={() => navigate(role === 'admin' ? '/app/change-password' : '/change-password')}>
+</file>
+
+<file path="apps/web/src/firebase.js">
+// src/firebase.js
+⋮----
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
+⋮----
+const postTokenToReactNative = (token, attempts = 0) => {
+⋮----
+window.ReactNativeWebView.postMessage(`FCM_TOKEN:${token}`);
+⋮----
+setTimeout(() => postTokenToReactNative(token, attempts + 1), 500);
+⋮----
+export const requestPermissionAndGetToken = async () => {
+⋮----
+const permission = await Notification.requestPermission();
+⋮----
+const token = await getToken(messaging, {
+⋮----
+console.log("✅ Token generado:", token);
+localStorage.setItem('fcm_token', token);
+⋮----
+postTokenToReactNative(token); // ⬅️ aquí el cambio importante
+⋮----
+console.warn("❌ Permiso de notificación denegado");
+⋮----
+console.error("⚠️ Error al obtener el token FCM:", err);
+⋮----
+export const listenToForegroundMessages = (callback) => {
+onMessage(messaging, callback);
+</file>
+
+<file path="packages/shared/api.js">
+// packages/shared/api.js
+⋮----
+/**
+ * Monorepo-shared API URL resolver: picks correct base URL
+ * - On React Native, reads expo.extra.apiUrl from app.json
+ * - On Web, reads VITE_API_URL from import.meta.env or falls back
+ */
+⋮----
+// Detect React Native by navigator.product
+⋮----
+// extra.apiUrl must end with /api
+⋮----
+console.warn('⚠️ expo-constants import failed, defaulting to prod URL', e);
+⋮----
+// Web environment
+⋮----
+// ensure single /api suffix
+return base.endsWith('/api') ? base : `${base}/api`;
+⋮----
+// Shared API methods
+export const loginUser = async (email, password) => {
+⋮----
+console.log('➡️ LOGIN URL:', url);
+console.log('➡️ PAYLOAD:', { email, password });
+const res = await fetch(url, {
+⋮----
+body: JSON.stringify({ email, password }),
+⋮----
+const text = await res.text();
+console.log('⬅️ STATUS:', res.status, 'BODY:', text);
+⋮----
+try { msg = JSON.parse(text).error || msg; } catch {};
+throw new Error(msg);
+⋮----
+return JSON.parse(text);
+⋮----
+export const getUserProfile = async (token) => {
+⋮----
+if (!res.ok) throw new Error('Failed to get profile');
+return res.json();
+⋮----
+export const fetchEvents = async () => {
+⋮----
+const res = await fetch(url);
+if (!res.ok) throw new Error('Error loading events');
+⋮----
+export const getGroupDetails = async (groupId) => {
+⋮----
+if (!res.ok) throw new Error('Error getting group details');
+⋮----
+export const getUpcomingClasses = async (groupId) => {
+⋮----
+if (!res.ok) throw new Error('Error getting upcoming classes');
+⋮----
+export const getGroupNotifications = async (groupId) => {
+⋮----
+if (!res.ok) throw new Error('Error getting notifications');
+</file>
+
+<file path="apps/web/index.html">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/kids.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#ff9b00" />
+
+    <title>KedeKids</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+</file>
+
+</files>

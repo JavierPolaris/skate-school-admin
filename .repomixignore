@@ -1,0 +1,114 @@
+# === Node / JS ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+build/
+.cache/
+.tmp/
+
+# === Next.js / Vercel ===
+.next/
+out/
+.vercel/
+
+# === Expo / React Native ===
+.expo/
+.expo-shared/
+*.expo
+*.apk
+*.aab
+
+# === Android Gradle ===
+.gradle/
+local.properties
+*.iml
+.gradle/
+*.hprof
+*.keystore
+*.jks
+
+# Android build outputs
+apps/web/app/build/
+apps/web/app/release/
+apps/web/build/
+apps/web/outputs/
+
+# === iOS Xcode ===
+ios/build/
+ios/Pods/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+
+# === Coverage / Reports ===
+coverage/
+*.lcov
+*.log
+*.tmp
+*.pid
+*.seed
+*.tgz
+*.coverage
+.nyc_output/
+.vscode-test/
+
+# === Secrets ===
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.mobileprovision
+*.json
+firebase-debug.log
+google-services.json
+
+# === Binary & Media ===
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.dex
+*.jar
+*.war
+*.apk
+*.aab
+
+# Images / videos / assets pesados
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.ico
+*.tiff
+*.tif
+*.webp
+*.svg
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.flv
+*.wmv
+*.mp3
+*.wav
+*.ogg
+
+# === IDE ===
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db

@@ -21,6 +21,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 // Modelos
 require('./models/User');  
 require('./models/Group'); 
+require('./models/Theme');
 
 // Rutas
 const usersRouter = require('./routes/users');
@@ -29,6 +30,7 @@ const eventsRouter = require('./routes/events');
 const notificationsRoutes = require('./routes/notifications'); 
 const tricksRouter = require('./routes/tricks');
 const paymentRoutes = require('./routes/payments');
+const themeRoutes = require("./routes/theme");
 
 // App de Express
 const app = express();
@@ -42,7 +44,9 @@ app.use('/api/events', eventsRouter);
 app.use('/api/notifications', notificationsRoutes);
 app.use('/api/tricks', tricksRouter);
 app.use('/api/payments', paymentRoutes);
+app.use('/api', themeRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 // Rutas de prueba
 app.get('/', (req, res) => {

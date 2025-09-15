@@ -21,6 +21,8 @@ import StudentClasses from './pages/StudentClasses';
 import StudentPayments from './pages/StudentPayments';
 import StudentTricks from './pages/StudentTricks';
 import InstallPrompt from './components/InstallPrompt';
+import AdminThemeCustomizer from './pages/AdminThemeCustomizer.jsx';
+
 
 function PrivateRoute({ children, allowedRoles }) {
   const token = localStorage.getItem('token');
@@ -89,6 +91,8 @@ function App() {
           <Route path="payments" element={<PaymentsPage />} />
           <Route path="requests" element={<RequestsPage />} />
           <Route path="change-password" element={<ChangePassword />} />
+          <Route path="settings/theme" element={<AdminThemeCustomizer />} />
+
         </Route>
 
         <Route
