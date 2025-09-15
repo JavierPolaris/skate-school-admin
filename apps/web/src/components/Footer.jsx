@@ -5,7 +5,7 @@ function Footer() {
       textAlign: 'center',
       padding: '1rem 0',
       fontSize: '0.8rem',
-      color: 'var(--kk-color-primary)',
+      color: '#b5b5b5',
       backgroundColor: 'transparent',
       position: 'fixed',
       bottom: 0,
