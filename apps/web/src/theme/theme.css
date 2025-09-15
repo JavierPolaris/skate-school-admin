@@ -79,6 +79,9 @@ textarea {
   margin: 0;
   justify-content: center;
 }
+.login-background {
+  background-color: var(--kk-color-bg);
+}
 
 /* En móviles usamos la específica */
 @media (max-width: 768px) {
