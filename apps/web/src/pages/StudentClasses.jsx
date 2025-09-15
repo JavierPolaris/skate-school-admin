@@ -39,7 +39,7 @@ function StudentClasses() {
 
   return (
     <div className="student-dashboard" style={{ padding: '2rem', color: '#fff' }}>
-      <h2 className="welcome-title" style={{ color: '#ff9b00' }}>Tus Próximas Clases</h2>
+      <h2 className="welcome-title" style={{ color: 'var(--kk-color-accent)' }}>Tus Próximas Clases</h2>
 
       {upcomingClasses.length ? (
         <div className="dashboard-card" style={{ backgroundColor: '#1e1e1e', padding: '1rem', borderRadius: '8px', marginTop: '1rem' }}>
@@ -52,7 +52,7 @@ function StudentClasses() {
       )}
 
       <div className="dashboard-card calendarRes" style={{ backgroundColor: '#1e1e1e', padding: '1rem', borderRadius: '8px', marginTop: '2rem' }}>
-        <h3 style={{ color: '#ff9b00' }}>Calendario de Clases</h3>
+        <h3 style={{ color: 'var(--kk-color-accent)' }}>Calendario de Clases</h3>
         <Calendar
           className="student-calendar"
           onClickDay={handleDayClick}
@@ -70,7 +70,7 @@ function StudentClasses() {
       {showModal && (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h3 style={{ color: '#ff9b00' }}>
+            <h3 style={{ color: 'var(--kk-color-accent)' }}>
               Clases para el {selectedDate?.toLocaleDateString()}
             </h3>
             {classesForSelectedDate.length ? (

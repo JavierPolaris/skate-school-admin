@@ -95,6 +95,7 @@ apps/web/src/components/TruncatedText.jsx
 apps/web/src/config.js
 apps/web/src/context/AuthContext.jsx
 apps/web/src/context/SidebarContext.jsx
+apps/web/src/context/ThemeContext.jsx
 apps/web/src/css/Chart.css
 apps/web/src/css/Dashboard.css
 apps/web/src/css/EventsPage.css
@@ -109,6 +110,7 @@ apps/web/src/css/TricksPage.css
 apps/web/src/firebase.js
 apps/web/src/index.css
 apps/web/src/main.jsx
+apps/web/src/pages/AdminThemeCustomizer.jsx
 apps/web/src/pages/ChangePassword.jsx
 apps/web/src/pages/Dashboard.jsx
 apps/web/src/pages/DiscountsPage.jsx
@@ -130,6 +132,7 @@ apps/web/src/pages/StudentPayments.jsx
 apps/web/src/pages/StudentsPage.jsx
 apps/web/src/pages/StudentTricks.jsx
 apps/web/src/pages/TricksPage.jsx
+apps/web/src/theme/theme.css
 apps/web/vite.config.js
 backend/.gitignore
 backend/firebase.js
@@ -140,12 +143,14 @@ backend/models/Payment.js
 backend/models/PaymentConfig.js
 backend/models/PaymentHistory.js
 backend/models/Request.js
+backend/models/Theme.js
 backend/models/Trick.js
 backend/models/User.js
 backend/routes/events.js
 backend/routes/groups.js
 backend/routes/notifications.js
 backend/routes/payments.js
+backend/routes/theme.js
 backend/routes/tricks.js
 backend/routes/users.js
 backend/server.js
@@ -158,123 +163,6 @@ packages/shared/utils.js
 
 <files>
 This section contains the contents of the repository's files.
-
-<file path=".repomixignore">
-# === Node / JS ===
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-dist/
-build/
-.cache/
-.tmp/
-
-# === Next.js / Vercel ===
-.next/
-out/
-.vercel/
-
-# === Expo / React Native ===
-.expo/
-.expo-shared/
-*.expo
-*.apk
-*.aab
-
-# === Android Gradle ===
-.gradle/
-local.properties
-*.iml
-.gradle/
-*.hprof
-*.keystore
-*.jks
-
-# Android build outputs
-apps/web/app/build/
-apps/web/app/release/
-apps/web/build/
-apps/web/outputs/
-
-# === iOS Xcode ===
-ios/build/
-ios/Pods/
-*.xcworkspace
-*.xcuserstate
-*.xcuserdata/
-
-# === Coverage / Reports ===
-coverage/
-*.lcov
-*.log
-*.tmp
-*.pid
-*.seed
-*.tgz
-*.coverage
-.nyc_output/
-.vscode-test/
-
-# === Secrets ===
-.env
-.env.*
-*.pem
-*.key
-*.crt
-*.p12
-*.mobileprovision
-*.json
-firebase-debug.log
-google-services.json
-
-# === Binary & Media ===
-*.zip
-*.tar
-*.gz
-*.rar
-*.7z
-*.exe
-*.dll
-*.so
-*.dylib
-*.class
-*.dex
-*.jar
-*.war
-*.apk
-*.aab
-
-# Images / videos / assets pesados
-*.png
-*.jpg
-*.jpeg
-*.gif
-*.bmp
-*.ico
-*.tiff
-*.tif
-*.webp
-*.svg
-*.mp4
-*.mov
-*.avi
-*.mkv
-*.flv
-*.wmv
-*.mp3
-*.wav
-*.ogg
-
-# === IDE ===
-.idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store
-Thumbs.db
-</file>
 
 <file path="apps/web/.gitignore">
 # Logs
@@ -316,7 +204,7 @@ dist-ssr
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ff9b00",
+  "theme_color": "var(--kk-color-accent)",
   "orientation": "portrait",
   "icons": [
     {
@@ -399,7 +287,7 @@ labels: ['Total Visualizaciones'], // Puedes añadir más si tienes datos por me
 <file path="apps/web/src/components/Footer.jsx">
 function Footer() {
 ⋮----
-Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: '#FF4081' }}>Javier García-Rojo</a> · Kedekids © {new Date().getFullYear()}
+Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--kk-color-primary)' }}>Javier García-Rojo</a> · Kedekids © {new Date().getFullYear()}
 </file>
 
 <file path="apps/web/src/components/InstallPrompt.css">
@@ -477,7 +365,7 @@ content: ''; /* Crea un pseudo-elemento vacío */
 ⋮----
 bottom: -2px; /* Ajusta la posición vertical del subrayado */
 height: 2px; /* Grosor del subrayado */
-background-color: #FF4081; /* Color del subrayado */
+background-color: var(--kk-color-primary); /* Color del subrayado */
 transform: scaleX(0); /* Inicialmente oculto */
 ⋮----
 .menu li a:hover::after {
@@ -744,7 +632,7 @@ export const useSidebar = () => useContext(SidebarContext);
 z-index: 0; /* Coloca el pseudo-elemento detrás del contenido */
 border-radius: 10px; /* Aplica el borde redondeado */
 padding: 2px; /* Grosor del borde gradiente */
-background: linear-gradient(to left, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+background: var(--kk-gradient); /* Gradiente del borde */
 ⋮----
 linear-gradient(#fff 0 0); /* Máscara para el gradiente */
 ⋮----
@@ -752,11 +640,6 @@ mask-composite: exclude; /* Excluye el área interna */
 ⋮----
 /* Sección superior que contendrá el título y el gráfico */
 .chart-body {
-⋮----
-/*Queseexpandaydejeespacioabajoalfooter*/flex: 1;
-⋮----
-/*Siquieresungradientedistintoenlapartedelgráfico:;
-    */background: linear-gradient(to bottom right, #1F2228 16%, #2D3139 46%, #22262D 72%);
 ⋮----
 /* Encabezado (Trucos Vistos + mes) */
 .chart-top {
@@ -814,7 +697,7 @@ border-radius: 0 0 20px 20px; /* redondea solo la parte de abajo */
 top: 0; /* Ajusta este valor si es necesario */
 right: 0; /* Ajusta este valor si es necesario */
 transform: translate(50%, -50%); /* Centra el punto sobre la esquina */
-border: 2px solid #313145; /* Agrega un borde para separar el punto del fondo */
+border: 2px solid var(--kk-color-surface); /* Para un borde que combine con el fondo */
 ⋮----
 .icon-container .message-count {
 ⋮----
@@ -822,7 +705,6 @@ top: -10px; /* Ajusta según sea necesario */
 right: -10px; /* Ajusta según sea necesario */
 ⋮----
 z-index: 999; /* Asegúrate de que esté por encima del icono */
-border: 2px solid #313145; /* Para un borde que combine con el fondo */
 ⋮----
 width: 16px; /* Reduce el tamaño del círculo en pantallas más pequeñas */
 ⋮----
@@ -839,10 +721,7 @@ right: 0; /* Alínea el dropdown al borde derecho del icono */
 ⋮----
 border: 1px solid transparent; /* Define el grosor y asegura que sea visible */
 ⋮----
-to right, /* Dirección del gradiente */
-#FF4081 0%, /* Color inicial y posición */
-#007997 100% /* Color final y posición */
-) 1; /* Define el gradiente y el grosor del borde */
+border-image: var(--kk-gradient) 1; /* Usa la variable CSS para el gradiente */
 border-image-slice: 1; /* Define cómo se repite el gradiente */
 ⋮----
 z-index: 999; /* Asegúrate de que esté sobre todo lo demás */
@@ -860,8 +739,6 @@ display: block; /* Muestra el menú cuando se activa */
 ⋮----
 top: 100%; /* Justo debajo del avatar */
 right: 0; /* Alineado con el borde derecho del contenedor */
-⋮----
-border-image: linear-gradient(to right, /* Dirección del gradiente */ #FF4081 0%, /* Color inicial y posición */ #007997 100% /* Color final y posición */) 1;
 ⋮----
 min-width: 150px; /* Asegura un ancho mínimo */
 ⋮----
@@ -889,7 +766,7 @@ overflow: hidden; /* Para evitar que el pseudo-elemento sobresalga */
 z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
 border-radius: 10px; /* Aplica el borde redondeado al pseudo-elemento */
 padding: 2px; /* Grosor del borde gradiente */
-background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */
 ⋮----
 linear-gradient(#fff 0 0); /* Crea una máscara para el gradiente */
 ⋮----
@@ -953,7 +830,7 @@ top: 0; /* Posición del borde inferior */
 ⋮----
 width: 98%; /* Ancho del borde */
 height: 1px; /* Grosor del borde */
-background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
+background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
 ⋮----
 .search-bar {
 ⋮----
@@ -993,7 +870,7 @@ color: #ff4c4c; /* Un rojo o el color que prefieras */
 /* Estilo para el enlace "See More" */
 .see-more {
 ⋮----
-color: #ff9b00; /* mismo color de tu diseño */
+color: var(--kk-color-accent); /* mismo color de tu diseño */
 ⋮----
 font-weight: 600; /* un poco más grueso */
 ⋮----
@@ -1002,7 +879,7 @@ font-weight: 600; /* un poco más grueso */
 /* Tarjeta principal con un gradiente */
 .chart-card {
 ⋮----
-background: linear-gradient(to right, #ff4081, #007997); /* Tu gradiente */
+background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary)); /* Tu gradiente */
 ⋮----
 max-width: 500px; /* Ajusta a tu gusto */
 margin: 0 auto;   /* Centra la tarjeta si quieres */
@@ -1059,7 +936,7 @@ max-width: 120px; /* Ajusta según lo que prefieras mostrar */
 .groups-table thead th {
 ⋮----
 background-color: #252539; /* Fondo cabecera (ejemplo) */
-color: #ff9b00;           /* Texto en la cabecera */
+color: var(--kk-color-accent);           /* Texto en la cabecera */
 ⋮----
 /* Celdas del cuerpo */
 .groups-table td {
@@ -1603,68 +1480,6 @@ padding-top: clamp(60px, 6vh, 100px); /* Altura adaptable para el header */
 .modal h3 {
 ⋮----
 .modal button {
-</file>
-
-<file path="apps/web/src/pages/ChangePassword.jsx">
-function ChangePassword() {
-const [oldPassword, setOldPassword] = useState('');
-const [newPassword, setNewPassword] = useState('');
-const [avatar, setAvatar] = useState(null);
-const [message, setMessage] = useState('');
-const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-⋮----
-useEffect(() => {
-const handleResize = () => setIsMobile(window.innerWidth <= 768);
-window.addEventListener('resize', handleResize);
-return () => window.removeEventListener('resize', handleResize);
-⋮----
-const handleChangePassword = async () => {
-const token = localStorage.getItem('token');
-⋮----
-const res = await fetch(`${API_URL}/users/change-password`, {
-⋮----
-body: JSON.stringify({ oldPassword, newPassword }),
-⋮----
-if (!res.ok) throw new Error('Error al cambiar la contraseña');
-const data = await res.json();
-setMessage(data.message || 'Contraseña actualizada con éxito');
-setOldPassword('');
-setNewPassword('');
-⋮----
-console.error(err);
-setMessage('Error al cambiar la contraseña');
-⋮----
-const handleAvatarChange = (e) => setAvatar(e.target.files[0]);
-const handleUploadAvatar = async () => {
-⋮----
-setMessage('Por favor, selecciona una imagen primero.');
-⋮----
-const formData = new FormData();
-formData.append('avatar', avatar);
-⋮----
-const response = await fetch(`${API_URL}/users/upload-avatar`, {
-⋮----
-if (!response.ok) throw new Error('Error al subir el avatar');
-⋮----
-const data = await response.json();
-⋮----
-// 🔄 Actualizamos el localStorage
-const userKey = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
-const currentUser = JSON.parse(localStorage.getItem(userKey));
-⋮----
-localStorage.setItem(userKey, JSON.stringify(updatedUser));
-⋮----
-// 🔁 Lanzamos evento para que los layouts escuchen el cambio
-window.dispatchEvent(new Event('storage'));
-⋮----
-setMessage('Avatar actualizado correctamente');
-⋮----
-console.error(error);
-setMessage('Error al subir el avatar');
-⋮----
-onChange={(e) => setOldPassword(e.target.value)}
-⋮----
-onChange={(e) => setNewPassword(e.target.value)}
 </file>
 
 <file path="apps/web/src/pages/Dashboard.jsx">
@@ -3689,6 +3504,123 @@ export const capitalize = (str) => {
 return str.charAt(0).toUpperCase() + str.slice(1);
 </file>
 
+<file path=".repomixignore">
+# === Node / JS ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+dist/
+build/
+.cache/
+.tmp/
+
+# === Next.js / Vercel ===
+.next/
+out/
+.vercel/
+
+# === Expo / React Native ===
+.expo/
+.expo-shared/
+*.expo
+*.apk
+*.aab
+
+# === Android Gradle ===
+.gradle/
+local.properties
+*.iml
+.gradle/
+*.hprof
+*.keystore
+*.jks
+
+# Android build outputs
+apps/web/app/build/
+apps/web/app/release/
+apps/web/build/
+apps/web/outputs/
+
+# === iOS Xcode ===
+ios/build/
+ios/Pods/
+*.xcworkspace
+*.xcuserstate
+*.xcuserdata/
+
+# === Coverage / Reports ===
+coverage/
+*.lcov
+*.log
+*.tmp
+*.pid
+*.seed
+*.tgz
+*.coverage
+.nyc_output/
+.vscode-test/
+
+# === Secrets ===
+.env
+.env.*
+*.pem
+*.key
+*.crt
+*.p12
+*.mobileprovision
+*.json
+firebase-debug.log
+google-services.json
+
+# === Binary & Media ===
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.dex
+*.jar
+*.war
+*.apk
+*.aab
+
+# Images / videos / assets pesados
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.ico
+*.tiff
+*.tif
+*.webp
+*.svg
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.flv
+*.wmv
+*.mp3
+*.wav
+*.ogg
+
+# === IDE ===
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+</file>
+
 <file path="apps/kedeKids/.gitignore">
 # Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
 
@@ -3907,6 +3839,169 @@ protected Uri getLaunchingUrl() {
 Uri uri = super.getLaunchingUrl();
 </file>
 
+<file path="apps/web/src/context/ThemeContext.jsx">
+const ThemeContext = createContext();
+export const useTheme = () => useContext(ThemeContext);
+⋮----
+shadow: "light", // light|medium|strong
+⋮----
+function applyThemeVars(t) {
+⋮----
+r.setProperty('--kk-primary', t.colorPrimary);
+r.setProperty('--kk-secondary', t.colorSecondary);
+r.setProperty('--kk-accent', t.colorAccent || 'var(--kk-color-accent)');
+r.setProperty('--kk-text', t.colorText || '#111827');
+r.setProperty('--kk-bg', t.colorBg || '#ffffff');
+r.setProperty('--kk-surface', t.colorSurface || '#f7f7f8');
+r.setProperty('--kk-grad', `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
+r.setProperty("--kk-radius", `${t.radius}px`);
+r.setProperty("--kk-shadow", SHADOW_MAP[t.shadow] || SHADOW_MAP.light);
+r.setProperty("--kk-font-sans", t.fontSans);
+r.setProperty("--kk-font-heading", t.fontHeading);
+⋮----
+export function ThemeProvider({ children }) {
+const [theme, setTheme] = useState(DEFAULT_THEME);
+const [loading, setLoading] = useState(true);
+⋮----
+useEffect(() => {
+⋮----
+const res = await fetch(`${API_URL}/admin/theme`, { credentials: "include" });
+⋮----
+const data = await res.json();
+⋮----
+setTheme(next);
+applyThemeVars(next);
+⋮----
+applyThemeVars(DEFAULT_THEME);
+⋮----
+setLoading(false);
+⋮----
+useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
+⋮----
+const saveTheme = async (draft) => {
+⋮----
+setTheme(next); // live preview
+const res = await fetch(`${API_URL}/admin/theme`, {
+⋮----
+body: JSON.stringify(next)
+⋮----
+if (!res.ok) throw new Error("No se pudo guardar el tema");
+</file>
+
+<file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
+const ColorInput = ({ label, value, onChange }) => (
+⋮----
+<input type="color" value={value} onChange={e => onChange(e.target.value)} />
+<input type="text" value={value} onChange={e => onChange(e.target.value)} />
+⋮----
+export default function AdminThemeCustomizer() {
+const { theme, setTheme, saveTheme } = useTheme();
+const [draft, setDraft] = useState(theme);
+const [saving, setSaving] = useState(false);
+const [msg, setMsg] = useState("");
+⋮----
+const update = (k, v) => {
+setDraft(d => ({ ...d, [k]: v }));
+setTheme(t => ({ ...t, [k]: v })); // 👈 live preview en toda la app
+⋮----
+const onSave = async () => {
+⋮----
+setSaving(true);
+await saveTheme(draft);
+setMsg("Tema guardado ✔");
+setTimeout(() => setMsg(""), 2000);
+⋮----
+setMsg("Error guardando el tema");
+⋮----
+setSaving(false);
+⋮----
+<ColorInput label="Primario" value={draft.colorPrimary} onChange={v => update("colorPrimary", v)} />
+<ColorInput label="Secundario" value={draft.colorSecondary} onChange={v => update("colorSecondary", v)} />
+<ColorInput label="Acento" value={draft.colorAccent} onChange={v => update("colorAccent", v)} />
+<ColorInput label="Fondo" value={draft.colorBg} onChange={v => update("colorBg", v)} />
+<ColorInput label="Surface" value={draft.colorSurface} onChange={v => update("colorSurface", v)} />
+<ColorInput label="Texto" value={draft.colorText} onChange={v => update("colorText", v)} />
+⋮----
+<select value={draft.fontSans} onChange={e => update("fontSans", e.target.value)}>
+⋮----
+<select value={draft.fontHeading} onChange={e => update("fontHeading", e.target.value)}>
+⋮----
+onChange={e => update("radius", Number(e.target.value))} />
+⋮----
+<select value={draft.shadow} onChange={e => update("shadow", e.target.value)}>
+⋮----
+{/* Vista previa mínima */}
+</file>
+
+<file path="apps/web/src/pages/ChangePassword.jsx">
+function ChangePassword() {
+const [oldPassword, setOldPassword] = useState('');
+const [newPassword, setNewPassword] = useState('');
+const [avatar, setAvatar] = useState(null);
+const [message, setMessage] = useState('');
+const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+⋮----
+// role del usuario (para mostrar el bloque del customizer solo a admin)
+⋮----
+try { return JSON.parse(localStorage.getItem('user'))?.role; }
+⋮----
+useEffect(() => {
+const handleResize = () => setIsMobile(window.innerWidth <= 768);
+window.addEventListener('resize', handleResize);
+return () => window.removeEventListener('resize', handleResize);
+⋮----
+const handleChangePassword = async () => {
+const token = localStorage.getItem('token');
+⋮----
+const res = await fetch(`${API_URL}/users/change-password`, {
+⋮----
+body: JSON.stringify({ oldPassword, newPassword }),
+⋮----
+if (!res.ok) throw new Error('Error al cambiar la contraseña');
+const data = await res.json();
+setMessage(data.message || 'Contraseña actualizada con éxito');
+setOldPassword('');
+setNewPassword('');
+⋮----
+console.error(err);
+setMessage('Error al cambiar la contraseña');
+⋮----
+const handleAvatarChange = (e) => setAvatar(e.target.files[0]);
+⋮----
+const handleUploadAvatar = async () => {
+⋮----
+setMessage('Por favor, selecciona una imagen primero.');
+⋮----
+const formData = new FormData();
+formData.append('avatar', avatar);
+⋮----
+const response = await fetch(`${API_URL}/users/upload-avatar`, {
+⋮----
+if (!response.ok) throw new Error('Error al subir el avatar');
+⋮----
+const data = await response.json();
+⋮----
+// 🔄 Actualizamos el localStorage (manteniendo tu lógica actual)
+const userKey = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+const currentUser = JSON.parse(localStorage.getItem(userKey));
+⋮----
+localStorage.setItem(userKey, JSON.stringify(updatedUser));
+⋮----
+// 🔁 Notificar a los layouts
+window.dispatchEvent(new Event('storage'));
+⋮----
+setMessage('Avatar actualizado correctamente');
+⋮----
+console.error(error);
+setMessage('Error al subir el avatar');
+⋮----
+{/* Bloque de acceso al Customizer SOLO para admin */}
+⋮----
+onChange={(e) => setOldPassword(e.target.value)}
+⋮----
+onChange={(e) => setNewPassword(e.target.value)}
+</file>
+
 <file path="apps/web/src/pages/Groups/NotificationsSection.jsx">
 function NotificationsSection({ groupId, notifications = [], onNotificationAdded }) {
 const [message, setMessage] = useState('');
@@ -3965,6 +4060,27 @@ visible.map((notif, index) => (
 onClick={() => setShowAll(v => !v)}
 </file>
 
+<file path="apps/web/src/theme/theme.css">
+:root {
+⋮----
+/* Paleta actual por defecto (lo que ya usas) */
+--kk-primary:   var(--kk-color-primary);  /* rosa */
+--kk-secondary: var(--kk-color-secondary);  /* teal */
+--kk-accent:    var(--kk-color-accent);  /* naranja de títulos/labels */
+--kk-text:      #111827;  /* texto base (si lo usas) */
+--kk-bg:        #ffffff;  /* fondo claro (si lo usas) */
+--kk-surface:   #f7f7f8;  /* cards (si lo usas) */
+⋮----
+/* Gradiente que ya usas en botones/boras */
+⋮----
+body {
+.kcard {
+.kbtn {
+.kbtn--secondary { background: var(--kk-color-secondary); }
+.klink { color: var(--kk-color-primary); text-decoration: none; }
+.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
+</file>
+
 <file path="backend/firebase.js">
 // Inicializa la app
 initializeApp({
@@ -3982,57 +4098,34 @@ const EventSchema = new mongoose.Schema({
 module.exports = mongoose.model('Event', EventSchema);
 </file>
 
-<file path="backend/server.js">
-// server.js
-require('dotenv').config();
+<file path="backend/models/Theme.js">
+const ThemeSchema = new mongoose.Schema({
 ⋮----
-// Primero las dependencias
+module.exports = mongoose.model("Theme", ThemeSchema);
+</file>
+
+<file path="backend/routes/theme.js">
+const router = express.Router();
 ⋮----
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
+// TODO: protege con tu middleware de admin:
+const requireAdmin = (req,res,next)=>{ /* tu auth */ next(); };
 ⋮----
-}).then(() => {
-console.log('✅ Conectado a MongoDB Atlas');
-}).catch((err) => {
-console.error('Error de conexión a MongoDB:', err);
+// GET actual
+router.get("/admin/theme", async (req, res) => {
+const last = await Theme.findOne().sort({ createdAt: -1 }).lean();
+res.json(last || {});
 ⋮----
-// Modelos
+// PUT actualiza (upsert “single doc”)
+router.put("/admin/theme", requireAdmin, async (req, res) => {
 ⋮----
-// Rutas
+const last = await Theme.findOne().sort({ createdAt: -1 });
 ⋮----
-// App de Express
-const app = express();
+const created = await Theme.create(payload);
+return res.json(created);
 ⋮----
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use('/api/groups', groupsRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/events', eventsRouter);
-app.use('/api/notifications', notificationsRoutes);
-app.use('/api/tricks', tricksRouter);
-app.use('/api/payments', paymentRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-⋮----
-// Rutas de prueba
-app.get('/', (req, res) => {
-res.send('API funcionando!');
-⋮----
-// Middleware de autenticación (si lo usas)
-const authMiddleware = (req, res, next) => {
-⋮----
-if (!token) return res.status(401).json({ error: 'Token no proporcionado' });
-⋮----
-const decoded = jwt.verify(token, 'secretKey');
-⋮----
-next();
-⋮----
-res.status(401).json({ error: 'Token inválido' });
-⋮----
-// Iniciar servidor
-⋮----
-app.listen(PORT, '0.0.0.0', () => {
-console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
+Object.assign(last, payload);
+await last.save();
+res.json(last);
 </file>
 
 <file path="metro.config.js">
@@ -4303,6 +4396,60 @@ onChange={(e) => setRequestName(e.target.value)}
 onChange={(e) => setRequestEmail(e.target.value)}
 ⋮----
 <button onClick={() => setShowRequestModal(false)}>Cancelar</button>
+</file>
+
+<file path="backend/server.js">
+// server.js
+require('dotenv').config();
+⋮----
+// Primero las dependencias
+⋮----
+// Conexión a MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+⋮----
+}).then(() => {
+console.log('✅ Conectado a MongoDB Atlas');
+}).catch((err) => {
+console.error('Error de conexión a MongoDB:', err);
+⋮----
+// Modelos
+⋮----
+// Rutas
+⋮----
+// App de Express
+const app = express();
+⋮----
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use('/api/groups', groupsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/events', eventsRouter);
+app.use('/api/notifications', notificationsRoutes);
+app.use('/api/tricks', tricksRouter);
+app.use('/api/payments', paymentRoutes);
+app.use('/api', themeRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+⋮----
+// Rutas de prueba
+app.get('/', (req, res) => {
+res.send('API funcionando!');
+⋮----
+// Middleware de autenticación (si lo usas)
+const authMiddleware = (req, res, next) => {
+⋮----
+if (!token) return res.status(401).json({ error: 'Token no proporcionado' });
+⋮----
+const decoded = jwt.verify(token, 'secretKey');
+⋮----
+next();
+⋮----
+res.status(401).json({ error: 'Token inválido' });
+⋮----
+// Iniciar servidor
+⋮----
+app.listen(PORT, '0.0.0.0', () => {
+console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
 </file>
 
 <file path="apps/web/app/src/main/AndroidManifest.xml">
@@ -5436,68 +5583,6 @@ dependencies {
 <shortcuts xmlns:android='http://schemas.android.com/apk/res/android' />
 </file>
 
-<file path="apps/web/src/App.jsx">
-function PrivateRoute({ children, allowedRoles }) {
-const token = localStorage.getItem('token');
-const user = JSON.parse(localStorage.getItem('user'));
-⋮----
-if (!token || !user || !allowedRoles.includes(user.role)) {
-⋮----
-function App() {
-const [token, setToken] = useState(localStorage.getItem('token'));
-⋮----
-const handleLogin = (newToken) => {
-setToken(newToken);
-⋮----
-const handleLogout = () => {
-localStorage.removeItem('token');
-localStorage.removeItem('user');
-setToken(null);
-⋮----
-useEffect(() => {
-const storedUser = JSON.parse(localStorage.getItem('user')) || {};
-document.body.classList.toggle('admin-mode', storedUser.role === 'admin');
-document.body.classList.toggle('student-mode', storedUser.role === 'student');
-⋮----
-// 👉 REGISTRO DEL SERVICE WORKER PARA PWA
-⋮----
-.register('/service-worker.js')
-.then(reg => console.log('✅ Service Worker registrado:', reg))
-.catch(err => console.error('❌ Error al registrar Service Worker:', err));
-⋮----
-requestPermissionAndGetToken();
-⋮----
-allowedRoles: PropTypes.arrayOf(PropTypes.string)
-</file>
-
-<file path="apps/web/src/main.jsx">
-requestPermissionAndGetToken().then(token => {
-⋮----
-console.log('🔐 Token FCM:', token);
-// ENVÍALO A TU BACKEND
-const email = JSON.parse(localStorage.getItem('user'))?.email;
-⋮----
-fetch(`${API_URL}/users/save-device-token`, {
-⋮----
-body: JSON.stringify({ email, deviceToken: token }),
-⋮----
-.then(res => res.json())
-.then(data => console.log('✅ Token guardado en backend:', data))
-.catch(err => console.error('❌ Error al guardar token en backend:', err));
-⋮----
-listenToForegroundMessages(payload => {
-console.log('📩 Mensaje recibido en foreground:', payload);
-⋮----
-createRoot(document.getElementById('root')).render(
-⋮----
-navigator.serviceWorker.register('/firebase-messaging-sw.js')
-.then((registration) => {
-console.log('🟢 SW de Firebase registrado:', registration);
-⋮----
-.catch((err) => {
-console.error('🔴 Error registrando SW Firebase:', err);
-</file>
-
 <file path="apps/web/src/pages/StudentDashboard.jsx">
 function StudentDashboard() {
 const [user, setUser] = useState({});
@@ -5577,6 +5662,78 @@ const messaging = firebase.messaging();
 messaging.onBackgroundMessage(function(payload) {
 console.log("[firebase-messaging-sw.js] Recibido mensaje en background ", payload);
 self.registration.showNotification(payload.notification.title, {
+</file>
+
+<file path="apps/web/src/App.jsx">
+function PrivateRoute({ children, allowedRoles }) {
+const token = localStorage.getItem('token');
+const user = JSON.parse(localStorage.getItem('user'));
+⋮----
+if (!token || !user || !allowedRoles.includes(user.role)) {
+⋮----
+function App() {
+const [token, setToken] = useState(localStorage.getItem('token'));
+⋮----
+const handleLogin = (newToken) => {
+setToken(newToken);
+⋮----
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+setToken(null);
+⋮----
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+document.body.classList.toggle('admin-mode', storedUser.role === 'admin');
+document.body.classList.toggle('student-mode', storedUser.role === 'student');
+⋮----
+// 👉 REGISTRO DEL SERVICE WORKER PARA PWA
+⋮----
+.register('/service-worker.js')
+.then(reg => console.log('✅ Service Worker registrado:', reg))
+.catch(err => console.error('❌ Error al registrar Service Worker:', err));
+⋮----
+requestPermissionAndGetToken();
+⋮----
+allowedRoles: PropTypes.arrayOf(PropTypes.string)
+</file>
+
+<file path="apps/web/src/main.jsx">
+import './theme/theme.css'; // ← variables CSS base (se sobrescriben vía ThemeProvider)
+⋮----
+import { ThemeProvider } from './context/ThemeContext'; // ← importa el provider
+⋮----
+// Push / FCM
+⋮----
+requestPermissionAndGetToken().then(token => {
+⋮----
+console.log('🔐 Token FCM:', token);
+// ENVÍA AL BACKEND (usa la clave 'user' del localStorage)
+const email = JSON.parse(localStorage.getItem('user'))?.email;
+⋮----
+fetch(`${API_URL}/users/save-device-token`, {
+⋮----
+body: JSON.stringify({ email, deviceToken: token }),
+⋮----
+.then(res => res.json())
+.then(data => console.log('✅ Token guardado en backend:', data))
+.catch(err => console.error('❌ Error al guardar token en backend:', err));
+⋮----
+listenToForegroundMessages(payload => {
+console.log('📩 Mensaje recibido en foreground:', payload);
+⋮----
+createRoot(document.getElementById('root')).render(
+⋮----
+{/* ThemeProvider arriba para que las variables CSS estén listas desde el primer render */}
+⋮----
+// SW Firebase
+⋮----
+navigator.serviceWorker.register('/firebase-messaging-sw.js')
+.then((registration) => {
+console.log('🟢 SW de Firebase registrado:', registration);
+⋮----
+.catch((err) => {
+console.error('🔴 Error registrando SW Firebase:', err);
 </file>
 
 <file path="backend/routes/notifications.js">
@@ -5898,7 +6055,7 @@ if (!res.ok) throw new Error('Error getting notifications');
     <link rel="icon" type="image/svg+xml" href="/kids.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="#ff9b00" />
+    <meta name="theme-color" content="var(--kk-color-accent)" />
 
     <title>KedeKids</title>
   </head>

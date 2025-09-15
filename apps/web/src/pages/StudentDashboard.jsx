@@ -64,7 +64,7 @@ function StudentDashboard() {
       {showPaymentReminder && (
         <div
           style={{
-            background: '#ff9b00',
+            background: 'var(--kk-color-accent)',
             color: '#000',
             padding: '1rem',
             borderRadius: '8px',

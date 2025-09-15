@@ -68,12 +68,12 @@ function StudentPayments() {
   marginBottom: '2rem',
   color: '#fff'
 }}>
-  <h3 style={{ color: '#ff9b00', marginBottom: '1rem' }}>💳 Información de Métodos de Pago</h3>
+  <h3 style={{ color: 'var(--kk-color-accent)', marginBottom: '1rem' }}>💳 Información de Métodos de Pago</h3>
 
   {['efectivo', 'bizum', 'transferencia'].map(method => (
     paymentConfigs[method] && (
       <div key={method} style={{ marginTop: '1rem' }}>
-        <h4 style={{ color: '#ff9b00', marginBottom: '0.5rem' }}>
+        <h4 style={{ color: 'var(--kk-color-accent)', marginBottom: '0.5rem' }}>
           {method.charAt(0).toUpperCase() + method.slice(1)}
         </h4>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginLeft: '1rem' }}>
@@ -97,7 +97,7 @@ function StudentPayments() {
 
 
 
-      <h2 style={{ color: '#ff9b00' }}>Tus Pagos</h2>
+      <h2 style={{ color: 'var(--kk-color-accent)' }}>Tus Pagos</h2>
 
       {/* Filtros */}
       <div className="tricks-filters">

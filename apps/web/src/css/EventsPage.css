@@ -9,7 +9,7 @@
     padding: 8px 12px;
     border-radius: 20px;
     border: none;
-    background: linear-gradient(to right, #FF4081, #007997);
+    background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
     color: #fff;
     margin-right: 10px;
     font-family: 'Quicksand', sans-serif;
@@ -50,13 +50,13 @@
 h2,
 h3,
 h4 {
-    color: #ff9b00;
+    color: var(--kk-color-accent);
 }
 
 
 
 button {
-    background: linear-gradient(to right, #FF4081, #007997);
+    background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
     border: none;
     color: #fff;
     padding: 10px 18px;
@@ -82,7 +82,7 @@ section {
 
 section h4 {
     margin-bottom: 12px;
-    color: #FF4081;
+    color: var(--kk-color-primary);
 }
 
 input::placeholder,

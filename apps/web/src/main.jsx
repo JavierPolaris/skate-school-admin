@@ -37,13 +37,14 @@ if ('Notification' in window && navigator.serviceWorker) {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     {/* ThemeProvider arriba para que las variables CSS estén listas desde el primer render */}
-    <ThemeProvider>
+    
       <AuthProvider>
         <SidebarProvider>
+          <ThemeProvider>
           <App />
+          </ThemeProvider>
         </SidebarProvider>
       </AuthProvider>
-    </ThemeProvider>
   </StrictMode>,
 );
 

@@ -1,5 +1,5 @@
 .section-title {
-  color: #ff9b00;
+  color: var(--kk-color-accent);
   text-align: center;
   margin-top: 1rem;
 }

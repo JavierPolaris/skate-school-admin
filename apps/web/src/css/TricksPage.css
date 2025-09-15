@@ -33,7 +33,7 @@
   /* Limita en desktop */
   border: none;
   border-radius: 25px;
-  background: linear-gradient(to left, #FF4081 0%, #007997 100%);
+  background: linear-gradient(to left, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%);
   color: white;
   font-size: 16px;
   font-family: 'Quicksand', sans-serif;
@@ -105,7 +105,7 @@ button:focus-visible {
   bottom: 0;
   border-radius: 20px;
   /* Igual al radio del botón */
-  background: linear-gradient(to right, #FF4081 0%, #007997 100%);
+  background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%);
   /* Gradiente del borde */
   padding: 2px;
   /* Grosor del borde */
@@ -132,7 +132,7 @@ button:focus-visible {
 }
 
 .tricks-filters button.active::before {
-  background: linear-gradient(90deg, #ff9b00, #ff4081);
+  background: linear-gradient(90deg, var(--kk-color-accent), var(--kk-color-primary));
   /* Cambia el gradiente en estado activo */
 }
 
@@ -152,13 +152,13 @@ button:focus-visible {
 }
 
 .active-filtro {
-  background-color: #FF4081 !important;
+  background-color: var(--kk-color-primary) !important;
   position: static !important;
 
 }
 
 .active-filtro::before {
-  background: #FF4081 !important;
+  background: var(--kk-color-primary) !important;
   position: static !important;
   mask: none !important;
   content: none !important;
@@ -171,7 +171,7 @@ button:focus-visible {
 }
 
 .tricks-order> :last-child {
-  color: #FF4081;
+  color: var(--kk-color-primary);
   /* Azul vibrante */
 
 }
@@ -201,7 +201,7 @@ button:focus-visible {
   /* Ancho del borde */
   height: 1px;
   /* Grosor del borde */
-  background: linear-gradient(to right, #FF4081 0%, #007997 100%);
+  background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%);
   /* Gradiente del borde */
   border-radius: 2px;
   /* Opcional: redondear los extremos */
@@ -252,7 +252,7 @@ button:focus-visible {
   padding: 7px;
   border: none;
   border-radius: 20px;
-  background: linear-gradient(to left, #FF4081 0%, #007997 100%);
+  background: linear-gradient(to left, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%);
   color: white;
   font-size: 15px;
   cursor: pointer;
@@ -298,7 +298,7 @@ button:focus-visible {
   bottom: 0;
   border-radius: 20px;
   /* Igual al radio del botón */
-  background: linear-gradient(to right, #FF4081 0%, #007997 100%);
+  background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%);
   /* Gradiente del borde */
   padding: 2px;
   /* Grosor del borde */
@@ -347,7 +347,7 @@ button:focus-visible {
   margin-top: 10px;
   border: none;
   border-radius: 20px;
-  background: linear-gradient(90deg, #ff4081, #ff9b00);
+  background: linear-gradient(90deg, var(--kk-color-primary), var(--kk-color-accent));
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -377,7 +377,7 @@ button:focus-visible {
 }
 
 .pagination button {
-  background: linear-gradient(to right, #FF4081, #007997);
+  background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
   color: white;
   padding: 8px 16px;
   border-radius: 20px;

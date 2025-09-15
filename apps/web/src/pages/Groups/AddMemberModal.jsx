@@ -59,7 +59,7 @@ function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
       background: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999
     }}>
       <div style={{ background: '#fff', padding: '2rem', borderRadius: '12px', width: '90%', maxWidth: '400px' }}>
-        <h3 style={{ color: '#FF4081' }}>Agregar Integrante</h3>
+        <h3 style={{ color: 'var(--kk-color-primary)' }}>Agregar Integrante</h3>
         <input
           type="text"
           placeholder="Buscar alumno"

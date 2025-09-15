@@ -32,7 +32,7 @@ function ChangePassword() {
   };
 
   const buttonStyle = {
-    background: 'linear-gradient(to right, #FF4081, #007997)',
+    background: 'linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary))',
     border: 'none',
     color: '#fff',
     padding: '10px 18px',
@@ -46,7 +46,7 @@ function ChangePassword() {
 
   const sectionStyle = {
     margin: '2rem 0',
-    color: '#FF9B00',
+    color: 'var(--kk-color-accent)',
     fontSize: '1.5rem',
   };
 
@@ -152,7 +152,7 @@ function ChangePassword() {
       <input type="file" accept="image/*" onChange={handleAvatarChange} style={{ margin: '1rem' }} />
       <button onClick={handleUploadAvatar} style={buttonStyle}>Subir Avatar</button>
 
-      {message && <p style={{ color: '#FF4081', marginTop: '1rem' }}>{message}</p>}
+      {message && <p style={{ color: 'var(--kk-color-primary)', marginTop: '1rem' }}>{message}</p>}
     </div>
   );
 }

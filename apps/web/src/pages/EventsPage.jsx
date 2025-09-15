@@ -173,10 +173,10 @@ const handlePageChange = (page) => {
 <table style={{ width: '100%', marginTop: '1rem', borderCollapse: 'collapse' }}>
   <thead>
     <tr style={{ backgroundColor: '#252539' }}>
-      <th style={{ padding: '12px', color: '#ff9b00' }}>Nombre</th>
-      <th className="hide-on-mobile" style={{ padding: '12px', color: '#ff9b00' }}>Fecha</th>
-      <th className="hide-on-mobile" style={{ padding: '12px', color: '#ff9b00' }}>Publicado</th>
-      <th className="hide-on-mobile" style={{ padding: '12px', color: '#ff9b00' }}>Acciones</th>
+      <th style={{ padding: '12px', color: 'var(--kk-color-accent)' }}>Nombre</th>
+      <th className="hide-on-mobile" style={{ padding: '12px', color: 'var(--kk-color-accent)' }}>Fecha</th>
+      <th className="hide-on-mobile" style={{ padding: '12px', color: 'var(--kk-color-accent)' }}>Publicado</th>
+      <th className="hide-on-mobile" style={{ padding: '12px', color: 'var(--kk-color-accent)' }}>Acciones</th>
     </tr>
   </thead>
   <tbody>

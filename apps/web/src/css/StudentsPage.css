@@ -12,7 +12,7 @@
 
 h2,
 h3 {
-    color: #ff9b00;
+    color: var(--kk-color-accent);
 }
 
 table {
@@ -31,7 +31,7 @@ td {
 
 th {
     background: #252539;
-    color: #ff9b00;
+    color: var(--kk-color-accent);
     font-size: 16px;
 }
 
@@ -41,7 +41,7 @@ tbody tr:hover {
 }
 
 button {
-    background: linear-gradient(to right, #FF4081, #007997);
+    background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
     border: none;
     color: #fff;
     padding: 8px 14px;
@@ -88,7 +88,7 @@ select {
 }
 
 .modal h3 {
-    color: #ff9b00;
+    color: var(--kk-color-accent);
     margin-bottom: 1rem;
 }
 
@@ -129,7 +129,7 @@ select {
     td::before {
         content: attr(data-label);
         font-weight: bold;
-        color: #ff9b00;
+        color: var(--kk-color-accent);
         display: block;
         margin-bottom: 5px;
     }
@@ -172,7 +172,7 @@ select {
   td[data-label]:before {
     content: attr(data-label);
     font-weight: bold;
-    color: #ff9b00;
+    color: var(--kk-color-accent);
     display: block;
   }
 
@@ -193,7 +193,7 @@ select {
 }
 
 .pagination button {
-  background: linear-gradient(to right, #FF4081, #007997);
+  background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
   border: none;
   color: #fff;
   padding: 8px 14px;

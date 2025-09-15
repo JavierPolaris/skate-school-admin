@@ -4,7 +4,7 @@
 }
 
 .welcome-title {
-  color: #ff9b00;
+  color: var(--kk-color-accent);
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -35,7 +35,7 @@
 }
 
 .dashboard-card h3 {
-  color: #ff9b00;
+  color: var(--kk-color-accent);
   margin-bottom: 1rem;
 }
 

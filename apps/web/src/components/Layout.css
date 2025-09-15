@@ -208,12 +208,12 @@ button.delete-avatar-button:focus {
   text-decoration: none; /* Elimina cualquier subrayado predeterminado */
 }
 .menu li a:hover {
-  color: #FF4081;
+  color: var(--kk-color-primary);
  
 }
 .active-menu {
-  color: #FF4081 !important; 
-  border-bottom: 2px solid #FF4081; 
+  color: var(--kk-color-primary) !important; 
+  border-bottom: 2px solid var(--kk-color-primary); 
 }
 
 
@@ -224,14 +224,14 @@ button.delete-avatar-button:focus {
   right: 0;
   bottom: -2px; /* Ajusta la posición vertical del subrayado */
   height: 2px; /* Grosor del subrayado */
-  background-color: #FF4081; /* Color del subrayado */
+  background-color: var(--kk-color-primary); /* Color del subrayado */
   transform: scaleX(0); /* Inicialmente oculto */
  
 }
 
 .menu li a:hover::after {
   transform: scaleX(1); /* Muestra el subrayado */
-  color: #FF4081;
+  color: var(--kk-color-primary);
 }
 
 
@@ -244,7 +244,7 @@ button.delete-avatar-button:focus {
   padding: 10px 15px;
   border: none;
   border-radius: 8px;
-  background: linear-gradient(to left, #FF4081 0%, #007997 100%);
+  background: linear-gradient(to left, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%);
   color: white;
   font-size: 16px;
   cursor: pointer;
@@ -253,7 +253,7 @@ button.delete-avatar-button:focus {
 }
 
 .website-button:hover {
-  background: linear-gradient(to left, #FF4081 0%, #FF4081 100%);
+  background: linear-gradient(to left, var(--kk-color-primary) 0%, var(--kk-color-primary) 100%);
 }
 
 .logout-button {

@@ -1,18 +1,14 @@
 :root {
-  --kk-color-primary: #0ea5e9;
-  --kk-color-secondary: #f59e0b;
-  --kk-color-accent: #22c55e;
-  --kk-color-bg: #ffffff;
-  --kk-color-surface: #f7f7f8;
-  --kk-color-text: #111827;
+  /* Tus colores por defecto (los que ya usas en todo el CSS) */
+  --kk-color-primary:   var(--kk-color-primary);
+  --kk-color-secondary: var(--kk-color-secondary);
+  --kk-color-accent:    var(--kk-color-accent);
+  --kk-color-text:      #111827;
+  --kk-color-bg:        #ffffff;
+  --kk-color-surface:   #f7f7f8;
 
-  --kk-radius: 12px;          /* 0..24px */
-  --kk-shadow: 0 8px 24px rgba(0,0,0,0.08); /* light|medium|strong */
-
-  --kk-font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  --kk-font-heading: "Poppins", var(--kk-font-sans);
+  --kk-gradient: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
 }
-
 body {
   background: var(--kk-color-bg);
   color: var(--kk-color-text);

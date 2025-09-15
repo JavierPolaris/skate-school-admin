@@ -53,13 +53,13 @@ const Dashboard = () => {
           const { ctx: canvasCtx, chartArea } = chart;
           if (!chartArea) {
             // Chart aún no está montado
-            return '#ff4081';
+            return 'var(--kk-color-primary)';
           }
           return getGradient(canvasCtx, chartArea);
         },
         borderWidth: 3,
         pointRadius: 4,
-        pointBackgroundColor: '#ff4081',
+        pointBackgroundColor: 'var(--kk-color-primary)',
         fill: false,
         tension: 0.4
       },
@@ -182,7 +182,7 @@ const Dashboard = () => {
                     ) : group.ranking < group.previousRanking ? (
                       <span className="arrow-up" style={{ color: '#00ff7f' }}>↑</span>
                     ) : group.ranking === group.previousRanking ? (
-                      <span className="arrow-equal" style={{ color: '#ff9b00' }}>=</span>
+                      <span className="arrow-equal" style={{ color: 'var(--kk-color-accent)' }}>=</span>
                     ) : (
                       <span className="arrow-down" style={{ color: '#ff4c4c' }}>↓</span>
                     )}

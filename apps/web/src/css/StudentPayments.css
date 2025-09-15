@@ -1,5 +1,5 @@
 .payment-reminder {
-  background: #ff9b00;
+  background: var(--kk-color-accent);
   color: #1e1e2f;
   padding: 1rem;
   border-radius: 8px;
@@ -21,5 +21,5 @@
 }
 
 .payments-table th {
-  color: #ff9b00;
+  color: var(--kk-color-accent);
 }

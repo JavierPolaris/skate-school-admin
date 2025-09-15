@@ -9,11 +9,11 @@ body, .groups-page {
 }
 
 h2, h3, h4, h5 {
-    color: #ff9b00;
+    color: var(--kk-color-accent);
 }
 
 button {
-    background: linear-gradient(to right, #FF4081, #007997);
+    background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
     border: none;
     color: #fff;
     padding: 8px 14px;
@@ -55,7 +55,7 @@ button:hover {
 
 .group-list li:hover, 
 .group-list li.selected {
-    color: #ff9b00;
+    color: var(--kk-color-accent);
     font-weight: bold;
 }
 
@@ -93,7 +93,7 @@ button:hover {
 }
 
 .selected-date {
-    background-color: #ff9b00 !important;
+    background-color: var(--kk-color-accent) !important;
     color: #1E1E2F !important;
     border-radius: 50% !important;
 }
@@ -109,7 +109,7 @@ button:hover {
 
 
 .react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
-    background-color: #ff9b00;
+    background-color: var(--kk-color-accent);
 }
 @media (max-width: 768px) {
 .react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
@@ -123,7 +123,7 @@ button:hover {
 }
 }
 .react-calendar__tile--active {
-    background: #ff9b00 !important;
+    background: var(--kk-color-accent) !important;
     color: #1E1E2F !important;
     border-radius: 50% !important;
 }
@@ -132,7 +132,7 @@ button:hover {
 .class-dot {
     width: 6px;
     height: 6px;
-    background-color: #ff9b00;
+    background-color: var(--kk-color-accent);
     border-radius: 50%;
     margin: 0 auto;
     margin-top: 4px;
@@ -141,7 +141,7 @@ button:hover {
 .react-calendar__navigation button {
     font-size: 0.8rem;
     font-weight: bold;
-    color: #ff9b00;
+    color: var(--kk-color-accent);
 }
 /* Centrar los números del calendario */
 .react-calendar__tile abbr {
@@ -180,7 +180,7 @@ button:hover {
 }
 
 .close-modal-button {
-    background: linear-gradient(to right, #FF4081, #007997);
+    background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
     border: none;
     color: #fff;
     padding: 10px 20px;
@@ -212,7 +212,7 @@ button:hover {
 }
 
 .website-button {
-    background: linear-gradient(to right, #FF4081, #007997);
+    background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
     border: none;
     color: #fff;
     padding: 8px 14px;
@@ -232,7 +232,7 @@ button:hover {
     display: none;
 }
 .react-calendar__tile--now {
-    background: #ff9b00;
+    background: var(--kk-color-accent);
 }
 .react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
     background: #ff46d0;
@@ -264,11 +264,11 @@ button:hover {
 .group-name {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ff9b00;
+  color: var(--kk-color-accent);
 }
 .group-ranking {
   font-size: 1.2rem;
-  color: #ff9b00;
+  color: var(--kk-color-accent);
 }
 .group-actions {
   display: flex;
@@ -288,7 +288,7 @@ button:hover {
 }
 .remove-member-button {
   margin-inline-start: 5%;
-  background: linear-gradient(to right, #FF4081, #007997);
+  background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
   border: none;
   color: #fff;
   padding: 8px 14px;

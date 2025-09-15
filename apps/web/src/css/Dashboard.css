@@ -19,7 +19,7 @@
   
   .dashboard-header h2 {
     font-size: 24px;
-    color: #ff9b00;
+    color: var(--kk-color-accent);
   }
   .icon-container {
     position: relative;
@@ -35,7 +35,7 @@
     top: 0; /* Ajusta este valor si es necesario */
     right: 0; /* Ajusta este valor si es necesario */
     transform: translate(50%, -50%); /* Centra el punto sobre la esquina */
-    border: 2px solid #313145; /* Agrega un borde para separar el punto del fondo */
+    border: 2px solid var(--kk-color-surface); /* Para un borde que combine con el fondo */
   }
   @media (max-width: 768px) {
     .icon-container .notification-dot {
@@ -58,7 +58,7 @@
     justify-content: center;
     align-items: center;
     z-index: 999; /* Asegúrate de que esté por encima del icono */
-    border: 2px solid #313145; /* Para un borde que combine con el fondo */
+    border: 2px solid var(--kk-color-surface);
   }
   @media (max-width: 768px) {
     .icon-container .message-count {
@@ -88,11 +88,8 @@
     color: white;
     padding: 10px;
     border: 1px solid transparent; /* Define el grosor y asegura que sea visible */
-    border-radius: 10px;    border-image: linear-gradient(
-     to right, /* Dirección del gradiente */
-     #FF4081 0%, /* Color inicial y posición */
-     #007997 100% /* Color final y posición */
-    ) 1; /* Define el gradiente y el grosor del borde */  
+    border-radius: 10px;    
+    border-image: var(--kk-gradient) 1; /* Usa la variable CSS para el gradiente */ 
     border-image-slice: 1; /* Define cómo se repite el gradiente */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 999; /* Asegúrate de que esté sobre todo lo demás */
@@ -126,7 +123,7 @@
     padding: 10px;
     border: 1px solid transparent;
     border-radius: 10px;
-    border-image: linear-gradient(to right, /* Dirección del gradiente */ #FF4081 0%, /* Color inicial y posición */ #007997 100% /* Color final y posición */) 1;
+    border-image: var(--kk-gradient) 1;
     border-image-slice: 1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     z-index: 999;
@@ -198,7 +195,7 @@
     z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
     border-radius: 10px; /* Aplica el borde redondeado al pseudo-elemento */
     padding: 2px; /* Grosor del borde gradiente */
-    background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+    background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */
     -webkit-mask: 
       linear-gradient(#fff 0 0) content-box, 
       linear-gradient(#fff 0 0); /* Crea una máscara para el gradiente */
@@ -289,7 +286,7 @@
     z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
     border-radius: 10px; /* Redondea las esquinas del pseudo-elemento */
     padding: 2px; /* Grosor del borde */
-    background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */
+    background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */
     -webkit-mask: 
       linear-gradient(#fff 0 0) content-box, 
       linear-gradient(#fff 0 0); /* Máscara para mostrar solo el borde */
@@ -304,7 +301,7 @@
   .groups-section h3,
   .tricks-section h3 {
     font-size: 20px;
-    color: #ff9b00;
+    color: var(--kk-color-accent);
     margin-bottom: 15px;
   }
   
@@ -323,7 +320,7 @@
   
   .table th {
     background: #252539;
-    color: #ff9b00;
+    color: var(--kk-color-accent);
   }
   
   .table tbody tr:hover {
@@ -371,7 +368,7 @@
   left: 0;
   width: 98%; /* Ancho del borde */
   height: 1px; /* Grosor del borde */
-  background: linear-gradient(to right, #FF4081 0%, #007997 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
+  background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
 }
   
 .search-bar {
@@ -415,7 +412,7 @@
 }
 
 .search-results p:hover {
-  background-color: #ff9b00;
+  background-color: var(--kk-color-accent);
   color: white;
 }
 /* Para el ID con color */
@@ -437,7 +434,7 @@
 /* Estilo para el enlace "See More" */
 .see-more {
   margin-left: 8px;
-  color: #ff9b00; /* mismo color de tu diseño */
+  color: var(--kk-color-accent); /* mismo color de tu diseño */
   text-decoration: none; 
   font-weight: 600; /* un poco más grueso */
 }
@@ -448,7 +445,7 @@
 /* Tarjeta principal con un gradiente */
 .chart-card {
   position: relative;
-  background: linear-gradient(to right, #ff4081, #007997); /* Tu gradiente */
+  background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary)); /* Tu gradiente */
   border-radius: 12px;
   padding: 20px;
   color: #fff;
@@ -561,7 +558,7 @@
 /* Encabezado de la tabla */
 .groups-table thead th {
   background-color: #252539; /* Fondo cabecera (ejemplo) */
-  color: #ff9b00;           /* Texto en la cabecera */
+  color: var(--kk-color-accent);           /* Texto en la cabecera */
   padding: 12px 10px;
   text-align: left;
   font-weight: 600;
@@ -607,7 +604,7 @@
 /* Link “See More” */
 .see-more {
   margin-left: 8px;
-  color: #ff9b00;
+  color: var(--kk-color-accent);
   text-decoration: none;
   font-weight: 600;
 }
@@ -624,7 +621,7 @@
   gap: 18%;
 }
 .group-ranking{
-  color: #FF4081;
+  color: var(--kk-color-primary);
   
 }
 
@@ -635,7 +632,7 @@
 .see-more {
   display: inline-block;
   margin-top: 4px;
-  color: #FF4081;
+  color: var(--kk-color-primary);
   text-decoration: none;
   font-weight: 600;
 }
@@ -780,7 +777,7 @@ body.student-mode .icon-container svg {
 }
 
 .pagination button {
-  background: linear-gradient(to right, #FF4081, #007997);
+  background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
   border: none;
   color: #fff;
   padding: 8px 14px;

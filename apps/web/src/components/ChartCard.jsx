@@ -20,7 +20,7 @@ function ChartCard() {
       {
         label: 'Visualizaciones',
         data: [tricksViewed],
-        borderColor: '#FF4081',
+        borderColor: 'var(--kk-color-primary)',
         backgroundColor: 'rgba(255, 64, 129, 0.2)',
         tension: 0.4,
         fill: true,

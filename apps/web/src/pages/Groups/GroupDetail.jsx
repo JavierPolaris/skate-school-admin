@@ -150,7 +150,7 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
                 </>
               ) : (
                 <>
-                  <span style={{ marginInline: '10px', fontSize: '16px', color: '#ff9b00' }}>
+                  <span style={{ marginInline: '10px', fontSize: '16px', color: 'var(--kk-color-accent)' }}>
                     #{group.ranking}
                   </span>
 
@@ -161,7 +161,7 @@ function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, on
               )}
               <button onClick={handleEditClick} style={{ marginLeft: '5px', fontSize: '0.9rem', padding: '5px 20px' }}>Editar Nombre</button>
               <label htmlFor="avatar-upload" style={{
-                background: 'linear-gradient(to right, #FF4081, #007997)',
+                background: 'linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary))',
                 border: 'none',
                 color: '#fff',
                 padding: '5px 20px',

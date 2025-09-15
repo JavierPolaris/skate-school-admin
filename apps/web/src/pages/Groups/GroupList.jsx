@@ -15,7 +15,7 @@ function GroupList({ groups, onSelectGroup, selectedGroupId, onAddGroup }) {
       }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h3 style={{ color: '#ff9b00' }}>Grupos</h3>
+        <h3 style={{ color: 'var(--kk-color-accent)' }}>Grupos</h3>
         <button className="boton-more" onClick={onAddGroup}>+</button>
       </div>
       <ul style={{ listStyle: 'none', padding: 0 }}>
