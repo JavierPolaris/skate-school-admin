@@ -21,7 +21,8 @@ body {
 }
 
 body :where(p, li, a, span, small, strong, em, b, i, label,
-    button, input, textarea, select, option, textarea,td, th, dt, dd, figcaption):not(:is(footer, footer *)) {
+    button, input, textarea, select, option,
+    td, th, dt, dd, figcaption):not(:is(footer, footer *)) {
     color: var(--kk-color-text) !important;
 }
 
@@ -30,7 +31,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+textarea {
     color: inherit;
 }
 
