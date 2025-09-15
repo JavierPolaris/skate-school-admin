@@ -21,19 +21,24 @@ const ColorInput = ({ label, value, onChange }) => (
     </div>
 );
 
+
 // helpers
 async function uploadImage(file, target, API_URL, token) {
     const fd = new FormData();
     fd.append('image', file);
     const res = await fetch(`${API_URL}/admin/theme/upload-login-bg?target=${target}`, {
         method: 'POST',
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        headers: { Authorization: `Bearer ${token}` },
         body: fd
     });
-    if (!res.ok) throw new Error('upload failed');
+    if (!res.ok) {
+        const txt = await res.text().catch(() => '');
+        throw new Error(txt || `HTTP ${res.status}`);
+    }
     const { url } = await res.json();
     return url;
 }
+
 
 export default function AdminThemeCustomizer() {
     const { theme, setTheme, saveTheme } = useTheme();
@@ -102,9 +107,9 @@ export default function AdminThemeCustomizer() {
                                     const token = localStorage.getItem('token');
                                     const url = await uploadImage(file, 'desktop', API_URL, token);
                                     update("loginBgDesktop", url);
-                                } catch {
-                                    setMsg("Error subiendo imagen desktop");
-                                    setTimeout(() => setMsg(""), 2000);
+                                } catch (e) {
+                                    console.error(e);
+                                    setMsg(`Error subiendo imagen ${target}: ${e.message || ''}`);
                                 }
                             }}
                         />
@@ -129,9 +134,9 @@ export default function AdminThemeCustomizer() {
                                     const token = localStorage.getItem('token');
                                     const url = await uploadImage(file, 'mobile', API_URL, token);
                                     update("loginBgMobile", url);
-                                } catch {
-                                    setMsg("Error subiendo imagen móvil");
-                                    setTimeout(() => setMsg(""), 2000);
+                                } catch (e) {
+                                    console.error(e);
+                                    setMsg(`Error subiendo imagen ${target}: ${e.message || ''}`);
                                 }
                             }}
                         />

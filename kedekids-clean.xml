@@ -4983,6 +4983,40 @@ be251a9287204f8a60ca10f78af208618609d4dd
 include ':app'
 </file>
 
+<file path="apps/web/src/App.jsx">
+function PrivateRoute({ children, allowedRoles }) {
+const token = localStorage.getItem('token');
+const user = JSON.parse(localStorage.getItem('user'));
+⋮----
+if (!token || !user || !allowedRoles.includes(user.role)) {
+⋮----
+function App() {
+const [token, setToken] = useState(localStorage.getItem('token'));
+⋮----
+const handleLogin = (newToken) => {
+setToken(newToken);
+⋮----
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+setToken(null);
+⋮----
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+document.body.classList.toggle('admin-mode', storedUser.role === 'admin');
+document.body.classList.toggle('student-mode', storedUser.role === 'student');
+⋮----
+// 👉 REGISTRO DEL SERVICE WORKER PARA PWA
+⋮----
+.register('/service-worker.js')
+.then(reg => console.log('✅ Service Worker registrado:', reg))
+.catch(err => console.error('❌ Error al registrar Service Worker:', err));
+⋮----
+requestPermissionAndGetToken();
+⋮----
+allowedRoles: PropTypes.arrayOf(PropTypes.string)
+</file>
+
 <file path="apps/web/src/css/StudentDashboard.css">
 .student-dashboard {
 ⋮----
@@ -5154,102 +5188,6 @@ res.json({ success: true, message: 'Correo enviado correctamente.' });
 ⋮----
 console.error('Error en la ruta /send-email:', err);
 res.status(500).json({ error: 'Error al enviar el correo.' });
-</file>
-
-<file path="backend/routes/theme.js">
-const router = express.Router();
-⋮----
-// TODO: protege con tu middleware de admin:
-⋮----
-const upload = multer({
-storage: multer.diskStorage({
-destination: (req, file, cb) => cb(null, path.join(__dirname, '..', 'uploads', 'theme')),
-filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname.replace(/\s+/g,'_')),
-⋮----
-limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
-⋮----
-router.post(
-⋮----
-authorize('admin'),
-upload.single('image'),
-⋮----
-if (!req.file) return res.status(400).json({ error: 'No file' });
-⋮----
-return res.json({ url });
-⋮----
-// ✅ Guardar tema protegido (en vez de requireAdmin “dummy”)
-router.put(
-⋮----
-const last = await Theme.findOne().sort({ createdAt: -1 });
-⋮----
-const created = await Theme.create(payload);
-return res.json(created);
-⋮----
-Object.assign(last, payload);
-await last.save();
-res.json(last);
-⋮----
-// GET puede quedarse público si quieres
-router.get('/admin/theme', async (req, res) => {
-const last = await Theme.findOne().sort({ createdAt: -1 }).lean();
-res.json(last || {});
-</file>
-
-<file path="backend/server.js">
-// server.js
-require('dotenv').config();
-⋮----
-// Primero las dependencias
-⋮----
-// Configuración de CORS
-⋮----
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-⋮----
-}).then(() => {
-console.log('✅ Conectado a MongoDB Atlas');
-}).catch((err) => {
-console.error('Error de conexión a MongoDB:', err);
-⋮----
-// Modelos
-⋮----
-// Rutas
-⋮----
-// App de Express
-const app = express();
-⋮----
-// Middleware
-app.use(express.json());
-app.use('/api/groups', groupsRouter);
-app.use('/api/users', usersRouter);
-app.use('/api/events', eventsRouter);
-app.use('/api/notifications', notificationsRoutes);
-app.use('/api/tricks', tricksRouter);
-app.use('/api/payments', paymentRoutes);
-app.use('/api', themeRoutes);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-⋮----
-// Rutas de prueba
-app.get('/', (req, res) => {
-res.send('API funcionando!');
-⋮----
-// Middleware de autenticación (si lo usas)
-const authMiddleware = (req, res, next) => {
-⋮----
-if (!token) return res.status(401).json({ error: 'Token no proporcionado' });
-⋮----
-const decoded = jwt.verify(token, 'secretKey');
-⋮----
-next();
-⋮----
-res.status(401).json({ error: 'Token inválido' });
-⋮----
-// Iniciar servidor
-⋮----
-app.listen(PORT, '0.0.0.0', () => {
-console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
 </file>
 
 <file path="apps/kedeKids/app/index.tsx">
@@ -5549,40 +5487,6 @@ dependencies {
 <shortcuts xmlns:android='http://schemas.android.com/apk/res/android' />
 </file>
 
-<file path="apps/web/src/App.jsx">
-function PrivateRoute({ children, allowedRoles }) {
-const token = localStorage.getItem('token');
-const user = JSON.parse(localStorage.getItem('user'));
-⋮----
-if (!token || !user || !allowedRoles.includes(user.role)) {
-⋮----
-function App() {
-const [token, setToken] = useState(localStorage.getItem('token'));
-⋮----
-const handleLogin = (newToken) => {
-setToken(newToken);
-⋮----
-const handleLogout = () => {
-localStorage.removeItem('token');
-localStorage.removeItem('user');
-setToken(null);
-⋮----
-useEffect(() => {
-const storedUser = JSON.parse(localStorage.getItem('user')) || {};
-document.body.classList.toggle('admin-mode', storedUser.role === 'admin');
-document.body.classList.toggle('student-mode', storedUser.role === 'student');
-⋮----
-// 👉 REGISTRO DEL SERVICE WORKER PARA PWA
-⋮----
-.register('/service-worker.js')
-.then(reg => console.log('✅ Service Worker registrado:', reg))
-.catch(err => console.error('❌ Error al registrar Service Worker:', err));
-⋮----
-requestPermissionAndGetToken();
-⋮----
-allowedRoles: PropTypes.arrayOf(PropTypes.string)
-</file>
-
 <file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
 const ColorInput = ({ label, value, onChange }) => (
 ⋮----
@@ -5643,6 +5547,120 @@ const url = await uploadImage(file, 'mobile', API_URL, token);
 update("loginBgMobile", url);
 ⋮----
 setMsg("Error subiendo imagen móvil");
+</file>
+
+<file path="backend/routes/theme.js">
+// backend/routes/theme.js
+⋮----
+const router = express.Router();
+⋮----
+// === Storage para imágenes del login ===
+const uploadDir = path.join(__dirname, '..', 'uploads', 'theme');
+const storage = multer.diskStorage({
+destination: (_req, _file, cb) => {
+fs.mkdirSync(uploadDir, { recursive: true });
+cb(null, uploadDir);
+⋮----
+filename: (_req, file, cb) => {
+const safe = file.originalname.replace(/\s+/g, '_');
+cb(null, `${Date.now()}-${safe}`);
+⋮----
+const upload = multer({
+⋮----
+limits: { fileSize: 2 * 1024 * 1024 } // 2MB
+⋮----
+// === Subida de background de login (desktop/mobile) ===
+router.post(
+⋮----
+authorize('admin'),
+upload.single('image'),
+⋮----
+if (!req.file) return res.status(400).json({ error: 'No file' });
+⋮----
+// Puedes devolver relativa o absoluta. Relativa suele bastar para el front:
+⋮----
+// const url = `${req.protocol}://${req.get('host')}/uploads/theme/${req.file.filename}`; // absoluta
+⋮----
+res.json({ url });
+⋮----
+// === Guardar tema ===
+router.put('/admin/theme', authMiddleware, authorize('admin'), async (req, res) => {
+⋮----
+let doc = await Theme.findOne().sort({ createdAt: -1 });
+⋮----
+doc = await Theme.create(payload);
+return res.json(doc);
+⋮----
+Object.assign(doc, payload);
+await doc.save();
+res.json(doc);
+⋮----
+console.error('Error saving theme:', err);
+res.status(500).json({ error: 'No se pudo guardar el tema' });
+⋮----
+// === Obtener tema (público) ===
+router.get('/admin/theme', async (_req, res) => {
+⋮----
+const last = await Theme.findOne().sort({ createdAt: -1 }).lean();
+res.json(last || {});
+⋮----
+res.status(500).json({ error: 'Error leyendo el tema' });
+</file>
+
+<file path="backend/server.js">
+// server.js
+require('dotenv').config();
+⋮----
+// Primero las dependencias
+⋮----
+// Configuración de CORS
+⋮----
+// Conexión a MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+⋮----
+}).then(() => {
+console.log('✅ Conectado a MongoDB Atlas');
+}).catch((err) => {
+console.error('Error de conexión a MongoDB:', err);
+⋮----
+// Modelos
+⋮----
+// Rutas
+⋮----
+// App de Express
+const app = express();
+⋮----
+// Middleware
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use('/api/groups', groupsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/events', eventsRouter);
+app.use('/api/notifications', notificationsRoutes);
+app.use('/api/tricks', tricksRouter);
+app.use('/api/payments', paymentRoutes);
+app.use('/api', themeRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+⋮----
+// Rutas de prueba
+app.get('/', (req, res) => {
+res.send('API funcionando!');
+⋮----
+// Middleware de autenticación (si lo usas)
+const authMiddleware = (req, res, next) => {
+⋮----
+if (!token) return res.status(401).json({ error: 'Token no proporcionado' });
+⋮----
+const decoded = jwt.verify(token, 'secretKey');
+⋮----
+next();
+⋮----
+res.status(401).json({ error: 'Token inválido' });
+⋮----
+// Iniciar servidor
+⋮----
+app.listen(PORT, '0.0.0.0', () => {
+console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
 </file>
 
 <file path="apps/web/src/main.jsx">
