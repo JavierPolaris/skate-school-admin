@@ -47,6 +47,7 @@ const themeRoutes = require("./routes/theme");
 const app = express();
 
 // Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use('/api/groups', groupsRouter);
 app.use('/api/users', usersRouter);
@@ -56,8 +57,7 @@ app.use('/api/tricks', tricksRouter);
 app.use('/api/payments', paymentRoutes);
 app.use('/api', themeRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+
 
 // Rutas de prueba
 app.get('/', (req, res) => {

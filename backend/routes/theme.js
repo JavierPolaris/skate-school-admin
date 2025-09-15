@@ -1,53 +1,77 @@
-const express = require("express");
-const router = express.Router();
-const Theme = require("../models/Theme");
-// TODO: protege con tu middleware de admin:
+// backend/routes/theme.js
+const express = require('express');
+const multer  = require('multer');
+const path    = require('path');
+const fs      = require('fs');
+
+const Theme   = require('../models/Theme');
 const { authMiddleware, authorize } = require('../middleware/authMiddleware');
 
-const multer = require('multer');
-const path = require('path');
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: (req, file, cb) => cb(null, path.join(__dirname, '..', 'uploads', 'theme')),
-    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname.replace(/\s+/g,'_')),
-  }),
-  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB
+const router = express.Router();
+
+// === Storage para imágenes del login ===
+const uploadDir = path.join(__dirname, '..', 'uploads', 'theme');
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    fs.mkdirSync(uploadDir, { recursive: true });
+    cb(null, uploadDir);
+  },
+  filename: (_req, file, cb) => {
+    const safe = file.originalname.replace(/\s+/g, '_');
+    cb(null, `${Date.now()}-${safe}`);
+  }
 });
 
+const upload = multer({
+  storage,
+  limits: { fileSize: 2 * 1024 * 1024 } // 2MB
+});
+
+// === Subida de background de login (desktop/mobile) ===
 router.post(
   '/admin/theme/upload-login-bg',
   authMiddleware,
   authorize('admin'),
   upload.single('image'),
-  async (req, res) => {
+  (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No file' });
+
+    // Puedes devolver relativa o absoluta. Relativa suele bastar para el front:
     const url = `/uploads/theme/${req.file.filename}`;
-    return res.json({ url });
+    // const url = `${req.protocol}://${req.get('host')}/uploads/theme/${req.file.filename}`; // absoluta
+
+    res.json({ url });
   }
 );
 
-// ✅ Guardar tema protegido (en vez de requireAdmin “dummy”)
-router.put(
-  '/admin/theme',
-  authMiddleware,
-  authorize('admin'),
-  async (req, res) => {
+// === Guardar tema ===
+router.put('/admin/theme', authMiddleware, authorize('admin'), async (req, res) => {
+  try {
     const payload = req.body || {};
-    const last = await Theme.findOne().sort({ createdAt: -1 });
-    if (!last) {
-      const created = await Theme.create(payload);
-      return res.json(created);
-    }
-    Object.assign(last, payload);
-    await last.save();
-    res.json(last);
-  }
-);
+    let doc = await Theme.findOne().sort({ createdAt: -1 });
 
-// GET puede quedarse público si quieres
-router.get('/admin/theme', async (req, res) => {
-  const last = await Theme.findOne().sort({ createdAt: -1 }).lean();
-  res.json(last || {});
+    if (!doc) {
+      doc = await Theme.create(payload);
+      return res.json(doc);
+    }
+
+    Object.assign(doc, payload);
+    await doc.save();
+    res.json(doc);
+  } catch (err) {
+    console.error('Error saving theme:', err);
+    res.status(500).json({ error: 'No se pudo guardar el tema' });
+  }
 });
 
-module.exports = { authMiddleware, authorize };
+// === Obtener tema (público) ===
+router.get('/admin/theme', async (_req, res) => {
+  try {
+    const last = await Theme.findOne().sort({ createdAt: -1 }).lean();
+    res.json(last || {});
+  } catch (err) {
+    res.status(500).json({ error: 'Error leyendo el tema' });
+  }
+});
+
+module.exports = router;
