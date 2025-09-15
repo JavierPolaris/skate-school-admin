@@ -2968,7 +2968,7 @@ max-width: 120px; /* Ajusta según lo que prefieras mostrar */
 /* Encabezado de la tabla */
 .groups-table thead th {
 ⋮----
-background-color: #252539; /* Fondo cabecera (ejemplo) */
+background-color: var(--kk-color-bg); /* Fondo cabecera (ejemplo) */
 color: var(--kk-color-accent);           /* Texto en la cabecera */
 ⋮----
 /* Celdas del cuerpo */

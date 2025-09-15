@@ -432,7 +432,7 @@ td.actions {
     border-radius: 10px;
     margin-bottom: 10px;
     padding: 10px;
-    background-color: #252539;
+    background-color: var(--kk-color-surface);
     flex-direction: column;
     align-items: center;
   }
@@ -469,7 +469,7 @@ td.actions {
   .mobile-expanded {
     text-align: left;
     padding: 15px;
-    background-color: #252539;
+    background-color: var(--kk-color-surface);
     border-radius: 12px;
   }
 

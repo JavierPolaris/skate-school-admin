@@ -73,7 +73,7 @@ button:hover {
 }
 
 section {
-    background: #252539;
+    background: var(--kk-color-surface);
     padding: 20px;
     margin: 20px 0;
     border-radius: 12px;

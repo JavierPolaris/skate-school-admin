@@ -9,7 +9,7 @@ const DEFAULT_THEME = {
     colorSecondary: "#007997",
     colorAccent: "#f59e0b",
     colorBg: "#1e1e2f",
-    colorSurface: "#f7f7f8",
+    colorSurface: "#252539",
     colorText: "#111827",
     radius: 12,
     shadow: "light", // light|medium|strong
@@ -28,7 +28,7 @@ function applyThemeVars(t) {
   r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
   r.setProperty('--kk-color-text',     t.colorText     || '#111827');
   r.setProperty('--kk-color-bg',       t.colorBg       || '#1e1e2f');
-  r.setProperty('--kk-color-surface',  t.colorSurface  || '#f7f7f8');
+  r.setProperty('--kk-color-surface',  t.colorSurface  || '#252539');
   r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
 
   // === back-compat por si en algún lado usamos la otra convención ===
@@ -37,7 +37,7 @@ function applyThemeVars(t) {
   r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
   r.setProperty('--kk-text',      t.colorText     || '#111827');
   r.setProperty('--kk-bg',        t.colorBg       || '#1e1e2f');
-  r.setProperty('--kk-surface',   t.colorSurface  || '#f7f7f8');
+  r.setProperty('--kk-surface',   t.colorSurface  || '#252539');
   r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
 }
 

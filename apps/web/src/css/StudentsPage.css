@@ -30,7 +30,7 @@ td {
 }
 
 th {
-    background: #252539;
+    background: var(--kk-color-surface);
     color: var(--kk-color-accent);
     font-size: 16px;
 }
@@ -112,7 +112,7 @@ select {
     tr {
          margin: 0 auto 15px auto; /* Centramos la "tarjeta" */
         max-width: 90%; /* Controlas el ancho */
-        background-color: #252539;
+        background-color: var(--kk-color-surface);
         margin-bottom: 15px;
         border-radius: 10px;
         padding: 15px;
@@ -178,7 +178,7 @@ select {
 
   tr {
     margin-bottom: 15px;
-    background: #252539;
+    background: var(--kk-color-surface);
     border-radius: 8px;
     padding: 10px;
   }

@@ -5,7 +5,7 @@
   --kk-color-accent:    var(--kk-color-accent);
   --kk-color-text:      #111827;
   --kk-color-bg:        var(--kk-color-bg);
-  --kk-color-surface:   #f7f7f8;
+  --kk-color-surface:   var(--kk-color-surface);
 
   --kk-gradient: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary));
 }

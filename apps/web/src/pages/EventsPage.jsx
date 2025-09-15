@@ -172,7 +172,7 @@ const handlePageChange = (page) => {
 
 <table style={{ width: '100%', marginTop: '1rem', borderCollapse: 'collapse' }}>
   <thead>
-    <tr style={{ backgroundColor: '#252539' }}>
+    <tr style={{ backgroundColor: 'var(--kk-color-surface)' }}>
       <th style={{ padding: '12px', color: 'var(--kk-color-accent)' }}>Nombre</th>
       <th className="hide-on-mobile" style={{ padding: '12px', color: 'var(--kk-color-accent)' }}>Fecha</th>
       <th className="hide-on-mobile" style={{ padding: '12px', color: 'var(--kk-color-accent)' }}>Publicado</th>

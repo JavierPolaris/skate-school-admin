@@ -319,7 +319,7 @@
   }
   
   .table th {
-    background: #252539;
+    background: var(--kk-color-surface);
     color: var(--kk-color-accent);
   }
   
@@ -557,7 +557,7 @@
 }
 /* Encabezado de la tabla */
 .groups-table thead th {
-  background-color: #252539; /* Fondo cabecera (ejemplo) */
+  background-color: var(--kk-color-surface); /* Fondo cabecera (ejemplo) */
   color: var(--kk-color-accent);           /* Texto en la cabecera */
   padding: 12px 10px;
   text-align: left;
