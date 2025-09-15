@@ -76,7 +76,7 @@ button:focus-visible {
 
 /* Imagen de fondo solo para login */
 .login-background {
-  background-image: url('https://www.kedekids.com/wp-content/uploads/2020/09/CAR_2767-scaled.jpg'); /* Ajusta la ruta según tu estructura */
+
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
