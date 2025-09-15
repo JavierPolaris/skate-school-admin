@@ -197,30 +197,6 @@ dist-ssr
 
 </file>
 
-<file path="apps/web/public/manifest.webmanifest">
-{
-  "name": "KedeKids School",
-  "short_name": "KedeKidsAPP",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "var(--kk-color-accent)",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "/icon-512.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ]
-}
-</file>
-
 <file path="apps/web/public/service-worker.js">
 self.addEventListener('install', (event) => {
 ⋮----
@@ -271,25 +247,6 @@ a:nth-of-type(2) .logo {
 .read-the-docs {
 </file>
 
-<file path="apps/web/src/components/ChartCard.jsx">
-function ChartCard() {
-const [tricksViewed, setTricksViewed] = useState(0);
-⋮----
-useEffect(() => {
-fetch(`${API_URL}/tricks/total-views`)
-.then(res => res.json())
-.then(data => setTricksViewed(data.totalViews || 0))
-.catch(err => console.error(err));
-⋮----
-labels: ['Total Visualizaciones'], // Puedes añadir más si tienes datos por mes, etc.
-</file>
-
-<file path="apps/web/src/components/Footer.jsx">
-function Footer() {
-⋮----
-Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--kk-color-primary)' }}>Javier García-Rojo</a> · Kedekids © {new Date().getFullYear()}
-</file>
-
 <file path="apps/web/src/components/InstallPrompt.css">
 .install-modal {
 ⋮----
@@ -299,86 +256,6 @@ Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="n
 .pwa-modal-overlay {
 ⋮----
 .pwa-modal {
-</file>
-
-<file path="apps/web/src/components/Layout.css">
-.layout-container {
-button.delete-avatar-button {
-button.delete-avatar-button:hover {
-button.delete-avatar-button:focus {
-.profile-role-container {
-⋮----
-/* Sidebar fijo */
-.sidebar {
-⋮----
-/* Main content con margen para no tapar con sidebar */
-.main-content {
-⋮----
-/* Header fijo */
-.dashboard-header {
-⋮----
-height: 60px; /* Ajusta según tu diseño */
-⋮----
-/* Contenido debajo del header con scroll */
-.page-content {
-⋮----
-/* Responsive */
-⋮----
-.sidebar.hidden {
-⋮----
-.layout-header {
-⋮----
-.hamburger-menu {
-⋮----
-.sidebar-content {
-⋮----
-overflow-y: auto; /* Hacemos scroll SOLO en el contenido */
-⋮----
-max-height: calc(100vh - 150px); /* Ajusta este valor según el espacio que ocupa el header/avatar/botón */
-⋮----
-.profile-section {
-⋮----
-.profile-avatar {
-.profile-avatar2{
-⋮----
-.profile-info {
-⋮----
-.profile-name {
-⋮----
-.profile-role {
-⋮----
-.menu {
-⋮----
-.menu li {
-⋮----
-.menu li a {
-⋮----
-position: relative; /* Necesario para usar ::after */
-text-decoration: none; /* Elimina cualquier subrayado predeterminado */
-⋮----
-.menu li a:hover {
-.active-menu {
-⋮----
-.menu li a::after {
-⋮----
-content: ''; /* Crea un pseudo-elemento vacío */
-⋮----
-bottom: -2px; /* Ajusta la posición vertical del subrayado */
-height: 2px; /* Grosor del subrayado */
-background-color: var(--kk-color-primary); /* Color del subrayado */
-transform: scaleX(0); /* Inicialmente oculto */
-⋮----
-.menu li a:hover::after {
-⋮----
-transform: scaleX(1); /* Muestra el subrayado */
-⋮----
-.icon {
-⋮----
-.website-button {
-⋮----
-.website-button:hover {
-⋮----
-.logout-button {
 </file>
 
 <file path="apps/web/src/components/Layout.jsx">
@@ -622,812 +499,6 @@ return () => document.removeEventListener('mousedown', handleClickOutside);
 export const useSidebar = () => useContext(SidebarContext);
 </file>
 
-<file path="apps/web/src/css/Chart.css">
-.chart-card-figma {
-⋮----
-/*bodyarriba,bottomabajo*/border-radius: 20px;
-⋮----
-.chart-card-figma::before {
-⋮----
-z-index: 0; /* Coloca el pseudo-elemento detrás del contenido */
-border-radius: 10px; /* Aplica el borde redondeado */
-padding: 2px; /* Grosor del borde gradiente */
-background: var(--kk-gradient); /* Gradiente del borde */
-⋮----
-linear-gradient(#fff 0 0); /* Máscara para el gradiente */
-⋮----
-mask-composite: exclude; /* Excluye el área interna */
-⋮----
-/* Sección superior que contendrá el título y el gráfico */
-.chart-body {
-⋮----
-/* Encabezado (Trucos Vistos + mes) */
-.chart-top {
-.chart-top h3 {
-.chart-month {
-⋮----
-/* Contenedor del <Line /> */
-.chart-middle {
-⋮----
-flex: 1; /* Para que el gráfico llene el espacio */
-⋮----
-/* margen, padding, etc. si gustas */
-⋮----
-.chart-middle canvas {
-⋮----
-height: 250px !important; /* o 200px, lo que quieras */
-⋮----
-/* Footer (parte de abajo) */
-.chart-bottom {
-⋮----
-background: rgba(0,0,0,0.2); /* o un gradiente distinto */
-⋮----
-border-radius: 0 0 20px 20px; /* redondea solo la parte de abajo */
-⋮----
-.chart-bottom strong {
-.chart-wrapper {
-.chart-top-section {
-.chart-header-father {
-⋮----
-/* Encabezado (Trucos Vistos + May) */
-.chart-header {
-.chart-header h3 {
-⋮----
-/* Contenedor del canvas */
-.chart-canvas {
-⋮----
-/* PARTE INFERIOR (footer) con gradiente y radio en la parte superior */
-.chart-footer-section {
-⋮----
-/* Contenido interior del footer */
-.footer-content {
-.footer-content strong {
-</file>
-
-<file path="apps/web/src/css/Dashboard.css">
-.dashboard-container {
-⋮----
-.dashboard-header {
-⋮----
-.dashboard-header h2 {
-.icon-container {
-⋮----
-.icon-container .notification-dot {
-⋮----
-top: 0; /* Ajusta este valor si es necesario */
-right: 0; /* Ajusta este valor si es necesario */
-transform: translate(50%, -50%); /* Centra el punto sobre la esquina */
-border: 2px solid var(--kk-color-surface); /* Para un borde que combine con el fondo */
-⋮----
-.icon-container .message-count {
-⋮----
-top: -10px; /* Ajusta según sea necesario */
-right: -10px; /* Ajusta según sea necesario */
-⋮----
-z-index: 999; /* Asegúrate de que esté por encima del icono */
-⋮----
-width: 16px; /* Reduce el tamaño del círculo en pantallas más pequeñas */
-⋮----
-font-size: 10px; /* Reduce el tamaño del texto */
-top: -8px; /* Ajusta la posición superior */
-right: -8px; /* Ajusta la posición derecha */
-⋮----
-width: 14px; /* Tamaño aún más pequeño para pantallas muy pequeñas */
-⋮----
-.icon-container .dropdown {
-⋮----
-top: 120%; /* Ajusta según necesites */
-right: 0; /* Alínea el dropdown al borde derecho del icono */
-⋮----
-border: 1px solid transparent; /* Define el grosor y asegura que sea visible */
-⋮----
-border-image: var(--kk-gradient) 1; /* Usa la variable CSS para el gradiente */
-border-image-slice: 1; /* Define cómo se repite el gradiente */
-⋮----
-z-index: 999; /* Asegúrate de que esté sobre todo lo demás */
-display: none; /* Oculta el menú por defecto */
-⋮----
-.icon-container .dropdown p {
-⋮----
-.icon-container.show-dropdown .dropdown {
-⋮----
-display: block; /* Muestra el menú cuando se activa */
-⋮----
-.user-menu {
-⋮----
-.user-menu .dropdown {
-⋮----
-top: 100%; /* Justo debajo del avatar */
-right: 0; /* Alineado con el borde derecho del contenedor */
-⋮----
-min-width: 150px; /* Asegura un ancho mínimo */
-⋮----
-.user-menu .dropdown p {
-⋮----
-.stats-container {
-⋮----
-/* grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr; */
-⋮----
-.stat-box1 { grid-area: stat-box1; }
-.stat-box2 { grid-area: stat-box2; }
-.stat-box3 { grid-area: stat-box3; }
-⋮----
-.dashboard-stats {
-.star-box-aling{
-.stat-box {
-⋮----
-border-radius: 10px; /* Define las esquinas redondeadas */
-⋮----
-z-index: 1; /* Asegura que el contenido esté encima del pseudo-elemento */
-overflow: hidden; /* Para evitar que el pseudo-elemento sobresalga */
-⋮----
-.stat-box::before {
-⋮----
-z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
-border-radius: 10px; /* Aplica el borde redondeado al pseudo-elemento */
-padding: 2px; /* Grosor del borde gradiente */
-background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */
-⋮----
-linear-gradient(#fff 0 0); /* Crea una máscara para el gradiente */
-⋮----
-mask-composite: exclude; /* Excluye el área interna */
-⋮----
-.stat-box1 {
-⋮----
-z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
-overflow: hidden; /* Evita que el pseudo-elemento sobresalga */
-⋮----
-.stat-box h3 {
-⋮----
-.stat-box p {
-⋮----
-.dashboard-content {
-⋮----
-.groups-section, .tricks-section {
-⋮----
-.video-wrapper {
-⋮----
-padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-⋮----
-.video-wrapper iframe {
-⋮----
-border-radius: 10px; /* Esquinas redondeadas */
-⋮----
-z-index: 1; /* Asegura que el contenido esté sobre el pseudo-elemento */
-⋮----
-.groups-section::before, .tricks-section::before {
-⋮----
-border-radius: 10px; /* Redondea las esquinas del pseudo-elemento */
-padding: 2px; /* Grosor del borde */
-⋮----
-linear-gradient(#fff 0 0); /* Máscara para mostrar solo el borde */
-⋮----
-mask-composite: exclude; /* Excluye el área interna del borde */
-⋮----
-.groups-section h3,
-⋮----
-.table {
-⋮----
-.table th,
-⋮----
-.table th {
-⋮----
-.table tbody tr:hover {
-⋮----
-.tricks-section img {
-.header-left {
-.header-icons {
-⋮----
-.h2dashboard{
-.body_header_dashboard{
-.headerline{
-⋮----
-color: white; /* Color del texto */
-⋮----
-.headerline::after {
-⋮----
-top: 0; /* Posición del borde inferior */
-⋮----
-width: 98%; /* Ancho del borde */
-height: 1px; /* Grosor del borde */
-background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
-⋮----
-.search-bar {
-⋮----
-position: relative; /* Contenedor relativo para posicionar el menú */
-⋮----
-justify-content: center; /* Centra horizontalmente el input */
-⋮----
-.search-bar input {
-⋮----
-.search-results {
-⋮----
-position: absolute; /* Flota sobre otros elementos */
-top: 100%; /* Posiciona justo debajo del input */
-left: 50%; /* Centrado horizontalmente */
-transform: translateX(-50%); /* Ajusta el centrado */
-⋮----
-width: 400px; /* Ancho fijo para el menú */
-max-height: 200px; /* Alto máximo con scroll */
-⋮----
-z-index: 1000; /* Asegura que esté por encima de otros elementos */
-⋮----
-.search-results p {
-⋮----
-.search-results p:hover {
-/* Para el ID con color */
-.group-id {
-⋮----
-/* Flechas de tendencia */
-.arrow-up {
-⋮----
-color: #00ff7f; /* Un verde o el color que prefieras */
-⋮----
-.arrow-down {
-⋮----
-color: #ff4c4c; /* Un rojo o el color que prefieras */
-⋮----
-/* Estilo para el enlace "See More" */
-.see-more {
-⋮----
-color: var(--kk-color-accent); /* mismo color de tu diseño */
-⋮----
-font-weight: 600; /* un poco más grueso */
-⋮----
-.see-more:hover {
-⋮----
-/* Tarjeta principal con un gradiente */
-.chart-card {
-⋮----
-background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary)); /* Tu gradiente */
-⋮----
-max-width: 500px; /* Ajusta a tu gusto */
-margin: 0 auto;   /* Centra la tarjeta si quieres */
-⋮----
-/* Cabecera con el título y el "May" */
-.chart-card-header {
-.chart-card-header h3 {
-.chart-month-select {
-⋮----
-/* Contenedor del chart (fondo más oscuro para que destaque la línea) */
-.chart-container {
-⋮----
-background-color: rgba(0,0,0,0.2); /* Un oscuro translúcido */
-⋮----
-/* Footer con el número y el texto */
-.chart-card-footer {
-.chart-footer-icon {
-⋮----
-/* Ajusta si quieres un fondo distinto o un circulito */
-⋮----
-.chart-footer-text span {
-⋮----
-/* Ajusta más si lo quieres exacto al Figma */
-⋮----
-.chart-footer-text {
-.chart-footer-text strong {
-⋮----
-/* Contenedor general */
-.groups-table-container {
-⋮----
-margin-top: 20px; /* Espacio respecto al título “Grupos” */
-/* Pon un box-shadow, fondo, etc. si tu Figma lo requiere */
-⋮----
-/* Tabla base */
-.groups-table {
-⋮----
-border-collapse: collapse; /* Quita bordes dobles */
-/* Si tu Figma tiene un fondo oscuro en la tabla, ponlo aquí */
-⋮----
--webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
-⋮----
-min-width: unset; /* Elimina el ancho mínimo */
-width: 100%; /* Asegura que no exceda el contenedor */
-⋮----
-/* Opcional: Centra el contenido de las celdas en móvil */
-.groups-table td,
-⋮----
-/* Si los textos siguen desbordando, truncamos */
-.group-info span {
-⋮----
-max-width: 120px; /* Ajusta según lo que prefieras mostrar */
-⋮----
-/* Encabezado de la tabla */
-.groups-table thead th {
-⋮----
-background-color: #252539; /* Fondo cabecera (ejemplo) */
-color: var(--kk-color-accent);           /* Texto en la cabecera */
-⋮----
-/* Celdas del cuerpo */
-.groups-table td {
-⋮----
-border-bottom: 1px solid #444; /* Líneas divisorias */
-⋮----
-/* Hover en la fila */
-.groups-table tbody tr:hover {
-⋮----
-background-color: #3a3a50; /* Efecto hover */
-⋮----
-/* Columna con avatar + nombre */
-.group-info {
-⋮----
-gap: 10px; /* separa el avatar del texto */
-⋮----
-.group-avatar {
-⋮----
-object-fit: cover; /* Ajusta la imagen */
-⋮----
-/* Estilo del ID y flechas */
-⋮----
-color: #00ff7f; /* Verde */
-⋮----
-color: #ff4c4c; /* Rojo */
-⋮----
-/* Link “See More” */
-⋮----
-.integrant-calendar {
-.group-ranking{
-⋮----
-.logo-kedekids {
-⋮----
-.truncated-text{
-⋮----
-/* Búsqueda en móvil */
-⋮----
-gap: 8px; /* Reduce el espacio entre iconos en móvil */
-⋮----
-flex-grow: 1; /* Ocupar todo el ancho restante */
-margin-inline: 10px; /* Ajusta el margen */
-⋮----
-/* Logo tamaño y margen */
-⋮----
-/* Oculta en móvil */
-.hide-on-mobile {
-⋮----
-.search-bar input::placeholder {
-⋮----
-.profile-avatar2 {
-⋮----
-/* Oculta texto del nombre de usuario */
-.user-menu span {
-⋮----
-grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-⋮----
-"stat-box1 stat-box1"; /* Trucos Vistos ocupa las dos columnas */
-⋮----
-.stat-box1 { grid-area: stat-box1; width: 100%; }
-.stat-box2 { grid-area: stat-box2; width: 90%; }
-.stat-box3 { grid-area: stat-box3; width: 90%; }
-⋮----
-/* Opcional: Ajusta tamaños de los iconos y textos en móvil */
-.stat-box h3 { font-size: 24px; }
-.stat-box p { font-size: 14px; }
-⋮----
-/* Ajustes solo para ADMIN */
-body.admin-mode .header-icons {
-⋮----
-body.admin-mode .profile-avatar2 {
-⋮----
-body.admin-mode .icon-container svg {
-⋮----
-font-size: 22px; /* Íconos más grandes */
-⋮----
-body.admin-mode .search-bar {
-⋮----
-/* Ajustes solo para STUDENT */
-body.student-mode .profile-avatar2 {
-⋮----
-body.student-mode .icon-container svg {
-⋮----
-font-size: 18px; /* Íconos más pequeños */
-⋮----
-.pagination {
-⋮----
-.pagination button {
-⋮----
-.pagination button:disabled {
-⋮----
-.pagination span {
-</file>
-
-<file path="apps/web/src/css/EventsPage.css">
-/* Añade esto en tu EventsPage.css */
-.events-page1{
-⋮----
-.tricks-filters select {
-⋮----
-/* Quita la flechita por defecto */
-⋮----
-/* Centra el texto */
-⋮----
-.tricks-filters select:hover {
-⋮----
-.tricks-filters select option {
-⋮----
-.tricks-filter {
-⋮----
-.payments-page {
-⋮----
-h2,
-⋮----
-button {
-⋮----
-button:hover {
-⋮----
-section {
-⋮----
-section h4 {
-⋮----
-input::placeholder,
-⋮----
-textarea {
-⋮----
-.hide-on-mobile {
-⋮----
-.toggle-arrow {
-.events-page1 {
-⋮----
-.pagination {
-⋮----
-.pagination button {
-/* Móvil: input arriba, select + botón en la misma línea */
-⋮----
-.tricks-filters {
-⋮----
-.tricks-filters input {
-⋮----
-/* Contenedor para select + botón en una línea */
-.tricks-filters .filters-row {
-⋮----
-.tricks-filters select,
-</file>
-
-<file path="apps/web/src/css/GroupsPage.css">
-body, .groups-page {
-⋮----
-h2, h3, h4, h5 {
-⋮----
-button {
-⋮----
-button:hover {
-⋮----
-.group-list {
-⋮----
-.group-list h3 {
-⋮----
-.group-list ul {
-⋮----
-.group-list li {
-⋮----
-.group-list li:hover,
-⋮----
-.group-detail {
-⋮----
-.group-avatar {
-⋮----
-.integrant-calendar {
-⋮----
-.class-notes, .group-integrant, .notifications-section {
-⋮----
-.class-notes textarea {
-⋮----
-.selected-date {
-⋮----
-.react-calendar {
-⋮----
-.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
-⋮----
-.react-calendar__tile--active {
-⋮----
-/* ✅ Para alumnos, eliminamos el efecto visual */
-.class-dot {
-⋮----
-.react-calendar__navigation button {
-/* Centrar los números del calendario */
-.react-calendar__tile abbr {
-⋮----
-.student-calendar .react-calendar__tile--active {
-⋮----
-/* modal */
-⋮----
-.modal-overlay {
-⋮----
-.modal-content {
-⋮----
-.close-modal-button {
-⋮----
-.close-modal-button:hover {
-⋮----
-/* Sección de notificaciones */
-.notification-list ul {
-⋮----
-.notification-list li {
-⋮----
-.website-button {
-⋮----
-.website-button:hover {
-⋮----
-/* Input oculto para cambiar avatar */
-#avatar-upload {
-.react-calendar__tile--now {
-.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
-⋮----
-.mobile-group-selector {
-⋮----
-.mobile-group-selector select {
-.group-header {
-.group-info-line {
-.group-name {
-.group-ranking {
-.group-actions {
-⋮----
-.remove-member-button {
-⋮----
-.remove-member-button .icon {
-⋮----
-.remove-member-button .text {
-</file>
-
-<file path="apps/web/src/css/PaymentsPage.css">
-.payments-page {
-⋮----
-h2,
-⋮----
-button {
-⋮----
-button:hover {
-⋮----
-section {
-⋮----
-section h4 {
-⋮----
-input::placeholder,
-⋮----
-textarea {
-</file>
-
-<file path="apps/web/src/css/Sidebar.css">
-.sidebar {
-⋮----
-.sidebar h3 {
-⋮----
-.sidebar ul {
-⋮----
-.sidebar li {
-⋮----
-.sidebar li:hover {
-⋮----
-/* Sidebar oculto en móvil */
-.sidebar.hidden {
-⋮----
-/* Hamburguesa */
-.hamburger-menu {
-⋮----
-.main-content {
-</file>
-
-<file path="apps/web/src/css/StudentPayments.css">
-.payment-reminder {
-⋮----
-.payments-table {
-⋮----
-.payments-table th, .payments-table td {
-⋮----
-.payments-table th {
-</file>
-
-<file path="apps/web/src/css/StudentsPage.css">
-.students-page {
-⋮----
-h2,
-⋮----
-table {
-⋮----
-th,
-⋮----
-th {
-⋮----
-tbody tr:hover {
-⋮----
-button {
-⋮----
-button:hover {
-⋮----
-input[type="text"],
-⋮----
-.modal {
-⋮----
-.modal h3 {
-⋮----
-.highlight {
-.toggle-arrow{
-⋮----
-table thead {
-⋮----
-display: none; /* Oculta las cabeceras */
-⋮----
-table, tbody, tr, td {
-⋮----
-tr {
-⋮----
-margin: 0 auto 15px auto; /* Centramos la "tarjeta" */
-max-width: 90%; /* Controlas el ancho */
-⋮----
-td {
-⋮----
-td::before {
-⋮----
-.students-page h3 {
-⋮----
-.toggle-arrow {
-⋮----
-td[data-label]:before {
-⋮----
-.pagination {
-⋮----
-.pagination button {
-⋮----
-.pagination button:disabled {
-</file>
-
-<file path="apps/web/src/css/StudentTricks.css">
-.section-title {
-⋮----
-.tricks-grid {
-⋮----
-.trick-card {
-⋮----
-.mark-done-button {
-⋮----
-.mark-done-button:hover {
-</file>
-
-<file path="apps/web/src/css/TricksPage.css">
-/* Styles for TricksPage */
-⋮----
-/* Header Section */
-.tricks-header {
-⋮----
-.tricks-title {
-⋮----
-.tricks-header h1 {
-⋮----
-.new-trick-button {
-⋮----
-/* Limita en desktop */
-⋮----
-.new-trick-button:hover {
-⋮----
-.new-trick-button img {
-⋮----
-/* Hace la imagen blanca sin editarla */
-⋮----
-/* Móvil */
-⋮----
-button:focus,
-⋮----
-.tricks-filters button {
-⋮----
-/* Necesario para el pseudo-elemento */
-⋮----
-/* Eliminamos el borde para aplicar el pseudo-elemento */
-⋮----
-/* Asegura que el contenido esté sobre el pseudo-elemento */
-⋮----
-/* Evita que el pseudo-elemento sobresalga */
-⋮----
-.tricks-filters button::before {
-⋮----
-/* Igual al radio del botón */
-⋮----
-/* Gradiente del borde */
-⋮----
-/* Grosor del borde */
-⋮----
-/* Máscara para mostrar solo el borde */
-⋮----
-/* Excluye el área interna del borde */
-⋮----
-/* Envía el pseudo-elemento detrás del botón */
-⋮----
-.tricks-filters button.active {
-⋮----
-.tricks-filters button:hover {
-⋮----
-.tricks-filters button.active::before {
-⋮----
-/* Cambia el gradiente en estado activo */
-⋮----
-/* Filter Section */
-.tricks-filters {
-⋮----
-.tricks-filters span {
-⋮----
-.active-filtro {
-⋮----
-.active-filtro::before {
-⋮----
-.tricks-order> :first-child {
-⋮----
-.tricks-order> :last-child {
-⋮----
-/* Azul vibrante */
-⋮----
-/* Table Section */
-.tricks-table {
-⋮----
-.tricks-table-header {
-⋮----
-/* Color del texto */
-⋮----
-.tricks-table-header::after {
-⋮----
-/* Posición del borde inferior */
-⋮----
-/* Ancho del borde */
-⋮----
-/* Opcional: redondear los extremos */
-⋮----
-.tricks-table th,
-⋮----
-.tricks-table th {
-⋮----
-.tricks-table td {
-⋮----
-.tricks-table img {
-⋮----
-.actions {
-⋮----
-.actions button {
-⋮----
-.delete-button-container {
-⋮----
-.delete-button-container button {
-⋮----
-.delete-button-container button::before {
-⋮----
-/* Modal Styles */
-.modal {
-⋮----
-.modal h2 {
-⋮----
-.modal button {
-⋮----
-.modal button:hover {
-⋮----
-.modal .reset-button {
-⋮----
-.modal .reset-button:hover {
-⋮----
-/* Paginación */
-.pagination {
-⋮----
-.pagination button {
-⋮----
-.pagination span {
-⋮----
-/* Estilo para la flecha en móviles */
-.toggle-arrow {
-⋮----
-td.actions {
-⋮----
-.tricks-table thead {
-⋮----
-.tricks-table tr {
-⋮----
-.fltrick {
-⋮----
-.mobile-expanded {
-⋮----
-.mobile-expanded div {
-⋮----
-.video-thumbnail-wrapper {
-⋮----
-.mobile-buttons {
-⋮----
-.mobile-buttons button {
-</file>
-
 <file path="apps/web/src/index.css">
 :root {
 #root{
@@ -1482,184 +553,8 @@ padding-top: clamp(60px, 6vh, 100px); /* Altura adaptable para el header */
 .modal button {
 </file>
 
-<file path="apps/web/src/pages/Dashboard.jsx">
-const Dashboard = () => {
-const [students, setStudents] = useState(0);
-const [groups, setGroups] = useState(0);
-const [tricksViewed, setTricksViewed] = useState(0);
-const navigate = useNavigate();
-const [groupList, setGroupList] = useState([]);
-const [topTrick, setTopTrick] = useState(null);
-const chartRef = useRef(null);
-⋮----
-const [currentPage, setCurrentPage] = useState(1);
-⋮----
-const currentGroups = groupList.slice(indexOfFirstGroup, indexOfLastGroup);
-const totalPages = Math.ceil(groupList.length / groupsPerPage);
-⋮----
-const handlePageChange = (page) => {
-if (page > 0 && page <= totalPages) setCurrentPage(page);
-⋮----
-const getGradient = (ctx, area) => {
-const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
-gradient.addColorStop(0, 'rgba(255,64,129,0.1)');  // color inferior
-gradient.addColorStop(1, 'rgba(255,64,129,1)');    // color superior
-⋮----
-borderColor: (ctx) => {
-⋮----
-// Chart aún no está montado
-⋮----
-return getGradient(canvasCtx, chartArea);
-⋮----
-useEffect(() => {
-axios.get(`${API_URL}/users/students`)
-.then((response) => {
-setStudents(response.data.length);
-⋮----
-.catch(console.error);
-⋮----
-axios.get(`${API_URL}/groups`)
-⋮----
-setGroups(response.data.length);
-⋮----
-axios.get(`${API_URL}/tricks/total-views`)
-⋮----
-setTricksViewed(response.data.total);
-⋮----
-setGroupList(response.data);
-⋮----
-axios.get(`${API_URL}/tricks/most-viewed`)
-.then((response) => setTopTrick(response.data))
-⋮----
-const extractYouTubeId = (url) => {
-⋮----
-const match = url.match(regex);
-⋮----
-{currentGroups.map((group) => (
-⋮----
-onClick={() => handlePageChange(currentPage - 1)}
-⋮----
-onClick={() => handlePageChange(currentPage + 1)}
-⋮----
-src={`https://www.youtube.com/embed/${extractYouTubeId(topTrick.video)}`}
-</file>
-
 <file path="apps/web/src/pages/DiscountsPage.jsx">
 function DiscountsPage() {
-</file>
-
-<file path="apps/web/src/pages/EventsPage.jsx">
-import EventModal from "./EventModal"; // Importar el modal
-⋮----
-import "../css/EventsPage.css"; // Importar estilos CSS
-⋮----
-function EventsPage() {
-const [events, setEvents] = useState([]);
-const [currentEvent, setCurrentEvent] = useState(null);
-const [isModalOpen, setModalOpen] = useState(false);
-const [highlightedEventId, setHighlightedEventId] = useState(null); // ID del evento destacado
-const location = useLocation();
-const [searchTerm, setSearchTerm] = useState("");
-const [selectedMonth, setSelectedMonth] = useState("");
-const [currentPage, setCurrentPage] = useState(1);
-const [eventsPerPage] = useState(10); // Número de eventos por página
-const [expandedEventId, setExpandedEventId] = useState(null); // ID del evento expandido
-⋮----
-useEffect(() => {
-⋮----
-// Obtener parámetros de la URL
-const params = new URLSearchParams(location.search);
-const eventId = params.get('eventId');
-⋮----
-setHighlightedEventId(eventId);
-⋮----
-fetch(`${API_URL}/events`)
-.then((res) => res.json())
-.then((data) => setEvents(data))
-.catch((err) => console.error(err));
-⋮----
-const handleSaveEvent = (eventData, shouldSend = false) => {
-⋮----
-fetch(endpoint, {
-⋮----
-body: JSON.stringify({
-⋮----
-subject: eventData.subject || "Sin Asunto", // Por si no rellenan el campo
-⋮----
-.then((savedEvent) => {
-⋮----
-setEvents((prev) => [...prev, savedEvent]);
-⋮----
-setEvents((prev) =>
-prev.map((event) => (event._id === savedEvent._id ? savedEvent : event))
-⋮----
-handleSendEmail(savedEvent); // Enviar correo
-⋮----
-setModalOpen(false);
-setCurrentEvent(null);
-⋮----
-const handleDeleteEvent = (eventId) => {
-const confirmDelete = window.confirm(
-⋮----
-fetch(`${API_URL}/events/${eventId}`, {
-⋮----
-.then(() => {
-setEvents((prev) => prev.filter((event) => event._id !== eventId));
-⋮----
-const handleSendEmail = (eventData) => {
-console.log('📤 Enviando correo para el evento:', eventData);
-⋮----
-fetch(`${API_URL}/events/${eventData._id}/send-email`, {
-⋮----
-.then((data) => {
-console.log("📬 Respuesta del backend:", data);
-alert("Correo enviado correctamente.");
-⋮----
-.catch((err) => console.error("❌ Error al enviar el correo:", err));
-⋮----
-const clearFilters = () => {
-setSearchTerm("");
-setSelectedMonth("");
-⋮----
-.filter(event => event.name.toLowerCase().includes(searchTerm.toLowerCase()))
-.filter(event => {
-⋮----
-const eventMonth = new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
-⋮----
-const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
-const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
-⋮----
-const handlePageChange = (page) => {
-if (page > 0 && page <= totalPages) setCurrentPage(page);
-⋮----
-<button onClick={() => setModalOpen(true)}>Crear Nuevo Evento</button>
-⋮----
-onChange={(e) => setSearchTerm(e.target.value)}
-⋮----
-onChange={(e) => setSelectedMonth(e.target.value)}
-⋮----
-{Array.from(new Set(events.map(event =>
-new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })
-))).map(month => (
-⋮----
-{currentEvents.map(event => (
-⋮----
-onClick={() => setExpandedEventId(expandedEventId === event._id ? null : event._id)}
-⋮----
-{new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}
-⋮----
-<button onClick={() => { setCurrentEvent(event); setModalOpen(true); }}>Editar</button>
-<button onClick={() => handleDeleteEvent(event._id)}>Eliminar</button>
-⋮----
-{/* Móvil - Info Expandida */}
-⋮----
-<div><strong>Fecha:</strong> {new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}</div>
-⋮----
-<button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
-⋮----
-<button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
-⋮----
-{/* Modal para creación/edición */}
 </file>
 
 <file path="apps/web/src/pages/Groups/AddGroupModal.jsx">
@@ -1671,54 +566,6 @@ onSave(groupName);
 setGroupName('');
 ⋮----
 onChange={e => setGroupName(e.target.value)}
-</file>
-
-<file path="apps/web/src/pages/Groups/AddMemberModal.jsx">
-function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
-const [search, setSearch] = useState('');
-const [allStudents, setAllStudents] = useState([]);
-const [filteredStudents, setFilteredStudents] = useState([]);
-⋮----
-useEffect(() => {
-⋮----
-fetch(`${API_URL}/users?role=student`)
-.then(res => res.json())
-.then(data => {
-setAllStudents(data);
-setFilteredStudents(data);
-⋮----
-.catch(err => console.error(err));
-⋮----
-const filtered = allStudents.filter(student =>
-student.name.toLowerCase().includes(search.toLowerCase())
-⋮----
-setFilteredStudents(filtered);
-⋮----
-const handleSelectStudent = async (studentId) => {
-⋮----
-const response = await fetch(`${API_URL}/groups/${groupId}/addMember`, {
-⋮----
-body: JSON.stringify({ userId: studentId }),
-⋮----
-const updatedGroup = await response.json();
-⋮----
-onMemberAdded(updatedGroup); // Actualiza el estado del grupo
-onClose();
-⋮----
-// Refrescar la lista de alumnos para reflejar los cambios
-const updatedStudentsResponse = await fetch(`${API_URL}/users?role=student`);
-const updatedStudents = await updatedStudentsResponse.json();
-setAllStudents(updatedStudents); // Actualizar la lista de estudiantes
-⋮----
-console.error('Error al agregar miembro:', updatedGroup.error);
-⋮----
-console.error('Error al agregar miembro:', err);
-⋮----
-onChange={e => setSearch(e.target.value)}
-⋮----
-{filteredStudents.map(student => (
-⋮----
-<button onClick={() => handleSelectStudent(student._id)}>
 </file>
 
 <file path="apps/web/src/pages/Groups/CalendarPlaceholder.jsx">
@@ -1784,106 +631,6 @@ onChange={e => setStartTime(e.target.value)}
 onChange={e => setEndTime(e.target.value)}
 ⋮----
 onChange={e => setPlace(e.target.value)}
-</file>
-
-<file path="apps/web/src/pages/Groups/GroupDetail.jsx">
-function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, onUpdateGroupNotes, onUpdateGroupRanking, onNotificationAdded }) {
-const [editingName, setEditingName] = useState(false);
-const [tempName, setTempName] = useState('');
-const [editingRanking, setEditingRanking] = useState(false);
-const [tempRanking, setTempRanking] = useState('');
-const [editingNotes, setEditingNotes] = useState(false);
-const [tempNotes, setTempNotes] = useState('');
-const [uploadingAvatar, setUploadingAvatar] = useState(false);
-⋮----
-const handleEditClick = () => {
-setEditingName(true);
-setTempName(group.name);
-⋮----
-const handleNameChange = (e) => {
-setTempName(e.target.value);
-⋮----
-const handleNameSave = () => {
-onUpdateGroupName(tempName);
-setEditingName(false);
-⋮----
-const handleNameCancel = () => {
-⋮----
-const handleEditRanking = () => {
-setEditingRanking(true);
-setTempRanking(group.ranking);
-⋮----
-const handleRankingChange = (e) => {
-setTempRanking(e.target.value);
-⋮----
-const handleRankingSave = () => {
-onUpdateGroupRanking(group._id, Number(tempRanking));
-setEditingRanking(false);
-⋮----
-const handleRankingCancel = () => {
-⋮----
-const handleEditNotes = () => {
-setEditingNotes(true);
-setTempNotes(group.tricks || '');
-⋮----
-const handleNotesChange = (e) => {
-setTempNotes(e.target.value);
-⋮----
-const handleNotesSave = () => {
-onUpdateGroupNotes(group._id, tempNotes);
-setEditingNotes(false);
-⋮----
-const handleNotesCancel = () => {
-⋮----
-const handleAvatarChange = (e) => {
-⋮----
-const formData = new FormData();
-formData.append('avatar', file);
-⋮----
-setUploadingAvatar(true);
-⋮----
-fetch(`${API_URL}/groups/${group._id}/avatar`, {
-⋮----
-.then((res) => res.json())
-.then((updatedGroup) => {
-setUploadingAvatar(false);
-⋮----
-onGroupUpdated(updatedGroup); // 💥 forzamos la actualización del grupo desde el padre
-⋮----
-.catch((err) => {
-console.error(err);
-⋮----
-// ✅ AQUÍ la función que guarda las fechas y lugares en la BBDD
-const handleDatesChanged = (datesArray) => {
-const formattedDates = datesArray.map(d => ({
-date: d.date.toISOString(),
-⋮----
-fetch(`${API_URL}/groups/${group._id}`, {
-⋮----
-body: JSON.stringify({ scheduledDates: formattedDates }),
-⋮----
-.then(res => res.json())
-.then(updatedGroup => {
-console.log('Fechas actualizadas en backend:', updatedGroup);
-⋮----
-.catch(err => console.error('Error actualizando fechas:', err));
-⋮----
-group.members.map((member) => (
-⋮----
-onClick={() => onRemoveMember(member._id)}
-⋮----
-{/* 📅 Calendario con la función correcta */}
-</file>
-
-<file path="apps/web/src/pages/Groups/GroupList.jsx">
-function GroupList({ groups, onSelectGroup, selectedGroupId, onAddGroup }) {
-⋮----
-top: '60px', // Ajusta según la altura del header
-left: '289px', // Ancho del sidebar
-⋮----
-{groups.map(group => (
-⋮----
-onClick={() => onSelectGroup(group._id)}
 </file>
 
 <file path="apps/web/src/pages/GroupsPage.jsx">
@@ -2142,117 +889,6 @@ onChange={e => handleRoleChange(request._id, e.target.value)}
 <button onClick={() => handleUpdateRequest(request._id, 'approved')}>
 ⋮----
 <button onClick={() => handleUpdateRequest(request._id, 'rejected')}>
-</file>
-
-<file path="apps/web/src/pages/StudentClasses.jsx">
-function StudentClasses() {
-const [user, setUser] = useState({});
-const [upcomingClasses, setUpcomingClasses] = useState([]);
-const [groupDetails, setGroupDetails] = useState(null);
-const [selectedDate, setSelectedDate] = useState(null);
-const [showModal, setShowModal] = useState(false);
-⋮----
-useEffect(() => {
-const storedUser = JSON.parse(localStorage.getItem('user'));
-⋮----
-setUser(storedUser);
-⋮----
-fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
-.then(res => res.json())
-.then(group => setGroupDetails(group));
-⋮----
-fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
-⋮----
-.then(data => setUpcomingClasses(data));
-⋮----
-const handleDayClick = (value) => {
-setSelectedDate(value);
-setShowModal(true);
-⋮----
-const classesForSelectedDate = upcomingClasses.filter(
-c => new Date(c.date).toDateString() === selectedDate?.toDateString()
-⋮----
-<h3>📅 {new Date(upcomingClasses[0].date).toLocaleDateString()}</h3>
-⋮----
-const foundClass = upcomingClasses.find(
-(c) => new Date(c.date).toDateString() === date.toDateString()
-⋮----
-<div className="modal-overlay" onClick={() => setShowModal(false)}>
-<div className="modal-content" onClick={(e) => e.stopPropagation()}>
-⋮----
-Clases para el {selectedDate?.toLocaleDateString()}
-⋮----
-classesForSelectedDate.map((cls, index) => (
-⋮----
-<button onClick={() => setShowModal(false)} className="close-modal-button">Cerrar</button>
-</file>
-
-<file path="apps/web/src/pages/StudentPayments.jsx">
-import '../css/StudentPayments.css'; // Crea este archivo para estilos si no existe
-⋮----
-function StudentPayments() {
-const [showReminder, setShowReminder] = useState(false);
-const [payments, setPayments] = useState([]);
-const [user, setUser] = useState({});
-const [searchTerm, setSearchTerm] = useState('');
-const [selectedMethod, setSelectedMethod] = useState('');
-const [selectedMonth, setSelectedMonth] = useState('');
-const [paymentConfigs, setPaymentConfigs] = useState({});
-⋮----
-useEffect(() => {
-const currentDate = new Date();
-const day = currentDate.getDate();
-⋮----
-setShowReminder(true);
-⋮----
-const storedUser = JSON.parse(localStorage.getItem('user'));
-console.log('User ID:', storedUser.id);
-setUser(storedUser);
-⋮----
-fetch(`${API_URL}/payments`)
-.then(res => res.json())
-.then(data => {
-⋮----
-data.forEach(cfg => {
-⋮----
-setPaymentConfigs(configs);
-⋮----
-.catch(err => console.error('Error cargando configuración de pagos:', err));
-⋮----
-// Simula la obtención de pagos desde el backend
-fetch(`${API_URL}/users/payments-history/${storedUser.id}`)
-⋮----
-.then(data => setPayments(data))
-.catch(err => console.error('Error cargando pagos:', err));
-⋮----
-const handleClearFilters = () => {
-setSearchTerm('');
-setSelectedMethod('');
-⋮----
-const filteredPayments = payments.filter(payment => {
-const paymentMonth = new Date(payment.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
-⋮----
-{['efectivo', 'bizum', 'transferencia'].map(method => (
-⋮----
-{method.charAt(0).toUpperCase() + method.slice(1)}
-⋮----
-{/* Filtros */}
-⋮----
-onChange={(e) => setSelectedMethod(e.target.value)}
-⋮----
-onChange={(e) => setSelectedMonth(e.target.value)}
-⋮----
-{Array.from(new Set(payments.map(payment =>
-new Date(payment.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })
-))).map(month => (
-⋮----
-<button className="filter-button" onClick={() => { setSelectedMethod(''); setSelectedMonth(''); }}>
-⋮----
-{/* Tabla con Scroll */}
-⋮----
-{filteredPayments.map((payment, index) => (
-⋮----
-<td>{new Date(payment.date).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</td>
 </file>
 
 <file path="apps/web/src/pages/StudentsPage.jsx">
@@ -3839,167 +2475,1257 @@ protected Uri getLaunchingUrl() {
 Uri uri = super.getLaunchingUrl();
 </file>
 
-<file path="apps/web/src/context/ThemeContext.jsx">
-const ThemeContext = createContext();
-export const useTheme = () => useContext(ThemeContext);
+<file path="apps/web/public/manifest.webmanifest">
+{
+  "name": "KedeKids School",
+  "short_name": "KedeKidsAPP",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "var(--kk-color-accent)",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+</file>
+
+<file path="apps/web/src/components/ChartCard.jsx">
+function ChartCard() {
+const [tricksViewed, setTricksViewed] = useState(0);
 ⋮----
-shadow: "light", // light|medium|strong
+useEffect(() => {
+fetch(`${API_URL}/tricks/total-views`)
+.then(res => res.json())
+.then(data => setTricksViewed(data.totalViews || 0))
+.catch(err => console.error(err));
 ⋮----
-function applyThemeVars(t) {
+labels: ['Total Visualizaciones'], // Puedes añadir más si tienes datos por mes, etc.
+</file>
+
+<file path="apps/web/src/components/Footer.jsx">
+function Footer() {
 ⋮----
-r.setProperty('--kk-primary', t.colorPrimary);
-r.setProperty('--kk-secondary', t.colorSecondary);
-r.setProperty('--kk-accent', t.colorAccent || 'var(--kk-color-accent)');
-r.setProperty('--kk-text', t.colorText || '#111827');
-r.setProperty('--kk-bg', t.colorBg || '#ffffff');
-r.setProperty('--kk-surface', t.colorSurface || '#f7f7f8');
-r.setProperty('--kk-grad', `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
-r.setProperty("--kk-radius", `${t.radius}px`);
-r.setProperty("--kk-shadow", SHADOW_MAP[t.shadow] || SHADOW_MAP.light);
-r.setProperty("--kk-font-sans", t.fontSans);
-r.setProperty("--kk-font-heading", t.fontHeading);
+Desarrollado por <a href="https://aboutjavi.netlify.app/" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--kk-color-primary)' }}>Javier García-Rojo</a> · Kedekids © {new Date().getFullYear()}
+</file>
+
+<file path="apps/web/src/components/Layout.css">
+.layout-container {
+button.delete-avatar-button {
+button.delete-avatar-button:hover {
+button.delete-avatar-button:focus {
+.profile-role-container {
 ⋮----
-export function ThemeProvider({ children }) {
-const [theme, setTheme] = useState(DEFAULT_THEME);
-const [loading, setLoading] = useState(true);
+/* Sidebar fijo */
+.sidebar {
+⋮----
+/* Main content con margen para no tapar con sidebar */
+.main-content {
+⋮----
+/* Header fijo */
+.dashboard-header {
+⋮----
+height: 60px; /* Ajusta según tu diseño */
+⋮----
+/* Contenido debajo del header con scroll */
+.page-content {
+⋮----
+/* Responsive */
+⋮----
+.sidebar.hidden {
+⋮----
+.layout-header {
+⋮----
+.hamburger-menu {
+⋮----
+.sidebar-content {
+⋮----
+overflow-y: auto; /* Hacemos scroll SOLO en el contenido */
+⋮----
+max-height: calc(100vh - 150px); /* Ajusta este valor según el espacio que ocupa el header/avatar/botón */
+⋮----
+.profile-section {
+⋮----
+.profile-avatar {
+.profile-avatar2{
+⋮----
+.profile-info {
+⋮----
+.profile-name {
+⋮----
+.profile-role {
+⋮----
+.menu {
+⋮----
+.menu li {
+⋮----
+.menu li a {
+⋮----
+position: relative; /* Necesario para usar ::after */
+text-decoration: none; /* Elimina cualquier subrayado predeterminado */
+⋮----
+.menu li a:hover {
+.active-menu {
+⋮----
+.menu li a::after {
+⋮----
+content: ''; /* Crea un pseudo-elemento vacío */
+⋮----
+bottom: -2px; /* Ajusta la posición vertical del subrayado */
+height: 2px; /* Grosor del subrayado */
+background-color: var(--kk-color-primary); /* Color del subrayado */
+transform: scaleX(0); /* Inicialmente oculto */
+⋮----
+.menu li a:hover::after {
+⋮----
+transform: scaleX(1); /* Muestra el subrayado */
+⋮----
+.icon {
+⋮----
+.website-button {
+⋮----
+.website-button:hover {
+⋮----
+.logout-button {
+</file>
+
+<file path="apps/web/src/css/Chart.css">
+.chart-card-figma {
+⋮----
+/*bodyarriba,bottomabajo*/border-radius: 20px;
+⋮----
+.chart-card-figma::before {
+⋮----
+z-index: 0; /* Coloca el pseudo-elemento detrás del contenido */
+border-radius: 10px; /* Aplica el borde redondeado */
+padding: 2px; /* Grosor del borde gradiente */
+background: var(--kk-gradient); /* Gradiente del borde */
+⋮----
+linear-gradient(#fff 0 0); /* Máscara para el gradiente */
+⋮----
+mask-composite: exclude; /* Excluye el área interna */
+⋮----
+/* Sección superior que contendrá el título y el gráfico */
+.chart-body {
+⋮----
+/* Encabezado (Trucos Vistos + mes) */
+.chart-top {
+.chart-top h3 {
+.chart-month {
+⋮----
+/* Contenedor del <Line /> */
+.chart-middle {
+⋮----
+flex: 1; /* Para que el gráfico llene el espacio */
+⋮----
+/* margen, padding, etc. si gustas */
+⋮----
+.chart-middle canvas {
+⋮----
+height: 250px !important; /* o 200px, lo que quieras */
+⋮----
+/* Footer (parte de abajo) */
+.chart-bottom {
+⋮----
+background: rgba(0,0,0,0.2); /* o un gradiente distinto */
+⋮----
+border-radius: 0 0 20px 20px; /* redondea solo la parte de abajo */
+⋮----
+.chart-bottom strong {
+.chart-wrapper {
+.chart-top-section {
+.chart-header-father {
+⋮----
+/* Encabezado (Trucos Vistos + May) */
+.chart-header {
+.chart-header h3 {
+⋮----
+/* Contenedor del canvas */
+.chart-canvas {
+⋮----
+/* PARTE INFERIOR (footer) con gradiente y radio en la parte superior */
+.chart-footer-section {
+⋮----
+/* Contenido interior del footer */
+.footer-content {
+.footer-content strong {
+</file>
+
+<file path="apps/web/src/css/Dashboard.css">
+.dashboard-container {
+⋮----
+.dashboard-header {
+⋮----
+.dashboard-header h2 {
+.icon-container {
+⋮----
+.icon-container .notification-dot {
+⋮----
+top: 0; /* Ajusta este valor si es necesario */
+right: 0; /* Ajusta este valor si es necesario */
+transform: translate(50%, -50%); /* Centra el punto sobre la esquina */
+border: 2px solid var(--kk-color-surface); /* Para un borde que combine con el fondo */
+⋮----
+.icon-container .message-count {
+⋮----
+top: -10px; /* Ajusta según sea necesario */
+right: -10px; /* Ajusta según sea necesario */
+⋮----
+z-index: 999; /* Asegúrate de que esté por encima del icono */
+⋮----
+width: 16px; /* Reduce el tamaño del círculo en pantallas más pequeñas */
+⋮----
+font-size: 10px; /* Reduce el tamaño del texto */
+top: -8px; /* Ajusta la posición superior */
+right: -8px; /* Ajusta la posición derecha */
+⋮----
+width: 14px; /* Tamaño aún más pequeño para pantallas muy pequeñas */
+⋮----
+.icon-container .dropdown {
+⋮----
+top: 120%; /* Ajusta según necesites */
+right: 0; /* Alínea el dropdown al borde derecho del icono */
+⋮----
+border: 1px solid transparent; /* Define el grosor y asegura que sea visible */
+⋮----
+border-image: var(--kk-gradient) 1; /* Usa la variable CSS para el gradiente */
+border-image-slice: 1; /* Define cómo se repite el gradiente */
+⋮----
+z-index: 999; /* Asegúrate de que esté sobre todo lo demás */
+display: none; /* Oculta el menú por defecto */
+⋮----
+.icon-container .dropdown p {
+⋮----
+.icon-container.show-dropdown .dropdown {
+⋮----
+display: block; /* Muestra el menú cuando se activa */
+⋮----
+.user-menu {
+⋮----
+.user-menu .dropdown {
+⋮----
+top: 100%; /* Justo debajo del avatar */
+right: 0; /* Alineado con el borde derecho del contenedor */
+⋮----
+min-width: 150px; /* Asegura un ancho mínimo */
+⋮----
+.user-menu .dropdown p {
+⋮----
+.stats-container {
+⋮----
+/* grid-template-rows: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr; */
+⋮----
+.stat-box1 { grid-area: stat-box1; }
+.stat-box2 { grid-area: stat-box2; }
+.stat-box3 { grid-area: stat-box3; }
+⋮----
+.dashboard-stats {
+.star-box-aling{
+.stat-box {
+⋮----
+border-radius: 10px; /* Define las esquinas redondeadas */
+⋮----
+z-index: 1; /* Asegura que el contenido esté encima del pseudo-elemento */
+overflow: hidden; /* Para evitar que el pseudo-elemento sobresalga */
+⋮----
+.stat-box::before {
+⋮----
+z-index: -1; /* Coloca el pseudo-elemento detrás del contenido */
+border-radius: 10px; /* Aplica el borde redondeado al pseudo-elemento */
+padding: 2px; /* Grosor del borde gradiente */
+background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */
+⋮----
+linear-gradient(#fff 0 0); /* Crea una máscara para el gradiente */
+⋮----
+mask-composite: exclude; /* Excluye el área interna */
+⋮----
+.stat-box1 {
+⋮----
+z-index: 1; /* Asegura que el contenido esté por encima del pseudo-elemento */
+overflow: hidden; /* Evita que el pseudo-elemento sobresalga */
+⋮----
+.stat-box h3 {
+⋮----
+.stat-box p {
+⋮----
+.dashboard-content {
+⋮----
+.groups-section, .tricks-section {
+⋮----
+.video-wrapper {
+⋮----
+padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+⋮----
+.video-wrapper iframe {
+⋮----
+border-radius: 10px; /* Esquinas redondeadas */
+⋮----
+z-index: 1; /* Asegura que el contenido esté sobre el pseudo-elemento */
+⋮----
+.groups-section::before, .tricks-section::before {
+⋮----
+border-radius: 10px; /* Redondea las esquinas del pseudo-elemento */
+padding: 2px; /* Grosor del borde */
+⋮----
+linear-gradient(#fff 0 0); /* Máscara para mostrar solo el borde */
+⋮----
+mask-composite: exclude; /* Excluye el área interna del borde */
+⋮----
+.groups-section h3,
+⋮----
+.table {
+⋮----
+.table th,
+⋮----
+.table th {
+⋮----
+.table tbody tr:hover {
+⋮----
+.tricks-section img {
+.header-left {
+.header-icons {
+⋮----
+.h2dashboard{
+.body_header_dashboard{
+.headerline{
+⋮----
+color: white; /* Color del texto */
+⋮----
+.headerline::after {
+⋮----
+top: 0; /* Posición del borde inferior */
+⋮----
+width: 98%; /* Ancho del borde */
+height: 1px; /* Grosor del borde */
+background: linear-gradient(to right, var(--kk-color-primary) 0%, var(--kk-color-secondary) 100%); /* Gradiente del borde */    border-radius: 2px; /* Opcional: redondear los extremos */
+⋮----
+.search-bar {
+⋮----
+position: relative; /* Contenedor relativo para posicionar el menú */
+⋮----
+justify-content: center; /* Centra horizontalmente el input */
+⋮----
+.search-bar input {
+⋮----
+.search-results {
+⋮----
+position: absolute; /* Flota sobre otros elementos */
+top: 100%; /* Posiciona justo debajo del input */
+left: 50%; /* Centrado horizontalmente */
+transform: translateX(-50%); /* Ajusta el centrado */
+⋮----
+width: 400px; /* Ancho fijo para el menú */
+max-height: 200px; /* Alto máximo con scroll */
+⋮----
+z-index: 1000; /* Asegura que esté por encima de otros elementos */
+⋮----
+.search-results p {
+⋮----
+.search-results p:hover {
+/* Para el ID con color */
+.group-id {
+⋮----
+/* Flechas de tendencia */
+.arrow-up {
+⋮----
+color: #00ff7f; /* Un verde o el color que prefieras */
+⋮----
+.arrow-down {
+⋮----
+color: #ff4c4c; /* Un rojo o el color que prefieras */
+⋮----
+/* Estilo para el enlace "See More" */
+.see-more {
+⋮----
+color: var(--kk-color-accent); /* mismo color de tu diseño */
+⋮----
+font-weight: 600; /* un poco más grueso */
+⋮----
+.see-more:hover {
+⋮----
+/* Tarjeta principal con un gradiente */
+.chart-card {
+⋮----
+background: linear-gradient(to right, var(--kk-color-primary), var(--kk-color-secondary)); /* Tu gradiente */
+⋮----
+max-width: 500px; /* Ajusta a tu gusto */
+margin: 0 auto;   /* Centra la tarjeta si quieres */
+⋮----
+/* Cabecera con el título y el "May" */
+.chart-card-header {
+.chart-card-header h3 {
+.chart-month-select {
+⋮----
+/* Contenedor del chart (fondo más oscuro para que destaque la línea) */
+.chart-container {
+⋮----
+background-color: rgba(0,0,0,0.2); /* Un oscuro translúcido */
+⋮----
+/* Footer con el número y el texto */
+.chart-card-footer {
+.chart-footer-icon {
+⋮----
+/* Ajusta si quieres un fondo distinto o un circulito */
+⋮----
+.chart-footer-text span {
+⋮----
+/* Ajusta más si lo quieres exacto al Figma */
+⋮----
+.chart-footer-text {
+.chart-footer-text strong {
+⋮----
+/* Contenedor general */
+.groups-table-container {
+⋮----
+margin-top: 20px; /* Espacio respecto al título “Grupos” */
+/* Pon un box-shadow, fondo, etc. si tu Figma lo requiere */
+⋮----
+/* Tabla base */
+.groups-table {
+⋮----
+border-collapse: collapse; /* Quita bordes dobles */
+/* Si tu Figma tiene un fondo oscuro en la tabla, ponlo aquí */
+⋮----
+-webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
+⋮----
+min-width: unset; /* Elimina el ancho mínimo */
+width: 100%; /* Asegura que no exceda el contenedor */
+⋮----
+/* Opcional: Centra el contenido de las celdas en móvil */
+.groups-table td,
+⋮----
+/* Si los textos siguen desbordando, truncamos */
+.group-info span {
+⋮----
+max-width: 120px; /* Ajusta según lo que prefieras mostrar */
+⋮----
+/* Encabezado de la tabla */
+.groups-table thead th {
+⋮----
+background-color: #252539; /* Fondo cabecera (ejemplo) */
+color: var(--kk-color-accent);           /* Texto en la cabecera */
+⋮----
+/* Celdas del cuerpo */
+.groups-table td {
+⋮----
+border-bottom: 1px solid #444; /* Líneas divisorias */
+⋮----
+/* Hover en la fila */
+.groups-table tbody tr:hover {
+⋮----
+background-color: #3a3a50; /* Efecto hover */
+⋮----
+/* Columna con avatar + nombre */
+.group-info {
+⋮----
+gap: 10px; /* separa el avatar del texto */
+⋮----
+.group-avatar {
+⋮----
+object-fit: cover; /* Ajusta la imagen */
+⋮----
+/* Estilo del ID y flechas */
+⋮----
+color: #00ff7f; /* Verde */
+⋮----
+color: #ff4c4c; /* Rojo */
+⋮----
+/* Link “See More” */
+⋮----
+.integrant-calendar {
+.group-ranking{
+⋮----
+.logo-kedekids {
+⋮----
+.truncated-text{
+⋮----
+/* Búsqueda en móvil */
+⋮----
+gap: 8px; /* Reduce el espacio entre iconos en móvil */
+⋮----
+flex-grow: 1; /* Ocupar todo el ancho restante */
+margin-inline: 10px; /* Ajusta el margen */
+⋮----
+/* Logo tamaño y margen */
+⋮----
+/* Oculta en móvil */
+.hide-on-mobile {
+⋮----
+.search-bar input::placeholder {
+⋮----
+.profile-avatar2 {
+⋮----
+/* Oculta texto del nombre de usuario */
+.user-menu span {
+⋮----
+grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+⋮----
+"stat-box1 stat-box1"; /* Trucos Vistos ocupa las dos columnas */
+⋮----
+.stat-box1 { grid-area: stat-box1; width: 100%; }
+.stat-box2 { grid-area: stat-box2; width: 90%; }
+.stat-box3 { grid-area: stat-box3; width: 90%; }
+⋮----
+/* Opcional: Ajusta tamaños de los iconos y textos en móvil */
+.stat-box h3 { font-size: 24px; }
+.stat-box p { font-size: 14px; }
+⋮----
+/* Ajustes solo para ADMIN */
+body.admin-mode .header-icons {
+⋮----
+body.admin-mode .profile-avatar2 {
+⋮----
+body.admin-mode .icon-container svg {
+⋮----
+font-size: 22px; /* Íconos más grandes */
+⋮----
+body.admin-mode .search-bar {
+⋮----
+/* Ajustes solo para STUDENT */
+body.student-mode .profile-avatar2 {
+⋮----
+body.student-mode .icon-container svg {
+⋮----
+font-size: 18px; /* Íconos más pequeños */
+⋮----
+.pagination {
+⋮----
+.pagination button {
+⋮----
+.pagination button:disabled {
+⋮----
+.pagination span {
+</file>
+
+<file path="apps/web/src/css/EventsPage.css">
+/* Añade esto en tu EventsPage.css */
+.events-page1{
+⋮----
+.tricks-filters select {
+⋮----
+/* Quita la flechita por defecto */
+⋮----
+/* Centra el texto */
+⋮----
+.tricks-filters select:hover {
+⋮----
+.tricks-filters select option {
+⋮----
+.tricks-filter {
+⋮----
+.payments-page {
+⋮----
+h2,
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+section {
+⋮----
+section h4 {
+⋮----
+input::placeholder,
+⋮----
+textarea {
+⋮----
+.hide-on-mobile {
+⋮----
+.toggle-arrow {
+.events-page1 {
+⋮----
+.pagination {
+⋮----
+.pagination button {
+/* Móvil: input arriba, select + botón en la misma línea */
+⋮----
+.tricks-filters {
+⋮----
+.tricks-filters input {
+⋮----
+/* Contenedor para select + botón en una línea */
+.tricks-filters .filters-row {
+⋮----
+.tricks-filters select,
+</file>
+
+<file path="apps/web/src/css/GroupsPage.css">
+body, .groups-page {
+⋮----
+h2, h3, h4, h5 {
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+.group-list {
+⋮----
+.group-list h3 {
+⋮----
+.group-list ul {
+⋮----
+.group-list li {
+⋮----
+.group-list li:hover,
+⋮----
+.group-detail {
+⋮----
+.group-avatar {
+⋮----
+.integrant-calendar {
+⋮----
+.class-notes, .group-integrant, .notifications-section {
+⋮----
+.class-notes textarea {
+⋮----
+.selected-date {
+⋮----
+.react-calendar {
+⋮----
+.react-calendar__navigation button:enabled:hover, .react-calendar__navigation button:enabled:focus {
+⋮----
+.react-calendar__tile--active {
+⋮----
+/* ✅ Para alumnos, eliminamos el efecto visual */
+.class-dot {
+⋮----
+.react-calendar__navigation button {
+/* Centrar los números del calendario */
+.react-calendar__tile abbr {
+⋮----
+.student-calendar .react-calendar__tile--active {
+⋮----
+/* modal */
+⋮----
+.modal-overlay {
+⋮----
+.modal-content {
+⋮----
+.close-modal-button {
+⋮----
+.close-modal-button:hover {
+⋮----
+/* Sección de notificaciones */
+.notification-list ul {
+⋮----
+.notification-list li {
+⋮----
+.website-button {
+⋮----
+.website-button:hover {
+⋮----
+/* Input oculto para cambiar avatar */
+#avatar-upload {
+.react-calendar__tile--now {
+.react-calendar__tile--now:enabled:hover, .react-calendar__tile--now:enabled:focus {
+⋮----
+.mobile-group-selector {
+⋮----
+.mobile-group-selector select {
+.group-header {
+.group-info-line {
+.group-name {
+.group-ranking {
+.group-actions {
+⋮----
+.remove-member-button {
+⋮----
+.remove-member-button .icon {
+⋮----
+.remove-member-button .text {
+</file>
+
+<file path="apps/web/src/css/PaymentsPage.css">
+.payments-page {
+⋮----
+h2,
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+section {
+⋮----
+section h4 {
+⋮----
+input::placeholder,
+⋮----
+textarea {
+</file>
+
+<file path="apps/web/src/css/Sidebar.css">
+.sidebar {
+⋮----
+.sidebar h3 {
+⋮----
+.sidebar ul {
+⋮----
+.sidebar li {
+⋮----
+.sidebar li:hover {
+⋮----
+/* Sidebar oculto en móvil */
+.sidebar.hidden {
+⋮----
+/* Hamburguesa */
+.hamburger-menu {
+⋮----
+.main-content {
+</file>
+
+<file path="apps/web/src/css/StudentPayments.css">
+.payment-reminder {
+⋮----
+.payments-table {
+⋮----
+.payments-table th, .payments-table td {
+⋮----
+.payments-table th {
+</file>
+
+<file path="apps/web/src/css/StudentsPage.css">
+.students-page {
+⋮----
+h2,
+⋮----
+table {
+⋮----
+th,
+⋮----
+th {
+⋮----
+tbody tr:hover {
+⋮----
+button {
+⋮----
+button:hover {
+⋮----
+input[type="text"],
+⋮----
+.modal {
+⋮----
+.modal h3 {
+⋮----
+.highlight {
+.toggle-arrow{
+⋮----
+table thead {
+⋮----
+display: none; /* Oculta las cabeceras */
+⋮----
+table, tbody, tr, td {
+⋮----
+tr {
+⋮----
+margin: 0 auto 15px auto; /* Centramos la "tarjeta" */
+max-width: 90%; /* Controlas el ancho */
+⋮----
+td {
+⋮----
+td::before {
+⋮----
+.students-page h3 {
+⋮----
+.toggle-arrow {
+⋮----
+td[data-label]:before {
+⋮----
+.pagination {
+⋮----
+.pagination button {
+⋮----
+.pagination button:disabled {
+</file>
+
+<file path="apps/web/src/css/StudentTricks.css">
+.section-title {
+⋮----
+.tricks-grid {
+⋮----
+.trick-card {
+⋮----
+.mark-done-button {
+⋮----
+.mark-done-button:hover {
+</file>
+
+<file path="apps/web/src/css/TricksPage.css">
+/* Styles for TricksPage */
+⋮----
+/* Header Section */
+.tricks-header {
+⋮----
+.tricks-title {
+⋮----
+.tricks-header h1 {
+⋮----
+.new-trick-button {
+⋮----
+/* Limita en desktop */
+⋮----
+.new-trick-button:hover {
+⋮----
+.new-trick-button img {
+⋮----
+/* Hace la imagen blanca sin editarla */
+⋮----
+/* Móvil */
+⋮----
+button:focus,
+⋮----
+.tricks-filters button {
+⋮----
+/* Necesario para el pseudo-elemento */
+⋮----
+/* Eliminamos el borde para aplicar el pseudo-elemento */
+⋮----
+/* Asegura que el contenido esté sobre el pseudo-elemento */
+⋮----
+/* Evita que el pseudo-elemento sobresalga */
+⋮----
+.tricks-filters button::before {
+⋮----
+/* Igual al radio del botón */
+⋮----
+/* Gradiente del borde */
+⋮----
+/* Grosor del borde */
+⋮----
+/* Máscara para mostrar solo el borde */
+⋮----
+/* Excluye el área interna del borde */
+⋮----
+/* Envía el pseudo-elemento detrás del botón */
+⋮----
+.tricks-filters button.active {
+⋮----
+.tricks-filters button:hover {
+⋮----
+.tricks-filters button.active::before {
+⋮----
+/* Cambia el gradiente en estado activo */
+⋮----
+/* Filter Section */
+.tricks-filters {
+⋮----
+.tricks-filters span {
+⋮----
+.active-filtro {
+⋮----
+.active-filtro::before {
+⋮----
+.tricks-order> :first-child {
+⋮----
+.tricks-order> :last-child {
+⋮----
+/* Azul vibrante */
+⋮----
+/* Table Section */
+.tricks-table {
+⋮----
+.tricks-table-header {
+⋮----
+/* Color del texto */
+⋮----
+.tricks-table-header::after {
+⋮----
+/* Posición del borde inferior */
+⋮----
+/* Ancho del borde */
+⋮----
+/* Opcional: redondear los extremos */
+⋮----
+.tricks-table th,
+⋮----
+.tricks-table th {
+⋮----
+.tricks-table td {
+⋮----
+.tricks-table img {
+⋮----
+.actions {
+⋮----
+.actions button {
+⋮----
+.delete-button-container {
+⋮----
+.delete-button-container button {
+⋮----
+.delete-button-container button::before {
+⋮----
+/* Modal Styles */
+.modal {
+⋮----
+.modal h2 {
+⋮----
+.modal button {
+⋮----
+.modal button:hover {
+⋮----
+.modal .reset-button {
+⋮----
+.modal .reset-button:hover {
+⋮----
+/* Paginación */
+.pagination {
+⋮----
+.pagination button {
+⋮----
+.pagination span {
+⋮----
+/* Estilo para la flecha en móviles */
+.toggle-arrow {
+⋮----
+td.actions {
+⋮----
+.tricks-table thead {
+⋮----
+.tricks-table tr {
+⋮----
+.fltrick {
+⋮----
+.mobile-expanded {
+⋮----
+.mobile-expanded div {
+⋮----
+.video-thumbnail-wrapper {
+⋮----
+.mobile-buttons {
+⋮----
+.mobile-buttons button {
+</file>
+
+<file path="apps/web/src/pages/Dashboard.jsx">
+const Dashboard = () => {
+const [students, setStudents] = useState(0);
+const [groups, setGroups] = useState(0);
+const [tricksViewed, setTricksViewed] = useState(0);
+const navigate = useNavigate();
+const [groupList, setGroupList] = useState([]);
+const [topTrick, setTopTrick] = useState(null);
+const chartRef = useRef(null);
+⋮----
+const [currentPage, setCurrentPage] = useState(1);
+⋮----
+const currentGroups = groupList.slice(indexOfFirstGroup, indexOfLastGroup);
+const totalPages = Math.ceil(groupList.length / groupsPerPage);
+⋮----
+const handlePageChange = (page) => {
+if (page > 0 && page <= totalPages) setCurrentPage(page);
+⋮----
+const getGradient = (ctx, area) => {
+const gradient = ctx.createLinearGradient(0, area.bottom, 0, area.top);
+gradient.addColorStop(0, 'rgba(255,64,129,0.1)');  // color inferior
+gradient.addColorStop(1, 'rgba(255,64,129,1)');    // color superior
+⋮----
+borderColor: (ctx) => {
+⋮----
+// Chart aún no está montado
+⋮----
+return getGradient(canvasCtx, chartArea);
+⋮----
+useEffect(() => {
+axios.get(`${API_URL}/users/students`)
+.then((response) => {
+setStudents(response.data.length);
+⋮----
+.catch(console.error);
+⋮----
+axios.get(`${API_URL}/groups`)
+⋮----
+setGroups(response.data.length);
+⋮----
+axios.get(`${API_URL}/tricks/total-views`)
+⋮----
+setTricksViewed(response.data.total);
+⋮----
+setGroupList(response.data);
+⋮----
+axios.get(`${API_URL}/tricks/most-viewed`)
+.then((response) => setTopTrick(response.data))
+⋮----
+const extractYouTubeId = (url) => {
+⋮----
+const match = url.match(regex);
+⋮----
+{currentGroups.map((group) => (
+⋮----
+onClick={() => handlePageChange(currentPage - 1)}
+⋮----
+onClick={() => handlePageChange(currentPage + 1)}
+⋮----
+src={`https://www.youtube.com/embed/${extractYouTubeId(topTrick.video)}`}
+</file>
+
+<file path="apps/web/src/pages/EventsPage.jsx">
+import EventModal from "./EventModal"; // Importar el modal
+⋮----
+import "../css/EventsPage.css"; // Importar estilos CSS
+⋮----
+function EventsPage() {
+const [events, setEvents] = useState([]);
+const [currentEvent, setCurrentEvent] = useState(null);
+const [isModalOpen, setModalOpen] = useState(false);
+const [highlightedEventId, setHighlightedEventId] = useState(null); // ID del evento destacado
+const location = useLocation();
+const [searchTerm, setSearchTerm] = useState("");
+const [selectedMonth, setSelectedMonth] = useState("");
+const [currentPage, setCurrentPage] = useState(1);
+const [eventsPerPage] = useState(10); // Número de eventos por página
+const [expandedEventId, setExpandedEventId] = useState(null); // ID del evento expandido
 ⋮----
 useEffect(() => {
 ⋮----
-const res = await fetch(`${API_URL}/admin/theme`, { credentials: "include" });
+// Obtener parámetros de la URL
+const params = new URLSearchParams(location.search);
+const eventId = params.get('eventId');
 ⋮----
-const data = await res.json();
+setHighlightedEventId(eventId);
 ⋮----
-setTheme(next);
-applyThemeVars(next);
+fetch(`${API_URL}/events`)
+.then((res) => res.json())
+.then((data) => setEvents(data))
+.catch((err) => console.error(err));
 ⋮----
-applyThemeVars(DEFAULT_THEME);
+const handleSaveEvent = (eventData, shouldSend = false) => {
 ⋮----
-setLoading(false);
+fetch(endpoint, {
 ⋮----
-useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
+body: JSON.stringify({
 ⋮----
-const saveTheme = async (draft) => {
+subject: eventData.subject || "Sin Asunto", // Por si no rellenan el campo
 ⋮----
-setTheme(next); // live preview
-const res = await fetch(`${API_URL}/admin/theme`, {
+.then((savedEvent) => {
 ⋮----
-body: JSON.stringify(next)
+setEvents((prev) => [...prev, savedEvent]);
 ⋮----
-if (!res.ok) throw new Error("No se pudo guardar el tema");
+setEvents((prev) =>
+prev.map((event) => (event._id === savedEvent._id ? savedEvent : event))
+⋮----
+handleSendEmail(savedEvent); // Enviar correo
+⋮----
+setModalOpen(false);
+setCurrentEvent(null);
+⋮----
+const handleDeleteEvent = (eventId) => {
+const confirmDelete = window.confirm(
+⋮----
+fetch(`${API_URL}/events/${eventId}`, {
+⋮----
+.then(() => {
+setEvents((prev) => prev.filter((event) => event._id !== eventId));
+⋮----
+const handleSendEmail = (eventData) => {
+console.log('📤 Enviando correo para el evento:', eventData);
+⋮----
+fetch(`${API_URL}/events/${eventData._id}/send-email`, {
+⋮----
+.then((data) => {
+console.log("📬 Respuesta del backend:", data);
+alert("Correo enviado correctamente.");
+⋮----
+.catch((err) => console.error("❌ Error al enviar el correo:", err));
+⋮----
+const clearFilters = () => {
+setSearchTerm("");
+setSelectedMonth("");
+⋮----
+.filter(event => event.name.toLowerCase().includes(searchTerm.toLowerCase()))
+.filter(event => {
+⋮----
+const eventMonth = new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+⋮----
+const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
+const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
+⋮----
+const handlePageChange = (page) => {
+if (page > 0 && page <= totalPages) setCurrentPage(page);
+⋮----
+<button onClick={() => setModalOpen(true)}>Crear Nuevo Evento</button>
+⋮----
+onChange={(e) => setSearchTerm(e.target.value)}
+⋮----
+onChange={(e) => setSelectedMonth(e.target.value)}
+⋮----
+{Array.from(new Set(events.map(event =>
+new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })
+))).map(month => (
+⋮----
+{currentEvents.map(event => (
+⋮----
+onClick={() => setExpandedEventId(expandedEventId === event._id ? null : event._id)}
+⋮----
+{new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}
+⋮----
+<button onClick={() => { setCurrentEvent(event); setModalOpen(true); }}>Editar</button>
+<button onClick={() => handleDeleteEvent(event._id)}>Eliminar</button>
+⋮----
+{/* Móvil - Info Expandida */}
+⋮----
+<div><strong>Fecha:</strong> {new Date(event.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })}</div>
+⋮----
+<button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Anterior</button>
+⋮----
+<button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>Siguiente</button>
+⋮----
+{/* Modal para creación/edición */}
 </file>
 
-<file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
-const ColorInput = ({ label, value, onChange }) => (
-⋮----
-<input type="color" value={value} onChange={e => onChange(e.target.value)} />
-<input type="text" value={value} onChange={e => onChange(e.target.value)} />
-⋮----
-export default function AdminThemeCustomizer() {
-const { theme, setTheme, saveTheme } = useTheme();
-const [draft, setDraft] = useState(theme);
-const [saving, setSaving] = useState(false);
-const [msg, setMsg] = useState("");
-⋮----
-const update = (k, v) => {
-setDraft(d => ({ ...d, [k]: v }));
-setTheme(t => ({ ...t, [k]: v })); // 👈 live preview en toda la app
-⋮----
-const onSave = async () => {
-⋮----
-setSaving(true);
-await saveTheme(draft);
-setMsg("Tema guardado ✔");
-setTimeout(() => setMsg(""), 2000);
-⋮----
-setMsg("Error guardando el tema");
-⋮----
-setSaving(false);
-⋮----
-<ColorInput label="Primario" value={draft.colorPrimary} onChange={v => update("colorPrimary", v)} />
-<ColorInput label="Secundario" value={draft.colorSecondary} onChange={v => update("colorSecondary", v)} />
-<ColorInput label="Acento" value={draft.colorAccent} onChange={v => update("colorAccent", v)} />
-<ColorInput label="Fondo" value={draft.colorBg} onChange={v => update("colorBg", v)} />
-<ColorInput label="Surface" value={draft.colorSurface} onChange={v => update("colorSurface", v)} />
-<ColorInput label="Texto" value={draft.colorText} onChange={v => update("colorText", v)} />
-⋮----
-<select value={draft.fontSans} onChange={e => update("fontSans", e.target.value)}>
-⋮----
-<select value={draft.fontHeading} onChange={e => update("fontHeading", e.target.value)}>
-⋮----
-onChange={e => update("radius", Number(e.target.value))} />
-⋮----
-<select value={draft.shadow} onChange={e => update("shadow", e.target.value)}>
-⋮----
-{/* Vista previa mínima */}
-</file>
-
-<file path="apps/web/src/pages/ChangePassword.jsx">
-function ChangePassword() {
-const [oldPassword, setOldPassword] = useState('');
-const [newPassword, setNewPassword] = useState('');
-const [avatar, setAvatar] = useState(null);
-const [message, setMessage] = useState('');
-const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-⋮----
-// role del usuario (para mostrar el bloque del customizer solo a admin)
-⋮----
-try { return JSON.parse(localStorage.getItem('user'))?.role; }
+<file path="apps/web/src/pages/Groups/AddMemberModal.jsx">
+function AddMemberModal({ isOpen, onClose, groupId, onMemberAdded }) {
+const [search, setSearch] = useState('');
+const [allStudents, setAllStudents] = useState([]);
+const [filteredStudents, setFilteredStudents] = useState([]);
 ⋮----
 useEffect(() => {
-const handleResize = () => setIsMobile(window.innerWidth <= 768);
-window.addEventListener('resize', handleResize);
-return () => window.removeEventListener('resize', handleResize);
 ⋮----
-const handleChangePassword = async () => {
-const token = localStorage.getItem('token');
+fetch(`${API_URL}/users?role=student`)
+.then(res => res.json())
+.then(data => {
+setAllStudents(data);
+setFilteredStudents(data);
 ⋮----
-const res = await fetch(`${API_URL}/users/change-password`, {
+.catch(err => console.error(err));
 ⋮----
-body: JSON.stringify({ oldPassword, newPassword }),
+const filtered = allStudents.filter(student =>
+student.name.toLowerCase().includes(search.toLowerCase())
 ⋮----
-if (!res.ok) throw new Error('Error al cambiar la contraseña');
-const data = await res.json();
-setMessage(data.message || 'Contraseña actualizada con éxito');
-setOldPassword('');
-setNewPassword('');
+setFilteredStudents(filtered);
 ⋮----
-console.error(err);
-setMessage('Error al cambiar la contraseña');
+const handleSelectStudent = async (studentId) => {
 ⋮----
-const handleAvatarChange = (e) => setAvatar(e.target.files[0]);
+const response = await fetch(`${API_URL}/groups/${groupId}/addMember`, {
 ⋮----
-const handleUploadAvatar = async () => {
+body: JSON.stringify({ userId: studentId }),
 ⋮----
-setMessage('Por favor, selecciona una imagen primero.');
+const updatedGroup = await response.json();
+⋮----
+onMemberAdded(updatedGroup); // Actualiza el estado del grupo
+onClose();
+⋮----
+// Refrescar la lista de alumnos para reflejar los cambios
+const updatedStudentsResponse = await fetch(`${API_URL}/users?role=student`);
+const updatedStudents = await updatedStudentsResponse.json();
+setAllStudents(updatedStudents); // Actualizar la lista de estudiantes
+⋮----
+console.error('Error al agregar miembro:', updatedGroup.error);
+⋮----
+console.error('Error al agregar miembro:', err);
+⋮----
+onChange={e => setSearch(e.target.value)}
+⋮----
+{filteredStudents.map(student => (
+⋮----
+<button onClick={() => handleSelectStudent(student._id)}>
+</file>
+
+<file path="apps/web/src/pages/Groups/GroupDetail.jsx">
+function GroupDetail({ group, onAddMember, onRemoveMember, onUpdateGroupName, onUpdateGroupNotes, onUpdateGroupRanking, onNotificationAdded }) {
+const [editingName, setEditingName] = useState(false);
+const [tempName, setTempName] = useState('');
+const [editingRanking, setEditingRanking] = useState(false);
+const [tempRanking, setTempRanking] = useState('');
+const [editingNotes, setEditingNotes] = useState(false);
+const [tempNotes, setTempNotes] = useState('');
+const [uploadingAvatar, setUploadingAvatar] = useState(false);
+⋮----
+const handleEditClick = () => {
+setEditingName(true);
+setTempName(group.name);
+⋮----
+const handleNameChange = (e) => {
+setTempName(e.target.value);
+⋮----
+const handleNameSave = () => {
+onUpdateGroupName(tempName);
+setEditingName(false);
+⋮----
+const handleNameCancel = () => {
+⋮----
+const handleEditRanking = () => {
+setEditingRanking(true);
+setTempRanking(group.ranking);
+⋮----
+const handleRankingChange = (e) => {
+setTempRanking(e.target.value);
+⋮----
+const handleRankingSave = () => {
+onUpdateGroupRanking(group._id, Number(tempRanking));
+setEditingRanking(false);
+⋮----
+const handleRankingCancel = () => {
+⋮----
+const handleEditNotes = () => {
+setEditingNotes(true);
+setTempNotes(group.tricks || '');
+⋮----
+const handleNotesChange = (e) => {
+setTempNotes(e.target.value);
+⋮----
+const handleNotesSave = () => {
+onUpdateGroupNotes(group._id, tempNotes);
+setEditingNotes(false);
+⋮----
+const handleNotesCancel = () => {
+⋮----
+const handleAvatarChange = (e) => {
 ⋮----
 const formData = new FormData();
-formData.append('avatar', avatar);
+formData.append('avatar', file);
 ⋮----
-const response = await fetch(`${API_URL}/users/upload-avatar`, {
+setUploadingAvatar(true);
 ⋮----
-if (!response.ok) throw new Error('Error al subir el avatar');
+fetch(`${API_URL}/groups/${group._id}/avatar`, {
 ⋮----
-const data = await response.json();
+.then((res) => res.json())
+.then((updatedGroup) => {
+setUploadingAvatar(false);
 ⋮----
-// 🔄 Actualizamos el localStorage (manteniendo tu lógica actual)
-const userKey = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
-const currentUser = JSON.parse(localStorage.getItem(userKey));
+onGroupUpdated(updatedGroup); // 💥 forzamos la actualización del grupo desde el padre
 ⋮----
-localStorage.setItem(userKey, JSON.stringify(updatedUser));
+.catch((err) => {
+console.error(err);
 ⋮----
-// 🔁 Notificar a los layouts
-window.dispatchEvent(new Event('storage'));
+// ✅ AQUÍ la función que guarda las fechas y lugares en la BBDD
+const handleDatesChanged = (datesArray) => {
+const formattedDates = datesArray.map(d => ({
+date: d.date.toISOString(),
 ⋮----
-setMessage('Avatar actualizado correctamente');
+fetch(`${API_URL}/groups/${group._id}`, {
 ⋮----
-console.error(error);
-setMessage('Error al subir el avatar');
+body: JSON.stringify({ scheduledDates: formattedDates }),
 ⋮----
-{/* Bloque de acceso al Customizer SOLO para admin */}
+.then(res => res.json())
+.then(updatedGroup => {
+console.log('Fechas actualizadas en backend:', updatedGroup);
 ⋮----
-onChange={(e) => setOldPassword(e.target.value)}
+.catch(err => console.error('Error actualizando fechas:', err));
 ⋮----
-onChange={(e) => setNewPassword(e.target.value)}
+group.members.map((member) => (
+⋮----
+onClick={() => onRemoveMember(member._id)}
+⋮----
+{/* 📅 Calendario con la función correcta */}
+</file>
+
+<file path="apps/web/src/pages/Groups/GroupList.jsx">
+function GroupList({ groups, onSelectGroup, selectedGroupId, onAddGroup }) {
+⋮----
+top: '60px', // Ajusta según la altura del header
+left: '289px', // Ancho del sidebar
+⋮----
+{groups.map(group => (
+⋮----
+onClick={() => onSelectGroup(group._id)}
 </file>
 
 <file path="apps/web/src/pages/Groups/NotificationsSection.jsx">
@@ -4060,25 +3786,115 @@ visible.map((notif, index) => (
 onClick={() => setShowAll(v => !v)}
 </file>
 
-<file path="apps/web/src/theme/theme.css">
-:root {
+<file path="apps/web/src/pages/StudentClasses.jsx">
+function StudentClasses() {
+const [user, setUser] = useState({});
+const [upcomingClasses, setUpcomingClasses] = useState([]);
+const [groupDetails, setGroupDetails] = useState(null);
+const [selectedDate, setSelectedDate] = useState(null);
+const [showModal, setShowModal] = useState(false);
 ⋮----
-/* Paleta actual por defecto (lo que ya usas) */
---kk-primary:   var(--kk-color-primary);  /* rosa */
---kk-secondary: var(--kk-color-secondary);  /* teal */
---kk-accent:    var(--kk-color-accent);  /* naranja de títulos/labels */
---kk-text:      #111827;  /* texto base (si lo usas) */
---kk-bg:        #ffffff;  /* fondo claro (si lo usas) */
---kk-surface:   #f7f7f8;  /* cards (si lo usas) */
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user'));
 ⋮----
-/* Gradiente que ya usas en botones/boras */
+setUser(storedUser);
 ⋮----
-body {
-.kcard {
-.kbtn {
-.kbtn--secondary { background: var(--kk-color-secondary); }
-.klink { color: var(--kk-color-primary); text-decoration: none; }
-.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
+fetch(`${API_URL}/groups/${storedUser.groupId._id}`)
+.then(res => res.json())
+.then(group => setGroupDetails(group));
+⋮----
+fetch(`${API_URL}/groups/upcoming-classes/${storedUser.groupId._id}`)
+⋮----
+.then(data => setUpcomingClasses(data));
+⋮----
+const handleDayClick = (value) => {
+setSelectedDate(value);
+setShowModal(true);
+⋮----
+const classesForSelectedDate = upcomingClasses.filter(
+c => new Date(c.date).toDateString() === selectedDate?.toDateString()
+⋮----
+<h3>📅 {new Date(upcomingClasses[0].date).toLocaleDateString()}</h3>
+⋮----
+const foundClass = upcomingClasses.find(
+(c) => new Date(c.date).toDateString() === date.toDateString()
+⋮----
+<div className="modal-overlay" onClick={() => setShowModal(false)}>
+<div className="modal-content" onClick={(e) => e.stopPropagation()}>
+⋮----
+Clases para el {selectedDate?.toLocaleDateString()}
+⋮----
+classesForSelectedDate.map((cls, index) => (
+⋮----
+<button onClick={() => setShowModal(false)} className="close-modal-button">Cerrar</button>
+</file>
+
+<file path="apps/web/src/pages/StudentPayments.jsx">
+import '../css/StudentPayments.css'; // Crea este archivo para estilos si no existe
+⋮----
+function StudentPayments() {
+const [showReminder, setShowReminder] = useState(false);
+const [payments, setPayments] = useState([]);
+const [user, setUser] = useState({});
+const [searchTerm, setSearchTerm] = useState('');
+const [selectedMethod, setSelectedMethod] = useState('');
+const [selectedMonth, setSelectedMonth] = useState('');
+const [paymentConfigs, setPaymentConfigs] = useState({});
+⋮----
+useEffect(() => {
+const currentDate = new Date();
+const day = currentDate.getDate();
+⋮----
+setShowReminder(true);
+⋮----
+const storedUser = JSON.parse(localStorage.getItem('user'));
+console.log('User ID:', storedUser.id);
+setUser(storedUser);
+⋮----
+fetch(`${API_URL}/payments`)
+.then(res => res.json())
+.then(data => {
+⋮----
+data.forEach(cfg => {
+⋮----
+setPaymentConfigs(configs);
+⋮----
+.catch(err => console.error('Error cargando configuración de pagos:', err));
+⋮----
+// Simula la obtención de pagos desde el backend
+fetch(`${API_URL}/users/payments-history/${storedUser.id}`)
+⋮----
+.then(data => setPayments(data))
+.catch(err => console.error('Error cargando pagos:', err));
+⋮----
+const handleClearFilters = () => {
+setSearchTerm('');
+setSelectedMethod('');
+⋮----
+const filteredPayments = payments.filter(payment => {
+const paymentMonth = new Date(payment.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' });
+⋮----
+{['efectivo', 'bizum', 'transferencia'].map(method => (
+⋮----
+{method.charAt(0).toUpperCase() + method.slice(1)}
+⋮----
+{/* Filtros */}
+⋮----
+onChange={(e) => setSelectedMethod(e.target.value)}
+⋮----
+onChange={(e) => setSelectedMonth(e.target.value)}
+⋮----
+{Array.from(new Set(payments.map(payment =>
+new Date(payment.date).toLocaleString('es-ES', { month: 'long', year: 'numeric' })
+))).map(month => (
+⋮----
+<button className="filter-button" onClick={() => { setSelectedMethod(''); setSelectedMonth(''); }}>
+⋮----
+{/* Tabla con Scroll */}
+⋮----
+{filteredPayments.map((payment, index) => (
+⋮----
+<td>{new Date(payment.date).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' })}</td>
 </file>
 
 <file path="backend/firebase.js">
@@ -4266,30 +4082,173 @@ deferredPrompt.prompt();
 const handleClose = () => {
 </file>
 
-<file path="apps/web/src/css/StudentDashboard.css">
-.student-dashboard {
+<file path="apps/web/src/context/ThemeContext.jsx">
+const ThemeContext = createContext();
+export const useTheme = () => useContext(ThemeContext);
 ⋮----
-.welcome-title {
+shadow: "light", // light|medium|strong
 ⋮----
-.dashboard-grid {
+function applyThemeVars(t) {
 ⋮----
-.dashboard-card {
+// === variables que usa TU CSS ===
+r.setProperty('--kk-color-primary',  t.colorPrimary);
+r.setProperty('--kk-color-secondary',t.colorSecondary);
+r.setProperty('--kk-color-accent',   t.colorAccent   || 'var(--kk-color-accent)');
+r.setProperty('--kk-color-text',     t.colorText     || '#111827');
+r.setProperty('--kk-color-bg',       t.colorBg       || '#ffffff');
+r.setProperty('--kk-color-surface',  t.colorSurface  || '#f7f7f8');
+r.setProperty('--kk-gradient',       `linear-gradient(to right, ${t.colorPrimary}, ${t.colorSecondary})`);
 ⋮----
-.calendarRes {
+// === back-compat por si en algún lado usamos la otra convención ===
+r.setProperty('--kk-primary',   t.colorPrimary);
+r.setProperty('--kk-secondary', t.colorSecondary);
+r.setProperty('--kk-accent',    t.colorAccent   || 'var(--kk-color-accent)');
+r.setProperty('--kk-text',      t.colorText     || '#111827');
+r.setProperty('--kk-bg',        t.colorBg       || '#ffffff');
+r.setProperty('--kk-surface',   t.colorSurface  || '#f7f7f8');
+r.setProperty('--kk-grad',      `linear-gradient(90deg, ${t.colorPrimary}, ${t.colorSecondary})`);
 ⋮----
-.dashboard-card h3 {
+export function ThemeProvider({ children }) {
+const [theme, setTheme] = useState(DEFAULT_THEME);
+const [loading, setLoading] = useState(true);
 ⋮----
-.dashboard-card ul {
+useEffect(() => {
 ⋮----
-.dashboard-card li {
+const res = await fetch(`${API_URL}/admin/theme`, { credentials: "include" });
 ⋮----
-.notifications-scroll {
+const data = await res.json();
 ⋮----
-max-height: 260px;   /* altura del contenedor al mostrar todas */
+setTheme(next);
+applyThemeVars(next);
 ⋮----
-.ver-mas-btn {
+applyThemeVars(DEFAULT_THEME);
 ⋮----
-.ver-mas-btn:hover {
+setLoading(false);
+⋮----
+useEffect(() => { if (!loading) applyThemeVars(theme); }, [theme, loading]);
+⋮----
+const saveTheme = async (draft) => {
+⋮----
+setTheme(next); // live preview
+const res = await fetch(`${API_URL}/admin/theme`, {
+⋮----
+body: JSON.stringify(next)
+⋮----
+if (!res.ok) throw new Error("No se pudo guardar el tema");
+</file>
+
+<file path="apps/web/src/pages/AdminThemeCustomizer.jsx">
+const ColorInput = ({ label, value, onChange }) => (
+⋮----
+<input type="color" value={value} onChange={e => onChange(e.target.value)} />
+<input type="text" value={value} onChange={e => onChange(e.target.value)} />
+⋮----
+export default function AdminThemeCustomizer() {
+const { theme, setTheme, saveTheme } = useTheme();
+const [draft, setDraft] = useState(theme);
+const [saving, setSaving] = useState(false);
+const [msg, setMsg] = useState("");
+⋮----
+const update = (k, v) => {
+setDraft(d => ({ ...d, [k]: v }));
+setTheme(t => ({ ...t, [k]: v })); // 👈 live preview en toda la app
+⋮----
+const onSave = async () => {
+⋮----
+setSaving(true);
+await saveTheme(draft);
+setMsg("Tema guardado ✔");
+setTimeout(() => setMsg(""), 2000);
+⋮----
+setMsg("Error guardando el tema");
+⋮----
+setSaving(false);
+⋮----
+<ColorInput label="Primario" value={draft.colorPrimary} onChange={v => update("colorPrimary", v)} />
+<ColorInput label="Secundario" value={draft.colorSecondary} onChange={v => update("colorSecondary", v)} />
+<ColorInput label="Acento" value={draft.colorAccent} onChange={v => update("colorAccent", v)} />
+<ColorInput label="Fondo" value={draft.colorBg} onChange={v => update("colorBg", v)} />
+<ColorInput label="Surface" value={draft.colorSurface} onChange={v => update("colorSurface", v)} />
+<ColorInput label="Texto" value={draft.colorText} onChange={v => update("colorText", v)} />
+⋮----
+<select value={draft.fontSans} onChange={e => update("fontSans", e.target.value)}>
+⋮----
+<select value={draft.fontHeading} onChange={e => update("fontHeading", e.target.value)}>
+⋮----
+onChange={e => update("radius", Number(e.target.value))} />
+⋮----
+<select value={draft.shadow} onChange={e => update("shadow", e.target.value)}>
+⋮----
+{/* Vista previa mínima */}
+</file>
+
+<file path="apps/web/src/pages/ChangePassword.jsx">
+function ChangePassword() {
+const [oldPassword, setOldPassword] = useState('');
+const [newPassword, setNewPassword] = useState('');
+const [avatar, setAvatar] = useState(null);
+const [message, setMessage] = useState('');
+const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+⋮----
+// role del usuario (para mostrar el bloque del customizer solo a admin)
+⋮----
+try { return JSON.parse(localStorage.getItem('user'))?.role; }
+⋮----
+useEffect(() => {
+const handleResize = () => setIsMobile(window.innerWidth <= 768);
+window.addEventListener('resize', handleResize);
+return () => window.removeEventListener('resize', handleResize);
+⋮----
+const handleChangePassword = async () => {
+const token = localStorage.getItem('token');
+⋮----
+const res = await fetch(`${API_URL}/users/change-password`, {
+⋮----
+body: JSON.stringify({ oldPassword, newPassword }),
+⋮----
+if (!res.ok) throw new Error('Error al cambiar la contraseña');
+const data = await res.json();
+setMessage(data.message || 'Contraseña actualizada con éxito');
+setOldPassword('');
+setNewPassword('');
+⋮----
+console.error(err);
+setMessage('Error al cambiar la contraseña');
+⋮----
+const handleAvatarChange = (e) => setAvatar(e.target.files[0]);
+⋮----
+const handleUploadAvatar = async () => {
+⋮----
+setMessage('Por favor, selecciona una imagen primero.');
+⋮----
+const formData = new FormData();
+formData.append('avatar', avatar);
+⋮----
+const response = await fetch(`${API_URL}/users/upload-avatar`, {
+⋮----
+if (!response.ok) throw new Error('Error al subir el avatar');
+⋮----
+const data = await response.json();
+⋮----
+// 🔄 Actualizamos el localStorage (manteniendo tu lógica actual)
+const userKey = window.location.pathname.startsWith('/app') ? 'userData' : 'user';
+const currentUser = JSON.parse(localStorage.getItem(userKey));
+⋮----
+localStorage.setItem(userKey, JSON.stringify(updatedUser));
+⋮----
+// 🔁 Notificar a los layouts
+window.dispatchEvent(new Event('storage'));
+⋮----
+setMessage('Avatar actualizado correctamente');
+⋮----
+console.error(error);
+setMessage('Error al subir el avatar');
+⋮----
+{/* Bloque de acceso al Customizer SOLO para admin */}
+⋮----
+onChange={(e) => setOldPassword(e.target.value)}
+⋮----
+onChange={(e) => setNewPassword(e.target.value)}
 </file>
 
 <file path="apps/web/src/pages/EventModal.jsx">
@@ -4396,6 +4355,19 @@ onChange={(e) => setRequestName(e.target.value)}
 onChange={(e) => setRequestEmail(e.target.value)}
 ⋮----
 <button onClick={() => setShowRequestModal(false)}>Cancelar</button>
+</file>
+
+<file path="apps/web/src/theme/theme.css">
+:root {
+⋮----
+/* Tus colores por defecto (los que ya usas en todo el CSS) */
+⋮----
+body {
+.kcard {
+.kbtn {
+.kbtn--secondary { background: var(--kk-color-secondary); }
+.klink { color: var(--kk-color-primary); text-decoration: none; }
+.kbadge { background: var(--kk-color-accent); color:#fff; border-radius:999px; padding:.25rem .5rem; }
 </file>
 
 <file path="backend/server.js">
@@ -5185,6 +5157,32 @@ be251a9287204f8a60ca10f78af208618609d4dd
 include ':app'
 </file>
 
+<file path="apps/web/src/css/StudentDashboard.css">
+.student-dashboard {
+⋮----
+.welcome-title {
+⋮----
+.dashboard-grid {
+⋮----
+.dashboard-card {
+⋮----
+.calendarRes {
+⋮----
+.dashboard-card h3 {
+⋮----
+.dashboard-card ul {
+⋮----
+.dashboard-card li {
+⋮----
+.notifications-scroll {
+⋮----
+max-height: 260px;   /* altura del contenedor al mostrar todas */
+⋮----
+.ver-mas-btn {
+⋮----
+.ver-mas-btn:hover {
+</file>
+
 <file path="backend/routes/events.js">
 // backend/routes/events.js
 ⋮----
@@ -5583,6 +5581,57 @@ dependencies {
 <shortcuts xmlns:android='http://schemas.android.com/apk/res/android' />
 </file>
 
+<file path="apps/web/public/firebase-messaging-sw.js">
+// public/firebase-messaging-sw.js
+/* eslint-disable no-undef */
+/* global importScripts, firebase */
+⋮----
+importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging-compat.js");
+⋮----
+firebase.initializeApp({
+⋮----
+const messaging = firebase.messaging();
+⋮----
+messaging.onBackgroundMessage(function(payload) {
+console.log("[firebase-messaging-sw.js] Recibido mensaje en background ", payload);
+self.registration.showNotification(payload.notification.title, {
+</file>
+
+<file path="apps/web/src/App.jsx">
+function PrivateRoute({ children, allowedRoles }) {
+const token = localStorage.getItem('token');
+const user = JSON.parse(localStorage.getItem('user'));
+⋮----
+if (!token || !user || !allowedRoles.includes(user.role)) {
+⋮----
+function App() {
+const [token, setToken] = useState(localStorage.getItem('token'));
+⋮----
+const handleLogin = (newToken) => {
+setToken(newToken);
+⋮----
+const handleLogout = () => {
+localStorage.removeItem('token');
+localStorage.removeItem('user');
+setToken(null);
+⋮----
+useEffect(() => {
+const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+document.body.classList.toggle('admin-mode', storedUser.role === 'admin');
+document.body.classList.toggle('student-mode', storedUser.role === 'student');
+⋮----
+// 👉 REGISTRO DEL SERVICE WORKER PARA PWA
+⋮----
+.register('/service-worker.js')
+.then(reg => console.log('✅ Service Worker registrado:', reg))
+.catch(err => console.error('❌ Error al registrar Service Worker:', err));
+⋮----
+requestPermissionAndGetToken();
+⋮----
+allowedRoles: PropTypes.arrayOf(PropTypes.string)
+</file>
+
 <file path="apps/web/src/pages/StudentDashboard.jsx">
 function StudentDashboard() {
 const [user, setUser] = useState({});
@@ -5647,57 +5696,6 @@ return [...notifications].sort((a, b) => getTime(b) - getTime(a));
 onClick={() => setShowAllNotifications((v) => !v)}
 </file>
 
-<file path="apps/web/public/firebase-messaging-sw.js">
-// public/firebase-messaging-sw.js
-/* eslint-disable no-undef */
-/* global importScripts, firebase */
-⋮----
-importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.7.2/firebase-messaging-compat.js");
-⋮----
-firebase.initializeApp({
-⋮----
-const messaging = firebase.messaging();
-⋮----
-messaging.onBackgroundMessage(function(payload) {
-console.log("[firebase-messaging-sw.js] Recibido mensaje en background ", payload);
-self.registration.showNotification(payload.notification.title, {
-</file>
-
-<file path="apps/web/src/App.jsx">
-function PrivateRoute({ children, allowedRoles }) {
-const token = localStorage.getItem('token');
-const user = JSON.parse(localStorage.getItem('user'));
-⋮----
-if (!token || !user || !allowedRoles.includes(user.role)) {
-⋮----
-function App() {
-const [token, setToken] = useState(localStorage.getItem('token'));
-⋮----
-const handleLogin = (newToken) => {
-setToken(newToken);
-⋮----
-const handleLogout = () => {
-localStorage.removeItem('token');
-localStorage.removeItem('user');
-setToken(null);
-⋮----
-useEffect(() => {
-const storedUser = JSON.parse(localStorage.getItem('user')) || {};
-document.body.classList.toggle('admin-mode', storedUser.role === 'admin');
-document.body.classList.toggle('student-mode', storedUser.role === 'student');
-⋮----
-// 👉 REGISTRO DEL SERVICE WORKER PARA PWA
-⋮----
-.register('/service-worker.js')
-.then(reg => console.log('✅ Service Worker registrado:', reg))
-.catch(err => console.error('❌ Error al registrar Service Worker:', err));
-⋮----
-requestPermissionAndGetToken();
-⋮----
-allowedRoles: PropTypes.arrayOf(PropTypes.string)
-</file>
-
 <file path="apps/web/src/main.jsx">
 import './theme/theme.css'; // ← variables CSS base (se sobrescriben vía ThemeProvider)
 ⋮----
@@ -5734,6 +5732,21 @@ console.log('🟢 SW de Firebase registrado:', registration);
 ⋮----
 .catch((err) => {
 console.error('🔴 Error registrando SW Firebase:', err);
+</file>
+
+<file path="apps/web/vite.config.js">
+export default defineConfig({
+⋮----
+__APP_BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+⋮----
+react(),
+⋮----
+VitePWA({
+⋮----
+'@shared': path.resolve(__dirname, '../../packages/shared'),
+⋮----
+// Si realmente no usas estas deps en web, puedes dejarlas como externas.
+// Si no, elimina esta sección.
 </file>
 
 <file path="backend/routes/notifications.js">
@@ -5789,21 +5802,6 @@ return res.json({
 ⋮----
 console.error("❌ Error enviando FCM:", err);
 return res.status(500).json({ success: false, error: err.message });
-</file>
-
-<file path="apps/web/vite.config.js">
-export default defineConfig({
-⋮----
-__APP_BUILD_TIME__: JSON.stringify(new Date().toISOString()),
-⋮----
-react(),
-⋮----
-VitePWA({
-⋮----
-'@shared': path.resolve(__dirname, '../../packages/shared'),
-⋮----
-// Si realmente no usas estas deps en web, puedes dejarlas como externas.
-// Si no, elimina esta sección.
 </file>
 
 <file path="apps/web/src/components/Header.jsx">
